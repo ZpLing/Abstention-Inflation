@@ -39,8 +39,5 @@ main_experiment:
   settings: ["S1", "S2"]
   run_s5_rerun: false
   results_dir: "results/gemma_it_vs_base"
-  judge:
-    enabled: false
-
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

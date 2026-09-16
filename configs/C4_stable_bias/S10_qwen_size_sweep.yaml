@@ -36,13 +36,6 @@ main_experiment:
       false: 50
   run_s5_rerun: true           # S1 + S2 + S3 (PLAN says S1+S2+S3 optional)
   results_dir: "results/qwen_size_sweep"
-  judge:
-    enabled:     true
-    model_name:  "gemini-2.5-flash-lite"   # judge stays on real API (cheap fallback)
-    api_key:     null            # null → inherit from `config` (gateway llm.api_key)
-    base_url:    null            # null → inherit from `config` (gateway llm.base_url)
-    max_workers: 4
-
 # --- Path templates (required by data_handler even if unused by ab_experiment) ---
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

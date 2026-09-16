@@ -27,12 +27,5 @@ main_experiment:
       false: 50
   run_s5_rerun: true
   results_dir: "results/ab_gpt5_nano"
-  judge:
-    enabled:     true
-    model_name:  "gemini-2.5-flash"
-    api_key:     null
-    base_url:    null
-    max_workers: 5
-
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

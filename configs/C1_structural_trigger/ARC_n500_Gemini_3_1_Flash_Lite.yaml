@@ -1,0 +1,17 @@
+# ARC at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
+# The earlier gemini-3.1-flash-lite runs are retired: the Gemini row is being
+# re-collected end to end on 3.1.
+experiment_name: "arc_n500_gemini31"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "ARC"
+  run_s5_rerun: true
+  results_dir: "results/mcq_n500/ARC_gemini31"
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

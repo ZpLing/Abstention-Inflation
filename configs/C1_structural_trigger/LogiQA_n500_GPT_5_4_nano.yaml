@@ -1,0 +1,17 @@
+# LogiQA at the paper's n=500, on dataset/LogiQA.json.
+# The earlier LogiQA_200 runs used the retired legacy subset, whose ids address
+# different items than the current 500-item file, so they cannot be topped up.
+experiment_name: "logiqa_n500_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "LogiQA"
+  run_s5_rerun: true
+  results_dir: "results/mcq_n500/LogiQA_nano"
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

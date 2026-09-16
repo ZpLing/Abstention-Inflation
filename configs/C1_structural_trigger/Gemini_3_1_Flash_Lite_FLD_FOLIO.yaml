@@ -1,5 +1,5 @@
 experiment_name: "gemini_flash_lite_full_sweep"
-model_name: "gemini-2.5-flash-lite"
+model_name: "gemini-3.1-flash-lite"
 override_model: true            # pin yaml model; inherit api_key / base_url from `config`
 dataset_name: "FLD"
 max_workers: 20
@@ -27,12 +27,5 @@ main_experiment:
       false: 50
   run_s5_rerun: true
   results_dir: "results/ab_gemini_flash_lite"
-  judge:
-    enabled: true
-    model_name: "gemini-2.5-flash-lite"
-    api_key: null
-    base_url: null
-    max_workers: 5
-
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

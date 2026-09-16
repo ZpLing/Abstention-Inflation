@@ -53,13 +53,6 @@ main_experiment:
   # Default uses Gemini's OpenAI-compatible endpoint; override `base_url` if you
   # want to route the judge through a different provider. `api_key` falls back
   # to env var GEMINI_API_KEY (or GOOGLE_API_KEY) when null.
-  judge:
-    enabled:     true
-    model_name:  "gemini-2.5-flash"
-    api_key:     null            # null → read GEMINI_API_KEY / GOOGLE_API_KEY from env
-    base_url:    null            # null → Google's OpenAI-compatible endpoint
-    max_workers: 5
-
 # === Supplementary Experiment: genuinely-Unknown samples (paper §4) =========
 # Activate by adding "s9_truly_unknown" to run_tasks above. Reuses the
 # Judge S1/S2/S3 prompts from main_experiments/prompts.py verbatim — only the

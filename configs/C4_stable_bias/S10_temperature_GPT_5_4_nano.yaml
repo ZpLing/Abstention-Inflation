@@ -4,7 +4,7 @@ override_model: true
 max_workers: 100
 
 temperature_sweep:
-  temperatures: [1.5, 2.0]
+  temperatures: [0.0, 0.3, 0.7, 1.0]
   datasets: ["FLD", "FOLIO"]
   n_samples: 200
   sample_sources:
