@@ -37,10 +37,10 @@ from typing import Any, Dict, List, Optional
 
 from core.label_scheme import get_scheme
 from core.prompts import (
-    _format_mcq_options,
-    _format_judge_options,
-    _COT_INSTR_MCQ,
-    _cot_instr_judge,
+    S6_OPTION_A,
+    S6_OPTION_B,
+    build_judge_s6_selfdiag_prompt,
+    build_mcq_s6_selfdiag_prompt,
     build_mcq_s2_prompt,
     build_judge_s2_prompt,
 )
@@ -61,50 +61,13 @@ from .result_schema import get_field
 # A/B option texts surfaced to the model. Reused as the option list when the
 # LLM-as-Judge fallback re-asks `judge_mcq` to map an unparseable raw reply
 # onto a letter — keeping these in one place makes that mapping unambiguous.
-S5_OPTION_A = (
-    "The question is objectively unanswerable — the given information "
-    "is genuinely insufficient to determine a correct answer."
-)
-S5_OPTION_B = (
-    "You are uncertain, but the question likely has a correct answer "
-    "that you were unable to determine."
-)
-S5_AB_OPTIONS: List[str] = [S5_OPTION_A, S5_OPTION_B]
-
-
-def build_mcq_s5_prompt(prior_messages: List[Dict[str, str]],
-                         prior_response: str) -> List[Dict[str, str]]:
-    """S5 self-diagnosis (MCQ). Branches off S2 history; A/B answer."""
-    followup = (
-        "You previously selected \"Unknown\" for this question.\n"
-        "Please identify the reason:\n"
-        f"A. {S5_OPTION_A}\n"
-        f"B. {S5_OPTION_B}"
-        + _cot_instr_judge("A | B")
-    )
-    return list(prior_messages) + [
-        {"role": "assistant", "content": prior_response},
-        {"role": "user", "content": followup},
-    ]
-
-
-def build_judge_s5_prompt(prior_messages: List[Dict[str, str]],
-                           prior_response: str,
-                           scheme) -> List[Dict[str, str]]:
-    """S5 self-diagnosis (Judge variant). Same A/B structure, references the
-    scheme's actual abstain verb so future schemes (where abstain != "Unknown")
-    stay correct."""
-    followup = (
-        f"You previously selected \"{scheme.abstain_verb}\" for this question.\n"
-        "Please identify the reason:\n"
-        f"A. {S5_OPTION_A}\n"
-        f"B. {S5_OPTION_B}"
-        + _cot_instr_judge("A | B")
-    )
-    return list(prior_messages) + [
-        {"role": "assistant", "content": prior_response},
-        {"role": "user", "content": followup},
-    ]
+#: The follow-up is built by :mod:`core.prompts`, not here. This module used
+#: to carry its own copy with A and B the other way round -- A "objectively
+#: unanswerable", B "uncertain but answerable" -- while the paper and the
+#: builder define A as the model's own inability and B as the item being
+#: unanswerable. Two definitions of the same two letters is how a self-report
+#: gets read as its own opposite, so there is now one.
+S5_AB_OPTIONS: List[str] = [S6_OPTION_A, S6_OPTION_B]
 
 
 # =================================================================
@@ -130,24 +93,30 @@ def self_diagnosis_acc(s5_preds: List[str], s4_correct_flags: List[bool]) -> flo
 
 
 def s4_s5_cross_buckets(s5_preds: List[str], s4_correct_flags: List[bool]) -> Dict[str, int]:
+    # A = "I could not work it out" (own inability); B = "the question is
+    # objectively unanswerable". Paired with whether the S5 rerun then got the
+    # item right, that gives four cases.
     buckets = {
-        "overcaution_misdiagnosed": 0,  # S5=A & S4 correct
-        "inability_misdiagnosed":   0,  # S5=A & S4 wrong
-        "overcaution_selfaware":    0,  # S5=B & S4 correct
-        "genuine_unknown":          0,  # S5=B & S4 wrong
+        "overcaution_misdiagnosed": 0,  # B & rerun correct: called it
+                                        # unanswerable, then answered it
+        "genuine_unknown":          0,  # B & rerun wrong
+        "inability_selfaware":      0,  # A & rerun wrong: could not do it,
+                                        # and said so
+        "inability_misdiagnosed":   0,  # A & rerun correct: could do it,
+                                        # but blamed itself
         "unparseable":              0,
     }
     for s5, s4c in zip(s5_preds, s4_correct_flags):
         if s5 not in ("A", "B"):
             buckets["unparseable"] += 1
-        elif s5 == "A" and s4c:
-            buckets["overcaution_misdiagnosed"] += 1
-        elif s5 == "A" and not s4c:
-            buckets["inability_misdiagnosed"] += 1
         elif s5 == "B" and s4c:
-            buckets["overcaution_selfaware"] += 1
-        else:
+            buckets["overcaution_misdiagnosed"] += 1
+        elif s5 == "B" and not s4c:
             buckets["genuine_unknown"] += 1
+        elif s5 == "A" and not s4c:
+            buckets["inability_selfaware"] += 1
+        else:
+            buckets["inability_misdiagnosed"] += 1
     return buckets
 
 
@@ -192,10 +161,23 @@ class S6SelfDiagnosisLegacyRunner:
         samples_all = [s for s in samples_all if s.answer_idx >= 0]
         id_to_sample = {s.id: s for s in samples_all}
 
-        # Abstention Inflation samples (S2 == UNKNOWN) + their raw_s2 + S4 correctness.
+        # Abstention Inflation samples (S2 == UNKNOWN) + their raw_s2 + the S5
+        # rerun outcome. The rerun block holds only the abstaining subset while
+        # per_sample holds every item, so the two are joined by sample id --
+        # zipping them positionally would truncate at the shorter list and pair
+        # each item with another item's rerun.
+        rerun_by_id = {}
+        for r in get_field(summary, "s5_rerun", []) or []:
+            sid = r.get("sample_id") or r.get("id")
+            if sid is not None:
+                rerun_by_id[sid] = r
+
         ai_records = []
-        for ps, fu in zip(summary["per_sample"], get_field(summary, "s5_rerun", [])):
+        for ps in summary["per_sample"]:
             if ps["pred_s2"] != "UNKNOWN":
+                continue
+            fu = rerun_by_id.get(ps["id"])
+            if fu is None:
                 continue
             sid = ps["id"]
             if sid not in id_to_sample:
@@ -212,7 +194,8 @@ class S6SelfDiagnosisLegacyRunner:
                 "s2_messages": s2_msgs,
                 "raw_s2": ps["raw_s2"],
                 # S4 correctness comes from the followup record.
-                "s4_correct": _is_correct_letter(fu.get("pred_s4"), fu["answer_idx"]),
+                "s4_correct": _is_correct_letter(
+                    fu.get("pred_s5_rerun") or fu.get("pred_s4"), fu["answer_idx"]),
             })
 
         if not ai_records:
@@ -225,11 +208,11 @@ class S6SelfDiagnosisLegacyRunner:
             sample = rec["sample"]
             if task_type == "mcq":
                 s5_prompts.append(
-                    build_mcq_s5_prompt(rec["s2_messages"], rec["raw_s2"])
+                    build_mcq_s6_selfdiag_prompt(rec["s2_messages"], rec["raw_s2"])
                 )
             else:
                 s5_prompts.append(
-                    build_judge_s5_prompt(rec["s2_messages"], rec["raw_s2"],
+                    build_judge_s6_selfdiag_prompt(rec["s2_messages"], rec["raw_s2"],
                                            get_scheme(sample.source))
                 )
 
