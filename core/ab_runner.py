@@ -57,7 +57,6 @@ from .prompts import (
     build_judge_calibration_suffix_prompt,
 )
 from .label_scheme import get_scheme
-from .judge_fallback import LLMJudge, maybe_build_judge
 from .result_schema import SCHEMA_VERSION
 
 from core.data_handler import DataHandler
@@ -73,6 +72,16 @@ SINGLE_TURN_SETTINGS = ("S1", "S2", "S3", "calibration_suffix")
 #: Enabled unless a YAML overrides ``ab_experiment.settings``. S1+S2 are the
 #: paired baseline and are always run; S3 only applies to TFQ datasets.
 DEFAULT_SETTINGS = ("S1", "S2", "S3")
+
+
+def _unanswered_reasons(per_sample) -> Dict[str, Dict[str, int]]:
+    """Per setting, how many turns carried no answer and why."""
+    out: Dict[str, Dict[str, int]] = {}
+    for row in per_sample:
+        for setting, reason in (row.get("unanswered") or {}).items():
+            out.setdefault(setting, {})
+            out[setting][reason] = out[setting].get(reason, 0) + 1
+    return out
 
 
 class ABRunner:
@@ -93,11 +102,6 @@ class ABRunner:
         self.sample_offsets = ab.get("sample_offsets", {}) or {}
         self.results_dir = Path(ab.get("results_dir", "results/ab"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        self.judge: LLMJudge | None = maybe_build_judge(config)
-        if self.judge:
-            print(f"[ABRunner] LLM-as-Judge fallback enabled (model={self.judge.model_name}).")
-        self._judge_calls = 0
-        self._judge_recovered = 0
 
     # =================================================================
     # Top-level dispatch
@@ -253,7 +257,7 @@ class ABRunner:
             if setting not in builders:
                 raise ValueError(f"Setting {setting!r} is not defined for MCQ datasets.")
             f = builders[setting]
-            return [f(s.question, s.options) for s in samples]
+            return [f(s.question, s.options, context=s.context) for s in samples]
         if task_type == "tf":
             builders = {
                 "S1": build_judge_s1_prompt,
@@ -299,48 +303,7 @@ class ABRunner:
         else:
             raise ValueError(f"Unsupported task_type: {task_type}")
 
-        preds = [r[0] for r in results]
-        tiers = [r[1] for r in results]
-
-        if self.judge is None:
-            return preds, tiers
-        return await self._judge_fallback(preds, tiers, raw_outputs, samples, task_type,
-                                           with_unknown=with_unknown, label=label)
-
-    async def _judge_fallback(self, preds, tiers, raw_outputs, samples, task_type, *,
-                               with_unknown, label: str):
-        unparseable = [i for i, p in enumerate(preds) if p == "UNPARSEABLE"]
-        if not unparseable:
-            return preds, tiers
-
-        if task_type == "mcq":
-            calls = [self.judge.judge_mcq(raw_outputs[i], samples[i].options, with_unknown)
-                     for i in unparseable]
-        else:  # tf
-            calls = [self.judge.judge_tf(raw_outputs[i], get_scheme(samples[i].source),
-                                          with_unknown)
-                     for i in unparseable]
-
-        print(f"  [Judge:{label}] {len(unparseable)} unparseable → calling judge ...")
-        judge_raw = await asyncio.gather(*calls)
-        self._judge_calls += len(judge_raw)
-
-        recovered = 0
-        for k, i in enumerate(unparseable):
-            jr = judge_raw[k]
-            if task_type == "mcq":
-                new_pred, _ = self.evaluator.parse_mcq_tiered(jr, with_unknown=with_unknown)
-            else:
-                new_pred, _ = self.evaluator.parse_judge_tiered(
-                    jr, get_scheme(samples[i].source), with_unknown=with_unknown
-                )
-            if new_pred != "UNPARSEABLE":
-                preds[i] = new_pred
-                tiers[i] = "judge"
-                recovered += 1
-        self._judge_recovered += recovered
-        print(f"  [Judge:{label}] recovered {recovered}/{len(unparseable)}.")
-        return preds, tiers
+        return [r[0] for r in results], [r[1] for r in results]
 
     # =================================================================
     # S7 trace layer: reasoning extraction → family dispatch → F1.
@@ -418,7 +381,7 @@ class ABRunner:
             }
 
         def _tier_breakdown(tier_list):
-            counts = {"strict_em": 0, "lenient_em": 0, "judge": 0, "unparseable": 0}
+            counts = {"strict_em": 0, "lenient_em": 0, "unparseable": 0}
             for t in tier_list:
                 counts[t if t in counts else "unparseable"] += 1
             return counts
@@ -437,10 +400,19 @@ class ABRunner:
                 "source":     samples[i].source,
                 "answer_idx": answer_idxs[i],
             }
+            unanswered = {}
             for name in preds:
                 pk, rk = sample_key[name]
                 row[pk] = preds[name][i]
                 row[rk] = raw_by_setting[name][i]
+                if preds[name][i] == "UNPARSEABLE":
+                    unanswered[name] = self.evaluator.classify_unanswered(
+                        raw_by_setting[name][i])
+            # A turn with no answer in it is not a wrong answer. Recording why
+            # lets a reader drop the item from the paired contrast instead of
+            # scoring a non-answer, and see what was dropped.
+            if unanswered:
+                row["unanswered"] = unanswered
             per_sample.append(row)
 
         return {
@@ -449,14 +421,10 @@ class ABRunner:
             "task_type":    task_type,
             "trace_family": trace_family_name,  # "hard" | "soft" | "none"
             "model":        self.config.get("model_name"),
-            "judge_model":  self.judge.model_name if self.judge else None,
-            "judge_stats": {
-                "calls":     self._judge_calls,
-                "recovered": self._judge_recovered,
-            },
             "settings_run": sorted(preds) + (["S5"] if preds_s5 else []),
             "n_total":      len(samples),
             "n_abstention_inflation": len(ai_indices),
+            "unanswered_reasons": _unanswered_reasons(per_sample),
             "n_unparseable": {
                 **{name.lower(): sum(1 for p in preds[name] if p == "UNPARSEABLE")
                    for name in preds},

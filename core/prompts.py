@@ -94,6 +94,18 @@ def _judge_instr(verb_options: str, cot: bool) -> str:
 # =================================================================
 
 
+def _mcq_passage(context: str = "") -> str:
+    """Render the passage an MCQ item is asked about, or nothing.
+
+    ARC / MMLU / MedQA carry an empty ``context``, so the block collapses to
+    the empty string and their prompts stay byte-identical to the ones that
+    produced the reported numbers. LogiQA keeps the passage the question
+    refers to ("the above proposition") in ``context``; without this block the
+    item is unanswerable.
+    """
+    return f"Passage:\n{context}\n\n" if context else ""
+
+
 def _format_mcq_options(options: List[str], with_unknown: bool = False) -> str:
     letters = "ABCDEF"
     lines = [f"{letters[i]}. {opt}" for i, opt in enumerate(options)]
@@ -103,7 +115,8 @@ def _format_mcq_options(options: List[str], with_unknown: bool = False) -> str:
 
 
 def build_mcq_s1_prompt(question: str, options: List[str],
-                        cot: bool = True) -> List[Dict[str, str]]:
+                        cot: bool = True,
+                        context: str = "") -> List[Dict[str, str]]:
     """S1 Baseline (MCQ) — original A/B/C/D label set, no "Unknown" option.
 
     ``cot=False`` selects the direct-answer variant used by the unreported CoT
@@ -111,6 +124,7 @@ def build_mcq_s1_prompt(question: str, options: List[str],
     """
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
+        f"{_mcq_passage(context)}"
         f"Question: {question}\n\n"
         "Options:\n"
         f"{_format_mcq_options(options, with_unknown=False)}\n"
@@ -120,10 +134,12 @@ def build_mcq_s1_prompt(question: str, options: List[str],
 
 
 def build_mcq_s2_prompt(question: str, options: List[str],
-                        cot: bool = True) -> List[Dict[str, str]]:
+                        cot: bool = True,
+                        context: str = "") -> List[Dict[str, str]]:
     """S2 "Unknown" Option Added (MCQ) — appends ``E. Unknown`` as a 5th option."""
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
+        f"{_mcq_passage(context)}"
         f"Question: {question}\n\n"
         "Options:\n"
         f"{_format_mcq_options(options, with_unknown=True)}\n"
@@ -199,15 +215,17 @@ def _format_judge_options(scheme, with_unknown: bool = False) -> str:
     return " | ".join(parts)
 
 
-def _judge_body(scheme, claim: str, context: str = "", with_unknown: bool = False) -> str:
+def _judge_body(scheme, claim: str, context: str = "", with_unknown: bool = False,
+                verb_opts: str = "") -> str:
     ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
     instr = (scheme.task_instruction_ternary if with_unknown
              else scheme.task_instruction_binary)
+    opts = verb_opts or _format_judge_options(scheme, with_unknown=with_unknown)
     return (
         f"{instr}\n"
         f"{ctx_block}"
         f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Output one of: {_format_judge_options(scheme, with_unknown=with_unknown)}"
+        f"Output one of: {opts}"
     )
 
 
@@ -307,6 +325,41 @@ def build_judge_s3_format_prompt_calibrated(scheme, claim: str,
     )
     return [{"role": "user",
              "content": _s3_body(scheme, claim, context) + suffix + _S3_COT_INSTR}]
+
+
+def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
+    """The three TFQ verbs with the abstain verb at slot 1, 2 or 3.
+
+    pos/neg keep their relative order around the abstain verb, so the only
+    thing that moves is where abstention sits in the list.
+    """
+    if abstain_slot == 1:
+        return [scheme.abstain_verb, scheme.pos_verb, scheme.neg_verb]
+    if abstain_slot == 2:
+        return [scheme.pos_verb, scheme.abstain_verb, scheme.neg_verb]
+    if abstain_slot == 3:
+        return [scheme.pos_verb, scheme.neg_verb, scheme.abstain_verb]
+    raise ValueError(f"abstain_slot must be 1, 2 or 3, got {abstain_slot!r}")
+
+
+def build_judge_s11_position_prompt(scheme, claim: str, context: str = "",
+                                    abstain_slot: int = 3,
+                                    cot: bool = True) -> List[Dict[str, str]]:
+    """S11 Positional Biases (TFQ) — S2 with the three verbs reordered.
+
+    This is the S2 prompt, not an MCQ rendering of it: the alternatives stay
+    verbs ("Output one of: True | False | Unknown") and the model still answers
+    with a verb, so the only manipulation is the order they are listed in.
+    ``abstain_slot=3`` reproduces :func:`build_judge_s2_prompt` byte for byte,
+    which is what the paper means by "the third-position condition matches the
+    original S2 ordering".
+    """
+    verb_opts = " | ".join(judge_verb_order(scheme, abstain_slot))
+    content = (
+        _judge_body(scheme, claim, context, with_unknown=True, verb_opts=verb_opts)
+        + _judge_instr(verb_opts, cot)
+    )
+    return [{"role": "user", "content": content}]
 
 
 def build_judge_s4_word_prompt(scheme, claim: str, context: str = "",
@@ -414,10 +467,12 @@ def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
 
 
 def build_mcq_calibration_suffix_prompt(question: str,
-                                        options: List[str]) -> List[Dict[str, str]]:
+                                        options: List[str],
+                                        context: str = "") -> List[Dict[str, str]]:
     """App. E — S2 plus a fixed suffix explaining when to select "Unknown" (MCQ)."""
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
+        f"{_mcq_passage(context)}"
         f"Question: {question}\n\n"
         "Options:\n"
         f"{_format_mcq_options(options, with_unknown=True)}\n\n"

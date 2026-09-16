@@ -247,6 +247,79 @@ class Evaluator:
     # If the model does not follow the format, returns the text minus a trailing
     # isolated answer token — best-effort fallback so trace metrics still work.
 
+    # ------------------------------------------------------------------
+    # Why a reply carries no answer.
+    #
+    # Only ever consulted for replies the parsers already returned
+    # UNPARSEABLE for, so it cannot reclassify anything that was read
+    # successfully. The reason is what lets a summary separate "the model
+    # answered and was wrong" from "there was no answer to score": a request
+    # that never came back, a gateway refusal, decoding collapse at high
+    # sampling temperature, or reasoning cut off by the output cap.
+    # ------------------------------------------------------------------
+
+    NO_REPLY_VALUES = ("", "__API_ERROR__")
+
+    _REFUSAL_RE = re.compile(
+        r"(抱歉[，,]?\s*(我)?无法|未找到相关结果|无法回答|"
+        r"sensitive\s+word\s+detected|content\s+filter|"
+        r"i\s+(?:can(?:no|')t|am unable to)\s+(?:help|assist)\s+with)",
+        re.IGNORECASE,
+    )
+    #: A token repeated this many times in a row is degenerate, not prose.
+    _REPEAT_RUN = 12
+
+    @classmethod
+    def _looks_degenerate(cls, text: str) -> bool:
+        """True when decoding collapsed into repetition or token soup.
+
+        Two signatures, both measured on the tail where collapse shows up:
+        one token repeated over and over, and a vocabulary sprayed across
+        many writing systems at once (the shape high-temperature sampling
+        produces once it leaves the model's distribution).
+        """
+        tail = text[-1500:]
+        tokens = tail.split()
+        if len(tokens) >= cls._REPEAT_RUN:
+            run = 1
+            for a, b in zip(tokens, tokens[1:]):
+                run = run + 1 if a == b else 1
+                if run >= cls._REPEAT_RUN:
+                    return True
+        letters = [c for c in tail if c.isalpha()]
+        if len(letters) < 200:
+            return False
+        scripts = set()
+        for c in letters:
+            o = ord(c)
+            if o < 0x250: scripts.add("latin")
+            elif 0x370 <= o < 0x400: scripts.add("greek")
+            elif 0x400 <= o < 0x530: scripts.add("cyrillic")
+            elif 0x590 <= o < 0x600: scripts.add("hebrew")
+            elif 0x600 <= o < 0x700: scripts.add("arabic")
+            elif 0x900 <= o < 0xA00: scripts.add("devanagari")
+            elif 0xE00 <= o < 0xE80: scripts.add("thai")
+            elif 0x1100 <= o < 0x1200 or 0xAC00 <= o < 0xD7B0: scripts.add("hangul")
+            elif 0x3040 <= o < 0x3100: scripts.add("kana")
+            elif 0x4E00 <= o < 0xA000: scripts.add("han")
+            else: scripts.add("other")
+        return len(scripts) >= 4
+
+    @classmethod
+    def classify_unanswered(cls, text) -> str:
+        """Label an UNPARSEABLE reply: why is there no answer in it?
+
+        Returns one of ``no_reply``, ``refusal``, ``decoding_collapse``,
+        ``no_commitment``.
+        """
+        if not isinstance(text, str) or text.strip() in cls.NO_REPLY_VALUES:
+            return "no_reply"
+        if cls._REFUSAL_RE.search(text):
+            return "refusal"
+        if cls._looks_degenerate(text):
+            return "decoding_collapse"
+        return "no_commitment"
+
     _FINAL_ANSWER_RE = re.compile(
         r"(?im)^\s*(?:final\s*answer|answer)\s*[:\-=]\s*.+$"
     )
