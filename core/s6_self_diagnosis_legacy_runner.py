@@ -25,10 +25,10 @@ Parsing parity with ABRunner
 Mirrors `core.ab_runner.ABRunner`:
     * `Evaluator.parse_ab_tiered` (returns `(pred, tier)`).
     * Optional LLM-as-Judge fallback for unparseable A/B replies. The judge
-      is the same `LLMJudge` instance; we just dispatch through `judge_mcq`
+      is the same deterministic parser
       with the A/B option texts plumbed in as the option list (the judge
       replies with a single letter, which `parse_ab_tiered` handles).
-    * Summary records `tier_counts`, `judge_model`, `judge_stats`.
+    * Summary records `tier_counts`.
 """
 import asyncio
 import json
@@ -36,7 +36,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core.label_scheme import get_scheme
-from core.judge_fallback import LLMJudge, maybe_build_judge
 from core.prompts import (
     _format_mcq_options,
     _format_judge_options,
@@ -170,23 +169,6 @@ class S6SelfDiagnosisLegacyRunner:
         self.results_dir = Path(cfg.get("results_dir", "results/supplementary"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
-        # LLM-as-Judge fallback. Prefer an s5_supplementary-specific judge
-        # block; fall back to ab_experiment.judge so the user can configure
-        # the judge in one place.
-        self.judge: Optional[LLMJudge] = self._build_judge(config)
-        if self.judge:
-            print(f"[S6SelfDiagnosisLegacyRunner] LLM-as-Judge fallback enabled "
-                  f"(model={self.judge.model_name}).")
-        self._judge_calls = 0
-        self._judge_recovered = 0
-
-    @staticmethod
-    def _build_judge(config: Dict[str, Any]) -> Optional[LLMJudge]:
-        s5_cfg = get_block(config, "s6_self_diagnosis").get("judge")
-        if s5_cfg is not None:
-            scoped = {"main_experiment": {"judge": s5_cfg}}
-            return maybe_build_judge(scoped)
-        return maybe_build_judge(config)
 
     async def run(self):
         if not self.dataset_names:
@@ -271,11 +253,6 @@ class S6SelfDiagnosisLegacyRunner:
             "dataset":           ds_name,
             "task_type":         task_type,
             "model":             self.config.get("model_name"),
-            "judge_model":       self.judge.model_name if self.judge else None,
-            "judge_stats": {
-                "calls":     self._judge_calls,
-                "recovered": self._judge_recovered,
-            },
             "n_ai_evaluated":   len(ai_records),
             "tier_counts":       _tier_breakdown(tiers_s5),
             "metrics": {
@@ -300,46 +277,15 @@ class S6SelfDiagnosisLegacyRunner:
         print(f"  [Buckets] {buckets}")
 
     # =================================================================
-    # A/B parsing — tiered + optional LLM-as-Judge fallback
-    # (parity with core.ab_runner.ABRunner)
+    # A/B parsing — deterministic tiers (parity with core.ab_runner.ABRunner)
     # =================================================================
     async def _parse_ab_batch(self, raw_outputs, *, label: str = ""):
         results = [self.evaluator.parse_ab_tiered(r) for r in raw_outputs]
-        preds = [r[0] for r in results]
-        tiers = [r[1] for r in results]
-
-        if self.judge is None:
-            return preds, tiers
-
-        unparseable = [i for i, p in enumerate(preds) if p == "UNPARSEABLE"]
-        if not unparseable:
-            return preds, tiers
-
-        # Reuse judge_mcq with the A/B option texts; the judge replies with a
-        # single letter that parse_ab_tiered already understands. Avoids
-        # adding a new method to LLMJudge for this single use site.
-        calls = [
-            self.judge.judge_mcq(raw_outputs[i], S5_AB_OPTIONS, with_unknown=False)
-            for i in unparseable
-        ]
-        print(f"  [Judge:{label}] {len(unparseable)} unparseable → calling judge ...")
-        judge_raw = await asyncio.gather(*calls)
-        self._judge_calls += len(judge_raw)
-
-        recovered = 0
-        for k, i in enumerate(unparseable):
-            new_pred, _ = self.evaluator.parse_ab_tiered(judge_raw[k])
-            if new_pred != "UNPARSEABLE":
-                preds[i] = new_pred
-                tiers[i] = "judge"
-                recovered += 1
-        self._judge_recovered += recovered
-        print(f"  [Judge:{label}] recovered {recovered}/{len(unparseable)}.")
-        return preds, tiers
+        return [r[0] for r in results], [r[1] for r in results]
 
 
 def _tier_breakdown(tiers: List[str]) -> Dict[str, int]:
-    counts = {"strict_em": 0, "lenient_em": 0, "judge": 0, "unparseable": 0}
+    counts = {"strict_em": 0, "lenient_em": 0, "unparseable": 0}
     for t in tiers:
         if t in counts:
             counts[t] += 1

@@ -65,9 +65,7 @@ def load_config(config_path: str) -> dict:
         print("Loaded secrets file (secrets.yaml).")
 
     # 3. Optional `config` file (gateway-style):
-    #        llm:    {api_key, base_url, model}    → primary backbone
-    #        judge:  {api_key?, base_url?, model}  → LLM-as-Judge fallback
-    #    `judge.api_key` and `judge.base_url` inherit from `llm.*` if omitted.
+    #        llm: {api_key, base_url, model}   → the backbone every runner uses
     gateway_config = repo_root / "config"
     if gateway_config.exists() and gateway_config.is_file():
         with open(gateway_config, "r", encoding="utf-8") as f:
@@ -91,23 +89,6 @@ def load_config(config_path: str) -> dict:
             f"Loaded LLM credentials from `config` "
             f"(model={llm_cfg.get('model')!r}, base_url={llm_cfg.get('base_url')!r})."
         )
-
-        # ---- judge.* → main_experiment.judge block ----
-        judge_cfg = extra.get("judge", {}) if isinstance(extra, dict) else {}
-        if judge_cfg:
-            ab = config.setdefault(block_key(config, "main_experiment"), {})
-            jblock = ab.setdefault("judge", {})
-            if "model" in judge_cfg:
-                jblock["model_name"] = judge_cfg["model"]
-            # api_key / base_url: explicit judge.* wins, else inherit from llm.*
-            jblock["api_key"]  = judge_cfg.get("api_key")  or llm_cfg.get("api_key")
-            jblock["base_url"] = judge_cfg.get("base_url") or llm_cfg.get("base_url")
-            jblock.setdefault("enabled", True)
-            print(
-                f"Loaded judge config from `config` "
-                f"(model={jblock.get('model_name')!r}, "
-                f"base_url={jblock.get('base_url')!r})."
-            )
 
     if not config.get("api_key"):
         print("Warning: no api_key resolved (check secrets.yaml or `config`).")

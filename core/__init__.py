@@ -17,7 +17,6 @@ label_scheme          ``LabelScheme`` — per-dataset verbs, framing labels,
 prompts               S1..S6 prompt builders (MCQ + Judge / TFQ)
 llm_handler           Async OpenAI-compatible client wrapper
 evaluator             Standalone output parser used by legacy summaries
-judge_fallback        LLM-as-Judge fallback for tier-3 UNPARSEABLE outputs
 metrics               Acc, Abs Rate, Abs Rate, F1, recovery, etc.
 trace_extractors      S7 reasoning-trace tokenisation & alignment
 

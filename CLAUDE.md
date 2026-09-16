@@ -23,8 +23,8 @@ cp configs/secrets.template.yaml secrets.yaml   # fill in api_key / base_url
 
 Credentials resolve in `core/config_loader.py`, in increasing precedence:
 the experiment YAML, then `secrets.yaml`, then an extensionless `config` file
-at the repo root (gateway schema: `llm.{api_key,base_url,model}` plus an
-optional `judge.*` block). Both credential files are git-ignored.
+at the repo root (gateway schema: `llm.{api_key,base_url,model}`). Both
+credential files are git-ignored.
 
 ## Running experiments
 
@@ -51,8 +51,7 @@ core/
   label_scheme.py            per-dataset verbs / framing / instructions
   prompts.py                 prompt builders, named after the paper's settings
   llm_handler.py             async OpenAI-compatible client, temperature 0.0
-  evaluator.py               tiered output parser (strict → lenient → judge)
-  judge_fallback.py          LLM-as-Judge recovery for UNPARSEABLE outputs
+  evaluator.py               deterministic output parser (strict → lenient)
   metrics.py                 Acc, Abs Rate, macro-F1, trace F1
   result_schema.py           canonical summary schema + pre-rename reader
   ab_runner.py               S1 / S2 / S3 + the S5 rerun
@@ -75,7 +74,7 @@ experiments/Cx_claim/Sy_setting/   entry points + per-setting READMEs
   freely, but do not edit prompt text.
 * **The abstain option is appended at prompt-build time.** The on-disk dataset
   is never modified.
-* **`tools/`, `results/`, `archive/` and `paper_draft/` are git-ignored** —
+* **`tools/`, `results/`, `archive/` and `paper/` are git-ignored** —
   local helpers, run outputs, retired code and the LaTeX source.
 
 ## Labels

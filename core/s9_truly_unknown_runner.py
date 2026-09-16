@@ -36,10 +36,7 @@ Parsing parity with ABRunner
 ----------------------------
 Mirrors `core.ab_runner.ABRunner`:
     * `Evaluator.parse_judge_tiered` (not the legacy single-return parser)
-    * Optional LLM-as-Judge fallback via `maybe_build_judge` (reuses the same
-      `judge` config block under `supplementary_experiment.judge`; falls back
-      to the global `ab_experiment.judge` block if unset).
-    * Summary records `tier_counts`, `judge_model`, `judge_stats` so a reader
+    * Summary records `tier_counts` so a reader
       can audit how many predictions came from strict / lenient EM vs the
       LLM judge fallback.
     * Optional `sample_limits` map (per-dataset cap, int).
@@ -51,7 +48,6 @@ from typing import Any, Dict, List, Optional
 
 from core.label_scheme import get_scheme
 from core.dataset_loader import load_dataset as load_judge
-from core.judge_fallback import LLMJudge, maybe_build_judge
 from core.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
@@ -89,23 +85,6 @@ class TrulyUnknownRunner:
         self.results_dir = Path(sup.get("results_dir", "results/supplementary"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
-        # LLM-as-Judge fallback. Prefer a supplementary-specific judge block;
-        # fall back to the main ab_experiment.judge block so the user can
-        # configure the judge once and have it apply to both runners.
-        self.judge: Optional[LLMJudge] = self._build_judge(config)
-        if self.judge:
-            print(f"[TrulyUnknownRunner] LLM-as-Judge fallback enabled "
-                  f"(model={self.judge.model_name}).")
-        self._judge_calls = 0
-        self._judge_recovered = 0
-
-    @staticmethod
-    def _build_judge(config: Dict[str, Any]) -> Optional[LLMJudge]:
-        sup_cfg = get_block(config, "s9_truly_unknown").get("judge")
-        if sup_cfg is not None:
-            scoped = {"main_experiment": {"judge": sup_cfg}}
-            return maybe_build_judge(scoped)
-        return maybe_build_judge(config)
 
     async def run(self):
         for ds_name in self.dataset_names:
@@ -178,8 +157,7 @@ class TrulyUnknownRunner:
         self._save(ds_name, summary)
 
     # =================================================================
-    # Output parsing — tiered + optional LLM-as-Judge fallback
-    # (parity with core.ab_runner.ABRunner)
+    # Output parsing — deterministic tiers (parity with core.ab_runner.ABRunner)
     # =================================================================
     async def _parse_batch(self, raw_outputs, samples, scheme, *,
                             with_unknown, label: str = ""):
@@ -187,38 +165,7 @@ class TrulyUnknownRunner:
             self.evaluator.parse_judge_tiered(r, scheme, with_unknown=with_unknown)
             for r in raw_outputs
         ]
-        preds = [r[0] for r in results]
-        tiers = [r[1] for r in results]
-
-        if self.judge is None:
-            return preds, tiers
-        return await self._judge_fallback(preds, tiers, raw_outputs, scheme,
-                                           with_unknown=with_unknown, label=label)
-
-    async def _judge_fallback(self, preds, tiers, raw_outputs, scheme, *,
-                               with_unknown, label: str):
-        unparseable = [i for i, p in enumerate(preds) if p == "UNPARSEABLE"]
-        if not unparseable:
-            return preds, tiers
-
-        calls = [self.judge.judge_tf(raw_outputs[i], scheme, with_unknown)
-                 for i in unparseable]
-        print(f"  [Judge:{label}] {len(unparseable)} unparseable → calling judge ...")
-        judge_raw = await asyncio.gather(*calls)
-        self._judge_calls += len(judge_raw)
-
-        recovered = 0
-        for k, i in enumerate(unparseable):
-            new_pred, _ = self.evaluator.parse_judge_tiered(
-                judge_raw[k], scheme, with_unknown=with_unknown
-            )
-            if new_pred != "UNPARSEABLE":
-                preds[i] = new_pred
-                tiers[i] = "judge"
-                recovered += 1
-        self._judge_recovered += recovered
-        print(f"  [Judge:{label}] recovered {recovered}/{len(unparseable)}.")
-        return preds, tiers
+        return [r[0] for r in results], [r[1] for r in results]
 
     # =================================================================
     # Summary + persistence
@@ -232,7 +179,7 @@ class TrulyUnknownRunner:
         forced_commit_s1 = metrics.forced_commitment_rate(preds_s1)
 
         def _tier_breakdown(tiers):
-            counts = {"strict_em": 0, "lenient_em": 0, "judge": 0, "unparseable": 0}
+            counts = {"strict_em": 0, "lenient_em": 0, "unparseable": 0}
             for t in tiers:
                 if t in counts:
                     counts[t] += 1
@@ -243,11 +190,6 @@ class TrulyUnknownRunner:
         return {
             "dataset": ds_name,
             "model": self.config.get("model_name"),
-            "judge_model": self.judge.model_name if self.judge else None,
-            "judge_stats": {
-                "calls":     self._judge_calls,
-                "recovered": self._judge_recovered,
-            },
             "n_total": len(samples),
             "n_unparseable": {
                 "s1": sum(1 for p in preds_s1 if p == "UNPARSEABLE"),
