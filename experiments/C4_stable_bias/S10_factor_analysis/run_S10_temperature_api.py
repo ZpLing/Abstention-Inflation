@@ -11,7 +11,7 @@ any of those measures nothing.
 
 Why a fresh sweep rather than a complement
 ------------------------------------------
-`results/temperature_sweep{,_p2}` were generated with **gemini-2.5-flash-lite**,
+`results/temperature_sweep{,_p2}` were generated with **gemini-3.1-flash-lite**,
 although every config file, figure label and paper mention calls the model
 Gemini-3.1-Flash-Lite: the rename reached the file names
 (`S10_temperature_Gemini_3_1_Flash_Lite.yaml`) and the display map in
@@ -62,7 +62,12 @@ _spec = importlib.util.spec_from_file_location(
 _runner = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_runner)
 
-TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
+# T>1.0 is excluded: above it the samplers leave the model's distribution and
+# the reply decodes into token soup, which the parser reads as a non-answer at
+# 8.6% of items at T=1.5 and 22.5% at T=2.0 (and, worse, occasionally yields a
+# letter picked out of the garbage). Those cells measure decoding collapse, not
+# abstention, so the sweep stops where the decoding is still the model's.
+TEMPERATURES = [0.0, 0.3, 0.7, 1.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192

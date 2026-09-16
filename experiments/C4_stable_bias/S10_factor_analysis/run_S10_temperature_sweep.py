@@ -33,7 +33,9 @@ from core.dataset_loader import load_judge
 from core.prompts import build_judge_s2_prompt           # noqa: E402
 
 MODEL_NAME = "deepseek-r1-distill-llama-8b"
-TEMPERATURES = [1.5, 2.0]
+# The sweep now stops at T=1.0 (see run_S10_temperature_api.py): T=1.5 and
+# T=2.0 decode into token soup rather than answers. Nothing left to run here.
+TEMPERATURES = []
 DATASETS = ["FLD", "FOLIO"]
 N_SAMPLES = 200
 MAX_WORKERS = 100

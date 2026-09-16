@@ -50,10 +50,9 @@ SWEEP_P2_DIR = RESULTS / "temperature_sweep_p2"
 #: Gemini re-run includes an API model as well as the locally served ones: the
 #: point of the entry is the schema, not where the tokens came from.
 #:
-#: The Gemini cells are `gemini-3.1-flash-lite`, not the `gemini-2.5-flash-lite`
-#: under `temperature_sweep{,_p2}`. Every config file and figure label already
-#: said 3.1 while `model_name` still said 2.5, so those cells measure a model
-#: the paper never claims to test and are superseded rather than pooled.
+#: The Gemini cells come from `s10_temp_gemini31`. The older sweep under
+#: `temperature_sweep{,_p2}` was collected on a model the paper no longer
+#: tests and has been retired, so it is superseded rather than pooled.
 #:
 #: OLMo is the top_k=20 sweep. Its untruncated twin decoded into token soup
 #: above T=1 -- 13-20% of words at T>=1.5 came from the vocabulary the model
@@ -75,8 +74,8 @@ LOCAL_TEMP_DIRS = {
     # hides the truncation entirely.
 }
 
-TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
-_TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0", 1.5: "T1p5", 2.0: "T2p0"}
+TEMPS = [0.0, 0.3, 0.7, 1.0]
+_TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0"}
 
 #: paper display name -> the ``model`` field written into the result files.
 #: S10(b) difficulty uses all three; S10(a) temperature uses only the models
@@ -85,7 +84,7 @@ _TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0", 1.5: "T1p5", 2.0: "T2p0"}
 MODELS = {
     "DeepSeek-R1":             "deepseek-r1-distill-llama-8b",
     "GPT-5.4-nano":            "gpt-5.4-nano",
-    "Gemini-3.1-\nFlash-Lite": "gemini-2.5-flash-lite",
+    "Gemini-3.1-\nFlash-Lite": "gemini-3.1-flash-lite",
 }
 
 #: Models the gateway actually varies temperature for. Measured, not assumed:
@@ -106,7 +105,7 @@ MODELS = {
 #: 3.1 is read from :data:`LOCAL_TEMP_DIRS` instead, in the same schema as the
 #: served checkpoints, so all curves share one parser and one item set.
 #: Probed rather than assumed -- 30-60 draws per temperature, comparing the
-#: answer distribution: gemini-2.5 and 3.1 flatten with temperature, while
+#: answer distribution: gemini-3.1-flash-lite flattens with temperature, while
 #: gpt-5.4-nano, deepseek-r1 and kimi-k3 return the same distribution at T=0
 #: and T=2 and are therefore not plotted at all.
 TEMPERATURE_HONOURED: set[str] = set()
@@ -126,12 +125,12 @@ BASELINE_SOURCES = {
     ("gpt-5.4-nano", "FOLIO"): [
         "ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
         "ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json"],
-    ("gemini-2.5-flash-lite", "FLD"): [
-        "ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-        "ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json"],
-    ("gemini-2.5-flash-lite", "FOLIO"): [
-        "ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-        "ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json"],
+    ("gemini-3.1-flash-lite", "FLD"): [
+        "ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+        "ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"],
+    ("gemini-3.1-flash-lite", "FOLIO"): [
+        "ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+        "ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"],
 }
 
 #: S10(b) reads the paper's FLD n=500 main run and nothing else -- pooling the
@@ -141,8 +140,8 @@ DIFFICULTY_SOURCE = {
         "ab_deepseek_n500/ab_summary_FLD500_deepseek-r1-distill-llama-8b.json",
     "gpt-5.4-nano":
         "ab_nano_n500/ab_summary_FLD500_gpt-5.4-nano.json",
-    "gemini-2.5-flash-lite":
-        "ab_gemini_n500/ab_summary_FLD500_gemini-2.5-flash-lite.json",
+    "gemini-3.1-flash-lite":
+        "ab_gemini_n500/ab_summary_FLD500_gemini-3.1-flash-lite.json",
 }
 
 
