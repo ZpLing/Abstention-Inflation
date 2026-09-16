@@ -62,12 +62,7 @@ _spec = importlib.util.spec_from_file_location(
 _runner = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_runner)
 
-# T>1.0 is excluded: above it the samplers leave the model's distribution and
-# the reply decodes into token soup, which the parser reads as a non-answer at
-# 8.6% of items at T=1.5 and 22.5% at T=2.0 (and, worse, occasionally yields a
-# letter picked out of the garbage). Those cells measure decoding collapse, not
-# abstention, so the sweep stops where the decoding is still the model's.
-TEMPERATURES = [0.0, 0.3, 0.7, 1.0]
+TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192

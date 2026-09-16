@@ -74,8 +74,8 @@ LOCAL_TEMP_DIRS = {
     # hides the truncation entirely.
 }
 
-TEMPS = [0.0, 0.3, 0.7, 1.0]
-_TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0"}
+TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
+_TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0", 1.5: "T1p5", 2.0: "T2p0"}
 
 #: paper display name -> the ``model`` field written into the result files.
 #: S10(b) difficulty uses all three; S10(a) temperature uses only the models

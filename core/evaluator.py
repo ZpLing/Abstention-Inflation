@@ -260,6 +260,13 @@ class Evaluator:
 
     NO_REPLY_VALUES = ("", "__API_ERROR__")
 
+    #: Written in place of a reply that failed every retry. Some items the
+    #: gateway rejects deterministically (MedQA's pharmacology questions trip
+    #: its sensitive-word filter), so retrying cannot help; whether a given
+    #: item is that or a longer outage is not knowable from the sentinel, and
+    #: the reason says only that it never came back.
+    PERSISTENT_FAILURE = "__NO_REPLY_PERSISTENT__"
+
     _REFUSAL_RE = re.compile(
         r"(抱歉[，,]?\s*(我)?无法|未找到相关结果|无法回答|"
         r"sensitive\s+word\s+detected|content\s+filter|"
@@ -309,9 +316,11 @@ class Evaluator:
     def classify_unanswered(cls, text) -> str:
         """Label an UNPARSEABLE reply: why is there no answer in it?
 
-        Returns one of ``no_reply``, ``refusal``, ``decoding_collapse``,
-        ``no_commitment``.
+        Returns one of ``no_reply``, ``no_reply_persistent``, ``refusal``,
+        ``decoding_collapse``, ``no_commitment``.
         """
+        if isinstance(text, str) and text.strip() == cls.PERSISTENT_FAILURE:
+            return "no_reply_persistent"
         if not isinstance(text, str) or text.strip() in cls.NO_REPLY_VALUES:
             return "no_reply"
         if cls._REFUSAL_RE.search(text):

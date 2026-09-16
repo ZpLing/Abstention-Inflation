@@ -450,8 +450,10 @@ def _parse_args():
     parser.add_argument(
         "--sample-limit",
         type=int,
-        default=200,
-        help="Maximum number of paired samples per dataset.",
+        default=500,
+        help="Maximum number of samples per dataset. The reported cells are "
+             "the full 500; the 200 of the earlier paired sweep is reachable "
+             "by passing it explicitly.",
     )
     parser.add_argument(
         "--full-dataset",

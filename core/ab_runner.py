@@ -284,8 +284,11 @@ class ABRunner:
         result. At a ~1% error rate a clean 500-item cell is otherwise close
         to unreachable (0.99**500 ~ 0.6%). Sampling is greedy, so a reply that
         does come back is the one the first call should have returned.
-        Failures that survive every attempt stay in place and are recorded by
-        `classify_unanswered`.
+        A request that fails every attempt is not a flaky one: the gateway
+        rejects some items deterministically (MedQA's pharmacology questions
+        trip its sensitive-word filter on "morphine", "ketamine" and the
+        like). Those are marked so the summary can tell them apart from a
+        request that failed once and then succeeded.
         """
         for attempt in range(self.max_retries):
             failed = [i for i, r in enumerate(raw)
@@ -297,6 +300,14 @@ class ABRunner:
             again = await self.llm_handler.batch_query([prompts[i] for i in failed])
             for i, r in zip(failed, again):
                 raw[i] = r
+        else:
+            still = [i for i, r in enumerate(raw)
+                     if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES]
+            if still:
+                print(f"  [Retry:{label}] {len(still)} request(s) never returned "
+                      f"on any attempt — excluded from scoring.")
+                for i in still:
+                    raw[i] = Evaluator.PERSISTENT_FAILURE
         return raw
 
     # =================================================================
@@ -410,14 +421,43 @@ class ABRunner:
             metrics.trace_family(samples[0].source) if samples else "none"
         )
 
+        # A request the gateway refused or never returned is not a wrong
+        # answer, so it leaves the denominator instead of depressing
+        # accuracy. An abstention stays in -- choosing "Unknown" is an answer
+        # -- and so does reasoning that ran out of room before it committed,
+        # which is the model's own doing.
+        #
+        # S1 and S2 are scored over the SAME items, because the reported
+        # contrast is paired: scoring them over different subsets would
+        # compare two different samples of the dataset. This is the same
+        # denominator `build_mcq_n500_table.py` and `build_table1_accuracy.py`
+        # use. A further setting (S3, the calibration suffix) is scored over
+        # that pair minus whatever it failed to answer itself, and says so in
+        # its own `n_scored`.
+        def _has_answer(name: str, i: int) -> bool:
+            if preds[name][i] != "UNPARSEABLE":
+                return True
+            reason = self.evaluator.classify_unanswered(raw_by_setting[name][i])
+            return reason == "no_commitment"
+
+        paired = [i for i in range(len(samples))
+                  if all(_has_answer(n, i) for n in ("S1", "S2") if n in preds)]
+
         def _block(name: str) -> Dict[str, float]:
-            p = preds[name]
+            raw = raw_by_setting[name]
+            keep = ([i for i in paired if _has_answer(name, i)]
+                    if name not in ("S1", "S2") else paired)
+            p = [preds[name][i] for i in keep]
+            gold = [answer_idxs[i] for i in keep]
             classes = classes_no_unk if name == "S1" else classes_with_unk
             return {
-                "label_acc": metrics.label_acc(p, answer_idxs),
+                "label_acc": metrics.label_acc(p, gold),
                 "abs_rate":  metrics.abs_rate(p),
-                "label_f1":  metrics.label_macro_f1(p, answer_idxs, classes),
-                **self._trace_metrics_for_setting(raw_by_setting[name], samples),
+                "label_f1":  metrics.label_macro_f1(p, gold, classes),
+                "n_scored":  len(keep),
+                "n_excluded": len(preds[name]) - len(keep),
+                **self._trace_metrics_for_setting([raw[i] for i in keep],
+                                                  [samples[i] for i in keep]),
             }
 
         unified = {name: _block(name) for name in preds}

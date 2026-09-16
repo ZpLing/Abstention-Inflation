@@ -11,7 +11,7 @@ Writes: <repo root>/positional_accuracy_S1_S2.md
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 D = ROOT / "results/positional_bias_n500"
 MODELS = [
     ("GPT-5.4-nano", "gpt-5.4-nano"),
