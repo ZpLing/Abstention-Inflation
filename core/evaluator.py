@@ -245,7 +245,8 @@ class Evaluator:
     # `extract_reasoning(text)` returns the reasoning portion only (everything
     # before the "Final answer" line, with "Reasoning:" prefix stripped).
     # If the model does not follow the format, returns the text minus a trailing
-    # isolated answer token — best-effort fallback so trace metrics still work.
+    # isolated answer token — best-effort fallback so the reasoning text is
+    # still recoverable for the S7 probe.
 
     # ------------------------------------------------------------------
     # Why a reply carries no answer.

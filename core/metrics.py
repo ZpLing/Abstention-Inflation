@@ -1,40 +1,19 @@
 """Unified S1/S2 metrics — paper §3.5 Metrics.
 
-Two evaluation layers; LABEL is the same across all datasets, but TRACE splits
-into two families based on whether the gold trace is *discrete* or *prose*.
+One evaluation layer, the same across every dataset:
 
-    LABEL layer (all datasets)
         label_acc(preds, golds)             — exact-match accuracy
         label_macro_f1(preds, golds, classes)
                                             — macro-F1 over the dataset's
                                               label space (incl. UNKNOWN)
 
-    TRACE layer
-        Family A — HARD F1 (discrete set arithmetic)
-            Used for FLD (atoms = fact_i / int_i citations) and FEVER
-            (atoms = normalized evidence-sentence keys). Pred and gold are
-            Set[str]; F1 = 2*|P∩G| / (|P|+|G|).
-
-            trace_set_f1(pred_atoms, gold_atoms)        → (P, R, F1)
-            mean_trace_set_f1(pred_atoms_list, gold_atoms_list)
-
-        Family B — SOFT F1 (BERTScore over free text)
-            Used for ARC (gold = WorldTree fact strings) and MedQA
-            (gold = MedReason free-form CoT). Pred and gold are bare strings;
-            F1 is BERTScore-F1 between the two.
-
-            trace_bertscore_f1(pred_text, gold_text)    → float
-            mean_trace_bertscore_f1(pred_texts, gold_texts)
-
-The split is deliberate (paper §3 Evaluation): exact-set arithmetic gives
-strict, reproducible F1 on datasets whose gold trace is genuinely enumerable;
-BERTScore captures semantic equivalence on datasets where models will
-paraphrase rather than echo gold tokens.
-
-S1–S4 main experiment reports (Acc_L, F1_L, F1_T) per (setting, dataset),
-where F1_T is hard-set F1 on FLD/FEVER and BERTScore-F1 on ARC/MedQA. The
-column is the same name in the summary JSON but the underlying computation
-differs by family — readers must consult `trace_family` for interpretation.
+There was a second layer that scored the reasoning trace against a gold one,
+as set-F1 where the gold trace was enumerable (FLD, FEVER) and BERTScore
+elsewhere (ARC, MedQA). It is gone: two different metrics under one column
+name are not comparable across datasets, and neither answers S7's actual
+question, which is whether the model's own reasoning reached a conclusion its
+final answer then withheld. That is read off the stored raw text by the NLI
+probe in experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/.
 
 S6 (self-diagnosis) lives in experiments/C2_introspective_gap/S6_self_diagnosis/ and
 uses its own metrics — by design it is NOT a label-prediction task on the
@@ -130,113 +109,6 @@ def judge_classes(with_unknown: bool = True) -> List[str]:
 #   normalized evidence-sentence keys).
 # ============================================================
 
-def _safe_set(s) -> Set[str]:
-    if s is None:
-        return set()
-    if isinstance(s, set):
-        return s
-    return set(s)
-
-
-def trace_set_f1(pred_atoms, gold_atoms) -> Tuple[float, float, float]:
-    """Set Precision / Recall / F1 over atomic units. Returns (P, R, F1).
-
-    Convention:
-        empty pred + empty gold        → (1.0, 1.0, 1.0)
-        empty pred but non-empty gold  → (0, 0, 0)
-        non-empty pred but empty gold  → (0, 0, 0)
-    """
-    p = _safe_set(pred_atoms)
-    g = _safe_set(gold_atoms)
-    if not p and not g:
-        return 1.0, 1.0, 1.0
-    if not p or not g:
-        return 0.0, 0.0, 0.0
-    tp = len(p & g)
-    if tp == 0:
-        return 0.0, 0.0, 0.0
-    precision = tp / len(p)
-    recall = tp / len(g)
-    f1 = 2 * precision * recall / (precision + recall)
-    return precision, recall, f1
-
-
-def mean_trace_set_f1(pred_atoms_list, gold_atoms_list) -> float:
-    """Per-sample set-F1, then macro-average across samples."""
-    if not pred_atoms_list:
-        return 0.0
-    return sum(trace_set_f1(p, g)[2] for p, g in zip(pred_atoms_list, gold_atoms_list)) \
-           / len(pred_atoms_list)
-
-
-# Substring-containment variant — used for FEVER, where atoms are *content
-# strings* of evidence sentences rather than discrete IDs. A model's quoted
-# evidence usually appears verbatim inside its CoT but with a prefix
-# ("The evidence states: ...") that breaks exact set equality. Bidirectional
-# substring matching credits the model whenever its sentence contains the
-# gold sentence (or vice-versa) as a substring after normalization.
-
-def trace_substring_set_f1(pred_atoms, gold_atoms) -> Tuple[float, float, float]:
-    """Set-F1 with bidirectional substring containment.
-
-    For Recall: each gold atom is "covered" if it is a substring of any pred
-    atom OR vice versa. Precision is symmetric over pred atoms.
-    """
-    p = _safe_set(pred_atoms)
-    g = _safe_set(gold_atoms)
-    if not p and not g:
-        return 1.0, 1.0, 1.0
-    if not p or not g:
-        return 0.0, 0.0, 0.0
-
-    def _match(a, others):
-        return any((a in o) or (o in a) for o in others)
-
-    tp_recall = sum(1 for x in g if _match(x, p))
-    tp_prec = sum(1 for x in p if _match(x, g))
-    if tp_recall == 0 and tp_prec == 0:
-        return 0.0, 0.0, 0.0
-    recall = tp_recall / len(g)
-    precision = tp_prec / len(p)
-    if precision + recall == 0:
-        return 0.0, 0.0, 0.0
-    f1 = 2 * precision * recall / (precision + recall)
-    return precision, recall, f1
-
-
-def mean_trace_substring_set_f1(pred_atoms_list, gold_atoms_list) -> float:
-    if not pred_atoms_list:
-        return 0.0
-    return sum(trace_substring_set_f1(p, g)[2]
-                for p, g in zip(pred_atoms_list, gold_atoms_list)) \
-           / len(pred_atoms_list)
-
-
-def hard_trace_f1_dispatcher(source: str):
-    """Pick the right hard-family F1 function for a dataset source name.
-
-    FLD  → exact set-F1 (atoms are discrete fact_i / int_i IDs).
-    FEVER → substring set-F1 (atoms are normalized evidence-sentence strings).
-    """
-    s = (source or "").upper()
-    if s.startswith("FEVER"):
-        return mean_trace_substring_set_f1
-    return mean_trace_set_f1
-
-
-# ============================================================
-# TRACE layer — Family B: SOFT F1 (BERTScore over free text)
-#   Used for ARC (gold = WorldTree fact strings concatenated) and MedQA
-#   (gold = MedReason CoT prose).
-#
-# BERTScore is loaded lazily — `bert_score` is a heavy dependency (torch +
-# transformers). When the package is unavailable or both inputs are empty
-# the metric returns 0.0; when only one side is empty we return 0.0 by
-# convention to match the hard-F1 boundary handling.
-# ============================================================
-
-_BERTSCORE_MODEL: Optional[str] = "roberta-large"  # default; rescale_with_baseline=True
-
 
 def _resolve_device() -> Optional[str]:
     """Pick the best torch device available.
@@ -254,107 +126,6 @@ def _resolve_device() -> Optional[str]:
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
         return "mps"
     return "cpu"
-
-
-def _bertscore_pair(cands: Sequence[str], refs: Sequence[str]) -> List[float]:
-    """Batch BERTScore-F1 between aligned (cand, ref) pairs.
-
-    Returns an empty list if `bert_score` is not installed (callers should
-    treat this as "soft F1 unavailable" rather than 0.0).
-    """
-    try:
-        from bert_score import score as bs_score
-    except ImportError:
-        return []
-    if not cands:
-        return []
-    # bert_score runs in a single batch; rescale_with_baseline maps random
-    # baseline to ~0 instead of ~0.85 (much more interpretable).
-    P, R, F = bs_score(
-        cands, refs,
-        model_type=_BERTSCORE_MODEL,
-        lang="en",
-        rescale_with_baseline=True,
-        verbose=False,
-        device=_resolve_device(),
-    )
-    return [float(x) for x in F.tolist()]
-
-
-def trace_bertscore_f1(pred_text: str, gold_text: str) -> float:
-    """Single-pair BERTScore-F1. Returns 0.0 if either side is empty or
-    bert_score is not installed."""
-    if not pred_text or not gold_text:
-        return 0.0
-    out = _bertscore_pair([pred_text], [gold_text])
-    return out[0] if out else 0.0
-
-
-def mean_trace_bertscore_f1(pred_texts: Sequence[str],
-                             gold_texts: Sequence[str]) -> float:
-    """Macro-averaged BERTScore-F1 over aligned (pred, gold) text pairs.
-
-    Empty pred OR empty gold → 0.0 for that sample.
-    Returns 0.0 (and logs a warning at the import site) if `bert_score` is
-    not installed.
-    """
-    if not pred_texts:
-        return 0.0
-    # Filter out pairs where either side is empty before calling BERTScore;
-    # they contribute 0.0 to the mean by convention.
-    pairs = [
-        (i, p, g)
-        for i, (p, g) in enumerate(zip(pred_texts, gold_texts))
-        if p and g
-    ]
-    if not pairs:
-        return 0.0
-    cands = [p for _, p, _ in pairs]
-    refs  = [g for _, _, g in pairs]
-    f1s = _bertscore_pair(cands, refs)
-    if not f1s:
-        return 0.0
-    # Sum non-empty F1s; empty-pair contributions are 0.
-    return sum(f1s) / len(pred_texts)
-
-
-# ============================================================
-# Trace family resolution: which F1 to use for each dataset.
-# ============================================================
-
-HARD_F1_FAMILIES = {"FLD", "FEVER"}
-SOFT_F1_FAMILIES = {"ARC", "MedQA", "FOLIO"}
-
-
-def trace_family(source: str) -> str:
-    """Return "hard" / "soft" / "none" for a dataset source name.
-
-    "hard" → discrete set-F1 (FLD, FEVER)
-    "soft" → BERTScore-F1   (ARC, MedQA, FOLIO)
-    "none" → no trace metric available for this dataset
-    """
-    if not source:
-        return "none"
-    s = source.upper()
-    if s.startswith("FLD") or s.startswith("FEVER"):
-        return "hard"
-    if s.startswith("ARC") or s.startswith("MEDQA") or s.startswith("FOLIO"):
-        return "soft"
-    return "none"
-
-
-# ============================================================
-# Backward-compat shims (kept for now; older code may still import).
-# `mean_trace_jaccard` is no longer reported in summaries — set-F1 alone
-# carries the discrete-trace signal.
-# ============================================================
-
-def trace_f1(pred_atoms, gold_atoms) -> Tuple[float, float, float]:
-    return trace_set_f1(pred_atoms, gold_atoms)
-
-
-def mean_trace_f1(pred_atoms_list, gold_atoms_list) -> float:
-    return mean_trace_set_f1(pred_atoms_list, gold_atoms_list)
 
 
 def accuracy(preds, answer_idxs):

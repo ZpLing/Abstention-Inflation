@@ -41,7 +41,7 @@ class LLMHandler:
         not embedded in `message.content`. We merge both back into one string
         formatted as `Reasoning: ...\\n\\n<final answer>` so the existing
         Evaluator.extract_reasoning / extract_final_answer_line pipeline picks
-        up both the trace (for F1_T) and the answer (for Acc_L / F1_L).
+        up both the reasoning (read by the S7 probe) and the answer (Acc / F1).
         """
         data = {
             "model": self.model_name,

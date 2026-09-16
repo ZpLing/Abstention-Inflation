@@ -27,13 +27,13 @@ Workflow per dataset
 2. Build prompts. The extra option is appended at build time only — the
    on-disk dataset is never modified.
 3. Dispatch every enabled single-turn setting concurrently.
-4. Parse outputs into a unified label alphabet; keep the raw text for the S7
-   trace layer.
+4. Parse outputs into a unified label alphabet; keep the raw text, which is
+   what the S7 NLI probe reads the reasoning off.
 5. Select the Abstention Inflation set (S2 == UNKNOWN) and run the S5 rerun
    follow-up on it.
-6. Compute (Acc, Abs Rate, macro-F1, trace F1) per setting. Trace F1 is set-F1
-   for the HARD family and BERTScore-F1 for the SOFT family (see
-   :mod:`core.metrics`).
+6. Compute (Acc, Abs Rate, macro-F1) per setting. Whether the reasoning
+   itself reached a conclusion is S7's question, answered by the NLI probe
+   over the stored raw text rather than by a similarity score here.
 7. Write ``ab_summary_<dataset>_<model>.json`` in the canonical schema
    (:mod:`core.result_schema`).
 """
@@ -43,7 +43,6 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from . import metrics
-from . import trace_extractors
 from .prompts import (
     # MCQ family
     build_mcq_s1_prompt,
@@ -372,37 +371,6 @@ class ABRunner:
         return [r[0] for r in results], [r[1] for r in results]
 
     # =================================================================
-    # S7 trace layer: reasoning extraction → family dispatch → F1.
-    #
-    #   HARD family (FLD): atom-set F1 over discrete proof-step citations.
-    #   SOFT family (FOLIO, ARC, MedQA): BERTScore-F1 between gold prose and
-    #   the predicted reasoning block.
-    #
-    # All samples in one dataset run share a family, so the dispatch is
-    # resolved once at the top.
-    # =================================================================
-    def _trace_metrics_for_setting(self, raw_outputs, samples) -> Dict[str, float]:
-        """Compute trace_f1 for one setting; family chosen by sample source."""
-        if not samples or not raw_outputs:
-            return {"trace_f1": 0.0}
-        family = metrics.trace_family(samples[0].source)
-
-        reasonings = [self.evaluator.extract_reasoning(r) for r in raw_outputs]
-
-        if family == "hard":
-            gold = [trace_extractors.extract_gold(s) for s in samples]
-            pred = [trace_extractors.extract_pred(rs, s)
-                    for rs, s in zip(reasonings, samples)]
-            return {"trace_f1": metrics.mean_trace_set_f1(pred, gold)}
-        if family == "soft":
-            gold_texts = [trace_extractors.extract_gold(s) for s in samples]
-            pred_texts = [trace_extractors.extract_pred(rs, s)
-                          for rs, s in zip(reasonings, samples)]
-            return {"trace_f1": metrics.mean_trace_bertscore_f1(pred_texts, gold_texts)}
-        # No gold trace for this dataset — report 0.0.
-        return {"trace_f1": 0.0}
-
-    # =================================================================
     # Summary + persistence (canonical schema — see core.result_schema)
     # =================================================================
     def _build_summary(self, ds_name, task_type, samples, answer_idxs, ai_indices,
@@ -416,10 +384,6 @@ class ABRunner:
         else:
             classes_no_unk = metrics.judge_classes(with_unknown=False)
             classes_with_unk = metrics.judge_classes(with_unknown=True)
-
-        trace_family_name = (
-            metrics.trace_family(samples[0].source) if samples else "none"
-        )
 
         # A request the gateway refused or never returned is not a wrong
         # answer, so it leaves the denominator instead of depressing
@@ -456,8 +420,6 @@ class ABRunner:
                 "label_f1":  metrics.label_macro_f1(p, gold, classes),
                 "n_scored":  len(keep),
                 "n_excluded": len(preds[name]) - len(keep),
-                **self._trace_metrics_for_setting([raw[i] for i in keep],
-                                                  [samples[i] for i in keep]),
             }
 
         unified = {name: _block(name) for name in preds}
@@ -471,7 +433,6 @@ class ABRunner:
                 "abs_rate":  metrics.abs_rate(preds_s5),
                 "label_f1":  metrics.label_macro_f1(preds_s5, ai_answer_idxs,
                                                     classes_no_unk),
-                **self._trace_metrics_for_setting(raw_s5, ai_samples),
                 "n_evaluated": len(ai_indices),
             }
 
@@ -514,7 +475,6 @@ class ABRunner:
             "schema":       SCHEMA_VERSION,
             "dataset":      ds_name,
             "task_type":    task_type,
-            "trace_family": trace_family_name,  # "hard" | "soft" | "none"
             "model":        self.config.get("model_name"),
             "settings_run": sorted(preds) + (["S5"] if preds_s5 else []),
             "n_total":      len(samples),
@@ -547,25 +507,18 @@ class ABRunner:
         path = self._summary_path(ds_name)
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
-        family = summary.get("trace_family", "none")
-        f1t_label = {
-            "hard": "F1_T(set)",
-            "soft": "F1_T(BERTScore)",
-            "none": "F1_T(n/a)",
-        }.get(family, "F1_T")
         for setting in ["S1", "S2", "S3", "calibration_suffix"]:
             if setting not in m:
                 continue
             d = m[setting]
             print(
                 f"  [Result] {setting}: Acc={d['label_acc']:.2%} "
-                f"AbsRate={d['abs_rate']:.2%} F1_L={d['label_f1']:.2%} "
-                f"{f1t_label}={d['trace_f1']:.2%}"
+                f"AbsRate={d['abs_rate']:.2%} F1_L={d['label_f1']:.2%}"
             )
         if "S5" in m:
             d = m["S5"]
             print(
                 f"  [Result] S5 (w/o Unknown rerun): Acc={d['label_acc']:.2%} "
-                f"F1_L={d['label_f1']:.2%} {f1t_label}={d['trace_f1']:.2%} "
+                f"F1_L={d['label_f1']:.2%} "
                 f"(on {d['n_evaluated']} Abstention Inflation samples)"
             )
