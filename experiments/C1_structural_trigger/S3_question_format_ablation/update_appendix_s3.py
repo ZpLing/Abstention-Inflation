@@ -1,12 +1,12 @@
 """Bring App. A's S3 sentences in line with the clean-prompt rerun.
 
-The published paragraph was built around a DeepSeek-R1 x FLD "outlier" whose
+The published paragraph was built around a DeepSeek-V4-Flash x FLD "outlier" whose
 Table 1 cell (Acc 20.0 / Abs Rate 25.0) matches no result file and implies a
 below-chance non-abstention accuracy. The rerun puts that cell at 45.2 / 39.8,
 in line with every other cell, so the outlier -- and the prose defending it --
 goes away.
 
-Reads Table 1 straight out of paper.txt so the per-cell deltas can never drift
+Reads Table 1 straight out of the LaTeX source so the per-cell deltas cannot drift
 from the table, then rewrites the numbers in the App. A paragraph and drops the
 multiple-comparisons carve-out that only existed for that cell.
 """
@@ -16,9 +16,9 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-PAPER = ROOT / "paper.txt"
+PAPER = ROOT / "paper/acl_latex.tex"
 
-MODELS = ["DeepSeek-R1", "GPT-5.4-nano", "Gemini-3.1-Flash-Lite"]
+MODELS = ["DeepSeek-V4-Flash", "GPT-5.4-nano", "Gemini-3.1-Flash-Lite"]
 # column index after splitting a Table 1 row on "&"
 COLS = {"FLD": 2, "FLD_MCQ": 3, "FOLIO": 4, "FOLIO_MCQ": 5}
 
@@ -78,7 +78,7 @@ def main():
     reps = [
         (r"S3 yields a small or null format effect (?:on 5 of 6 cells|in all 6 cells) "
          r"\(each with \$\|\\Delta\\text\{Abs Rate\}\|\\leq [\d.]+\$ points, none "
-         r"significant at \$p\{=\}0\.05\$\)(?:; the DeepSeek-R1 \$\\times\$ FLD cell is an "
+         r"significant at \$p\{=\}0\.05\$\)(?:; the DeepSeek-V4-Flash \$\\times\$ FLD cell is an "
          r"outlier with [^.]*\(McNemar \$p<0\.01\$\))?\. The pooled mean "
          r"\$\|\\Delta\\text\{Abs Rate\}\|\$ across (?:all 6 cells|the 6 cells) is [\d.]+ "
          r"points, (?:far smaller|an order of magnitude smaller) than the 31\.6\\% "
@@ -92,7 +92,7 @@ def main():
           f"S1$\\to$S2 Abs Rate jump, so format alone cannot account for "
           f"\\emph{{Abstention Inflation}}.")),
         (r"every test would need \$p<0\.05/36 \\approx 0\.0014\$ to reject; (?:apart from the "
-         r"DeepSeek-R1 \$\\times\$ FLD format cell noted above, )?the observed minimum \$p\$ "
+         r"DeepSeek-V4-Flash \$\\times\$ FLD format cell noted above, )?the observed minimum \$p\$ "
          r"is 0\.21, so the structural null survives even under strict correction\.",
          ("every test would need $p<0.05/36 \\approx 0.0014$ to reject; the observed "
           "minimum $p$ is 0.21, so the structural null survives even under strict "

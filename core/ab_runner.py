@@ -38,6 +38,7 @@ Workflow per dataset
    (:mod:`core.result_schema`).
 """
 import asyncio
+import json
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -100,6 +101,7 @@ class ABRunner:
         self.settings = set(ab.get("settings") or DEFAULT_SETTINGS)
         self.sample_limits = ab.get("sample_limits", {}) or {}
         self.sample_offsets = ab.get("sample_offsets", {}) or {}
+        self.max_retries = int(ab.get("max_retries", 3))
         self.results_dir = Path(ab.get("results_dir", "results/ab"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
@@ -112,6 +114,8 @@ class ABRunner:
             return
         for ds_name in self.dataset_names:
             print(f"\n===== S1/S2/S3 :: {ds_name} =====")
+            if self._already_done(ds_name):
+                continue
             samples = self.data_handler.load_dataset(ds_name)
             samples = [s for s in samples if s.answer_idx >= 0]  # answerable only
             samples = self._apply_sample_limit(ds_name, samples)
@@ -121,6 +125,30 @@ class ABRunner:
             task_type = samples[0].task_type
             print(f"  loaded {len(samples)} answerable samples (task_type={task_type}).")
             await self._run_one_dataset(ds_name, samples, task_type)
+
+    def _already_done(self, ds_name: str) -> bool:
+        """Skip a cell that a previous run finished, so a rerun tops up.
+
+        ``overwrite: true`` in the YAML forces the cell to be collected again,
+        which is what a changed prompt or model calls for.
+        """
+        if get_block(self.config, "main_experiment").get("overwrite"):
+            return False
+        path = self._summary_path(ds_name)
+        if not path.exists():
+            return False
+        try:
+            prev = json.loads(path.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            return False
+        n = prev.get("n_total")
+        print(f"  [skip] {ds_name}: already collected ({n} samples) in "
+              f"{path.name}. Delete it or set `overwrite: true` to re-collect.")
+        return True
+
+    def _summary_path(self, ds_name: str) -> Path:
+        model = str(self.config.get("model_name", "model")).replace("/", "_")
+        return self.results_dir / f"ab_summary_{ds_name}_{model}.json"
 
     def _apply_sample_limit(self, ds_name: str, samples: list) -> list:
         """Honour ``sample_limits[ds_name]`` + ``sample_offsets[ds_name]`` from YAML.
@@ -196,6 +224,10 @@ class ABRunner:
         )
         raw_by_setting: Dict[str, List[str]] = dict(zip(active, results))
 
+        for name in active:
+            raw_by_setting[name] = await self._retry_failed_requests(
+                prompts_by_setting[name], list(raw_by_setting[name]), label=name)
+
         # ---- Step 4: parse predictions and reasoning.
         preds: Dict[str, List[str]] = {}
         tiers: Dict[str, List[str]] = {}
@@ -243,6 +275,29 @@ class ABRunner:
     def _parse_judge_mcq_batch(self, raw_outputs):
         results = [self.evaluator.parse_judge_mcq_tiered(r) for r in raw_outputs]
         return [r[0] for r in results], [r[1] for r in results]
+
+    async def _retry_failed_requests(self, prompts, raw, *, label: str):
+        """Re-issue the requests that came back empty or as an API error.
+
+        A request that never returned is not an answer the model declined to
+        give, so leaving it in place would report a gateway failure as a
+        result. At a ~1% error rate a clean 500-item cell is otherwise close
+        to unreachable (0.99**500 ~ 0.6%). Sampling is greedy, so a reply that
+        does come back is the one the first call should have returned.
+        Failures that survive every attempt stay in place and are recorded by
+        `classify_unanswered`.
+        """
+        for attempt in range(self.max_retries):
+            failed = [i for i, r in enumerate(raw)
+                      if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES]
+            if not failed:
+                break
+            print(f"  [Retry:{label}] {len(failed)} request(s) returned nothing — "
+                  f"attempt {attempt + 1}/{self.max_retries} ...")
+            again = await self.llm_handler.batch_query([prompts[i] for i in failed])
+            for i, r in zip(failed, again):
+                raw[i] = r
+        return raw
 
     # =================================================================
     # Prompt builders (task_type-aware)
@@ -449,7 +504,7 @@ class ABRunner:
 
     def _save(self, ds_name: str, summary: Dict[str, Any]):
         model = self.config.get("model_name", "unknown").replace("/", "_")
-        path = self.results_dir / f"ab_summary_{ds_name}_{model}.json"
+        path = self._summary_path(ds_name)
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
         family = summary.get("trace_family", "none")

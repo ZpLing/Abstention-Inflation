@@ -1,9 +1,9 @@
-# MedQA at n=500 on gpt-5.4-nano, re-collected so no part of the pipeline
-# (including the parser-fallback judge) runs on a retired model.
+# MedQA at n=500 on gpt-5.4-nano, the model Table 1 names.
 experiment_name: "medqa_n500_nano"
 model_name: "gpt-5.4-nano"
 override_model: true
 max_workers: 100
+max_retries: 3
 
 run_tasks: ['main_experiment']
 
@@ -12,5 +12,6 @@ main_experiment:
     - "MedQA"
   run_s5_rerun: true
   results_dir: "results/mcq_n500/MedQA_nano"
+
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

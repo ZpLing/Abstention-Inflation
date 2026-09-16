@@ -10,7 +10,7 @@ independently of the actual option set.
 The manipulation moves Abs Rate by at most 5.9 points in any of the
 6 cells (pooled mean 2.7), against a 31.6-point S1→S2 jump — format
 alone cannot explain Abstention Inflation. There is no outlier: the
-`DeepSeek-R1 × FLD` cell the paper once flagged came from a Table 1
+`DeepSeek-V4-Flash × FLD` cell the paper once flagged came from a Table 1
 value (Acc 20.0 / Abs 25.0) that matches no result file and implies a
 below-chance non-abstention accuracy; re-measured it is 45.2 / 39.8.
 

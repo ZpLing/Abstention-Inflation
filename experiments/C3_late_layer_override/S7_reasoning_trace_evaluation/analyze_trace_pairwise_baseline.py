@@ -27,8 +27,8 @@ DATA_ROOT = 'dataset'
 
 CELLS = [
     # (dataset, model, [batch dirs for S1+S2], temp_sweep_filename_model_tag)
-    ('FLD',   'deepseek-r1-distill-llama-8b', ['ab_e_option_baseline', 'ab_deepseek_batch2']),
-    ('FOLIO', 'deepseek-r1-distill-llama-8b', ['ab_followup',          'ab_deepseek_batch2']),
+    ('FLD',   'deepseek-v4-flash', ['ab_e_option_baseline', 'ab_deepseek_batch2']),
+    ('FOLIO', 'deepseek-v4-flash', ['ab_followup',          'ab_deepseek_batch2']),
     ('FLD',   'gpt-5.4-nano',                 ['ab_gpt5_nano',         'ab_nano_batch2']),
     ('FOLIO', 'gpt-5.4-nano',                 ['ab_gpt5_nano',         'ab_nano_batch2']),
     ('FLD',   'gemini-3.1-flash-lite',        ['ab_gemini_flash_lite', 'ab_gemini_batch2']),

@@ -114,7 +114,7 @@ DATASETS = ("FLD", "FOLIO")
 MODELS = {
     "nano":     "gpt-5.4-nano",
     "gemini":   "gemini-3.1-flash-lite",
-    "deepseek": "deepseek-r1-distill-llama-8b",
+    "deepseek": "deepseek-v4-flash",
 }
 
 # S3 renders the abstain option at C (A = pos verb, B = neg verb), which is

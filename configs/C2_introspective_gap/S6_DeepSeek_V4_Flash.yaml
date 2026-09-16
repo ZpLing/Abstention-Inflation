@@ -1,5 +1,5 @@
 experiment_name: "c4_selfdiag_deepseek"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 max_workers: 50
 
 c4_selfdiag:

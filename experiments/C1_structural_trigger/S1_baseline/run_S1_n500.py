@@ -40,9 +40,9 @@ _spec.loader.exec_module(rpb)
 rpb.ROOT = ROOT
 
 MODELS = {
-    "nano": ("gpt-5.4-nano", "configs/nano_batch2_experiment.yaml"),
-    "gemini": ("gemini-3.1-flash-lite", "configs/gemini_batch2_experiment.yaml"),
-    "deepseek": ("deepseek-r1-distill-llama-8b", "configs/deepseek_batch2_experiment.yaml"),
+    "nano": ("gpt-5.4-nano", "configs/C1_structural_trigger/GPT_5_4_nano_FLD_FOLIO.yaml"),
+    "gemini": ("gemini-3.1-flash-lite", "configs/C1_structural_trigger/Gemini_3_1_Flash_Lite_FLD_FOLIO.yaml"),
+    "deepseek": ("deepseek-v4-flash", "configs/C1_structural_trigger/DeepSeek_V4_Flash_FLD_FOLIO.yaml"),
 }
 DATASETS = ("FLD", "FOLIO")
 OUT_DIR = ROOT / "results/positional_bias_n500"

@@ -53,13 +53,13 @@ DATASETS = ["FLD", "FOLIO"]
 def load_paired_sample_ids(dataset: str) -> List[str]:
     if dataset == "FLD":
         sources = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
         ]
     elif dataset == "FOLIO":
         sources = [
-            "ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
         ]
     else:
         raise ValueError(dataset)

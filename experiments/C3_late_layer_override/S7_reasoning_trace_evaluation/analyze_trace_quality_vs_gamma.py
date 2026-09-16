@@ -27,8 +27,8 @@ CELLS = [
       "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"]),
     ("deepseek", "FLD",
      "results/probe/cot_tasksource_FLD_deepseek_n200.json",
-     ["results/ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-      "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json"]),
+     ["results/ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+      "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json"]),
     ("nano", "FOLIO",
      "results/probe/cot_tasksource_FOLIO_nano_n200.json",
      ["results/ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
@@ -39,8 +39,8 @@ CELLS = [
       "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"]),
     ("deepseek", "FOLIO",
      "results/probe/cot_tasksource_FOLIO_deepseek_n200.json",
-     ["results/ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-      "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json"]),
+     ["results/ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+      "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json"]),
 ]
 
 

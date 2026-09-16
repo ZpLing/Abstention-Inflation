@@ -18,7 +18,7 @@ from pathlib import Path
 from statistics import NormalDist
 
 ROOT = Path("/Users/timchef/WakenLLM-toolkit")
-MODEL = "deepseek-r1-distill-llama-8b"
+MODEL = "deepseek-v4-flash"
 
 WORDINGS = ["W1", "W2", "W3", "W4", "W5"]
 WORDING_TEXTS = {
@@ -37,13 +37,13 @@ def load_w1_per_sample(ds):
     """Pool batch1+batch2 main-exp per_sample into id→pred map."""
     if ds == "FLD":
         sources = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
         ]
     else:
         sources = [
-            "ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
         ]
     pred_by_id = {}
     for rel in sources:

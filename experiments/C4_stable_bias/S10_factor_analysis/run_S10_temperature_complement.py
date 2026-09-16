@@ -39,7 +39,7 @@ from core.label_scheme import get_scheme            # noqa: E402
 from core.llm_handler import LLMHandler             # noqa: E402
 from core.prompts import build_judge_s2_prompt      # noqa: E402
 
-MODELS = ["deepseek-r1-distill-llama-8b", "gpt-5.4-nano", "gemini-3.1-flash-lite"]
+MODELS = ["deepseek-v4-flash", "gpt-5.4-nano", "gemini-3.1-flash-lite"]
 TEMPERATURES = [0.3, 0.7, 1.0]
 DATASETS = ["FLD", "FOLIO"]
 SWEEP_DIR = ROOT / "results" / "temperature_sweep"

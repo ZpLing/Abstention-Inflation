@@ -23,7 +23,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-PAPER = ROOT / "paper.txt"
+PAPER = ROOT / "paper/acl_latex.tex"
 
 _spec = importlib.util.spec_from_file_location(
     "_rep", Path(__file__).with_name("report_S3_clean.py"))
@@ -36,7 +36,7 @@ COL = {"FLD": 3, "FOLIO": 5}          # the _MCQ column of each TFQ benchmark
 ROW_LABELS = {"acc_s1": "Acc (S1)", "acc_s2": "Acc (S2)", "abs_s2": "Abs Rate (S2)"}
 
 MODEL_ANCHOR = {
-    "DeepSeek-R1": r"\multirow{3}{*}{DeepSeek-R1}",
+    "DeepSeek-V4-Flash": r"\multirow{3}{*}{DeepSeek-V4-Flash}",
     "GPT-5.4-nano": r"\multirow{3}{*}{GPT-5.4-nano}",
     "Gemini-3.1-Flash-Lite": r"\multirow{3}{*}{\makecell[l]{Gemini-3.1-\\Flash-Lite}}",
 }

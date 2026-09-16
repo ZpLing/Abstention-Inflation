@@ -1,5 +1,5 @@
 experiment_name: "mmlu_deepseek"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 100
 

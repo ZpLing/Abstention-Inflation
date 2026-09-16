@@ -17,7 +17,7 @@ RESULT_DIR = ROOT / "results/positional_bias_n500"
 MODELS = [
     ("nano", "gpt-5.4-nano"),
     ("gemini", "gemini-3.1-flash-lite"),
-    ("deepseek", "deepseek-r1-distill-llama-8b"),
+    ("deepseek", "deepseek-v4-flash"),
 ]
 DATASETS = ["FLD", "FOLIO"]
 POSITIONS = ["A", "B", "C"]
@@ -42,12 +42,12 @@ C_FALLBACK_SOURCES = {
     # DeepSeek's original FLD batch1 did not include pred_s5; ab_s5 fills that
     # exact first-batch sample set, and ab_deepseek_batch2 fills the second.
     ("deepseek", "FLD"): [
-        "results/ab_s5/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-        "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+        "results/ab_s5/ab_summary_FLD_deepseek-v4-flash.json",
+        "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
     ],
     ("deepseek", "FOLIO"): [
-        "results/ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-        "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+        "results/ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+        "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
     ],
 }
 
@@ -201,7 +201,7 @@ def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=N
     lines += [
         "",
         "*Model ids are the exact strings sent to the API. If the paper uses "
-        "different display names (e.g. \"DeepSeek-R1\", \"Gemini-3.1-Flash-"
+        "different display names (e.g. \"DeepSeek-V4-Flash\", \"Gemini-3.1-Flash-"
         "Lite\"), map them deliberately — do not assume `deepseek-r1-distill-"
         "llama-8b` or `gemini-3.1-flash-lite` equal those names.*",
     ]

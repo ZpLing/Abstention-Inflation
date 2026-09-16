@@ -16,7 +16,7 @@ D = ROOT / "results/positional_bias_n500"
 MODELS = [
     ("GPT-5.4-nano", "gpt-5.4-nano"),
     ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite"),
-    ("DeepSeek-R1", "deepseek-r1-distill-llama-8b"),
+    ("DeepSeek-V4-Flash", "deepseek-v4-flash"),
 ]
 DATASETS = ["FLD", "FOLIO"]
 
@@ -84,7 +84,7 @@ def main():
         "",
         "*Endpoints actually queried: GPT-5.4-nano→`gpt-5.4-nano`, "
         "Gemini-3.1-Flash-Lite→`gemini-3.1-flash-lite`, "
-        "DeepSeek-R1→`deepseek-r1-distill-llama-8b`.*",
+        "DeepSeek-V4-Flash→`deepseek-v4-flash`.*",
     ]
     if incomplete:
         lines += ["", "## Incomplete / missing (excluded)", ""] + [f"- {c}" for c in incomplete]

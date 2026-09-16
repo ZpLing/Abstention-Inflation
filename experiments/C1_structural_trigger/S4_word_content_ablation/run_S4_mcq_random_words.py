@@ -18,7 +18,7 @@ Key metric: OPT_X rate (% choosing E), split into:
     ghost_abstain   — model wrote "Unknown"/"Uncertain" when fifth option was NOT Unknown
 
 Datasets: ARC-Challenge_250 (n=200) + MedQA (n=200)
-Model:    deepseek-r1-distill-llama-8b (configurable)
+Model:    deepseek-v4-flash (configurable)
 
 Usage:
     python -m scripts.run_mcq_latent_label_mapping \

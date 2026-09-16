@@ -1,5 +1,5 @@
 experiment_name: "deepseek_folio_s1_s5"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 dataset_name: "FOLIO"
 max_workers: 50
 

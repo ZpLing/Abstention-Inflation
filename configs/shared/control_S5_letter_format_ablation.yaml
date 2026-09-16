@@ -1,5 +1,5 @@
 experiment_name: "deepseek_s5_format_ablation"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 dataset_name: "FLD"
 max_workers: 50
 

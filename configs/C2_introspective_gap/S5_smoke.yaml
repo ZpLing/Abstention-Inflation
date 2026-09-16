@@ -1,5 +1,5 @@
 experiment_name: "r1_smoke_local"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 4
 max_tokens: 4

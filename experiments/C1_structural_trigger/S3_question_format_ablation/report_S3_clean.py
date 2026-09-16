@@ -19,14 +19,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CLEAN = ROOT / "results/s3_clean_n500"
 
-MODELS = [("DeepSeek-R1", "deepseek-r1-distill-llama-8b"),
+MODELS = [("DeepSeek-V4-Flash", "deepseek-v4-flash"),
           ("GPT-5.4-nano", "gpt-5.4-nano"),
           ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite")]
 DATASETS = ["FLD", "FOLIO"]
 
 # Table 1, Acc (S1) row, FLD_MCQ / FOLIO_MCQ columns (unchanged by this rerun).
 S1_BASELINE = {
-    ("DeepSeek-R1", "FLD"): 66.6,  ("DeepSeek-R1", "FOLIO"): 82.6,
+    ("DeepSeek-V4-Flash", "FLD"): 66.6,  ("DeepSeek-V4-Flash", "FOLIO"): 82.6,
     ("GPT-5.4-nano", "FLD"): 53.8, ("GPT-5.4-nano", "FOLIO"): 84.0,
     ("Gemini-3.1-Flash-Lite", "FLD"): 64.6,
     ("Gemini-3.1-Flash-Lite", "FOLIO"): 86.5,

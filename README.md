@@ -20,7 +20,7 @@ tools/                  dataset preparation, figure scripts, maintenance (git-ig
 pip install -r requirements.txt
 cp configs/secrets.template.yaml secrets.yaml   # then fill in api_key / base_url
 
-# S1 + S2 + S3 + the S5 rerun, DeepSeek-R1 on FLD and FOLIO
+# S1 + S2 + S3 + the S5 rerun, DeepSeek-V4-Flash on FLD and FOLIO
 python main.py --config configs/C1_structural_trigger/DeepSeek_R1_FLD_FOLIO.yaml
 ```
 

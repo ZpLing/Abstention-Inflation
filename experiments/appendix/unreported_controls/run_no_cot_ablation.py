@@ -16,7 +16,7 @@ statistically indistinguishable between CoT and no-CoT, the abstention-inflation
 effect is NOT an artifact of chain-of-thought prompting.
 
 Models & endpoint come from the repo `config` (API gateway) merged via
-src.config_loader — deepseek-r1-distill-llama-8b (reasoning) and
+src.config_loader — deepseek-v4-flash (reasoning) and
 gemini-3.1-flash-lite (standard) share one api_key/base_url.
 
 Run:
@@ -40,7 +40,7 @@ from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
 SEED = 42
-DEFAULT_MODELS = ["gemini-3.1-flash-lite", "deepseek-r1-distill-llama-8b"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite", "deepseek-v4-flash"]
 DEFAULT_DATASETS = ["FLD", "FOLIO"]
 OUT_DIR = Path("results/no_cot_ablation")
 

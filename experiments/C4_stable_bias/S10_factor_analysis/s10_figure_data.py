@@ -82,7 +82,7 @@ _TEMP_TAGS = {0.3: "T0p3", 0.7: "T0p7", 1.0: "T1p0"}
 #: whose temperature setting the endpoint actually applies -- see
 #: :data:`TEMPERATURE_HONOURED`.
 MODELS = {
-    "DeepSeek-R1":             "deepseek-r1-distill-llama-8b",
+    "DeepSeek-V4-Flash":             "deepseek-v4-flash",
     "GPT-5.4-nano":            "gpt-5.4-nano",
     "Gemini-3.1-\nFlash-Lite": "gemini-3.1-flash-lite",
 }
@@ -92,7 +92,7 @@ MODELS = {
 #: must be deterministic, so a model that returns N distinct outputs there is
 #: not being given the setting at all.
 #:
-#:     DeepSeek-R1    T=0: 24/24 distinct   T=1: 24/24   T=2: 24/24
+#:     DeepSeek-V4-Flash    T=0: 24/24 distinct   T=1: 24/24   T=2: 24/24
 #:     GPT-5.4-nano   T=0: 12/12 distinct                T=2: 12/12
 #:     Gemini         T=0:  5/24 distinct   T=1: 24/24   T=2: 24/24
 #:
@@ -113,12 +113,12 @@ TEMPERATURE_HONOURED: set[str] = set()
 #: (model tag, dataset) -> the two batch files whose union is the 200-item set
 #: the temperature sweep drew from. Used for the T=0 baseline only.
 BASELINE_SOURCES = {
-    ("deepseek-r1-distill-llama-8b", "FLD"): [
-        "ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-        "ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json"],
-    ("deepseek-r1-distill-llama-8b", "FOLIO"): [
-        "ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-        "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json"],
+    ("deepseek-v4-flash", "FLD"): [
+        "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+        "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json"],
+    ("deepseek-v4-flash", "FOLIO"): [
+        "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+        "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json"],
     ("gpt-5.4-nano", "FLD"): [
         "ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
         "ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json"],
@@ -136,8 +136,8 @@ BASELINE_SOURCES = {
 #: S10(b) reads the paper's FLD n=500 main run and nothing else -- pooling the
 #: n=100 batches in as well would mix conditions for no extra coverage.
 DIFFICULTY_SOURCE = {
-    "deepseek-r1-distill-llama-8b":
-        "ab_deepseek_n500/ab_summary_FLD500_deepseek-r1-distill-llama-8b.json",
+    "deepseek-v4-flash":
+        "ab_deepseek_n500/ab_summary_FLD500_deepseek-v4-flash.json",
     "gpt-5.4-nano":
         "ab_nano_n500/ab_summary_FLD500_gpt-5.4-nano.json",
     "gemini-3.1-flash-lite":

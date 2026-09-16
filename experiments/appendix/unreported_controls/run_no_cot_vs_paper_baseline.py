@@ -47,12 +47,12 @@ COT_SOURCES: Dict[tuple, List[str]] = {
         "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
         "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
     ],
-    ("deepseek-r1-distill-llama-8b", "FLD"): [
-        "results/ab/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-        "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+    ("deepseek-v4-flash", "FLD"): [
+        "results/ab/ab_summary_FLD_deepseek-v4-flash.json",
+        "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
     ],
-    ("deepseek-r1-distill-llama-8b", "FOLIO"): [
-        "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+    ("deepseek-v4-flash", "FOLIO"): [
+        "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
     ],
     ("gpt-5.4-nano", "FLD"): [
         "results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",

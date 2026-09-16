@@ -1,6 +1,6 @@
 """§5.4 Temperature sweep — self-contained runner.
 
-deepseek-r1-distill-llama-8b × {FLD, FOLIO} × T ∈ {0.3, 0.7, 1.0, 1.5, 2.0} × 200
+deepseek-v4-flash × {FLD, FOLIO} × T ∈ {0.3, 0.7, 1.0, 1.5, 2.0} × 200
 paired samples × S2 only (T=0.0 baseline reused from main experiment).
 
 Goal:
@@ -32,7 +32,7 @@ from core.label_scheme import get_scheme  # noqa: E402
 from core.dataset_loader import load_judge
 from core.prompts import build_judge_s2_prompt           # noqa: E402
 
-MODEL_NAME = "deepseek-r1-distill-llama-8b"
+MODEL_NAME = "deepseek-v4-flash"
 # The sweep now stops at T=1.0 (see run_S10_temperature_api.py): T=1.5 and
 # T=2.0 decode into token soup rather than answers. Nothing left to run here.
 TEMPERATURES = []
@@ -50,13 +50,13 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 def load_paired_sample_ids(dataset: str) -> List[str]:
     if dataset == "FLD":
         sources = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
         ]
     elif dataset == "FOLIO":
         sources = [
-            "ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
         ]
     else:
         raise ValueError(dataset)

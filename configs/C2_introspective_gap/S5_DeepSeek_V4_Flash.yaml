@@ -1,5 +1,5 @@
 experiment_name: "r1_logit_calibration_deepseek"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 override_model: true             # pin model from yaml; inherit api_key/base_url from `config`
 max_workers: 50
 max_tokens: 4

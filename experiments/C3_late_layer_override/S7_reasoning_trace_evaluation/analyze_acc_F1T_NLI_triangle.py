@@ -29,7 +29,7 @@ from core.dataset_loader import load_judge           # noqa: E402
 from core.evaluator import Evaluator                               # noqa: E402
 
 MODELS = [
-    ("deepseek", "deepseek-r1-distill-llama-8b",
+    ("deepseek", "deepseek-v4-flash",
         {"FLD":   ["ab_e_option_baseline", "ab_deepseek_batch2"],
          "FOLIO": ["ab_followup",         "ab_deepseek_batch2"]}),
     ("nano",     "gpt-5.4-nano",

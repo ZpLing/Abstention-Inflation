@@ -21,7 +21,7 @@ CLEAN = ROOT / "results/s3_clean_n500"
 OLD = ROOT / "results/positional_bias_n500"
 
 MODELS = [
-    ("DeepSeek-R1", "deepseek-r1-distill-llama-8b"),
+    ("DeepSeek-V4-Flash", "deepseek-v4-flash"),
     ("GPT-5.4-nano", "gpt-5.4-nano"),
     ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite"),
 ]

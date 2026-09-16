@@ -1,6 +1,6 @@
 """§6.1 Unknown wording sweep — self-contained runner.
 
-5 wordings × 2 datasets × 200 samples = 2000 calls @ deepseek-r1-distill-llama-8b.
+5 wordings × 2 datasets × 200 samples = 2000 calls @ deepseek-v4-flash.
 
 DOES NOT modify core/prompts.py or core/evaluator.py.
 Inlines a minimal S2 prompt builder + parser, parameterized by `abstain_text`.
@@ -15,7 +15,7 @@ Design invariants:
     Facts / Hypothesis bodies stay byte-identical across wordings.
 
 Outputs:
-  results/wording_sweep/summary_<wording_id>_<dataset>_deepseek-r1-distill-llama-8b.json
+  results/wording_sweep/summary_<wording_id>_<dataset>_deepseek-v4-flash.json
 """
 import asyncio
 import glob
@@ -43,7 +43,7 @@ WORDINGS = [
     ("W5", "Insufficient information"),
 ]
 DATASETS = ["FLD", "FOLIO"]
-MODEL_NAME = "deepseek-r1-distill-llama-8b"
+MODEL_NAME = "deepseek-v4-flash"
 
 OUT_DIR = ROOT / "results/wording_sweep"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -142,13 +142,13 @@ def load_paired_sample_ids(dataset: str) -> List[str]:
     """
     if dataset == "FLD":
         sources = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
         ]
     elif dataset == "FOLIO":
         sources = [
-            "ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
         ]
     else:
         raise ValueError(dataset)

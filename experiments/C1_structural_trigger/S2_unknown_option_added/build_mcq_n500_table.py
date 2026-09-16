@@ -36,7 +36,7 @@ from core.evaluator import Evaluator
 
 #: model id actually queried -> the row name Table 1 gives it.
 PAPER_ROW = {
-    "deepseek-r1-distill-llama-8b": "DeepSeek-R1",
+    "deepseek-v4-flash": "DeepSeek-V4-Flash",
     "gpt-5.4-nano": "GPT-5.4-nano",
     "gemini-3.1-flash-lite": "Gemini-3.1-Flash-Lite",
 }

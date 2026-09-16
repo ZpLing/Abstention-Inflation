@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from core.config_loader import load_config
@@ -41,7 +41,7 @@ from core.metrics import label_acc, label_macro_f1, judge_classes
 MODELS = {
     "nano": {
         "model_name": "gpt-5.4-nano",
-        "config": "configs/nano_batch2_experiment.yaml",
+        "config": "configs/C1_structural_trigger/GPT_5_4_nano_FLD_FOLIO.yaml",
         "sources": {
             "FLD": [
                 "results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
@@ -55,7 +55,7 @@ MODELS = {
     },
     "gemini": {
         "model_name": "gemini-3.1-flash-lite",
-        "config": "configs/gemini_batch2_experiment.yaml",
+        "config": "configs/C1_structural_trigger/Gemini_3_1_Flash_Lite_FLD_FOLIO.yaml",
         "sources": {
             "FLD": [
                 "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
@@ -68,16 +68,16 @@ MODELS = {
         },
     },
     "deepseek": {
-        "model_name": "deepseek-r1-distill-llama-8b",
-        "config": "configs/deepseek_batch2_experiment.yaml",
+        "model_name": "deepseek-v4-flash",
+        "config": "configs/C1_structural_trigger/DeepSeek_V4_Flash_FLD_FOLIO.yaml",
         "sources": {
             "FLD": [
-                "results/ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
-                "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
+                "results/ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
+                "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
             ],
             "FOLIO": [
-                "results/ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
-                "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
+                "results/ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
+                "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
             ],
         },
     },

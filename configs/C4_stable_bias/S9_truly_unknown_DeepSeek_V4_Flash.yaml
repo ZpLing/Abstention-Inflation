@@ -1,5 +1,5 @@
 experiment_name: "car_mirror_deepseek_FLD_FOLIO_n200"
-model_name: "deepseek-r1-distill-llama-8b"
+model_name: "deepseek-v4-flash"
 override_model: true
 dataset_name: "FLD"
 max_workers: 50
