@@ -38,21 +38,23 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-FLD_SOURCE = ROOT / "data" / "Judge" / "FLD.json"
+#: Difficulty comes from the proof-tree depth the dataset ships with. The
+#: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;
+#: `dataset/FLD.json` carries `depth`, which is the same quantity under the
+#: unified schema.
+FLD_SOURCE = ROOT / "dataset" / "FLD.json"
 ID_RE = re.compile(r"FLD_(\d+)")
 
-# Step bins chosen from observed FLD distribution (1..19, peaks at 7–11):
-#   tiny / short / medium / long / very-long
+# `depth` runs 1..8 in the shipped file, near-uniformly (62-64 items each), so
+# pairs of adjacent depths give four bins of ~125 items per model.
 BINS: List[Tuple[str, int, int]] = [
-    ("1-3",   1,  3),
-    ("4-6",   4,  6),
-    ("7-9",   7,  9),
-    ("10-12", 10, 12),
-    ("13-15", 13, 15),
-    ("16+",   16, 99),
+    ("1-2", 1, 2),
+    ("3-4", 3, 4),
+    ("5-6", 5, 6),
+    ("7-8", 7, 8),
 ]
 
 
@@ -64,46 +66,54 @@ def steps_to_bin(steps: int) -> str:
 
 
 def load_source_steps() -> Dict[int, int]:
-    rows = json.loads(FLD_SOURCE.read_text())
+    """Sample id -> proof-tree depth, read straight from the dataset file."""
     out: Dict[int, int] = {}
-    for i, r in enumerate(rows):
-        od = r.get("original_data", {})
-        s = od.get("steps") or od.get("original_tree_steps")
-        if s is not None:
-            out[i] = int(s)
+    for r in json.loads(FLD_SOURCE.read_text()):
+        depth = r.get("depth")
+        m = ID_RE.match(str(r.get("id", "")))
+        if depth is None or not m:
+            continue
+        out[int(m.group(1))] = int(depth)
     return out
 
 
 def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
-    """One row per (model, sample) — deduplicated across batches by id."""
-    seen: set = set()  # (model, source_idx)
+    """One row per (model, sample) of the S2 cell, stratified by proof depth.
+
+    The universe is the S2 run alone -- the abstain-verb-last cell of S11,
+    which is `build_judge_s2_prompt` byte for byte -- because the question is
+    how S2's Abs Rate moves with depth. Pairing with S1 would drop whatever S1
+    happened to lose and put this table on a different sample than the figure
+    built from the same cell. S1 is read when it is there, but only to record
+    whether the item was already abstained on without the option offered.
+    """
+    pb = ROOT / "results/positional_bias_n500"
     rows: List[dict] = []
-    for path in sorted(ROOT.glob("results/ab_*/ab_summary_FLD_*.json")):
-        d = json.loads(path.read_text())
-        model = d.get("model", "?")
-        for ps in d.get("per_sample", []):
-            m = ID_RE.match(ps.get("id", ""))
+    for s2_path in sorted(pb.glob("summary_unknown_C_FLD_*.json")):
+        model = json.loads(s2_path.read_text()).get("model", "?")
+        s2 = [r for r in json.loads(s2_path.read_text())["per_sample"]
+              if not r.get("excluded")]
+        s1_path = pb / f"summary_s1_FLD_{model}.json"
+        s1 = {}
+        if s1_path.exists():
+            s1 = {r["id"]: r for r in json.loads(s1_path.read_text())["per_sample"]
+                  if not r.get("excluded")}
+        for r in s2:
+            m = ID_RE.match(r.get("id", ""))
             if not m:
                 continue
             idx = int(m.group(1))
             if idx not in steps_map:
                 continue
-            key = (model, idx)
-            if key in seen:
-                continue
-            seen.add(key)
-            ai = ps.get("answer_idx", -1)
-            pred_s1 = ps.get("pred_s1", "")
-            pred_s2 = ps.get("pred_s2", "")
             rows.append({
-                "model":          model,
-                "source_idx":     idx,
-                "steps":          steps_map[idx],
-                "answer_idx":     ai,
-                "gold_unknown":   ai == 2,
-                "abstained_s1":   pred_s1 == "UNKNOWN",
-                "abstained_s2":   pred_s2 == "UNKNOWN",
-                "source_file":    path.name,
+                "model":        model,
+                "source_idx":   idx,
+                "steps":        steps_map[idx],
+                "answer_idx":   r.get("answer_idx", -1),
+                "gold_unknown": r.get("answer_idx", -1) < 0,
+                "abstained_s1": s1.get(r["id"], {}).get("pred") == "UNKNOWN",
+                "abstained_s2": r.get("pred") == "UNKNOWN",
+                "source_file":  s2_path.name,
             })
     return rows
 
@@ -202,10 +212,10 @@ def main() -> None:
     if not FLD_SOURCE.exists():
         sys.exit(f"FLD source not found at {FLD_SOURCE}")
     steps_map = load_source_steps()
-    print(f"Loaded {len(steps_map)} FLD source items with `steps` annotation.")
+    print(f"Loaded {len(steps_map)} FLD items with a `depth` annotation.")
 
     rows = collect_per_sample(steps_map)
-    print(f"Collected {len(rows)} (model, sample) cells from results/ab_*/ab_summary_FLD_*.json.")
+    print(f"Collected {len(rows)} (model, sample) cells from results/positional_bias_n500/.")
     if not rows:
         sys.exit("No FLD ab_summary data found.")
 

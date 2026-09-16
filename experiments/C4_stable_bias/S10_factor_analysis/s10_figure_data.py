@@ -135,13 +135,16 @@ BASELINE_SOURCES = {
 
 #: S10(b) reads the paper's FLD n=500 main run and nothing else -- pooling the
 #: n=100 batches in as well would mix conditions for no extra coverage.
+#: S10(b) stratifies the S2 cell by proof depth, so it reads the same S2 run
+#: the rest of the paper reports: the abstain-verb-last cell of S11, which is
+#: `build_judge_s2_prompt` byte for byte.
 DIFFICULTY_SOURCE = {
     "deepseek-v4-flash":
-        "ab_deepseek_n500/ab_summary_FLD500_deepseek-v4-flash.json",
+        "positional_bias_n500/summary_unknown_C_FLD_deepseek-v4-flash.json",
     "gpt-5.4-nano":
-        "ab_nano_n500/ab_summary_FLD500_gpt-5.4-nano.json",
+        "positional_bias_n500/summary_unknown_C_FLD_gpt-5.4-nano.json",
     "gemini-3.1-flash-lite":
-        "ab_gemini_n500/ab_summary_FLD500_gemini-3.1-flash-lite.json",
+        "positional_bias_n500/summary_unknown_C_FLD_gemini-3.1-flash-lite.json",
 }
 
 
@@ -153,14 +156,22 @@ def _reparse(rows, raw_key: str, scheme):
     """Re-derive S2 predictions from stored raw outputs.
 
     Re-parsing rather than trusting the stored ``pred_*`` keeps every cell on
-    one parser version; the stored values were written by several.
+    one parser version; the stored values were written by several. Cells that
+    kept no raw text fall back to the prediction they recorded, and an item the
+    run excluded (a content-filter refusal) is not an answer to stratify.
     ``answer_idx == -1`` marks a truly-Unknown item, a different subset.
     """
     out = []
     for r in rows:
-        if r.get("answer_idx", 0) < 0:
+        if r.get("answer_idx", 0) < 0 or r.get("excluded"):
             continue
-        pred, _ = EV.parse_judge_tiered(r.get(raw_key), scheme, with_unknown=True)
+        raw = r.get(raw_key)
+        if raw is None:
+            pred = r.get("pred") or r.get("pred_s2")
+            if pred is None:
+                continue
+        else:
+            pred, _ = EV.parse_judge_tiered(raw, scheme, with_unknown=True)
         out.append((r["id"], pred))
     return out
 
