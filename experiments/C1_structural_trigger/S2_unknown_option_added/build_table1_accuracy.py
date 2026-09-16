@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 D = ROOT / "results/positional_bias_n500"
 MODELS = [
     ("GPT-5.4-nano", "gpt-5.4-nano"),
-    ("Gemini-3.1-Flash-Lite", "gemini-2.5-flash-lite"),
+    ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite"),
     ("DeepSeek-R1", "deepseek-r1-distill-llama-8b"),
 ]
 DATASETS = ["FLD", "FOLIO"]
@@ -83,7 +83,7 @@ def main():
     lines += [
         "",
         "*Endpoints actually queried: GPT-5.4-nano→`gpt-5.4-nano`, "
-        "Gemini-3.1-Flash-Lite→`gemini-2.5-flash-lite`, "
+        "Gemini-3.1-Flash-Lite→`gemini-3.1-flash-lite`, "
         "DeepSeek-R1→`deepseek-r1-distill-llama-8b`.*",
     ]
     if incomplete:

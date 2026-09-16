@@ -21,7 +21,7 @@ CLEAN = ROOT / "results/s3_clean_n500"
 
 MODELS = [("DeepSeek-R1", "deepseek-r1-distill-llama-8b"),
           ("GPT-5.4-nano", "gpt-5.4-nano"),
-          ("Gemini-3.1-Flash-Lite", "gemini-2.5-flash-lite")]
+          ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite")]
 DATASETS = ["FLD", "FOLIO"]
 
 # Table 1, Acc (S1) row, FLD_MCQ / FOLIO_MCQ columns (unchanged by this rerun).

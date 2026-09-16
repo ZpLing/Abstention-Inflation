@@ -40,13 +40,13 @@ MODELS = [
         },
     },
     {
-        "name": "gemini-2.5-flash-lite",
+        "name": "gemini-3.1-flash-lite",
         "config": "configs/car_mirror_gemini.yaml",
         "sources": {
-            "FLD":   ["ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-                      "ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json"],
-            "FOLIO": ["ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-                      "ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json"],
+            "FLD":   ["ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+                      "ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"],
+            "FOLIO": ["ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+                      "ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"],
         },
     },
 ]

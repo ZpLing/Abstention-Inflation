@@ -13,7 +13,7 @@ Conditions (the "add an escape affordance" manipulation, in prose):
   O3  nonce-word license   — "... if you cannot determine it, reply with 'Cerulean'."
                             (open-ended analog of the paper's random-word control)
 
-Generator: gpt-5.4-nano.  Abstention/correctness judge: gemini-2.5-flash-lite.
+Generator: gpt-5.4-nano.  Abstention/correctness judge: gemini-3.1-flash-lite.
 Both via the gateway OpenAI-compatible gateway (creds from ./config).
 
 Outputs results/open_ended/selfaware_gpt5nano.json with per-sample records and a
@@ -28,7 +28,7 @@ OUT_PATH = os.path.join(OUT_DIR, "selfaware_gpt5nano.json")
 DATA = os.path.join(REPO, "data", "open_ended", "SelfAware.json")
 
 GEN_MODEL = "gpt-5.4-nano"
-JUDGE_MODEL = "gemini-2.5-flash-lite"
+JUDGE_MODEL = "gemini-3.1-flash-lite"
 
 # each condition = {user, system?}. O1=no license, O2=prose license, O3=nonce-word
 # license (open-ended analog of the paper's random-word control), O4=deployment

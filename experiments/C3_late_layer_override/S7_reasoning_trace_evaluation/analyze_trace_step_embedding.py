@@ -49,8 +49,8 @@ CELLS = [
     ('FOLIO', 'deepseek-r1-distill-llama-8b', ['ab_followup',          'ab_deepseek_batch2']),
     ('FLD',   'gpt-5.4-nano',                 ['ab_gpt5_nano',         'ab_nano_batch2']),
     ('FOLIO', 'gpt-5.4-nano',                 ['ab_gpt5_nano',         'ab_nano_batch2']),
-    ('FLD',   'gemini-2.5-flash-lite',        ['ab_gemini_flash_lite', 'ab_gemini_batch2']),
-    ('FOLIO', 'gemini-2.5-flash-lite',        ['ab_gemini_flash_lite', 'ab_gemini_batch2']),
+    ('FLD',   'gemini-3.1-flash-lite',        ['ab_gemini_flash_lite', 'ab_gemini_batch2']),
+    ('FOLIO', 'gemini-3.1-flash-lite',        ['ab_gemini_flash_lite', 'ab_gemini_batch2']),
 ]
 
 # ───────────── step splitting ─────────────

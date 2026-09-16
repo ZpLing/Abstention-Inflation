@@ -35,7 +35,7 @@ MODELS = [
     ("nano",     "gpt-5.4-nano",
         {"FLD":   ["ab_gpt5_nano",         "ab_nano_batch2"],
          "FOLIO": ["ab_gpt5_nano",         "ab_nano_batch2"]}),
-    ("gemini",   "gemini-2.5-flash-lite",
+    ("gemini",   "gemini-3.1-flash-lite",
         {"FLD":   ["ab_gemini_flash_lite", "ab_gemini_batch2"],
          "FOLIO": ["ab_gemini_flash_lite", "ab_gemini_batch2"]}),
 ]

@@ -17,11 +17,11 @@ effect is NOT an artifact of chain-of-thought prompting.
 
 Models & endpoint come from the repo `config` (API gateway) merged via
 src.config_loader — deepseek-r1-distill-llama-8b (reasoning) and
-gemini-2.5-flash-lite (standard) share one api_key/base_url.
+gemini-3.1-flash-lite (standard) share one api_key/base_url.
 
 Run:
     python -m scripts.run_no_cot_ablation --n-per-class 50
-    python -m scripts.run_no_cot_ablation --n-per-class 4 --models gemini-2.5-flash-lite   # smoke
+    python -m scripts.run_no_cot_ablation --n-per-class 4 --models gemini-3.1-flash-lite   # smoke
 """
 import argparse
 import asyncio
@@ -40,7 +40,7 @@ from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
 SEED = 42
-DEFAULT_MODELS = ["gemini-2.5-flash-lite", "deepseek-r1-distill-llama-8b"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite", "deepseek-r1-distill-llama-8b"]
 DEFAULT_DATASETS = ["FLD", "FOLIO"]
 OUT_DIR = Path("results/no_cot_ablation")
 

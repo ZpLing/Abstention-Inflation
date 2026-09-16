@@ -18,14 +18,14 @@ ROOT = Path(".")
 PAIRS = [
     ("nano",     "FLD",   ["results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
                             "results/ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json"]),
-    ("gemini",   "FLD",   ["results/ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-                            "results/ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json"]),
+    ("gemini",   "FLD",   ["results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+                            "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"]),
     ("deepseek", "FLD",   ["results/ab_e_option_baseline/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
                             "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-r1-distill-llama-8b.json"]),
     ("nano",     "FOLIO", ["results/ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
                             "results/ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json"]),
-    ("gemini",   "FOLIO", ["results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-                            "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json"]),
+    ("gemini",   "FOLIO", ["results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+                            "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"]),
     ("deepseek", "FOLIO", ["results/ab_followup/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json",
                             "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-r1-distill-llama-8b.json"]),
 ]

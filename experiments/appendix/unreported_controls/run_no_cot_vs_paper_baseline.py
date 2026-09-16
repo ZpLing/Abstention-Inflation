@@ -10,14 +10,14 @@ For each (model, dataset):
 Only the trailing format instruction differs between the paper's S2 prompt and
 ours (see core/prompts.py `cot=` kwarg); the prompt body is identical.
 
-Models/endpoint from the repo `config` (API gateway). gemini-2.5-flash-lite is
+Models/endpoint from the repo `config` (API gateway). gemini-3.1-flash-lite is
 the clean test (standard model); deepseek-r1-distill is a *reasoning* model that
 emits CoT internally regardless of the prompt, so it is reported as a secondary
 data point with that caveat.
 
 Run:
     python -m scripts.run_no_cot_paper_baseline
-    python -m scripts.run_no_cot_paper_baseline --only gemini-2.5-flash-lite
+    python -m scripts.run_no_cot_paper_baseline --only gemini-3.1-flash-lite
 """
 import argparse
 import asyncio
@@ -39,13 +39,13 @@ OUT_DIR = Path("results/cot_ablation")
 # Paper's per-sample S2 (CoT) results. Files are pooled in order; duplicate IDs
 # across files are dropped (first occurrence wins) so the union is distinct.
 COT_SOURCES: Dict[tuple, List[str]] = {
-    ("gemini-2.5-flash-lite", "FLD"): [
-        "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json",
+    ("gemini-3.1-flash-lite", "FLD"): [
+        "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+        "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json",
     ],
-    ("gemini-2.5-flash-lite", "FOLIO"): [
-        "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
+    ("gemini-3.1-flash-lite", "FOLIO"): [
+        "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+        "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
     ],
     ("deepseek-r1-distill-llama-8b", "FLD"): [
         "results/ab/ab_summary_FLD_deepseek-r1-distill-llama-8b.json",
