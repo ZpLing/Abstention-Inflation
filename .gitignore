@@ -225,7 +225,7 @@ env/
 # Paper-structured layout (see README.md)
 # ---------------------------------------------------------------------------
 # The LaTeX source, build artifacts and the submitted PDF are kept locally.
-/paper_draft/
+/paper/
 
 # Local-only helper scripts: dataset preparation, figure rendering, result
 # maintenance, smoke tests. Not needed to reproduce the reported experiments.
