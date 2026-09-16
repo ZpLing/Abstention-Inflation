@@ -38,7 +38,6 @@ because they are cheap to re-run and answer recurring questions:
 
 | Script | Question it answers |
 |---|---|
-| `run_positional_bias.py`, `analyze_positional_bias.py` | does the abstain option's *position* in the list matter? |
 | `run_no_cot_ablation.py`, `run_no_cot_vs_paper_baseline.py` | does the effect survive without CoT prompting? |
 | `run_open_ended_abstention.py` | does an abstention *affordance* in free-form generation inflate abstention? (SelfAware) |
 | `run_mcq_compound_option.py` | does a partially-true compound option behave like the abstain slot? |

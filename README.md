@@ -2,7 +2,7 @@
 
 Code and datasets for the *Abstention Inflation* paper. The repository is laid
 out to mirror the paper: four claims (**C1–C4**), each realised by a group of
-experimental settings (**S1–S10**).
+experimental settings (**S1–S11**).
 
 ```
 main.py                 one dispatcher; `--config <yaml>` picks the runner
@@ -68,9 +68,11 @@ Figure 5 = `plot_fig5_S7_trace_invariance.py`, Figure 6 = S8 step `07_`.
 |---|---|---|
 | **S9** Stability | 3 re-draws at *T*=0.5; Abs Rate on truly-Unknown samples | `experiments/C4_stable_bias/S9_stability/run_S9_{persistence,truly_unknown}.py` |
 | **S10** Factor Analysis | difficulty (FLD step count), temperature, model size, alignment | `experiments/C4_stable_bias/S10_factor_analysis/` |
+| **S11** Positional Biases | the abstain verb moves to slot 1 / 2 / 3 of the S2 prompt | `experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py` |
 
 Figure 7 = `plot_fig7_S9_stability.py`; Figures 8–9 =
-`plot_fig8_S10_difficulty_temperature.py`, `plot_fig9_S10_size_alignment.py`.
+`plot_fig8_S10_difficulty_temperature.py`, `plot_fig9_S10_size_alignment.py`;
+the S11 figure = `plot_positional_bias.py`.
 
 ### Appendix
 
@@ -86,7 +88,7 @@ Figure 7 = `plot_fig7_S9_stability.py`; Figures 8–9 =
 
 | File | Type | Use |
 |---|---|---|
-| `FLD.json`, `FOLIO.json` | TFQ | S1–S10 (500 answerable items each) |
+| `FLD.json`, `FOLIO.json` | TFQ | S1–S11 (500 answerable items each) |
 | `FLD_unknown.json`, `FOLIO_unknown.json` | TFQ | S9 truly-Unknown subset (300 each) |
 | `ARC.json`, `MMLU.json`, `MedQA.json`, `LogiQA.json` | MCQ | S1, S2 (500 each) |
 
@@ -120,7 +122,7 @@ Runs write `results/<dir>/ab_summary_<dataset>_<model>.json`:
 }
 ```
 
-The experiments were run before the settings were renamed to S1–S10, so files
+The experiments were run before the settings were renamed to S1–S11, so files
 already on disk use the older names — and two of them meant something different:
 
 | pre-rename key | actually holds | current name |

@@ -1,21 +1,22 @@
-"""Judge-task positional bias experiment for the abstain option.
+"""S11 Positional Biases — where the abstain option sits in a TFQ prompt.
 
-The existing MCQ-style Judge condition places the abstain option last:
+The manipulation is the order of the three verbs in the S2 prompt itself, not
+a re-rendering of the item as a letter-coded MCQ:
 
-    A. POS
-    B. NEG
-    C. Unknown / Uncertain
+    slot A (first)   Output one of: Unknown | True | False
+    slot B (second)  Output one of: True | Unknown | False
+    slot C (third)   Output one of: True | False | Unknown
 
-This runner tests whether abstention is driven by that C-position artifact by
-moving the abstain option to A or B while keeping the same FLD/FOLIO samples
-and model settings used in the main three-model runs.
+Slot C is the S2 prompt byte for byte, so the third condition is the paper's
+own S2 ordering rather than a look-alike, and the model keeps answering with a
+verb. The slot letters name the position; they are never shown to the model.
 
 Outputs:
-    results/positional_bias/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
+    results/positional_bias_n500/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
 
 Usage:
-    python scripts/run_positional_bias.py --model all --positions A B
-    python scripts/run_positional_bias.py --model nano --dataset FLD --positions A B C
+    python experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py \
+        --model all --positions A B C --full-dataset --unified-labels
 """
 import argparse
 import asyncio
@@ -32,6 +33,8 @@ from core.config_loader import load_config
 from core.llm_handler import LLMHandler
 from core.label_scheme import get_scheme
 from core.dataset_loader import load_judge, Sample
+from core.evaluator import Evaluator
+from core.prompts import build_judge_s11_position_prompt, judge_verb_order
 from core.metrics import label_acc, label_macro_f1, judge_classes
 
 
@@ -51,16 +54,16 @@ MODELS = {
         },
     },
     "gemini": {
-        "model_name": "gemini-2.5-flash-lite",
+        "model_name": "gemini-3.1-flash-lite",
         "config": "configs/gemini_batch2_experiment.yaml",
         "sources": {
             "FLD": [
-                "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-                "results/ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json",
+                "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+                "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json",
             ],
             "FOLIO": [
-                "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-                "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
+                "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+                "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
             ],
         },
     },
@@ -82,7 +85,11 @@ MODELS = {
 
 DATASETS = ("FLD", "FOLIO")
 POSITIONS = ("A", "B", "C")
+#: Position identifiers. They index the slot the abstain verb occupies and
+#: are used in file names and the CLI; the prompt shows verbs, not letters.
 LETTERS = ("A", "B", "C")
+SLOT_OF = {"A": 1, "B": 2, "C": 3}
+_EVALUATOR = Evaluator()
 OUT_DIR = ROOT / "results/positional_bias"
 # Full canonical 500-sample runs (250 True + 250 False) go to a separate dir so
 # the existing 200-sample A/B summaries stay intact.
@@ -139,8 +146,6 @@ def unified_scheme(dataset: str):
             r"\bCANNOT\s+(?:BE\s+)?DETERMIN",
             r"\bINSUFFICIENT\b",
         ),
-        pos_patterns_weak=(),
-        neg_patterns_weak=(),
     )
 
 
@@ -149,161 +154,36 @@ EDGE_RE = re.compile(r"^[\s\*\(\[\"']+|[\s\*\.\)\]\:;,—–\-\"']+$")
 
 
 def build_position_prompt(scheme, claim: str, context: str, unknown_position: str):
-    """Build a letter-coded ternary prompt with the abstain option at A/B/C."""
-    option_by_letter = position_mapping(scheme, unknown_position)
-    ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
-    options_block = "\n".join(
-        f"{letter}. {option_by_letter[letter]}" for letter in LETTERS
-    )
-    body = (
-        f"{scheme.task_instruction_ternary}\n"
-        f"{ctx_block}"
-        f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Options:\n{options_block}"
-    )
-    suffix = (
-        f"\n\nNote: Select \"{unknown_position}. {scheme.abstain_verb}\" ONLY if the "
-        "relationship is genuinely\n"
-        "undeterminable given the available information. Do NOT select it simply because\n"
-        "you feel uncertain — choose it only when no answer can be determined from the\n"
-        "given context."
-    )
-    cot_instr = (
-        "\n\nFormat your response exactly as:\n"
-        "Reasoning: <your step-by-step reasoning>\n"
-        "Final answer: <letter>"
-    )
-    return [{"role": "user", "content": body + suffix + cot_instr}]
+    """The S2 TFQ prompt with the abstain verb moved to the requested slot."""
+    return build_judge_s11_position_prompt(
+        scheme, claim, context, abstain_slot=SLOT_OF[unknown_position])
 
 
-def position_mapping(scheme, unknown_position: str) -> Dict[str, str]:
-    """Return displayed option text by letter for one unknown position.
-
-    POS/NEG keep their relative order around the inserted abstain option:
-        A: Unknown, POS, NEG
-        B: POS, Unknown, NEG
-        C: POS, NEG, Unknown
-    """
-    if unknown_position == "A":
-        labels = [scheme.abstain_verb, scheme.pos_verb, scheme.neg_verb]
-    elif unknown_position == "B":
-        labels = [scheme.pos_verb, scheme.abstain_verb, scheme.neg_verb]
-    elif unknown_position == "C":
-        labels = [scheme.pos_verb, scheme.neg_verb, scheme.abstain_verb]
-    else:
-        raise ValueError(f"unknown_position must be one of A/B/C, got {unknown_position!r}")
-    return dict(zip(LETTERS, labels))
+def verb_order_for(scheme, unknown_position: str) -> List[str]:
+    """The three verbs as the prompt lists them, in slot order."""
+    return judge_verb_order(scheme, SLOT_OF[unknown_position])
 
 
-def canonical_by_letter(scheme, unknown_position: str) -> Dict[str, str]:
-    mapping = position_mapping(scheme, unknown_position)
-    out = {}
-    for letter, text in mapping.items():
-        if text == scheme.pos_verb:
-            out[letter] = "A"
-        elif text == scheme.neg_verb:
-            out[letter] = "B"
-        elif text == scheme.abstain_verb:
-            out[letter] = "UNKNOWN"
-        else:
-            raise AssertionError((letter, text))
-    return out
-
-
-def _strict_normalize(text: str) -> str:
-    if not isinstance(text, str):
-        return ""
-    return EDGE_RE.sub("", text.strip()).upper()
-
-
-def _extract_final_answer_line(text: str) -> str:
-    if not isinstance(text, str):
-        return ""
-    m = FINAL_ANSWER_RE.search(text)
-    return m.group(1).strip() if m else ""
-
-
-def _parse_letter(text: str, valid: str = "ABC"):
-    if not isinstance(text, str) or not text.strip():
+def slot_of_prediction(scheme, unknown_position: str, pred: str):
+    """Which slot (A/B/C) the predicted verb occupied, or None."""
+    target = {"A": scheme.pos_verb, "B": scheme.neg_verb,
+              "UNKNOWN": scheme.abstain_verb}.get(pred)
+    if target is None:
         return None
-    upper = text.strip().upper()
-    m = re.match(rf"^\(?\s*([{valid}])\s*[\.\):,\s]", upper)
-    if m:
-        return m.group(1)
-    m = re.match(rf"^\(?\s*([{valid}])\s*\)?$", upper)
-    if m:
-        return m.group(1)
-    m = re.search(rf"ANSWER\s*(?:IS|:|=)?\s*\(?\s*([{valid}])\b", upper)
-    if m:
-        return m.group(1)
-    m = re.search(rf"\b([{valid}])\b", upper)
-    if m:
-        return m.group(1)
-    return None
+    order = verb_order_for(scheme, unknown_position)
+    return LETTERS[order.index(target)]
 
 
 def parse_position_output(text: str, scheme, unknown_position: str) -> Tuple[str, str, str]:
-    """Parse to (canonical_pred, raw_letter, tier).
+    """Parse to (canonical_pred, slot, tier) with the same parser as S1/S2.
 
-    canonical_pred is in {"A", "B", "UNKNOWN", "UNPARSEABLE"}, where A/B mean
-    POS/NEG in the unified Judge label space. raw_letter records the displayed
-    option letter chosen by the model when available.
+    canonical_pred is in {"A", "B", "UNKNOWN", "UNPARSEABLE"} where A/B mean
+    POS/NEG, so downstream readers are unchanged. Using
+    :meth:`Evaluator.parse_judge_tiered` keeps this condition scored exactly
+    like the S2 cell it is being compared against.
     """
-    letter_to_canonical = canonical_by_letter(scheme, unknown_position)
-    norm = _strict_normalize(text)
-
-    if norm in letter_to_canonical:
-        return letter_to_canonical[norm], norm, "strict_letter"
-    if norm == scheme.abstain_verb.upper() or norm == "UNKNOWN":
-        return "UNKNOWN", unknown_position, "strict_label"
-    if norm == scheme.pos_verb.upper():
-        raw = _letter_for_canonical(letter_to_canonical, "A")
-        return "A", raw, "strict_label"
-    if norm == scheme.neg_verb.upper():
-        raw = _letter_for_canonical(letter_to_canonical, "B")
-        return "B", raw, "strict_label"
-
-    final_line = _extract_final_answer_line(text)
-    if final_line:
-        pred, raw, tier = _parse_target(final_line, scheme, letter_to_canonical)
-        if pred != "UNPARSEABLE":
-            return pred, raw, "final_" + tier
-
-    pred, raw, tier = _parse_target(text, scheme, letter_to_canonical)
-    if pred != "UNPARSEABLE":
-        return pred, raw, "global_" + tier
-    return "UNPARSEABLE", None, "unparseable"
-
-
-def _letter_for_canonical(letter_to_canonical: Dict[str, str], target: str):
-    for letter, canonical in letter_to_canonical.items():
-        if canonical == target:
-            return letter
-    return None
-
-
-def _parse_target(text: str, scheme, letter_to_canonical: Dict[str, str]):
-    """Parse one text span. Prefer explicit option labels, then letters."""
-    if not isinstance(text, str) or not text.strip():
-        return "UNPARSEABLE", None, "unparseable"
-
-    # Explicit option labels in the answer span. This handles outputs like
-    # "Final answer: Unknown" when Unknown is not at C.
-    if re.search(rf"\b{re.escape(scheme.abstain_verb)}\b", text, re.IGNORECASE):
-        return "UNKNOWN", _letter_for_canonical(letter_to_canonical, "UNKNOWN"), "label"
-    if scheme.abstain_verb.lower() != "unknown" and re.search(
-        r"\bunknown\b", text, re.IGNORECASE
-    ):
-        return "UNKNOWN", _letter_for_canonical(letter_to_canonical, "UNKNOWN"), "label"
-    if re.search(rf"\b{re.escape(scheme.neg_verb)}\b", text, re.IGNORECASE):
-        return "B", _letter_for_canonical(letter_to_canonical, "B"), "label"
-    if re.search(rf"\b{re.escape(scheme.pos_verb)}\b", text, re.IGNORECASE):
-        return "A", _letter_for_canonical(letter_to_canonical, "A"), "label"
-
-    letter = _parse_letter(text, "ABC")
-    if letter:
-        return letter_to_canonical[letter], letter, "letter"
-    return "UNPARSEABLE", None, "unparseable"
+    pred, tier = _EVALUATOR.parse_judge_tiered(text, scheme, with_unknown=True)
+    return pred, slot_of_prediction(scheme, unknown_position, pred), tier
 
 
 def load_sample_ids(paths: Iterable[str], limit: int):
@@ -431,7 +311,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
 
     parsed = [parse_position_output(r, scheme, unknown_position) for r in raw]
     preds_all = [p[0] for p in parsed]
-    raw_letters = [p[1] for p in parsed]
+    raw_slots = [p[1] for p in parsed]
     tiers = [p[2] for p in parsed]
 
     # Excluded = samples the endpoint refused (content-filter 400 / empty). The
@@ -470,8 +350,8 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     if high_unparse:
         print(f"  [WARN] {model_key}/{dataset}/U={unknown_position}: high UNPARSEABLE "
               f"rate {unparseable}/{n_valid} ({unparse_rate:.1%}) — check label/parser sync; INCOMPLETE.")
-    raw_letter_counts = {
-        letter: raw_letters.count(letter) for letter in ("A", "B", "C", None)
+    raw_slot_counts = {
+        slot: raw_slots.count(slot) for slot in ("A", "B", "C", None)
     }
     tier_counts = {tier: tiers.count(tier) for tier in sorted(set(tiers))}
 
@@ -482,8 +362,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         "dataset": dataset,
         "unknown_position": unknown_position,
         "unified_labels": unified_labels,
-        "option_mapping": position_mapping(scheme, unknown_position),
-        "canonical_by_letter": canonical_by_letter(scheme, unknown_position),
+        "verb_order": verb_order_for(scheme, unknown_position),
         "n": len(samples),
         "n_valid": n_valid,
         "excluded": n - n_valid,
@@ -497,7 +376,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         "response_count": response_count,
         "unparseable": unparseable,
         "metrics": metrics,
-        "raw_letter_counts": raw_letter_counts,
+        "raw_slot_counts": raw_slot_counts,
         "tier_counts": tier_counts,
         "source_summaries": (
             [str(FULL_DATASET_PATHS[dataset].relative_to(ROOT))]
@@ -510,7 +389,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
                 "answer_idx": samples[i].answer_idx,
                 "pred": preds_all[i],
                 "excluded": not valid_mask[i],
-                "raw_letter": raw_letters[i],
+                "raw_slot": raw_slots[i],
                 "tier": tiers[i],
                 "raw": raw[i],
             }

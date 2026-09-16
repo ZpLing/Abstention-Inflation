@@ -47,7 +47,7 @@ from core.prompts import (build_judge_s1_letter_prompt,
 
 # The positional-bias runner owns the letter-space parser, the retry loop and
 # the completion gate; import it by path rather than duplicating ~150 lines.
-_PB_PATH = _REPO / "experiments/appendix/unreported_controls/run_positional_bias.py"
+_PB_PATH = _REPO / "experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py"
 _spec = importlib.util.spec_from_file_location("_pb", _PB_PATH)
 _pb = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_pb)
@@ -113,13 +113,84 @@ DATASETS = ("FLD", "FOLIO")
 # api_key / base_url come from the repo-root `config` via load_config.
 MODELS = {
     "nano":     "gpt-5.4-nano",
-    "gemini":   "gemini-2.5-flash-lite",
+    "gemini":   "gemini-3.1-flash-lite",
     "deepseek": "deepseek-r1-distill-llama-8b",
 }
 
 # S3 renders the abstain option at C (A = pos verb, B = neg verb), which is
 # exactly the positional-bias parser's "C" layout.
 S3_POSITION = "C"
+
+# ---------------------------------------------------------------------------
+# Letter machinery. S3 is the condition that re-renders a TFQ item MCQ-style,
+# so the letter<->label mapping lives here. S11 (run_positional_bias.py) moved
+# to reordering the verbs of the native TFQ prompt and no longer owns these.
+# ---------------------------------------------------------------------------
+
+_S3_LETTERS = ("A", "B", "C")
+
+
+def s3_option_mapping(scheme, unknown_position: str = S3_POSITION):
+    """Displayed option text by letter, with the abstain verb at ``unknown_position``."""
+    if unknown_position == "A":
+        labels = [scheme.abstain_verb, scheme.pos_verb, scheme.neg_verb]
+    elif unknown_position == "B":
+        labels = [scheme.pos_verb, scheme.abstain_verb, scheme.neg_verb]
+    elif unknown_position == "C":
+        labels = [scheme.pos_verb, scheme.neg_verb, scheme.abstain_verb]
+    else:
+        raise ValueError(f"unknown_position must be A/B/C, got {unknown_position!r}")
+    return dict(zip(_S3_LETTERS, labels))
+
+
+def s3_canonical_by_letter(scheme, unknown_position: str = S3_POSITION):
+    """Letter -> canonical label ("A" POS / "B" NEG / "UNKNOWN")."""
+    out = {}
+    for letter, text in s3_option_mapping(scheme, unknown_position).items():
+        if text == scheme.pos_verb:
+            out[letter] = "A"
+        elif text == scheme.neg_verb:
+            out[letter] = "B"
+        else:
+            out[letter] = "UNKNOWN"
+    return out
+
+
+_S3_FINAL_ANSWER_RE = re.compile(r"(?im)^\s*(?:final\s*answer|answer)\s*[:\-=]\s*(.+)$")
+_S3_EDGE_RE = re.compile(r"^[\s\*\(\[\"\']+|[\s\*\.\)\]\:;,\u2014\u2013\-\"\']+$")
+
+
+def s3_parse_letter_output(text, scheme, unknown_position: str = S3_POSITION):
+    """Parse a letter-coded S3 reply to (canonical_pred, letter, tier)."""
+    letter_to_canonical = s3_canonical_by_letter(scheme, unknown_position)
+    if not isinstance(text, str) or not text.strip():
+        return "UNPARSEABLE", None, "unparseable"
+    norm = _S3_EDGE_RE.sub("", text.strip()).upper()
+    if norm in letter_to_canonical:
+        return letter_to_canonical[norm], norm, "strict_letter"
+    for verb, canonical in ((scheme.abstain_verb, "UNKNOWN"),
+                            (scheme.pos_verb, "A"), (scheme.neg_verb, "B")):
+        if norm == verb.upper():
+            letter = next(l for l, c in letter_to_canonical.items() if c == canonical)
+            return canonical, letter, "strict_label"
+    m = _S3_FINAL_ANSWER_RE.search(text)
+    spans = [(m.group(1).strip(), "final")] if m else []
+    spans.append((text, "global"))
+    for span, prefix in spans:
+        if not span:
+            continue
+        for verb, canonical in ((scheme.abstain_verb, "UNKNOWN"),
+                                (scheme.neg_verb, "B"), (scheme.pos_verb, "A")):
+            if re.search(rf"\b{re.escape(verb)}\b", span, re.IGNORECASE):
+                letter = next(l for l, c in letter_to_canonical.items() if c == canonical)
+                return canonical, letter, prefix + "_label"
+        lm = re.search(r"\b([ABC])\b", span.upper())
+        if lm:
+            letter = lm.group(1)
+            return letter_to_canonical[letter], letter, prefix + "_letter"
+    return "UNPARSEABLE", None, "unparseable"
+
+
 
 # The S3 column needs its own baseline: the same letter rendering with the
 # abstain option absent. Both live here so a column is always one batch, one
@@ -181,8 +252,8 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     empty_responses = sum(1 for r in raw if isinstance(r, str) and not r.strip())
     invalid_responses = sum(1 for r in raw if _pb._is_invalid(r))
 
-    letter_to_canonical = _pb.canonical_by_letter(scheme, S3_POSITION)
-    fallback = [_pb.parse_position_output(r, scheme, S3_POSITION) for r in raw]
+    letter_to_canonical = s3_canonical_by_letter(scheme, S3_POSITION)
+    fallback = [s3_parse_letter_output(r, scheme, S3_POSITION) for r in raw]
     preds_all, raw_letters, tiers = [], [], []
     n_tail, n_fallback, n_rejected = 0, 0, 0
     for r, (fb_pred, fb_letter, fb_tier) in zip(raw, fallback):
@@ -242,8 +313,8 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         "model": model_name,
         "dataset": dataset,
         "unknown_position": S3_POSITION,
-        "option_mapping": _pb.position_mapping(scheme, S3_POSITION),
-        "canonical_by_letter": _pb.canonical_by_letter(scheme, S3_POSITION),
+        "option_mapping": s3_option_mapping(scheme, S3_POSITION),
+        "canonical_by_letter": s3_canonical_by_letter(scheme, S3_POSITION),
         "n": n,
         "n_valid": n_valid,
         "excluded": n - n_valid,

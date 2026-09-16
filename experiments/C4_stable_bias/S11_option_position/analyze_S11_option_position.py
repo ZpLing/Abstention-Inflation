@@ -1,4 +1,4 @@
-"""Aggregate results from scripts/run_positional_bias.py."""
+"""Aggregate the S11 option-position cells written by run_S11_option_position.py."""
 import argparse
 import json
 import sys
@@ -14,7 +14,7 @@ RESULT_DIR = ROOT / "results/positional_bias"
 
 MODELS = [
     ("nano", "gpt-5.4-nano"),
-    ("gemini", "gemini-2.5-flash-lite"),
+    ("gemini", "gemini-3.1-flash-lite"),
     ("deepseek", "deepseek-r1-distill-llama-8b"),
 ]
 DATASETS = ["FLD", "FOLIO"]
@@ -30,12 +30,12 @@ C_FALLBACK_SOURCES = {
         "results/ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json",
     ],
     ("gemini", "FLD"): [
-        "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json",
+        "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
+        "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json",
     ],
     ("gemini", "FOLIO"): [
-        "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json",
+        "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
+        "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
     ],
     # DeepSeek's original FLD batch1 did not include pred_s5; ab_s5 fills that
     # exact first-batch sample set, and ab_deepseek_batch2 fills the second.
@@ -75,13 +75,15 @@ def load_c_fallback(model_key: str, model_name: str, dataset: str):
                 continue
             seen.add(sid)
             pred = row["pred_s5"]
-            raw_letter = "C" if pred == "UNKNOWN" else pred if pred in ("A", "B") else None
+            # Slot the chosen verb occupied. This synthetic cell reuses the S2
+            # ordering (True | False | Unknown), so abstention sits in slot C.
+            raw_slot = "C" if pred == "UNKNOWN" else pred if pred in ("A", "B") else None
             per_sample.append({
                 "id": sid,
                 "source": row.get("source", dataset),
                 "answer_idx": row["answer_idx"],
                 "pred": pred,
-                "raw_letter": raw_letter,
+                "raw_slot": raw_slot,
                 "tier": "fallback_s5",
                 "raw": row.get("raw_s5", ""),
             })
@@ -89,7 +91,7 @@ def load_c_fallback(model_key: str, model_name: str, dataset: str):
         return None
     preds = [r["pred"] for r in per_sample]
     answer_idxs = [r["answer_idx"] for r in per_sample]
-    raw_letters = [r["raw_letter"] for r in per_sample]
+    raw_slots = [r["raw_slot"] for r in per_sample]
     metrics = {
         "n": len(per_sample),
         "label_acc": label_acc(preds, answer_idxs),
@@ -110,11 +112,11 @@ def load_c_fallback(model_key: str, model_name: str, dataset: str):
         "unknown_position": "C",
         "n": len(per_sample),
         "metrics": metrics,
-        "raw_letter_counts": {
-            "A": raw_letters.count("A"),
-            "B": raw_letters.count("B"),
-            "C": raw_letters.count("C"),
-            "null": raw_letters.count(None),
+        "raw_slot_counts": {
+            "A": raw_slots.count("A"),
+            "B": raw_slots.count("B"),
+            "C": raw_slots.count("C"),
+            "null": raw_slots.count(None),
         },
         "source_summaries": paths,
         "per_sample": per_sample,
@@ -199,7 +201,7 @@ def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=N
         "*Model ids are the exact strings sent to the API. If the paper uses "
         "different display names (e.g. \"DeepSeek-R1\", \"Gemini-3.1-Flash-"
         "Lite\"), map them deliberately — do not assume `deepseek-r1-distill-"
-        "llama-8b` or `gemini-2.5-flash-lite` equal those names.*",
+        "llama-8b` or `gemini-3.1-flash-lite` equal those names.*",
     ]
     if any(pos_means[p] for p in POSITIONS):
         lines += [
@@ -368,7 +370,7 @@ def main():
                 loaded[pos] = summary
                 summaries[(model_key, ds, pos)] = summary
                 m = summary["metrics"]
-                raw_counts = summary["raw_letter_counts"]
+                raw_counts = summary["raw_slot_counts"]
                 counts = m["counts"]
                 print(
                     f"{model_key:<10} {ds:<6} {pos:<3} {summary['n']:>4d} "
@@ -388,7 +390,7 @@ def main():
                     "label_acc": m["label_acc"],
                     "label_f1": m["label_f1"],
                     "counts": counts,
-                    "raw_letter_counts": raw_counts,
+                    "raw_slot_counts": raw_counts,
                 })
 
             if len(loaded) >= 2:

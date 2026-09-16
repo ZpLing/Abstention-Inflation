@@ -5,7 +5,7 @@ unified S2 run (same 500 samples, same unified True/False labels, same letter
 format, minus the Unknown option) gives a clean Acc(S1) vs Acc(S2) contrast and
 the headline accuracy drop ΔAcc from adding an Unknown option.
 
-Reuses the hardened machinery of scripts/run_positional_bias.py: content-filter
+Reuses the hardened machinery of the S11 positional runner: content-filter
 exclusion (refused samples dropped from the denominator, not miscounted), retry
 on transient failures, and a completion flag that only certifies clean cells.
 
@@ -22,22 +22,26 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from core.config_loader import load_config
+from core.evaluator import Evaluator
+from core.prompts import build_judge_s1_prompt
 from core.llm_handler import LLMHandler
 from core.metrics import label_acc
 
 # Import helpers from the positional runner (load_full_dataset, unified_scheme,
 # _is_invalid, and the parse helpers) so S1 and S2 share identical plumbing.
-_spec = importlib.util.spec_from_file_location("rpb", ROOT / "scripts/run_positional_bias.py")
+_spec = importlib.util.spec_from_file_location(
+    "rpb", ROOT / "experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py")
 rpb = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(rpb)
+rpb.ROOT = ROOT
 
 MODELS = {
     "nano": ("gpt-5.4-nano", "configs/nano_batch2_experiment.yaml"),
-    "gemini": ("gemini-2.5-flash-lite", "configs/gemini_batch2_experiment.yaml"),
+    "gemini": ("gemini-3.1-flash-lite", "configs/gemini_batch2_experiment.yaml"),
     "deepseek": ("deepseek-r1-distill-llama-8b", "configs/deepseek_batch2_experiment.yaml"),
 }
 DATASETS = ("FLD", "FOLIO")
@@ -49,46 +53,28 @@ _ABSTAIN_RE = re.compile(
 )
 
 
+_EVALUATOR = Evaluator()
+
+
 def build_binary_prompt(scheme, claim, context):
-    """S1 prompt: A. <pos> / B. <neg>, no abstain option, same format as S2."""
-    ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
-    body = (
-        f"{scheme.task_instruction_binary}\n"
-        f"{ctx_block}"
-        f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Options:\nA. {scheme.pos_verb}\nB. {scheme.neg_verb}"
-    )
-    cot_instr = (
-        "\n\nFormat your response exactly as:\n"
-        "Reasoning: <your step-by-step reasoning>\n"
-        "Final answer: <letter>"
-    )
-    return [{"role": "user", "content": body + cot_instr}]
+    """S1 prompt — the paper's native TFQ baseline, verbatim.
+
+    S1 and S2 differ by the abstain option alone, so this is
+    :func:`core.prompts.build_judge_s1_prompt`, the same builder the main runs
+    use, rather than a letter-coded re-rendering of it.
+    """
+    return build_judge_s1_prompt(scheme, claim, context)
 
 
 def parse_binary(text, scheme):
-    """Map an S1 response to A (POS) / B (NEG) / UNKNOWN (off-instruction abstain)
-    / UNPARSEABLE. A/B use the same canonical space as S2 (A→answer_idx 0)."""
-    norm = rpb._strict_normalize(text)
-    if norm == "A" or norm == scheme.pos_verb.upper():
-        return "A"
-    if norm == "B" or norm == scheme.neg_verb.upper():
-        return "B"
-    if norm in ("UNKNOWN", "UNCERTAIN") or norm == scheme.abstain_verb.upper():
-        return "UNKNOWN"
-    for span in (rpb._extract_final_answer_line(text), text):
-        if not span:
-            continue
-        if _ABSTAIN_RE.search(span):
-            return "UNKNOWN"
-        if re.search(rf"\b{re.escape(scheme.neg_verb)}\b", span, re.IGNORECASE):
-            return "B"
-        if re.search(rf"\b{re.escape(scheme.pos_verb)}\b", span, re.IGNORECASE):
-            return "A"
-        letter = rpb._parse_letter(span, "AB")
-        if letter:
-            return letter
-    return "UNPARSEABLE"
+    """Map an S1 reply to A (POS) / B (NEG) / UNKNOWN / UNPARSEABLE.
+
+    Shares :meth:`Evaluator.parse_judge_tiered` with S2 so the paired contrast
+    is not confounded by two different parsers. ``with_unknown=True`` keeps an
+    off-instruction abstention visible instead of silently unparseable.
+    """
+    pred, _tier = _EVALUATOR.parse_judge_tiered(text, scheme, with_unknown=True)
+    return pred
 
 
 async def run_cell(handler, model_key, model_name, dataset, sample_limit, max_retries):
