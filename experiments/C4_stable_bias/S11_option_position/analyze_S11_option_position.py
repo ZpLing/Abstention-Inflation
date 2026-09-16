@@ -4,13 +4,15 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from scipy.stats import binomtest
 from core.metrics import label_acc, label_macro_f1, judge_classes
 
-RESULT_DIR = ROOT / "results/positional_bias"
+#: The reported cells are the n=500 runs; `--result-dir` still reaches the
+#: earlier 200-sample sweep.
+RESULT_DIR = ROOT / "results/positional_bias_n500"
 
 MODELS = [
     ("nano", "gpt-5.4-nano"),
@@ -370,7 +372,10 @@ def main():
                 loaded[pos] = summary
                 summaries[(model_key, ds, pos)] = summary
                 m = summary["metrics"]
-                raw_counts = summary["raw_slot_counts"]
+                # Summaries written before the slot rename carry the same
+                # counts under the old key.
+                raw_counts = (summary.get("raw_slot_counts")
+                              or summary.get("raw_letter_counts", {}))
                 counts = m["counts"]
                 print(
                     f"{model_key:<10} {ds:<6} {pos:<3} {summary['n']:>4d} "
