@@ -1,6 +1,6 @@
 """Wording sweep — GPT-nano + Gemini (DeepSeek W2-W5 already done).
 
-Runs W2-W5 × {FLD, FOLIO} × 200 samples for each model.
+Runs W2-W5 × {FLD, FOLIO} × the full 500 samples for each model.
 Skips cells where output file already exists.
 
 Output: results/wording_sweep/summary_{W}_{DS}_{MODEL}.json
@@ -31,22 +31,26 @@ DATASETS = ["FLD", "FOLIO"]
 MODELS = [
     {
         "name": "gpt-5.4-nano",
-        "config": "configs/car_mirror_nano.yaml",
+        "config": "configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml",
         "sources": {
-            "FLD":   ["ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
-                      "ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json"],
-            "FOLIO": ["ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
-                      "ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json"],
+            "FLD":   ["tfq_n500/nano/ab_summary_FLD_gpt-5.4-nano.json"],
+            "FOLIO": ["tfq_n500/nano/ab_summary_FOLIO_gpt-5.4-nano.json"],
         },
     },
     {
         "name": "gemini-3.1-flash-lite",
-        "config": "configs/car_mirror_gemini.yaml",
+        "config": "configs/C1_structural_trigger/TFQ_n500_Gemini_3_1_Flash_Lite.yaml",
         "sources": {
-            "FLD":   ["ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
-                      "ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"],
-            "FOLIO": ["ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
-                      "ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"],
+            "FLD":   ["tfq_n500/gemini31/ab_summary_FLD_gemini-3.1-flash-lite.json"],
+            "FOLIO": ["tfq_n500/gemini31/ab_summary_FOLIO_gemini-3.1-flash-lite.json"],
+        },
+    },
+    {
+        "name": "deepseek-v4-flash",
+        "config": "configs/C1_structural_trigger/TFQ_n500_DeepSeek_V4_Flash.yaml",
+        "sources": {
+            "FLD":   ["tfq_n500/dsv4flash/ab_summary_FLD_deepseek-v4-flash.json"],
+            "FOLIO": ["tfq_n500/dsv4flash/ab_summary_FOLIO_deepseek-v4-flash.json"],
         },
     },
 ]
@@ -110,6 +114,12 @@ def parse_output(text: str, scheme, abstain_text: str) -> Tuple[str, str]:
 
 # ── Sample loader ─────────────────────────────────────────────────────────────
 def load_sample_ids(sources: List[str]) -> List[str]:
+    """Ids of the S2 run this ablation re-words, in the order it stored them.
+
+    Every item is kept: S4 swaps one word of the prompt on the same 500 the
+    other settings report, and the 200 this used to cut to was the size of an
+    earlier sweep, not a property of the ablation.
+    """
     seen, ids = set(), []
     for rel in sources:
         path = ROOT / "results" / rel
@@ -121,7 +131,7 @@ def load_sample_ids(sources: List[str]) -> List[str]:
             if sid not in seen:
                 seen.add(sid)
                 ids.append(sid)
-    return ids[:200]
+    return ids
 
 
 # ── Cell runner ───────────────────────────────────────────────────────────────
@@ -174,13 +184,40 @@ async def main():
 
             for wording_id, abstain_text in WORDINGS:
                 out_path = OUT_DIR / f"summary_{wording_id}_{ds}_{model_name}.json"
+                # Top up rather than redo: an earlier sweep drew 200 of these
+                # same items, so only the ones it never queried are sent, and
+                # the stored rows are kept as they are.
+                done = {}
                 if out_path.exists():
-                    print(f"  [{wording_id}] {ds} — already exists, skipping")
+                    prev = json.loads(out_path.read_text())
+                    done = {r["id"]: r for r in prev.get("per_sample", [])}
+                todo = [s for s in samples if s.id not in done]
+                if not todo:
+                    print(f"  [{wording_id}] {ds} — complete ({len(done)}), skipping")
                     continue
+                if done:
+                    print(f"  [{wording_id}] {ds} — {len(done)} already stored, "
+                          f"querying the remaining {len(todo)}")
                 summary = await run_one_cell(
-                    handler, scheme, samples, abstain_text, wording_id, ds, model_name)
+                    handler, scheme, todo, abstain_text, wording_id, ds, model_name)
+                if done:
+                    order = {s.id: i for i, s in enumerate(samples)}
+                    merged = sorted(list(done.values()) + summary["per_sample"],
+                                    key=lambda r: order.get(r["id"], 1 << 30))
+                    preds = [r["pred"] for r in merged]
+                    tiers = [r.get("tier") for r in merged]
+                    n_unk = preds.count("UNKNOWN")
+                    summary["per_sample"] = merged
+                    summary["n"] = len(merged)
+                    summary["abs_rate"] = n_unk / len(preds) if preds else 0.0
+                    summary["counts"] = {"A": preds.count("A"), "B": preds.count("B"),
+                                         "UNKNOWN": n_unk,
+                                         "UNPARSEABLE": preds.count("UNPARSEABLE")}
+                    summary["tier_counts"] = {
+                        t: sum(x == t for x in tiers)
+                        for t in ("strict_em", "lenient_em", "lenient_global", "unparseable")}
                 out_path.write_text(json.dumps(summary, indent=2))
-                print(f"  saved → {out_path.name}")
+                print(f"  saved → {out_path.name} ({len(summary['per_sample'])} items)")
 
     print("\nAll done.")
 

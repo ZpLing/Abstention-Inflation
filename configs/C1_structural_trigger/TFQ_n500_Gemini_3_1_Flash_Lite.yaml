@@ -1,0 +1,20 @@
+# S1/S2/S3 + the S5 rerun on FLD and FOLIO at the paper's n=500.
+# The S1/S11/S3 runners collect the same conditions but never the S5 follow-up,
+# so this is what the C2 recovery numbers come from.
+experiment_name: "tfq_n500_gemini31"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  run_s5_rerun: true
+  results_dir: "results/tfq_n500/gemini31"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

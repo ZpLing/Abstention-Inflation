@@ -1,0 +1,17 @@
+# S9 truly-Unknown perception: S1/S2/S3 on the truly-Unknown subsets.
+# Both files hold 300 items, and all of them are used.
+experiment_name: "s9_truly_unknown_gemini31"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s9_truly_unknown']
+
+s9_truly_unknown:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  results_dir: "results/s9_truly_unknown/gemini31"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"
