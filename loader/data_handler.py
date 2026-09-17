@@ -1,7 +1,6 @@
 """Thin compatibility wrapper around :mod:`loader.dataset_loader`.
 
-Historical runners (``paired_pass``, the post-hoc mitigation runner, the model
-sweep, …) ask a ``DataHandler`` for samples via ``load_dataset(name)``. In
+Historical runners (``paired_pass``, the model sweep, …) ask a ``DataHandler`` for samples via ``load_dataset(name)``. In
 this paper-aligned package the entire dataset story is one unified loader, so
 the handler is just a small adaptor that:
 
@@ -19,7 +18,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from .dataset_loader import (
+from loader.dataset_loader import (
     DEFAULT_DATASET_ROOT,
     PAPER_DATASETS,
     Sample,

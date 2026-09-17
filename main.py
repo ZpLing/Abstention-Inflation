@@ -11,7 +11,6 @@ of the paper's settings (see the root README for the full paper↔code map):
     s6_self_diagnosis    S6 self-diagnosis follow-up (multi-turn)
     s9_truly_unknown     S9 perception on truly-Unknown samples
     s10_model_sweep      S10 alignment & model-size sweep (Gemma, Qwen)
-    appendix_mitigation  App. E post-hoc stimulation+reflection baseline
 
 Settings that are not driven from a YAML — S4 word content ablation, S7 trace
 evaluation, S8 logit-lens probe, S9 persistence, S10 temperature / difficulty —
@@ -42,7 +41,6 @@ LEGACY_TASK_ALIASES = {
     "supplementary_experiment": "s9_truly_unknown",
     "s5_supplementary": "s6_self_diagnosis",
     "exp2_model_sweep": "s10_model_sweep",
-    "exp4_mitigation": "appendix_mitigation",
 }
 
 
@@ -87,11 +85,6 @@ async def _dispatch(config: dict) -> None:
         print("\n===== S10 alignment & model-size sweep =====")
         from experiments.C4_stable_bias.S10_factor_analysis.run_S10_size_alignment import ModelSweepRunner
         await ModelSweepRunner(config, data_handler, llm_handler, evaluator).run()
-
-    if "appendix_mitigation" in tasks:
-        print("\n===== App. E post-hoc mitigation =====")
-        from experiments.appendix.Appendix_E_mitigation_runner import PostHocMitigationRunner
-        await PostHocMitigationRunner(config, data_handler, llm_handler, evaluator).run()
 
 
 def main() -> None:

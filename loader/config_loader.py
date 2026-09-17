@@ -11,7 +11,6 @@ BLOCK_ALIASES = {
     "s9_truly_unknown":    ("s9_truly_unknown", "supplementary_experiment"),
     "s10_model_sweep":     ("s10_model_sweep", "exp2_model_sweep"),
     "s10_difficulty":      ("s10_difficulty", "exp3_difficulty"),
-    "appendix_mitigation": ("appendix_mitigation", "exp4_mitigation"),
 }
 
 

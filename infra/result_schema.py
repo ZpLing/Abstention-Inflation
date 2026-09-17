@@ -12,14 +12,19 @@ legacy key              what it actually holds              canonical name
 ``pred_s1`` / ``S1``    baseline, no extra option           ``S1``
 ``pred_s2`` / ``S2``    "Unknown" option added              ``S2``
 ``pred_s5`` / ``S5``    TFQ re-rendered MCQ-style           ``S3``  (paper S3)
-``pred_s3`` / ``S3``    S2 + calibration suffix             ``calibration_suffix``
 ``pred_s4`` / ``S4``    forced rerun on abstaining samples  ``S5``  (paper S5)
 ======================  ==================================  ==================
 
 ``S1`` and ``S2`` are stable across both eras, so files written by the current
 code keep those key names. The two ambiguous settings get *new, unambiguous*
-key names (``*_s3_format``, ``*_calibration_suffix``, ``*_s5_rerun``) instead of
-being silently redefined, and new files carry ``"schema": SCHEMA_VERSION``.
+key names (``*_s3_format``, ``*_s5_rerun``) instead of being silently
+redefined, and new files carry ``"schema": SCHEMA_VERSION``.
+
+Pre-rename files also carried a ``pred_s3`` holding a mitigation variant that
+no paper setting uses. It is no longer translated, which also means S9's own
+``pred_s3`` -- its third, calibration-suffix condition on truly-Unknown
+samples -- survives a read intact instead of being renamed out from under the
+analysis.
 
 A second rename followed, unifying the code's vocabulary with the paper's
 (arXiv:2507.16199). The code had used ``AIR`` for two different things; the
@@ -70,14 +75,12 @@ CANONICAL_SAMPLE_KEYS: Dict[str, tuple] = {
     "S2": ("pred_s2", "raw_s2"),
     "S3": ("pred_s3_format", "raw_s3_format"),
     "S5": ("pred_s5_rerun", "raw_s5_rerun"),
-    "calibration_suffix": ("pred_calibration_suffix", "raw_calibration_suffix"),
 }
 
 #: legacy setting name -> canonical setting name.
 LEGACY_SETTING_MAP: Dict[str, str] = {
     "S1": "S1",
     "S2": "S2",
-    "S3": "calibration_suffix",
     "S4": "S5",
     "S5": "S3",
 }
@@ -86,7 +89,6 @@ LEGACY_SETTING_MAP: Dict[str, str] = {
 LEGACY_SAMPLE_KEY_MAP: Dict[str, str] = {
     "pred_s1": "pred_s1", "raw_s1": "raw_s1",
     "pred_s2": "pred_s2", "raw_s2": "raw_s2",
-    "pred_s3": "pred_calibration_suffix", "raw_s3": "raw_calibration_suffix",
     "pred_s4": "pred_s5_rerun", "raw_s4": "raw_s5_rerun",
     "pred_s5": "pred_s3_format", "raw_s5": "raw_s3_format",
 }

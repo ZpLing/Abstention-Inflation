@@ -15,9 +15,6 @@ S5    w/o "Unknown" Option Rerun      multi-turn follow-up on the abstaining
                                       samples, run when ``run_followups: true``
 ====  ==============================  ==========================================
 
-``calibration_suffix`` (App. E mitigation) is available as an opt-in extra
-setting; it is not one of the paper's ten settings and is off by default.
-
 S4 (Word Content Ablation), S6–S10 have their own entry points under
 ``experiments/``; see the root README for the full paper↔code map.
 
@@ -49,22 +46,12 @@ from experiments.C1_structural_trigger.S1_baseline import run_S1_baseline
 from experiments.C1_structural_trigger.S2_unknown_option_added import run_S2_unknown_option_added
 from experiments.C1_structural_trigger.S3_question_format_ablation import run_S3_question_format_ablation
 from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import run_S5_without_unknown_option_rerun
-#: App. E's calibration-suffix mitigation lives in ``experiments/appendix``,
-#: which is kept local rather than released, so its absence must not stop
-#: S1/S2/S3/S5 from importing this module.
-try:
-    from experiments.appendix import Appendix_E_calibration_suffix as calibration_suffix
-except ModuleNotFoundError:
-    calibration_suffix = None
-
 #: Each setting owns its prompt and whether the parser may see an abstention.
 SETTING_MODULES = {
     "S1": run_S1_baseline,
     "S2": run_S2_unknown_option_added,
     "S3": run_S3_question_format_ablation,
 }
-if calibration_suffix is not None:
-    SETTING_MODULES["calibration_suffix"] = calibration_suffix
 from infra.result_schema import SCHEMA_VERSION
 
 from loader.data_handler import DataHandler
@@ -75,7 +62,7 @@ from loader.config_loader import get_block
 
 
 #: Settings this runner knows how to build prompts for, in dispatch order.
-SINGLE_TURN_SETTINGS = ("S1", "S2", "S3", "calibration_suffix")
+SINGLE_TURN_SETTINGS = ("S1", "S2", "S3")
 
 #: Enabled unless a YAML overrides ``ab_experiment.settings``. S1+S2 are the
 #: paired baseline and are always run; S3 only applies to TFQ datasets.
@@ -303,12 +290,6 @@ class ABRunner:
         """Delegate to the setting that owns this prompt."""
         mod = SETTING_MODULES.get(setting)
         if mod is None:
-            if setting == "calibration_suffix":
-                raise ValueError(
-                    "Setting 'calibration_suffix' (App. E mitigation) needs "
-                    "experiments/appendix/, which is kept local and is not part "
-                    "of the released tree."
-                )
             raise ValueError(f"Setting {setting!r} has no prompt builder.")
         return mod.build_prompts(samples, task_type)
 
@@ -414,7 +395,6 @@ class ABRunner:
             "S1": ("pred_s1", "raw_s1"),
             "S2": ("pred_s2", "raw_s2"),
             "S3": ("pred_s3_format", "raw_s3_format"),
-            "calibration_suffix": ("pred_calibration_suffix", "raw_calibration_suffix"),
         }
         per_sample = []
         for i in range(len(samples)):
@@ -474,7 +454,7 @@ class ABRunner:
         path = self._summary_path(ds_name)
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
-        for setting in ["S1", "S2", "S3", "calibration_suffix"]:
+        for setting in ["S1", "S2", "S3"]:
             if setting not in m:
                 continue
             d = m[setting]

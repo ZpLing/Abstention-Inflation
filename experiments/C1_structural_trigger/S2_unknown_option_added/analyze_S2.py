@@ -120,12 +120,8 @@ def main():
     # 1. Per-dataset row: ΔAcc, Abs Rate, (model, dataset, task_type)
     # ----------------------------------------------------------------
     rows = []
-    mcq_pairs:    List[Tuple[bool, bool]] = []  # S1 vs S2
-    mcq_pairs_13: List[Tuple[bool, bool]] = []  # S1 vs S3
-    mcq_pairs_23: List[Tuple[bool, bool]] = []  # S2 vs S3
-    tf_pairs:     List[Tuple[bool, bool]] = []
-    tf_pairs_13:  List[Tuple[bool, bool]] = []
-    tf_pairs_23:  List[Tuple[bool, bool]] = []
+    mcq_pairs: List[Tuple[bool, bool]] = []  # S1 vs S2
+    tf_pairs:  List[Tuple[bool, bool]] = []
 
     for s in summaries:
         ds      = s.get("dataset", "?")
@@ -149,39 +145,26 @@ def main():
         # Per-sample pairs for all setting comparisons
         per_sample = s.get("per_sample", [])
         p12_here: List[Tuple[bool, bool]] = []  # S1 vs S2
-        p13_here: List[Tuple[bool, bool]] = []  # S1 vs S3
-        p23_here: List[Tuple[bool, bool]] = []  # S2 vs S3
         for ps in per_sample:
             ai = ps.get("answer_idx", -1)
             if ai < 0:
                 continue
             c1 = is_correct(ps.get("pred_s1", ""), ai)
             c2 = is_correct(ps.get("pred_s2", ""), ai)
-            c3 = is_correct(ps.get("pred_s3", ""), ai)
             p12_here.append((c1, c2))
-            p13_here.append((c1, c3))
-            p23_here.append((c2, c3))
 
         if tt == "mcq":
             mcq_pairs.extend(p12_here)
-            mcq_pairs_13.extend(p13_here)
-            mcq_pairs_23.extend(p23_here)
         elif tt == "tf":
             tf_pairs.extend(p12_here)
-            tf_pairs_13.extend(p13_here)
-            tf_pairs_23.extend(p23_here)
 
-        acc_s3 = metrics.get("S3", {}).get("label_acc", None)
         rows.append({
             "model":     model,
             "dataset":   ds,
             "task_type": tt,
             "acc_s1":    acc_s1,
             "acc_s2":    acc_s2,
-            "acc_s3":    acc_s3,
             "delta_s1s2": acc_s2 - acc_s1,
-            "delta_s1s3": (acc_s3 - acc_s1) if acc_s3 is not None else None,
-            "delta_s2s3": (acc_s3 - acc_s2) if acc_s3 is not None else None,
             "delta_acc":  delta_acc,
             "abs_rate":        abs_rate,
             "n":          n_total,
@@ -196,16 +179,13 @@ def main():
     # 2. Per-dataset table
     # ----------------------------------------------------------------
     print("=" * 100)
-    print(f"{'Model':<35} {'Dataset':<22} {'Type':<4} {'Acc_S1':>7} {'Acc_S2':>7} {'Acc_S3':>7} "
-          f"{'ΔS1→S2':>8} {'ΔS1→S3':>8} {'ΔS2→S3':>8} {'Abs Rate':>7} {'n':>5}")
+    print(f"{'Model':<35} {'Dataset':<22} {'Type':<4} {'Acc_S1':>7} {'Acc_S2':>7} "
+          f"{'ΔS1→S2':>8} {'Abs Rate':>7} {'n':>5}")
     print("-" * 100)
     for r in sorted(rows, key=lambda x: (x["task_type"], x["model"], x["dataset"])):
-        s3 = f"{r['acc_s3']:>7.1%}" if r['acc_s3'] is not None else "      —"
-        d13 = f"{r['delta_s1s3']:>+8.1%}" if r['delta_s1s3'] is not None else "       —"
-        d23 = f"{r['delta_s2s3']:>+8.1%}" if r['delta_s2s3'] is not None else "       —"
         print(f"{r['model']:<35} {r['dataset']:<22} {r['task_type']:<4} "
-              f"{r['acc_s1']:>7.1%} {r['acc_s2']:>7.1%} {s3} "
-              f"{r['delta_s1s2']:>+8.1%} {d13} {d23} "
+              f"{r['acc_s1']:>7.1%} {r['acc_s2']:>7.1%} "
+              f"{r['delta_s1s2']:>+8.1%} "
               f"{r['abs_rate']:>7.1%} {r['n']:>5d}")
 
     # ----------------------------------------------------------------
@@ -231,13 +211,11 @@ def main():
     print("(pooled across all model × dataset combinations within each type)")
     print("A→B means: does accuracy change from setting A to setting B?")
     print("-" * 70)
-    for type_label, p12, p13, p23 in [
-        ("MCQ",        mcq_pairs, mcq_pairs_13, mcq_pairs_23),
-        ("TF (Judge)", tf_pairs,  tf_pairs_13,  tf_pairs_23),
+    for type_label, p12 in [
+        ("MCQ",        mcq_pairs),
+        ("TF (Judge)", tf_pairs),
     ]:
         _mcnemar_block(type_label, "S1 → S2  (+Unknown option)", p12)
-        _mcnemar_block(type_label, "S1 → S3  (+Unknown +mitigation)", p13)
-        _mcnemar_block(type_label, "S2 → S3  (mitigation effect only)", p23)
 
     # ----------------------------------------------------------------
     # 4. Spearman & Pearson correlation: Abs Rate vs ΔAcc

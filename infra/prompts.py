@@ -36,8 +36,8 @@ S9/S10  reuse S2 verbatim             (only temperature / model vary)
 S5 and S6 are multi-turn: the prior S2 conversation is replayed verbatim, then
 a follow-up user turn is appended (App. I). Everything else is single-turn.
 
-Appendix-only builders (mitigation experiments of App. E and the unreported
-controls) live at the bottom of this file and are clearly marked as such.
+The unreported controls live at the bottom of this file and are clearly
+marked as such; no paper number depends on them.
 
 Critical invariant: the abstain option is appended at prompt-build time only.
 The on-disk dataset is never modified.
@@ -169,8 +169,7 @@ def build_mcq_s4_word_prompt(question: str, options: List[str],
     return [{"role": "user", "content": content}]
 
 
-# Stimulation core shared by the S5 rerun follow-up and the App. E mitigation
-# stages. Kept as one constant so the three prompts cannot drift apart.
+# Stimulation core used by the S5 rerun follow-up.
 _STIMULATION_CORE = (
     "Your previous answer was E. Unknown.\n"
     "The question where you chose Unknown — pay more attention and avoid mistakes.\n"
@@ -313,8 +312,8 @@ def build_judge_s3_format_prompt_calibrated(scheme, claim: str,
 
     Retained only so the superseded FLD_MCQ / FOLIO_MCQ numbers stay
     reproducible. The trailing note is a second manipulation layered on top of
-    the format change (it was authored as a variant of the App. E
-    calibration-suffix prompt) and therefore confounds the format ablation, so
+    the format change (it was authored as a variant of the calibration-suffix
+    prompt) and therefore confounds the format ablation, so
     :func:`build_judge_s3_format_prompt` is what S3 now uses.
     """
     suffix = (
@@ -455,38 +454,18 @@ def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
 
 
 # =================================================================
-# Appendix E — Post-hoc mitigation (NOT one of the paper's S1–S10)
+# S9 — the calibration-suffix condition
 #
-# Two families of intervention applied to Abstention Inflation samples:
-#   1. calibration suffix  — a single-turn prompt that keeps the "Unknown"
-#      option but explains when it should be used.
-#   2. stimulation + reflection — a two-stage multi-turn intervention.
-# Both are reported qualitatively in App. E ("Mitigation interventions and
-# failure modes"); neither contributes a number to the main table.
+# S9 asks the same truly-Unknown sample three ways: without the abstain
+# option (S1), with it (S2), and with it plus a suffix spelling out when it
+# should be chosen. The builder below is that third condition, which the
+# paper reports as S9's CAR_S3.
 # =================================================================
-
-
-def build_mcq_calibration_suffix_prompt(question: str,
-                                        options: List[str],
-                                        context: str = "") -> List[Dict[str, str]]:
-    """App. E — S2 plus a fixed suffix explaining when to select "Unknown" (MCQ)."""
-    content = (
-        "Answer the following question by selecting one of the given options.\n\n"
-        f"{_mcq_passage(context)}"
-        f"Question: {question}\n\n"
-        "Options:\n"
-        f"{_format_mcq_options(options, with_unknown=True)}\n\n"
-        "Note: Select \"Unknown\" ONLY if the question is genuinely unanswerable given the\n"
-        "available information. Do NOT select it simply because you feel uncertain — choose\n"
-        "it only when no correct answer can be determined from the given context.\n"
-        f"{_COT_INSTR_MCQ}"
-    )
-    return [{"role": "user", "content": content}]
 
 
 def build_judge_calibration_suffix_prompt(scheme, claim: str,
                                           context: str = "") -> List[Dict[str, str]]:
-    """App. E — S2 plus the same calibration suffix (TFQ)."""
+    """S9 third condition — S2 plus a suffix saying when to abstain (TFQ)."""
     verb_opts = _format_judge_options(scheme, with_unknown=True)
     body = _judge_body(scheme, claim, context, with_unknown=True)
     suffix = (
@@ -497,86 +476,6 @@ def build_judge_calibration_suffix_prompt(scheme, claim: str,
     )
     content = body + suffix + _cot_instr_judge(verb_opts)
     return [{"role": "user", "content": content}]
-
-
-def build_mcq_stage1_mitigation_prompt(prior_messages: List[Dict[str, str]],
-                                       prior_response: str,
-                                       n_options: int = 4) -> List[Dict[str, str]]:
-    """App. E Stage 1 (MCQ) — stimulation; "Unknown" is still allowed."""
-    letters = "ABCDEF"[: n_options + 1]
-    options_str = " / ".join(letters)
-    unknown_letter = letters[-1]
-    followup = (
-        f"{_STIMULATION_CORE}\n"
-        f"Re-examine and output one of: {options_str}.\n"
-        f"Only select {unknown_letter}. Unknown if the question is truly unanswerable."
-        f"{_COT_INSTR_MCQ}"
-    )
-    return list(prior_messages) + [
-        {"role": "assistant", "content": prior_response},
-        {"role": "user", "content": followup},
-    ]
-
-
-def build_judge_stage1_mitigation_prompt(prior_messages: List[Dict[str, str]],
-                                         prior_response: str,
-                                         scheme) -> List[Dict[str, str]]:
-    """App. E Stage 1 (TFQ)."""
-    verb_opts = f"{scheme.pos_verb} | {scheme.neg_verb} | {scheme.abstain_verb}"
-    followup = (
-        f"Your previous answer was {scheme.abstain_verb}.\n"
-        f"The question where you chose {scheme.abstain_verb} — pay more attention and avoid mistakes.\n"
-        "This can be reasoned out based on objective factors.\n"
-        "Subjective ability limits should be overcome.\n"
-        f"Re-examine and output one of: {verb_opts}.\n"
-        f"Only select {scheme.abstain_verb} if the question is truly unanswerable."
-        f"{_cot_instr_judge(verb_opts)}"
-    )
-    return list(prior_messages) + [
-        {"role": "assistant", "content": prior_response},
-        {"role": "user", "content": followup},
-    ]
-
-
-def build_mcq_stage2_reflection_prompt(stage1_messages: List[Dict[str, str]],
-                                       stage1_response: str,
-                                       n_options: int = 4) -> List[Dict[str, str]]:
-    """App. E Stage 2 (MCQ) — reflection over the Stage 1 reasoning."""
-    letters = "ABCDEF"[: n_options + 1]
-    options_str = " / ".join(letters)
-    unknown_letter = letters[-1]
-    followup = (
-        "Reflect on your reasoning above. Identify any gaps or oversights in your\n"
-        "analysis. The question can typically be answered by careful reasoning over\n"
-        "the given options — do not abstain merely because confidence is low.\n\n"
-        f"Now finalize your answer. Output one of: {options_str}.\n"
-        f"Only select {unknown_letter}. Unknown if the question is truly unanswerable."
-        f"{_COT_INSTR_MCQ}"
-    )
-    return list(stage1_messages) + [
-        {"role": "assistant", "content": stage1_response},
-        {"role": "user", "content": followup},
-    ]
-
-
-def build_judge_stage2_reflection_prompt(stage1_messages: List[Dict[str, str]],
-                                         stage1_response: str,
-                                         scheme) -> List[Dict[str, str]]:
-    """App. E Stage 2 (TFQ)."""
-    verb_opts = f"{scheme.pos_verb} | {scheme.neg_verb} | {scheme.abstain_verb}"
-    followup = (
-        "Reflect on your reasoning above. Identify any gaps or oversights in your\n"
-        "analysis. The relationship can typically be determined by careful reasoning\n"
-        f"over the given context — do not abstain to {scheme.abstain_verb} merely\n"
-        "because confidence is low.\n\n"
-        f"Now finalize your answer. Output one of: {verb_opts}.\n"
-        f"Only select {scheme.abstain_verb} if the question is truly unanswerable."
-        f"{_cot_instr_judge(verb_opts)}"
-    )
-    return list(stage1_messages) + [
-        {"role": "assistant", "content": stage1_response},
-        {"role": "user", "content": followup},
-    ]
 
 
 # =================================================================
