@@ -70,7 +70,7 @@ async def _dispatch(config: dict) -> None:
 
     if "main_experiment" in tasks:
         print("\n===== S1 / S2 / S3 + S5 rerun =====")
-        from experiments.C1_structural_trigger.ab_runner import ABRunner
+        from infra.paired_pass import ABRunner
         await ABRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s9_truly_unknown" in tasks:

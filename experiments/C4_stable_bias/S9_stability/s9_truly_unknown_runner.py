@@ -34,7 +34,7 @@ Output: results/supplementary/supp_summary_<dataset>_<model>.json
 
 Parsing parity with ABRunner
 ----------------------------
-Mirrors `core.ab_runner.ABRunner`:
+Mirrors `core.paired_pass.ABRunner`:
     * `Evaluator.parse_judge_tiered` (not the legacy single-return parser)
     * Summary records `tier_counts` so a reader
       can audit how many predictions came from strict / lenient EM vs the
@@ -157,7 +157,7 @@ class TrulyUnknownRunner:
         self._save(ds_name, summary)
 
     # =================================================================
-    # Output parsing — deterministic tiers (parity with core.ab_runner.ABRunner)
+    # Output parsing — deterministic tiers (parity with core.paired_pass.ABRunner)
     # =================================================================
     async def _parse_batch(self, raw_outputs, samples, scheme, *,
                             with_unknown, label: str = ""):

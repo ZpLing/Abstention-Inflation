@@ -34,7 +34,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from experiments.C1_structural_trigger.ab_runner import ABRunner
+from infra.paired_pass import ABRunner
 from infra.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler

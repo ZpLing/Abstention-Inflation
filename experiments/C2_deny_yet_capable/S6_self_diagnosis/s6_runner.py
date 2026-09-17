@@ -22,7 +22,7 @@ ABRunner output. So running S5 is cheap (~|Abs Rate| extra calls per dataset).
 
 Parsing parity with ABRunner
 ----------------------------
-Mirrors `core.ab_runner.ABRunner`:
+Mirrors `core.paired_pass.ABRunner`:
     * `Evaluator.parse_ab_tiered` (returns `(pred, tier)`).
     * Optional LLM-as-Judge fallback for unparseable A/B replies. The judge
       is the same deterministic parser
@@ -156,7 +156,7 @@ class S6SelfDiagnosisRunner:
         summary = json.loads(in_path.read_text())
         task_type = summary["task_type"]
 
-        # Load samples in same order as ab_runner produced.
+        # Load samples in same order as paired_pass produced.
         samples_all = self.data_handler.load_dataset(ds_name)
         samples_all = [s for s in samples_all if s.answer_idx >= 0]
         id_to_sample = {s.id: s for s in samples_all}
@@ -260,7 +260,7 @@ class S6SelfDiagnosisRunner:
         print(f"  [Buckets] {buckets}")
 
     # =================================================================
-    # A/B parsing — deterministic tiers (parity with core.ab_runner.ABRunner)
+    # A/B parsing — deterministic tiers (parity with core.paired_pass.ABRunner)
     # =================================================================
     async def _parse_ab_batch(self, raw_outputs, *, label: str = ""):
         results = [self.evaluator.parse_ab_tiered(r) for r in raw_outputs]

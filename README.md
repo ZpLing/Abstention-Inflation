@@ -6,7 +6,6 @@
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776ab">
 </p>
 
-<p align="center"><b>Accepted to the EMNLP 2026 Main Conference.</b></p>
 
 Adding an "Unknown" option to a True/False question makes a model abstain on
 questions it can answer. We call this **Abstention Inflation** and show it is a
@@ -17,7 +16,7 @@ costs **19.8 accuracy points** and pushes abstention to **34.5%**. The same
 manipulation on 4-option MCQs, over the same models and the same 500-item
 scale, costs **1.2 points**.
 
-| Format | Items | Acc without the option | Acc with it | Abs Rate |
+| Format | Items | Acc without “Unknown” option | Acc with "Unknown" Option | Abs Rate |
 | --- | ---: | ---: | ---: | ---: |
 | TFQ (FLD, FOLIO) | 3,000 | 79.4% | **59.5%** | **34.5%** |
 | MCQ (ARC, MedQA, MMLU, LogiQA) | 6,000 | 84.5% | 83.3% | 2.3% |
@@ -55,13 +54,12 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S1_vs_S
 ```
 .
 ├── main.py                       dispatcher; --config selects the runner
-├── infra/                        prompts, parser, metrics, dataset and config
-│                                 loaders. Nothing setting-specific.
-├── runners/                      the runners main.py dispatches; ab_runner
-│                                 alone collects S1, S2, S3 and the S5 rerun
+├── infra/                        prompts, parser, metrics, loaders, and
+│                                 paired_pass, which runs S1/S2/S3/S5 over one
+│                                 sample list so their contrast stays per item
 ├── experiments/
 │   ├── C1_structural_trigger/
-│   │   ├── S1_baseline/
+│   │   ├── S1_baseline/          s1_runner.py + run.py
 │   │   ├── S2_unknown_option_added/
 │   │   ├── S3_question_format_ablation/
 │   │   └── S4_word_content_ablation/
@@ -238,5 +236,4 @@ the pipeline.
 
 ## Contact
 
-Questions and issues are welcome. For anything the issue tracker does not
-cover, reach out to **zpling0816@gmail.com**.
+Questions and issues are welcome, please reach out to **zpling0816@gmail.com**.

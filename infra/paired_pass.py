@@ -43,20 +43,21 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from infra import metrics
-from infra.prompts import (
-    # MCQ family
-    build_mcq_s1_prompt,
-    build_mcq_s2_prompt,
-    build_mcq_s5_rerun_prompt,
-    build_mcq_calibration_suffix_prompt,
-    # TFQ family
-    build_judge_s1_prompt,
-    build_judge_s2_prompt,
-    build_judge_s3_format_prompt,
-    build_judge_s5_rerun_prompt,
-    build_judge_calibration_suffix_prompt,
-)
 from infra.label_scheme import get_scheme
+
+from experiments.C1_structural_trigger.S1_baseline import s1_runner
+from experiments.C1_structural_trigger.S2_unknown_option_added import s2_runner
+from experiments.C1_structural_trigger.S3_question_format_ablation import s3_runner
+from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import s5_runner
+from experiments.appendix import Appendix_E_calibration_suffix as calibration_suffix
+
+#: Each setting owns its prompt and whether the parser may see an abstention.
+SETTING_MODULES = {
+    "S1": s1_runner,
+    "S2": s2_runner,
+    "S3": s3_runner,
+    "calibration_suffix": calibration_suffix,
+}
 from infra.result_schema import SCHEMA_VERSION
 
 from infra.data_handler import DataHandler
@@ -217,7 +218,7 @@ class ABRunner:
             else:
                 preds[name], tiers[name] = await self._parse_batch(
                     raw, samples, task_type,
-                    with_unknown=(name != "S1"), label=name,
+                    with_unknown=SETTING_MODULES[name].WITH_UNKNOWN, label=name,
                 )
         answer_idxs = [s.answer_idx for s in samples]
 
@@ -238,7 +239,8 @@ class ABRunner:
             print(f"  [Step 5] Querying S5 rerun on {len(ai_indices)} samples ...")
             raw_s5 = await self.llm_handler.batch_query(s5_prompts)
             preds_s5, tiers_s5 = await self._parse_batch(
-                raw_s5, ai_samples, task_type, with_unknown=False, label="S5"
+                raw_s5, ai_samples, task_type,
+                with_unknown=s5_runner.WITH_UNKNOWN, label="S5"
             )
 
         # ---- Step 6+7: assemble & save.
@@ -291,42 +293,16 @@ class ABRunner:
     # Prompt builders (task_type-aware)
     # =================================================================
     def _build_prompts(self, samples, task_type, *, setting):
-        if task_type == "mcq":
-            builders = {
-                "S1": build_mcq_s1_prompt,
-                "S2": build_mcq_s2_prompt,
-                "calibration_suffix": build_mcq_calibration_suffix_prompt,
-            }
-            if setting not in builders:
-                raise ValueError(f"Setting {setting!r} is not defined for MCQ datasets.")
-            f = builders[setting]
-            return [f(s.question, s.options, context=s.context) for s in samples]
-        if task_type == "tf":
-            builders = {
-                "S1": build_judge_s1_prompt,
-                "S2": build_judge_s2_prompt,
-                "S3": build_judge_s3_format_prompt,
-                "calibration_suffix": build_judge_calibration_suffix_prompt,
-            }
-            if setting not in builders:
-                raise ValueError(f"Setting {setting!r} is not defined for TFQ datasets.")
-            f = builders[setting]
-            return [f(get_scheme(s.source), s.question, s.context) for s in samples]
-        raise ValueError(f"Unsupported task_type: {task_type}")
+        """Delegate to the setting that owns this prompt."""
+        mod = SETTING_MODULES.get(setting)
+        if mod is None:
+            raise ValueError(f"Setting {setting!r} has no prompt builder.")
+        return mod.build_prompts(samples, task_type)
 
     def _build_s5_rerun(self, samples, ai_indices, s2_prompts, raw_s2, task_type):
-        """Build the S5 multi-turn follow-up for the abstaining samples only."""
-        if task_type == "mcq":
-            return [build_mcq_s5_rerun_prompt(s2_prompts[i], raw_s2[i])
-                    for i in ai_indices]
-        if task_type == "tf":
-            return [
-                build_judge_s5_rerun_prompt(
-                    s2_prompts[i], raw_s2[i], get_scheme(samples[i].source)
-                )
-                for i in ai_indices
-            ]
-        raise ValueError(f"Unsupported task_type: {task_type}")
+        """The S5 follow-up, for the abstaining samples only."""
+        return s5_runner.build_prompts(samples, ai_indices, s2_prompts,
+                                       raw_s2, task_type)
 
     # =================================================================
     # Output parsing (task_type-aware, positional)

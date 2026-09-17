@@ -1,94 +1,67 @@
-"""Score the clean-prompt S3 rerun and contrast it with the superseded run.
+"""S3 Question Format Ablation — does the letter rendering move Abs Rate?
 
-Reads the S3 column of the paired summaries the main table is built from
-run_S3.py) and, when present, the old confounded condition in
-results/positional_bias/summary_unknown_C_{DS}_{MODEL}.json, which used the
-same letter rendering *plus* the calibration note. The paired contrast on the
-shared item ids isolates what the note was doing.
+S3 re-renders the same ternary as A / B / C. If abstention followed the letters
+rather than the label set, Abs Rate would move; the paper's claim is that it
+barely does, which is what makes the trigger structural rather than a rendering
+artifact.
 
-Prints a markdown table with Acc, Abs Rate and the paired McNemar test on the
-abstain/not-abstain outcome.
+Read from the paired summaries the main table is built from -- S1, S2 and S3
+come out of one pass, so the contrast below is per item -- and scored on the
+same keep-set, so these numbers and Table 1's are the same numbers.
+
+    python experiments/C1_structural_trigger/S3_question_format_ablation/analyze_S3.py
 """
-from __future__ import annotations
-
 import json
-import math
 import sys
 from pathlib import Path
 
+from scipy.stats import binomtest
+
 ROOT = Path(__file__).resolve().parents[3]
-CLEAN = ROOT / "results/tfq"
-OLD = ROOT / "results/positional_bias"
+sys.path.insert(0, str(ROOT))
 
-MODELS = [
-    ("DeepSeek-V4-Flash", "deepseek-v4-flash"),
-    ("GPT-5.4-nano", "gpt-5.4-nano"),
-    ("Gemini-3.1-Flash-Lite", "gemini-3.1-flash-lite"),
-]
-DATASETS = ["FLD", "FOLIO"]
+from infra.result_schema import paired_keep_ids   # noqa: E402
 
-
-def rows(path: Path):
-    if not path.exists():
-        return None
-    d = json.loads(path.read_text())
-    return {r["id"]: r for r in d["per_sample"] if not r.get("excluded")}, d
+MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
+          ("nano", "gpt-5.4-nano", "GPT-5.4-nano"),
+          ("gemini31", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+DATASETS = ("FLD", "FOLIO")
 
 
-def correct(r) -> bool:
-    return (r["pred"] == "A" and r["answer_idx"] == 0) or \
-           (r["pred"] == "B" and r["answer_idx"] == 1)
-
-
-def mcnemar(b: int, c: int):
-    """Two-sided exact-ish McNemar on discordant pairs (b, c)."""
-    n = b + c
-    if n == 0:
-        return 1.0
-    # exact binomial two-sided
-    k = min(b, c)
-    p = sum(math.comb(n, i) for i in range(0, k + 1)) / (2 ** n) * 2
-    return min(1.0, p)
+def cell(slug: str, model: str, dataset: str) -> dict:
+    summary = json.loads(
+        (ROOT / f"results/tfq/{slug}/ab_summary_{dataset}_{model}.json").read_text())
+    keep = paired_keep_ids(summary)
+    rows = [r for r in summary["per_sample"]
+            if r["id"] in keep and r.get("pred_s3_format")]
+    n = len(rows)
+    s2 = sum(r["pred_s2"] == "UNKNOWN" for r in rows)
+    s3 = sum(r["pred_s3_format"] == "UNKNOWN" for r in rows)
+    # discordant pairs: abstained under one rendering but not the other
+    b = sum(r["pred_s2"] == "UNKNOWN" and r["pred_s3_format"] != "UNKNOWN" for r in rows)
+    c = sum(r["pred_s2"] != "UNKNOWN" and r["pred_s3_format"] == "UNKNOWN" for r in rows)
+    return {"n": n, "abs_s2": 100 * s2 / n, "abs_s3": 100 * s3 / n,
+            "delta": 100 * (s3 - s2) / n, "b": b, "c": c,
+            "p": binomtest(b, b + c, 0.5).pvalue if b + c else 1.0}
 
 
 def main() -> None:
-    print("| Model | Dataset | n | Acc (clean S3) | Abs Rate (clean S3) | "
-          "Abs Rate (old S3 w/ note) | Δ | McNemar p |")
-    print("|---|---|--:|--:|--:|--:|--:|--:|")
-    macro = {"acc": [], "abs": []}
-    for disp, mid in MODELS:
+    print(f"{'Model':<24} {'Dataset':<7} {'n':>4} {'S2 Abs':>7} {'S3 Abs':>7} "
+          f"{'Delta':>7} {'McNemar p':>10}")
+    print("-" * 72)
+    deltas = []
+    for slug, model, label in MODELS:
         for ds in DATASETS:
-            new = rows(CLEAN / f"summary_s3_{ds}_{mid}.json")
-            if new is None:
-                print(f"| {disp} | {ds} | — | — | — | — | — | (missing) |")
-                continue
-            nrows, ndoc = new
-            ids = sorted(nrows)
-            n = len(ids)
-            acc = 100 * sum(correct(nrows[i]) for i in ids) / n
-            absr = 100 * sum(nrows[i]["pred"] == "UNKNOWN" for i in ids) / n
-            macro["acc"].append(acc)
-            macro["abs"].append(absr)
-
-            old = rows(OLD / f"summary_unknown_C_{ds}_{mid}.json")
-            if old is None:
-                print(f"| {disp} | {ds} | {n} | {acc:.1f} | {absr:.1f} | — | — | — |")
-                continue
-            orows, _ = old
-            shared = [i for i in ids if i in orows]
-            oabs = 100 * sum(orows[i]["pred"] == "UNKNOWN" for i in shared) / len(shared)
-            nabs = 100 * sum(nrows[i]["pred"] == "UNKNOWN" for i in shared) / len(shared)
-            b = sum(1 for i in shared
-                    if nrows[i]["pred"] == "UNKNOWN" and orows[i]["pred"] != "UNKNOWN")
-            c = sum(1 for i in shared
-                    if nrows[i]["pred"] != "UNKNOWN" and orows[i]["pred"] == "UNKNOWN")
-            p = mcnemar(b, c)
-            print(f"| {disp} | {ds} | {n} | {acc:.1f} | {absr:.1f} | {oabs:.1f} | "
-                  f"{nabs - oabs:+.1f} | {p:.3g} |")
-    if macro["acc"]:
-        print(f"\nMacro over {len(macro['acc'])} cells: "
-              f"Acc {sum(macro['acc']) / len(macro['acc']):.2f}, "
-              f"Abs Rate {sum(macro['abs']) / len(macro['abs']):.2f}")
+            r = cell(slug, model, ds)
+            deltas.append(abs(r["delta"]))
+            flag = " *" if r["p"] < 0.05 else ""
+            print(f"{label:<24} {ds:<7} {r['n']:>4} {r['abs_s2']:>6.1f}% "
+                  f"{r['abs_s3']:>6.1f}% {r['delta']:>+6.1f} {r['p']:>10.3g}{flag}")
+    print("-" * 72)
+    print(f"Largest |Delta Abs Rate| in any cell : {max(deltas):.1f} points")
+    print(f"Mean    |Delta Abs Rate|             : {sum(deltas)/len(deltas):.1f} points")
+    print("\nThe letter rendering alone does not account for the abstention:\n"
+          "compare these against the S1->S2 jump the same table reports.")
 
 
 if __name__ == "__main__":

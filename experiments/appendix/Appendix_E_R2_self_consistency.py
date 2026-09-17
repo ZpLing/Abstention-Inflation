@@ -39,7 +39,7 @@ sys.path.insert(0, str(ROOT))
 from infra.result_schema import paired_keep_ids
 from typing import Any, Dict, List, Tuple
 
-# Gold answer_idx convention from ab_runner: 0->A, 1->B, 2->C, 3->D.
+# Gold answer_idx convention from paired_pass: 0->A, 1->B, 2->C, 3->D.
 IDX_TO_LETTER = {0: "A", 1: "B", 2: "C", 3: "D"}
 ABSTAIN = "UNKNOWN"
 UNPARSE = "UNPARSEABLE"

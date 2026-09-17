@@ -1,6 +1,6 @@
 """S5 — w/o "Unknown" Option Rerun (paper §4.2.1, Figure 4 left).
 
-S5 is produced by the same runner as S1/S2: :class:`experiments.C1_structural_trigger.ab_runner.ABRunner`
+S5 is produced by the same runner as S1/S2: :class:`infra.paired_pass.ABRunner`
 first runs S2 to find the samples the model abstains on, then replays that
 conversation and appends a follow-up turn with the "Unknown" option removed
 (``infra.prompts.build_{judge,mcq}_s5_rerun_prompt``). There is therefore no
@@ -25,7 +25,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from experiments.C1_structural_trigger.ab_runner import ABRunner
+from infra.paired_pass import ABRunner
 from infra.config_loader import block_key, load_config
 from infra.data_handler import DataHandler
 from infra.evaluator import Evaluator

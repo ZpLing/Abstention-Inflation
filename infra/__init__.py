@@ -23,7 +23,7 @@ metrics               Acc, Abs Rate, macro-F1
 
 Runner classes (one entry point each, mapped to a paper setting)
 ----------------
-ab_runner.ABRunner                          S1 / S2 / S3 + S4 forced-choice
+paired_pass.ABRunner                          S1 / S2 / S3 + S4 forced-choice
 s5_rerun_runner                              S5 (w/o "Unknown" Option Rerun)
 s6_self_diagnosis_runner                     S6 (Self-Diagnosis)
 truly_unknown_runner.TrulyUnknownRunner     S9 truly-Unknown perception

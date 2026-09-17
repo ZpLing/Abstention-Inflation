@@ -1,7 +1,7 @@
 """S10(c) size x alignment sweep — Gemma-4 base/IT pairs on CUDA.
 
 A re-run of the sweep behind Figure 9. The original numbers went through
-`experiments/C1_structural_trigger/ab_runner.py`, whose parser has no guard against a base model echoing the
+`infra/paired_pass.py`, whose parser has no guard against a base model echoing the
 prompt template: for S2 that template literally contains the word "Unknown", so
 a non-answer scores as an abstention, and with the option absent (S1) the same
 text scores UNPARSEABLE instead. The bias is therefore one-directional, into

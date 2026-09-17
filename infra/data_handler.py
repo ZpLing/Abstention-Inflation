@@ -1,6 +1,6 @@
 """Thin compatibility wrapper around :mod:`infra.dataset_loader`.
 
-Historical runners (``ab_runner``, the post-hoc mitigation runner, the model
+Historical runners (``paired_pass``, the post-hoc mitigation runner, the model
 sweep, …) ask a ``DataHandler`` for samples via ``load_dataset(name)``. In
 this paper-aligned package the entire dataset story is one unified loader, so
 the handler is just a small adaptor that:

@@ -1,7 +1,7 @@
 """Entry point for S2 (Unknown Option Added) — paper §C1.
 
 This script is a thin wrapper around the central dispatcher (``main.py``).
-The actual runner is :class:`experiments.C1_structural_trigger.ab_runner.ABRunner`; this script just loads the
+The actual runner is :class:`infra.paired_pass.ABRunner`; this script just loads the
 YAML config you point it at and invokes the runner.
 
 Usage::
@@ -19,7 +19,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from experiments.C1_structural_trigger.ab_runner import ABRunner
+from infra.paired_pass import ABRunner
 from infra.config_loader import block_key, load_config
 from infra.data_handler import DataHandler
 from infra.evaluator import Evaluator
