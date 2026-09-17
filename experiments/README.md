@@ -22,8 +22,6 @@ C4_stable_bias/            §4.4  a stable bias from instruction tuning
   S9_stability/                  3 re-draws at default T; truly-Unknown mirror
   S10_factor_analysis/           difficulty, temperature, size, alignment
   S11_option_position/           the abstain verb moves to slot 1 / 2 / 3
-
-appendix_E_mitigation/     App. E  R1, the logit calibration remedy
 ```
 
 Each setting has exactly one runner and one analysis. Where a setting is

@@ -76,7 +76,6 @@ Figure 5 = `plot_fig5_S7_trace_invariance.py`, Figure 6 = S8 step `07_`.
 |---|---|---|
 | C Additional Quantitative Analyses | Abs Rate–ΔAcc regression over the 18 cells of Table 1 | `reporting/abs_rate_dacc_regression.py` |
 | E Mitigation | calibration suffix, stimulation+reflection | `core/appendix_mitigation_runner.py` |
-| E Remedy R1 | option-presence logit calibration (needs logprobs, so open weights) | `experiments/appendix_E_mitigation/run_R1_logit_calibration.py` |
 | E Remedy R2 | contrastive self-consistency override (post-hoc, no API calls) | `core/appendix_remedy_r2_self_consistency.py` |
 
 ### Reproducing the reported numbers

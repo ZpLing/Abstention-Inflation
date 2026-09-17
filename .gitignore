@@ -241,3 +241,7 @@ configs/**/S10_qwen_bailian_*.yaml
 # Generated paper figures (the plotting scripts live under tools/, also ignored)
 /figures/
 /tmp/
+
+# Appendix experiments: kept locally, not part of the release
+/experiments/appendix/
+/experiments/appendix_E_mitigation/
