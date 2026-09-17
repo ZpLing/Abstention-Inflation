@@ -1,4 +1,4 @@
-"""Derive the S10(c) size x alignment table (Figure 9) from result files.
+"""S10 modulator (c) — the size x alignment table, from result files.
 
 The figure used to carry 16 hardcoded rows with no link to any run, which is
 how a suspicious FLD/IT column (three different scales sharing Abs Rate 0.555
@@ -16,8 +16,7 @@ Two things this module does that the hardcoded table could not:
 
 * **Reliability is derived, not asserted.** A cell is unreliable when too
   little of its output carries an explicit commitment -- ``trusted_share``
-  below ``TRUST_FLOOR`` -- rather than being listed by hand.
-"""
+  below ``TRUST_FLOOR`` -- rather than being listed by hand."""
 from __future__ import annotations
 
 import json

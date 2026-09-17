@@ -1,6 +1,6 @@
 """Entry point for the S9 truly-Unknown perception sub-experiment.
 
-Drives :class:`experiments.C4_stable_bias.S9_stability.s9_truly_unknown_runner.TrulyUnknownRunner` over the
+Drives :class:`experiments.C4_stable_bias.S9_stability.s9_runner.TrulyUnknownRunner` over the
 ``FLD_unknown`` / ``FOLIO_unknown`` subsets bundled under
 ``software/dataset/``. The runner runs S1 / S2 / S3 prompts on items whose
 gold label is Unknown, so the resulting Abs Rate is the model's correct-rate
@@ -26,7 +26,7 @@ from infra.config_loader import load_config
 from infra.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
-from experiments.C4_stable_bias.S9_stability.s9_truly_unknown_runner import TrulyUnknownRunner
+from experiments.C4_stable_bias.S9_stability.s9_runner import TrulyUnknownRunner
 
 
 async def _run(config_path: str) -> None:

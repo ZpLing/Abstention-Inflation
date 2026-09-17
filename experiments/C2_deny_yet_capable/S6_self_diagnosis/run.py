@@ -1,4 +1,4 @@
-"""Entry point for S6 (Self-Diagnosis) — paper §C2.
+"""Entry point for S6 (Self-Diagnosis) — paper §4.2.
 
 Drives :mod:`core.s6_self_diagnosis_runner`. The runner takes a YAML config
 describing model + dataset; see the per-claim configs/ folder for
@@ -22,7 +22,7 @@ sys.path.insert(0, str(_REPO))
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="S6 (Self-Diagnosis) — paper §C2.",
+        description="S6 (Self-Diagnosis) — paper §4.2.",
     )
     parser.add_argument("--config", required=True,
                         help="YAML config; relative to software/.")

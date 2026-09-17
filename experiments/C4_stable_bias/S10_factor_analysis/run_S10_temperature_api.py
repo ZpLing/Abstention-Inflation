@@ -1,4 +1,8 @@
-"""S10(a) temperature sweep on an API model, in the local sweeps' schema.
+"""S10 modulator (a) — temperature sweep, gateway models.
+
+T in {0, 0.3, 0.7, 1.0, 1.5, 2.0} at 250 items per class. Only the models
+whose temperature the endpoint actually applies are swept; for the rest the
+setting is ignored, which is itself an S10 finding.
 
 Model is selected with --model; the two run so far are
 `gemini-3.1-flash-lite` and `deepseek-v4-flash`. Both were screened first, and
@@ -39,8 +43,7 @@ replaces the 2.5 cells rather than extending them.
 
     python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
         --model gemini-3.1-flash-lite --limit 8     # smoke
-    python run_S10_temperature_gemini31.py              # full, 12 cells x 500
-"""
+    python run_S10_temperature_gemini31.py              # full, 12 cells x 500"""
 from __future__ import annotations
 
 import argparse

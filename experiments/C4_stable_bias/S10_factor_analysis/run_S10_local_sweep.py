@@ -1,4 +1,15 @@
-"""S10(c) size x alignment sweep — Gemma-4 base/IT pairs on CUDA.
+"""S10 modulators (a) and (c) — local checkpoints.
+
+One script because both sweeps run a local HF checkpoint over the same S1/S2
+prompts; what differs is which knob moves.
+
+  (a) temperature  one --temperature per call, the Olmo-3-7B-Instruct half
+                   of the sweep the API script covers for gateway models
+  (c) size x alignment  four Gemma-4 scales in base and IT form at T=0;
+                   --use_chat_template is what separates the two arms
+
+The reported cells used --n_per_class 250 (500 items); the default of 100
+would give 200.
 
 A re-run of the sweep behind Figure 9. The original numbers went through
 `infra/paired_pass.py`, whose parser has no guard against a base model echoing the
@@ -25,8 +36,7 @@ of each gold class in dataset order, no RNG.
 
     python run_S10_local_sweep.py --model_path .../gemma-4-E2B --model_tag gemma-4-E2B
     python run_S10_local_sweep.py --model_path .../gemma-4-E2B-it \
-        --model_tag gemma-4-E2B-it --use_chat_template
-"""
+        --model_tag gemma-4-E2B-it --use_chat_template"""
 from __future__ import annotations
 
 import argparse

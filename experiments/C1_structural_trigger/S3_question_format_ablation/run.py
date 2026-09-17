@@ -1,4 +1,4 @@
-"""Entry point for S3 (Question Format Ablation) — paper §C1.
+"""Entry point for S3 (Question Format Ablation) — paper §4.1.
 
 This script is a thin wrapper around the central dispatcher (``main.py``).
 The actual runner is :class:`infra.paired_pass.ABRunner`; this script just loads the

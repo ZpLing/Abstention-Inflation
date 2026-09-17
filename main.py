@@ -75,7 +75,7 @@ async def _dispatch(config: dict) -> None:
 
     if "s9_truly_unknown" in tasks:
         print("\n===== S9 perception on truly-Unknown samples =====")
-        from experiments.C4_stable_bias.S9_stability.s9_truly_unknown_runner import TrulyUnknownRunner
+        from experiments.C4_stable_bias.S9_stability.s9_runner import TrulyUnknownRunner
         await TrulyUnknownRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s6_self_diagnosis" in tasks:

@@ -1,4 +1,4 @@
-"""S4 Word Content Ablation — random-word variants (paper §C1, Figure 2 right).
+"""S4 Word Content Ablation — random-word variants (paper §4.1, Figure 2 right).
 
 Tests whether Abstention Inflation is driven by the *semantic content* of the
 ``Unknown`` option, or by the mere structural presence of an extra slot.

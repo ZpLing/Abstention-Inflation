@@ -1,45 +1,11 @@
-"""Supplementary experiment runner — paper §4.
+"""S9 Stability — the truly-Unknown mirror (paper §4.4).
 
-Goal
-----
-Mirror image of the main Abstention Inflation experiment:
+The other side of Abs Rate: on items that genuinely have no determinable
+answer, abstaining is correct, so this run measures whether the models can
+tell the two populations apart. Paired against the Abs Rate on answerable
+items, it is what shows the bias is directional rather than indiscriminate.
 
-    main (Exp 1)            supplementary (this file)
-    ------------            -------------------------
-    answerable samples      genuinely Unknown samples
-    Abs Rate ↑ is bad            CAR ↑ is good
-    S1 = ground truth       S1 = forced wrong commitment
-    S2/S3 = inflated abst.  S2/S3 = correct abstention
-
-Datasets: FLD (300 genuinely-Unknown samples). FEVER is NOT included — the
-supplementary experiment is intentionally scoped to the logic-reasoning
-dataset that ships with native genuinely-Unknown labels.
-
-Natural-language only
----------------------
-FLD ships with symbolic logic fields on disk (`original_data.hypothesis_formula`,
-`original_data.facts_formula`, etc.). The supplementary experiment uses only
-the natural-language fields `Conclusion` (question) and `Facts` (context),
-which is what `judge_loader._load_fld` already extracts. Symbolic fields
-are never read here and never reach the model. A regex sanity check at the
-top of `_run_one` enforces this contract at runtime.
-
-Settings (reused verbatim from infra.prompts)
---------------------------------------------------------
-    S1 (no Unknown)   → forced binary; measures forced-commitment cost
-    S2 (with Unknown) → CAR (Correct Abstention Rate)
-    S3 (S2 + suffix)  → CAR with structural note
-
-Output: results/supplementary/supp_summary_<dataset>_<model>.json
-
-Parsing parity with ABRunner
-----------------------------
-Mirrors `core.paired_pass.ABRunner`:
-    * `Evaluator.parse_judge_tiered` (not the legacy single-return parser)
-    * Summary records `tier_counts` so a reader
-      can audit how many predictions came from strict / lenient EM vs the
-      LLM judge fallback.
-    * Optional `sample_limits` map (per-dataset cap, int).
+Driven by main.py through configs/C4_stable_bias/S9_truly_unknown_*.yaml.
 """
 import asyncio
 import re

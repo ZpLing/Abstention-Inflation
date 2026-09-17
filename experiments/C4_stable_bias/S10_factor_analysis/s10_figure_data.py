@@ -1,4 +1,4 @@
-"""Derive the S10 Factor-Analysis figure data from result files.
+"""S10 modulators (a) and (b) — figure data, derived from result files.
 
 Replaces tables that were hardcoded inside the plotting script. Three errors
 were only visible once the numbers came from the runs again:
@@ -17,8 +17,7 @@ directories hold the *same sample ids under different experimental
 conditions* -- ``ab_e_option_baseline`` is an E-option variant, ``ab_s5`` is an
 S5 rerun -- so a glob plus first-file-wins silently mixes conditions. The FLD
 pairing here is the one the repo already treats as canonical, in
-``run_S10_local_Gemma_inference.load_paired_sample_ids``.
-"""
+``run_S10_local_Gemma_inference.load_paired_sample_ids``."""
 from __future__ import annotations
 
 import json

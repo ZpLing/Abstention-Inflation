@@ -1,4 +1,4 @@
-"""§5.5 Temperature sweep aggregation + paired analysis.
+"""S10 modulator (a) — temperature sweep aggregation and paired tests.
 
 Inputs:
   T=0.0 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
@@ -7,8 +7,7 @@ Inputs:
 
 Outputs:
   results/analysis/temperature_sweep_summary.json
-  Console: Abs Rate table, paired McNemar T=0 vs each T, Spearman ρ(T, Abs Rate)
-"""
+  Console: Abs Rate table, paired McNemar T=0 vs each T, Spearman ρ(T, Abs Rate)"""
 import json
 from glob import glob
 from math import sqrt, comb
@@ -96,7 +95,7 @@ def spearman_rho(xs, ys):
 
 
 def main():
-    print(f"=== §5.5 Temperature sweep analysis ({MODEL}) ===\n")
+    print(f"=== S10 temperature sweep analysis ({MODEL}) ===\n")
 
     cells = {}  # (ds, t) -> {n, n_ai, abs_rate, acc, pred_by_id}
 

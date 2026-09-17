@@ -1,4 +1,4 @@
-"""S10 (Factor Analysis) modulator (c) — model size × alignment sweep.
+"""S10 modulator (c) — model size x alignment, driven by main.py.
 
 Thin wrapper: invokes the existing S1/S2 runner (ABRunner) once per configured model,
 then aggregates abs_rate_s2 / abs_rate_s3 / Acc per (dataset, model) into a single table.
@@ -27,8 +27,7 @@ Per model, this runner:
     2. Instantiates a fresh LLMHandler + ABRunner for that sub-config.
     3. Awaits ABRunner.run() — produces the standard per-model summaries.
 
-Then it reads back each summary and writes `exp2_model_sweep_<dataset>.json`.
-"""
+Then it reads back each summary and writes `exp2_model_sweep_<dataset>.json`."""
 import asyncio
 import json
 from pathlib import Path

@@ -1,4 +1,4 @@
-"""Exp 4 (paper §3 Exp 4) — Post-hoc mitigation via two-stage stimulation+reflection stimulation+reflection.
+"""App. E mitigation — Post-hoc mitigation via two-stage stimulation+reflection stimulation+reflection.
 
 Pipeline
 --------
@@ -89,7 +89,7 @@ class PostHocMitigationRunner:
             print("[Exp4] No datasets configured under exp4_mitigation.datasets — nothing to do.")
             return
         for ds_name in self.dataset_names:
-            print(f"\n===== Exp 4 :: {ds_name} =====")
+            print(f"\n===== App. E mitigation :: {ds_name} =====")
             await self._run_one(ds_name)
 
     async def _run_one(self, ds_name: str):

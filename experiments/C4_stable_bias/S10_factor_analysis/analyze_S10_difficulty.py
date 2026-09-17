@@ -1,4 +1,4 @@
-"""§5.3 — Difficulty stratification on FLD via proof-tree `steps`.
+"""S10 modulator (b) — Abs Rate against FLD proof-step count.
 
 Hypothesis: harder problems (more reasoning steps) trigger stronger γ
 (abstention inflation). MCQ difficulty stratification (ARC-Easy vs Challenge,
@@ -27,8 +27,7 @@ Output:
   - results/analysis/fld_steps_abstention.json
 
 Usage:
-    python -m scripts.analyze_fld_steps_abstention
-"""
+    python -m scripts.analyze_fld_steps_abstention"""
 from __future__ import annotations
 
 import json

@@ -1,4 +1,4 @@
-"""Entry point for S1 (Baseline) — paper §C1.
+"""Entry point for S1 (Baseline) — paper §4.1.
 
 This script is a thin wrapper around the central dispatcher (``main.py``).
 The actual runner is :class:`infra.paired_pass.ABRunner`; S1 is selected by

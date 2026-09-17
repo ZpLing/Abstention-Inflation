@@ -130,7 +130,7 @@ def random_word_half():
 
 
 def main():
-    print(f"=== §6.1 Wording sweep aggregation ({MODEL}) ===\n")
+    print(f"=== S4 wording sweep aggregation ({MODEL}) ===\n")
 
     cells = {}  # (ds, w) -> {n, n_ai, abs_rate, pred_by_id}
 

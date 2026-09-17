@@ -1,4 +1,4 @@
-"""Exp 3 (paper §3 Exp 3) — Difficulty layered analysis on ARC.
+"""S10 modulator (b) — difficulty, layered by proof-tree depth.
 
 Reads the per-dataset summaries that ABRunner already saved for ARC-Easy_250
 and ARC-Challenge_250, and produces three result sets:
@@ -17,8 +17,7 @@ Run:
     python -m core.s10_difficulty_runner \\
         --easy      results/ab/ab_summary_ARC-Easy_250_<model>.json \\
         --challenge results/ab/ab_summary_ARC-Challenge_250_<model>.json \\
-        [--out      results/ab/exp3_difficulty_<model>.json]
-"""
+        [--out      results/ab/exp3_difficulty_<model>.json]"""
 import argparse
 import json
 from pathlib import Path
@@ -113,7 +112,7 @@ def build_exp3_report(easy_path: Path, challenge_path: Path) -> dict:
 
 
 def _print_summary(report: dict) -> None:
-    print("\n=== Exp 3 difficulty layered analysis ===")
+    print("\n=== S10 difficulty layered analysis ===")
     print(f"  model: {report['model']}")
     print(f"  Easy:      {report['datasets']['easy']}   ({report['easy']['n_total']} samples)")
     print(f"  Challenge: {report['datasets']['challenge']}   ({report['challenge']['n_total']} samples)")

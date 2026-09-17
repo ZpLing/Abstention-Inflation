@@ -1,4 +1,4 @@
-"""Exp 5 / R2 — Contrastive Self-Consistency Decoding (post-hoc, zero API calls).
+"""App. E remedy R2 — Contrastive Self-Consistency Decoding (post-hoc, zero API calls).
 
 R2 is derived from Theorem 2(1) (mid-layer fidelity): when the model abstains
 under Y^+e = Y ∪ {Unknown}, query it again under Y (no escape option). If the
