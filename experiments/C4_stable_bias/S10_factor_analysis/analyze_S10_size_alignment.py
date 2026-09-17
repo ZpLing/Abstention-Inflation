@@ -122,63 +122,48 @@ def check_claims(cells, metric: str = "abs_rate_strict"):
             return None
         return c.get(metric)
 
-    # C-a: IT Abs Rate varies less across size than base does.
-    #
-    # Both ranges must span the SAME sizes. Filtering the two lists
-    # independently would compare, say, an IT range over four scales against a
-    # base range over two -- the wider scale span alone makes the first larger,
-    # and the verdict would be about which cells happen to be finished rather
-    # than about instruction tuning.
-    for ds in DATASETS:
-        usable = [s for s in SIZES
-                  if val(by.get((ds, s, True))) is not None
-                  and val(by.get((ds, s, False))) is not None]
-        dropped = [s for s in SIZES if s not in usable]
-        if len(usable) > 1:
-            it = [val(by[(ds, s, True)]) for s in usable]
-            bs = [val(by[(ds, s, False)]) for s in usable]
-            r_it, r_bs = max(it) - min(it), max(bs) - min(bs)
-            note = f"  [over {', '.join(usable)}"
-            note += f"; {', '.join(dropped)} not comparable]" if dropped else "]"
-            out.append(("IT Abs Rate varies less than base",
-                        "OK" if r_it < r_bs else "CONTRADICTED",
-                        f"{ds}: IT range={r_it:.3f} vs base range={r_bs:.3f} "
-                        f"[{metric}]{note}"))
-        else:
-            out.append(("IT Abs Rate varies less than base", "UNTESTABLE",
-                        f"{ds}: only {len(usable)} size(s) have a base *and* an "
-                        f"IT cell that are both reportable at n={ref_n}"))
+    # The paper makes one two-part claim about this axis: at the small scales
+    # instruction tuning raises accuracy and Abs Rate together, and by the
+    # large scales the accuracy benefit persists while the Abs Rate gap between
+    # the variants closes. Both halves are tested per (dataset, size); an
+    # earlier version tested "IT varies less across size than base", which the
+    # paper never claims, and applied the small-scale half at every scale,
+    # so it reported the large scales as contradictions of a claim made only
+    # about the small ones.
+    SMALL, LARGE = ("E2B", "E4B"), ("26B-A4B", "31B")
+    GAP_CLOSED = 0.05          # 5 points counts as closed
 
-    # C-b: instruction tuning raises accuracy AND Abs Rate together.
     for ds in DATASETS:
         for size in SIZES:
             b, i = by.get((ds, size, False)), by.get((ds, size, True))
             if not b or not i:
                 continue
             vb, vi = val(b), val(i)
-            if vb is None or vi is None or b["acc_s1"] is None or i["acc_s1"] is None:
-                why = []
-                for lbl, c in (("base", b), ("IT", i)):
-                    if not c["reliable"]:
-                        why.append(f"{lbl} below the trust floor")
-                    elif c["n"] != ref_n:
-                        why.append(f"{lbl} is n={c['n']}, not {ref_n}")
-                out.append(("acc gain accompanied by higher Abs Rate", "UNTESTABLE",
+            small = size in SMALL
+            claim = ("IT raises Acc and Abs Rate together" if small
+                     else "Acc benefit persists, Abs Rate gap closes")
+            if vb is None or vi is None:
+                why = [f"{lbl} below the trust floor" for lbl, c in
+                       (("base", b), ("IT", i)) if not c["reliable"]]
+                why += [f"{lbl} is n={c['n']}, not {ref_n}" for lbl, c in
+                        (("base", b), ("IT", i)) if c["n"] != ref_n]
+                out.append((claim, "UNTESTABLE",
                             f"{ds}/{size}: " + ("; ".join(why) or "metric missing")))
                 continue
-            d_acc, d_abs = i["acc_s1"] - b["acc_s1"], vi - vb
-            verdict = "OK" if (d_acc > 0 and d_abs > 0) else "CONTRADICTED"
-            # Flag when the reported upper bound would have said something else:
-            # that gap is the parser artifact, not a property of the models.
-            alt = ""
+            d_acc, d_abs = i["acc_s2"] - b["acc_s2"], vi - vb
+            ok = (d_acc > 0 and d_abs > 0) if small else \
+                 (d_acc > 0 and abs(d_abs) <= GAP_CLOSED)
+            detail = (f"{ds}/{size}: dAcc={d_acc:+.3f} dAbsRate={d_abs:+.3f} "
+                      f"[{metric}]")
             if b.get("abs_rate") is not None and i.get("abs_rate") is not None:
-                d_abs_up = i["abs_rate"] - b["abs_rate"]
-                if (d_abs > 0) != (d_abs_up > 0):
-                    alt = (f"  <-- opposite verdict on the unaudited abs_rate "
-                           f"(dAbsRate={d_abs_up:+.3f})")
-            out.append(("acc gain accompanied by higher Abs Rate", verdict,
-                        f"{ds}/{size}: dAcc={d_acc:+.3f} dAbsRate={d_abs:+.3f} "
-                        f"[{metric}]{alt}"))
+                up = i["abs_rate"] - b["abs_rate"]
+                ok_up = (d_acc > 0 and up > 0) if small else \
+                        (d_acc > 0 and abs(up) <= GAP_CLOSED)
+                if ok_up != ok:
+                    detail += (f"  <-- opposite verdict on the unaudited "
+                               f"abs_rate (dAbsRate={up:+.3f})")
+            out.append((claim, "OK" if ok else "CONTRADICTED", detail))
+
     return out
 
 

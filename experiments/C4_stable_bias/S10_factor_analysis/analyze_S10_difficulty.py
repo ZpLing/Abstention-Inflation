@@ -1,5 +1,10 @@
 """S10 modulator (b) — Abs Rate against FLD proof-step count.
 
+There is no run_S10_difficulty: this modulator collects nothing. Depth
+ships with the dataset (`dataset/FLD.json` carries `depth`, 1-8, near
+uniformly) and the abstentions come from the main paired pass, so the
+whole modulator is a stratification of results already on disk.
+
 Hypothesis: harder problems (more reasoning steps) trigger stronger γ
 (abstention inflation). MCQ difficulty stratification (ARC-Easy vs Challenge,
 MedQA-Step1 vs Step2_3) showed weak effects — FLD samples come with the
@@ -27,7 +32,8 @@ Output:
   - results/analysis/fld_steps_abstention.json
 
 Usage:
-    python -m scripts.analyze_fld_steps_abstention"""
+    python -m scripts.analyze_fld_steps_abstention
+"""
 from __future__ import annotations
 
 import json
