@@ -16,10 +16,10 @@ costs **19.8 accuracy points** and pushes abstention to **34.5%**. The same
 manipulation on 4-option MCQs, over the same models and the same 500-item
 scale, costs **1.2 points**.
 
-| Format | Items | Acc without the “Unknown” option | Acc with the "Unknown" Option | Abs Rate |
+| Format | Samples | Acc without the “Unknown” option | Acc with the "Unknown" Option | Abs Rate |
 | --- | ---: | ---: | ---: | ---: |
-| TFQ (FLD, FOLIO) | 3,000 | 79.4% | **59.5%** | **34.5%** |
-| MCQ (ARC, MedQA, MMLU, LogiQA) | 6,000 | 84.5% | 83.3% | 2.3% |
+| True-False Questions | 3,000 | 79.4% | **59.5%** | **34.5%** |
+| Multiple-Choice Questions | 6,000 | 84.5% | 83.3% | 2.3% |
 
 The abstention is not uncertainty: removing the option again recovers **63.6%**
 accuracy on exactly the items that abstained (S5), the models attribute those
