@@ -115,5 +115,15 @@ def main():
           f"(>0 = Unknown winning; expected <0 for base)")
 
 
+def _cli():
+    import argparse
+    global MODEL_PATH
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--model_path", default=str(MODEL_PATH),
+                    help="Local checkout of the checkpoint to run.")
+    MODEL_PATH = Path(ap.parse_args().model_path)
+
+
 if __name__ == "__main__":
+    _cli()
     main()
