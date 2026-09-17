@@ -4,6 +4,7 @@
   <a href="https://arxiv.org/abs/2507.16199"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2507.16199-b31b1b.svg"></a>
   <a href="https://arxiv.org/abs/2507.16199"><img alt="EMNLP 2026" src="https://img.shields.io/badge/EMNLP%202026-Main%20Conference-2c6fbb"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776ab">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </p>
 
 
@@ -240,3 +241,14 @@ the pipeline.
 ## Contact
 
 Questions and issues are welcome, please reach out to **zpling0816@gmail.com**.
+
+## License
+
+This project is released under the [MIT License](LICENSE). You are free to use,
+modify and distribute the code, including commercially, provided the copyright
+notice and permission notice are retained.
+
+The datasets are redistributed under their own licences and are not covered by
+the above: FLD (Apache-2.0), FOLIO (CC BY-SA 4.0), ARC (CC BY-SA 4.0), MedQA
+(MIT), MMLU (MIT) and LogiQA (CC BY-NC-SA 4.0). LogiQA in particular is
+non-commercial; check each source before redistributing.
