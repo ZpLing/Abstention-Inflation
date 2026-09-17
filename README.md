@@ -65,12 +65,10 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 │   ├── C3_later_layer_override/
 │   │   ├── S7_reasoning_traces_evaluation/
 │   │   └── S8_logit_lens_representation_probe/
-│   ├── C4_stable_bias/
-│   │   ├── S9_stability/
-│   │   ├── S10_factor_analysis/
-│   │   └── S11_positional_biases/
-│   └── appendix/                 App. C's regression, App. E's mitigation
-│                                 baseline and the R1 / R2 remedies
+│   └── C4_stable_bias/
+│       ├── S9_stability/
+│       ├── S10_factor_analysis/
+│       └── S11_positional_biases/
 ├── configs/                      one YAML per (model, dataset) cell, named
 │                                 for the settings it collects
 └── dataset/                      the eight benchmark files, one schema
@@ -192,23 +190,6 @@ python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
 python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
     --model all --positions A B C --unified-labels
 ```
-
-### 9. Appendix analyses
-
-Post-hoc, no API calls. App. C regresses Abs Rate against the accuracy each
-model loses; App. E's R2 takes the S1 answer wherever S2 abstained.
-
-```bash
-python experiments/appendix/Appendix_C_Regression.py
-```
-
-```bash
-python -m experiments.appendix.Appendix_E_R2_self_consistency
-```
-
-Each setting's own `analyze_*.py` prints the numbers for that setting; run it
-with `--help` to see what it takes.
-
 
 ## Citation
 

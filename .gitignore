@@ -250,3 +250,7 @@ configs/**/S10_qwen_bailian_*.yaml
 experiments/**/README.md
 configs/**/README.md
 reporting/README.md
+
+# App. C regression and the App. E mitigation baseline / R1-R2 remedies are
+# kept locally; they are post-hoc analyses, not part of the released pipeline.
+experiments/appendix/
