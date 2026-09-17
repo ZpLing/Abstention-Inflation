@@ -1,0 +1,1508 @@
+{
+  "dataset": "FLD",
+  "task_type": "tf",
+  "model": "deepseek-v4-flash",
+  "n_ai_evaluated": 212,
+  "tier_counts": {
+    "strict_em": 0,
+    "lenient_em": 212,
+    "unparseable": 0
+  },
+  "metrics": {
+    "self_diagnosis_acc": 0.7122641509433962,
+    "self_diagnosis_f1": 0.41597796143250687
+  },
+  "s4_s5_buckets": {
+    "overcaution_misdiagnosed": 151,
+    "genuine_unknown": 61,
+    "inability_selfaware": 0,
+    "inability_misdiagnosed": 0,
+    "unparseable": 0
+  },
+  "per_sample": [
+    {
+      "sample_id": "FLD_0001",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conditional statements but not enough to establish the specific implication in the hypothesis. Fact 4 gives that Phoenician implies (kind of bottle and not clearway), but the hypothesis requires the reverse implication, which is not given. No fact provides a direct link from (kind of bottle and not clearway) to Phoenician, nor does any fact rule it out. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0008",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether eugenicness occurs, which is not determined by the facts. If eugenicness does not occur, the hypothesis is true; if it does occur, the hypothesis is unknown. Since the facts do not specify eugenicness, the information is genuinely insufficient to determine a single correct answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0013",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the rioter is montane, which is needed to establish whether the fucker is a CEO. Without that, the condition in sent17 cannot be confirmed, so the hypothesis cannot be proven or disproven. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0014",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can derive several intermediate conclusions, but none of them force the statement \"the diapason is a chute\" to be true or false. The facts give information about the diapason not being a conservation and not injuring viscus, but being a chute is not determined by those facts. There is no rule connecting the diapason to being a chute, nor any rule excluding it. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0015",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the key condition for sent13 (that the lipase is magisterial or a correspondent) cannot be established because we cannot prove the lipase does not enjoy. Without that, the hypothesis remains undetermined. This is not a case of giving up; it is a genuine logical insufficiency in the provided facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0022",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information about whether the archerfish muffs or does not muff. The only relevant conditional (sent4) has a false antecedent, so it cannot be used to conclude anything. No other fact links the archerfish to muffing. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0025",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the hypothesis is true or false. The hypothesis requires a specific implication with consequent \"not unreactive,\" but the facts only give implications with consequent \"unreactive\" or different antecedents. There is no contradiction, but also no support, so the truth value cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0026",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that after analyzing all the given facts, we cannot determine whether the praetor is a time-fuse or defends Bahai, so the hypothesis's truth value cannot be established. This is not a matter of difficulty but of genuine logical insufficiency in the provided information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0028",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can derive many things, but nothing forces the truth or falsity of \"the allotropy occurs.\" The facts give conditions involving allotropy (sent3, sent4), but those conditions are not triggered in a way that determines allotropy. For example, sent3 only applies if salvo does not occur, but we derived salvo occurs. Sent4 requires salvo and allotropy to conclude something about putting redstart, but we already know putting redstart from other facts, and it doesn't give allotropy. So the information is genuinely insufficient to determine the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0029",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether \"the communalness occurs\" is true or false. Specifically, the occurrence of \"backing\" (which would imply communalness does not occur) depends on \"illuminating\" not occurring, but the facts never establish whether \"illuminating\" occurs or not. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0031",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can derive that the wringer is \"a kind of a wish\" and \"emotes scattering,\" but the hypothesis says \"does wish\" which is not exactly the same as \"is a kind of a wish.\" The distinction between classification and action makes the hypothesis not fully supported, but also not contradicted. Therefore, the information is insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0032",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts lead to two mutually exclusive possible conclusions depending on whether Kiowa is a pseudonym or not a cirque. Since the facts do not specify which of these holds, the hypothesis cannot be determined as true or false. This is not a case of giving up; it is a genuine logical insufficiency in the provided information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0033",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the crockery crams, nor whether the hand is a deposit. The hypothesis is a negation of a conditional, and without knowing the truth values of its components, we cannot determine if the negation holds. This is a case of genuine logical underdetermination, not a failure on my part.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0036",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information that establishes the existence of a daystar. The only mention of daystar is a conditional that results in something *not* being a daystar. Since the hypothesis claims that something *is* a daystar, and no fact supports that, the information is insufficient to determine the truth. This is not a case of giving up; it is a genuine lack of logical entailment.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0039",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about whether the lignum unclogs, and the rules about closing ruga depend on that unknown condition. No fact directly states whether the lignum closes ruga or not, so the hypothesis cannot be determined as true or false. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0044",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not tell us whether the pisiform is sustainable or not, so we cannot determine if the antecedent of the conditional in the hypothesis is true. Without that, we cannot judge whether the conditional is false, true, or unknown. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0045",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conditional statements but do not specify whether any object actually exists that is not a concern, nor do they rule out the possibility that some object is both not a concern and a pounce. The hypothesis claims that no such object exists, but the facts neither confirm nor deny this. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0046",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts do not provide any information about whether the doorkeeper is jihadi or not. The hypothesis is an \"or\" statement where one part is false (doorkeeper is an airworthiness), but the other part (not jihadi) is unknown, making the overall truth value undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0047",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The hypothesis requires two conditions: \"the pinscher is not a orthopter\" and \"it is not a dried.\"  \nFrom the facts, sent23 directly states \"the pinscher is not a kind of a orthopter,\" so the first part is true.  \nHowever, there is no direct statement about the pinscher not being dried. The only possible inference is via sent21, which requires the kob to be an orthopter, but that is not established.  \nThus, the second part is undetermined, making the whole conjunction undetermined.  \nThis is not a case of me giving up; the information genuinely does not settle the drying status of the pinscher.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0050",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts provide separate conditional statements that partially match the hypothesis, but none of them directly establish the exact conjunction required (kind of hazard and not a pneumonectomy) for a non-antiferromagnetic thing. The information is insufficient to prove or disprove the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0052",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether \"Shah equates town\" is true, which is not given. If it is true, the hypothesis is true; if false, the hypothesis is false. Since we cannot determine that, the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0054",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information that directly or indirectly establishes whether the sideburn is rh-positive. The only conditional involving sideburn rh-positive (sent12) has an antecedent that is not supported by any facts. No other fact links to the sideburn's rh status. Therefore, the hypothesis is undetermined given the facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0055",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the tailpipe does not disperse (from sent11 and sent12), but there is no information about whether the tailpipe offloads kowtow. The hypothesis claims that the statement “the tailpipe does not disperse and does not offload kowtow” is false. Since we cannot determine the truth of the second conjunct (offload kowtow), we cannot determine whether the conjunction is false. Therefore, the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0060",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any object that is stated to be an \"accounting,\" nor any conditional linking \"accounting\" to \"beanie\" for a specific object. The only relevant conditional (sent3) uses \"accounts\" as a verb, not \"accounting\" as a noun, and requires aggressiveness, which is not given for any object that is an accounting. Therefore, the hypothesis cannot be confirmed or denied from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0063",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide any direct or indirect information about whether the musnud is undrinkable. The only mention of the musnud is in a conditional statement (sent5) that requires the hypothesis itself as an antecedent, so it cannot be used to derive the conclusion. No other fact links to the musnud. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0066",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could derive some facts (like the scraper being thinkable, lactase not being a spell-checker, and the stem not understanding Tanoan), but none of these lead to establishing whether the Tagalog is Turkic or not. The only direct conditional for the hypothesis (sent12) has a false antecedent, so it cannot be used. No other statement connects to the Tagalog's Turkic status. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0068",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the fungible is a kind of a graffito. We cannot derive a definite truth value for the hypothesis from the given premises, so the correct answer is \"Unknown\" due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0071",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the labium is a note or not, nor do they establish whether the fergusonite is a saint or not. Without knowing the truth value of the antecedent (\"labium is not a note\") and the consequent (\"fergusonite is not a saint but it is a redact\"), the truth of the conditional in the hypothesis cannot be determined. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0072",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conditional statements about non-Camptosorus things, but never assert that any non-Camptosorus thing actually exists. The hypothesis claims that the existential statement \"there exists something such that if it is not a Camptosorus then it does not conn ion and is atmospheric\" does not hold. Without knowing whether any non-Camptosorus exists, we cannot determine whether that existential is true or false. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0075",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts give partial information about the six-spot, layman, and paddle-wheeler, but they do not constrain whether there exists some object that is non-extrusive and not an immunopathology. The hypothesis requires knowing whether every object is either extrusive or an immunopathology, which is not established. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0083",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the creator is a buttery or not. No chain of reasoning from the given sentences leads to a definitive conclusion about the creator's buttery status. The conditions that would imply \"creator is a buttery\" (e.g., flourish being an edaphosaurus) are not established, and no fact directly states the creator is not a buttery. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0087",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the capsule is abnormal, vociferates temperature, or gazes authoress. The only conditional that would lead to the capsule unearthing yataghan is if it were abnormal, but we have no evidence for that. Similarly, there is no fact stating the capsule does *not* unearth yataghan. Therefore, the hypothesis is undetermined based on the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0088",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The hypothesis requires showing that *everything* is both not honest and not explicable. The facts only establish that *something* is dishonest and incomprehensible (sent5), but nothing says all things are that way. There is no fact ruling out the existence of something that is honest or explicable. Therefore, the truth of the hypothesis cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0091",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the hypothesis reduces to needing to know whether the migrant is not systematic. The facts give no definite information about the migrant being systematic or not, so the truth value cannot be determined. This is not a case of giving up; it is a genuine insufficiency in the provided facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0093",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to confirm or deny the existence of something that coins recognizance, is not a Saurosuchus, and is a Vidal. The conditional in sent9 is not triggered because we don't know if the prickleback actually coins recognizance and is not a Saurosuchus. No other fact asserts or denies such an entity. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0095",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether catholicness occurs, which is needed to apply sent23. Since catholicness is unknown, the condition for the clown not occurring is not established, and no other fact directly addresses the clown. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0099",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information about whether the mesosphere is cryptanalytic or not, nor any direct link between the mesosphere and inventing G-man. The only relevant conditional (sent11) requires knowing the mesosphere is not cryptanalytic, which is never established. Therefore, the hypothesis cannot be determined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0102",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the action is both a faint and a transgression. The only conditional that would directly give that conclusion (sent6) depends on the shape not zeroing boring, which is not established. No other fact confirms or denies the hypothesis. Therefore, the question is objectively unanswerable given the provided information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0103",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the hypothesis must be true. The hypothesis requires that if fuming fester occurs, then both scrutinizing terminal does not occur and peek does not occur. However, the facts only give conditional relationships that do not link fuming fester directly to either of those outcomes in a way that forces them to be false. For example, sent12 only says that if scrutinizing terminal occurs, then fuming fester occurs, but not the reverse. sent11 requires mediateness, which is unknown. sent3 requires scat, which is unknown. Therefore, the truth of the hypothesis cannot be established or refuted from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0106",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the chain of implications needed to prove the hypothesis is broken at multiple points. We cannot establish that the endameba pulses rockery, which is required to conclude the ethylene is antimonic. The facts do not provide enough information to determine whether the hypothesis is true or false, so the correct answer is \"Unknown.\" This is not a case of giving up; it is a genuine insufficiency in the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0112",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide no direct information about the stonewaller's relationship to mystifying isolation. The only mention of the stonewaller is a conditional (fact 11) whose antecedent is not established. No other fact links the stonewaller to the properties needed to infer or deny the hypothesis. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0120",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the roarer is true, which makes the Bakelite not monumental. The third fact only applies if the Bakelite is monumental, which is false, so it tells us nothing about the painter. Therefore, we cannot determine whether the painter being not monumental and not blitzing the roarer is wrong or right. The information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0128",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not tell us whether the slackening toothbrush occurs, only that it *could* prevent the videotape. Since the hypothesis claims the causal statement \"slackening toothbrush causes (no videotape and no evasion)\" does *not* hold, we would need to know if slackening toothbrush actually occurs to test that causal claim. Without that, we cannot determine if the causal claim is true or false, so the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0129",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide partial information about the vermin and some other objects, but they do not specify whether there exists an object that is not a nosedive and for which the condition in the hypothesis holds. The hypothesis claims no such object exists, but the facts do not rule out the possibility. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0130",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the jackstraw is or is not a kind of senility, which is the necessary condition to trigger the rule that the termite does not melanize. No other statement links the termite to melanization. Therefore, the hypothesis cannot be determined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0132",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the town enucleates marblewood or not. We only know that the town does not splurge how-do-you-do (sent9). Since the hypothesis depends on both parts of the conjunction, and one part is unknown, the truth of the hypothesis cannot be determined from the given information. This is not a case of giving up; it is a genuine lack of relevant facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0134",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts, we can sometimes derive that the period is not hypnotic, which via fact 12 makes the hypothesis false. However, in other branches, we lack information about the period’s hypnotic status or the booth’s ally status, so the hypothesis could be true or false. This means the given information is genuinely insufficient to determine a single correct answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0138",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that orbing Rothko happens (sent8), which leads to visiting (sent5). But the hypothesis claims that the drop causes both visiting and non-noncaloricness. We have no information about whether the drop occurs, and we also don't know if non-noncaloricness (caloricness) is true independently. The conditional \"if drop then (visiting and caloricness)\" cannot be evaluated because the antecedent is unknown. This is not a case of me giving up; the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0141",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the nicotine submits. We cannot establish the required condition (something that is both regenerate and a notification) because we only know the alto is a notification, but we cannot prove it regenerates. No other object is known to be both. The hypothesis is not contradicted either, so it is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0144",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the sequestering Prociphilus does not occur (sent20), but there is no fact that directly states whether milchness occurs or not. The conditionals involving milchness (sent1, sent8, sent13) do not provide a definite truth value for milchness. Therefore, the hypothesis cannot be determined as true or false from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0145",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide many conditional statements but no direct information about whether the tanker stinks ling or stinks inviting. We cannot derive the hypothesis or its negation from the given premises, so the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0146",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the hypothesis's antecedent leads to the consequent. The truth of the antecedent (protriptyline not cultivating death or not being a bonefish) is not established, and even if it were, there is no direct link to the cufflink being non-acetylenic. The only possible route would require something prying damages, which is not guaranteed. Thus, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0147",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can derive several intermediate conclusions (¬P, ¬E, ¬R, and ¬(C ∨ ¬H)), but we cannot establish the condition needed for sent3 to apply to the icing. Specifically, we don't know whether there exists any object that is experiential or not heterologous, so we cannot conclude the icing is not a paleopathology. Without that, we cannot use sent9 to determine the icing's autoradiographic status. The facts simply do not provide enough information about the icing to decide whether it is autoradiographic or not. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0149",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the cardoon both does not take preferment and is not a pictorial. The conditional in fact 5 requires existence of a non-circular thing, which is not established. Other facts do not directly relate to the cardoon's preferment or pictorial status. Therefore, the hypothesis is undetermined given the facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0150",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the magnetosphere is unsystematic. We know it is not a rattle, but the only conditional linking unsystematic to the magnetosphere depends on the gherkin being a rattle, which is not established. Therefore, the hypothesis cannot be evaluated as true or false.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0153",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts contain a direct contradiction when assuming the tremble is a Klinefelter. Sent14 says the finnan is fibrillose and does not marble lysinemia, while sent8 + sent6 + sent15 together imply the opposite. Since the premises are inconsistent, no single logical conclusion can be drawn. This is not a case of difficulty but of genuine inconsistency in the given information, making the hypothesis undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0154",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not establish any direct or indirect link between whether the deist is a kind of fusee and whether the nurse-midwife is a dahl. The hypothesis requires showing that if the deist is not a kind of fusee, then the nurse-midwife is not a dahl, but no fact gives us that conditional. Some facts involve the deist being a fusee (not a kind of fusee), and others involve the nurse-midwife being a dahl, but they are not connected in the required way. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0155",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the module is both a luciferin and adscript, nor to prove that this combination is false. The conditions for the module being a luciferin depend on unknown facts about Czech things being electrophoretic, and the condition for being adscript depends on the monthly being laryngeal, which is also unknown. No chain of reasoning forces either the truth or falsity of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0156",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide no direct information about whether the Cage is pugilistic or whether it is not a confiscation. The only relevant conditional (sent12) would make the hypothesis false if an alphabet exists, but no fact establishes the existence of an alphabet. Other conditionals about the Cage depend on unknown conditions (e.g., whether the aerosol is a clot, whether the Cage cracks litigation). Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0157",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts provide only conditional or disjunctive information about the out-and-outer being monotheistic, and no fact directly establishes it. The hypothesis cannot be confirmed or denied from the given premises, so the correct logical status is \"Unknown\" due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0158",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the housekeeper sucks or does not suck, which is the key condition needed to apply sent3 and sent6. Without that, we cannot determine if the autoregulation both sucks and does not alloy preexistence. The hypothesis could be true or false depending on missing information, so it is genuinely undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0159",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the southeaster scrutinizes reality. The only relevant conditional (sent2) depends on the miller probing SLS, which cannot be established from the given facts. No other fact directly addresses the southeaster’s scrutinizing reality, and the conditions in sent18 and sent26 are not resolved. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0163",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts allow for multiple consistent scenarios: one where the hypothesis is true (if I is false, then B is false, so ¬B ∨ ¬X is true) and one where the hypothesis is false (if I is true, B and X can both be true, making ¬B ∨ ¬X false). Since both outcomes are possible given the facts, the truth value is undetermined. This is not a case of giving up; it is a genuine logical insufficiency.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0168",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about whether the blister is topographical or whether it retails. The hypothesis depends on conditions that are not established, so the answer is genuinely undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0169",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the Teuton is slippery. The condition in sent11 requires the existence of something that both eyes collagen and does not pencil technophobia, but the facts only give us separate pieces: something eyes collagen (sent9), and something neither eyes collagen nor pencils technophobia (sent12), but never both properties together. Therefore, the hypothesis cannot be logically derived or refuted.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0170",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conditional statements but never establish whether the antelope is Hebridean, footless, or not a transferability. Without knowing if the antelope is Hebridean, we cannot apply the conditionals to determine its properties. Therefore, the hypothesis cannot be evaluated as true or false—it is genuinely undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0171",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not mention \"displaying\" as an occurring event, nor do they mention \"alienableness\" at all. While \"error does not occur\" can be derived from facts 5 and 9, it is not caused by displaying. The hypothesis introduces new terms and a causal link not supported by the facts, so the truth value cannot be determined from the given information. This is not a case of giving up; it is a case of insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0172",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about the explaining accession (A) or the immersion (M) to determine whether the hypothesis \"A → M does not hold\" is true or false. We cannot derive A or M from the given statements, so the truth value is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0173",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give conditional statements about some objects, but they do not specify whether there exists any non-transitive object that is not a bung. The hypothesis requires existence of such an object, but the facts only guarantee a non-transitive object that *is* a bung (from sent1). Since we cannot rule out other non-transitive objects, but also cannot confirm their existence, the truth value is genuinely undetermined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0175",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether \"the processing is not a kind of a Mashhad\" is true or false. We know the processing is a methotrexate, but the conditionals that could establish its relationship to Mashhad depend on unknown facts about the doge. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0180",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the chain of implications cannot be triggered because we lack necessary intermediate facts (like whether the cocarboxylase suggests reprieve, or whether the krait refrains headshake). No fact directly establishes the spirograph's odorlessness or atonalistic status, so we cannot determine if it is uncongenial or not. This is not a case of giving up; the information provided is genuinely insufficient to reach a conclusion.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0183",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether there exists an object that is a kind of dictionary and does not baste and is not a put. Some facts constrain certain objects (like the pendant) but do not rule out other possible objects. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0186",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the turtleneck walks Osmanthus or is infinitival. We only know it debates beekeeper and is either Soviets or infinitival, but not which, and nothing about walking Osmanthus. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0188",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The given facts do not provide enough information to determine whether the daily is a plunk and a greenhouse. The relevant conditional (sent4) has an unconfirmed antecedent, and no other fact directly establishes or denies the hypothesis. Therefore, the correct answer is that it is undetermined, which means the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0190",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct statement about whether plumbaginaceousness occurs. The only mention is in a conditional that requires both plumbaginaceousness and onomatopoeicness to happen to prevent biauricularness, but we only know onomatopoeicness occurs, not plumbaginaceousness. No other fact gives information about plumbaginaceousness. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0191",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts only tell us that something does retire flashover (sent10), but they never state whether everything does or whether there exists something that does not. The hypothesis claims existence of something that does not retire flashover, which is not entailed by the facts, nor contradicted by them. Therefore, the information is insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0193",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether Fireman occurs and whether Nonintellectualness is true, neither of which can be determined from the facts. The facts do not provide enough information to establish or refute the hypothesis, so it is genuinely undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0195",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the combustion rats checksum. We know from sent5 that everything is a Ambystomatidae, so the combustion is a kind of Ambystomatidae. But without knowing if it rats checksum, the conjunction's truth value is unknown. Thus, the hypothesis is undetermined because the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0196",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the occultist temporizes. No premise links the occultist to temporizing, and no contradiction arises if we assume it does or doesn’t. The information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0197",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the hypothesis is true or false. Specifically, the truth values of several key propositions (like the hiatus, Renaissance, and Paleozoicness) are not fixed, and the connections between them do not force a single outcome for the hypothesis. Therefore, the correct answer is that it is undetermined, not because of difficulty but because the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0198",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about whether the sequestration consolidates. The only relevant conditional (sent9) has unknown antecedents, and no other fact directly addresses consolidation. Therefore, the question is objectively unanswerable given the provided information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0202",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give conditional statements about influential things, but neither implies the existence of something that is both a connivance and not sarcolemmic when influential. The hypothesis asserts such existence, which is not entailed by the facts, nor contradicted by them. This means the information provided is genuinely insufficient to determine whether the hypothesis is true or false.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0210",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the seashell is a kind of Chlorophoneus. The only relevant conditional (sent14) depends on the archer not being an expose, but we cannot establish that from the given facts. The autolytic part is given, but the conjunction requires both parts, so the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0213",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the Dimetane is not a Democrat and not a paraphrase. The only conditional that could lead to that conclusion (sent1) requires the magnetograph to not be a Democrat, which is never established. Other relevant conditionals (sent13, sent14) also have unestablished antecedents. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0216",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information connecting \"non-singular\" to \"not a kind of a pendant\" for any specific object. The only mention of \"singular\" is \"singular hold\" in facts 3 and 5, but the hypothesis uses \"non-singular\" without definition. There is no object known to be non-singular, and no rule linking non-singular to pendant status. Therefore, the hypothesis is undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0217",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether every femur is a galago. There is no statement that forces all femurs to be galagos, nor is there a definite example of a femur that is not a galago. The hypothesis is therefore undetermined, not because I couldn't work it out, but because the given facts are genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0218",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not determine whether the keeping occurs (K) or not. The hypothesis reduces to K being true, but K is not fixed by any fact. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0219",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect link to establish whether the criollo is or is not a kitchenette. The relevant rules (sent8 and sent17) require conditions that are not established for the criollo. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0220",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the vivifying nihilist occurs, nor any direct link between the vivifying nihilist and the convoking Colombo or beatification. The only mention of vivifying nihilist is in a conditional that does not establish its truth value. Therefore, the hypothesis cannot be determined as true or false from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0221",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts contain a direct contradiction: sent6 says headshot → deferral occurs, while sent10 (and sent15) say damping Oswald and headshot → deferral does not occur. Since damping Oswald is true (from sent2 and sent13), if headshot happens, both deferral occurs and does not occur would follow. This makes the facts inconsistent under the assumption of headshot. Since we don't know if headshot happens, and the conditional's truth depends on that inconsistent scenario, the hypothesis cannot be determined as true or false. The information is genuinely insufficient to resolve the contradiction.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0222",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether at least one of \"Zygophyllum\" or \"pocketknife\" occurs, but the facts do not specify either. Therefore, the information is genuinely insufficient to determine the answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0228",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we cannot determine whether dining happens, and therefore cannot determine whether the implication “if dining happens then revaluing underfelt occurs” is false. The facts do not provide enough information to establish the truth or falsity of the hypothesis. This is not a case of giving up; it is a case where the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0230",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the mildness occurs. We cannot establish whether amethystineness occurs or not, nor whether coining occurs, so the hypothesis remains undetermined. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0231",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts give conditional statements about the gazette and other objects, but they do not specify whether there exists any object that is both not a crash and not a respected, nor whether such an object would be postprandial. The hypothesis claims that the existential statement is false, but the facts neither confirm nor deny that. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0232",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether the feedlot declines epicureanism. The only conditional that could imply it has a false antecedent, and no other fact directly states it. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0233",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the clash does not occur (sent2), so the hypothesis \"the clashing happens if the enjoyment occurs\" would require that whenever enjoyment occurs, clashing happens. But since clashing never happens, the hypothesis can only be true if enjoyment never happens. However, we have no information about whether enjoyment occurs or not. Therefore, the truth value is undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0236",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about whether the landfill retires sociality or whether it is a ballistocardiogram. The condition in sent10 that would make the succorer an aspirin depends on that unknown information, so the hypothesis cannot be determined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0237",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the sidewalk is over-the-counter. We know the sidewalk does not roof glycine (from sent9 and sent5), but we don't know if it is a Burbank or a totalitarian. If it is not a totalitarian, it would be over-the-counter (sent2). If it is a Burbank, it would not be over-the-counter (sent1). Since neither property is given, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0241",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts only provide a conditional about \"the ledge,\" but the hypothesis requires existence of some object satisfying that conditional. Without knowing whether the ledge meets the antecedent, or whether any other object does, we cannot determine the truth. This is not a matter of difficulty but of insufficient logical information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0242",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide only conditional statements involving the artillery position (e.g., sent5: if artillery positions, then something else follows), but no fact asserts or denies that the artillery actually positions. There is no chain of reasoning that forces the hypothesis to be true or false. The information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0243",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not logically force the hypothesis to be true or false. The hypothesis requires existence of something where (¬S ∨ ¬K) → Linz, but the facts only guarantee existence for different conditions (like S ∨ ¬K → Linz, or ¬Q → Linz). There is no logical contradiction if the hypothesis is false, and no proof it is true. Thus, the information is genuinely insufficient to determine the answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0245",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the fact only gives a conditional statement about anything that insures, but does not specify whether anything actually insures. The hypothesis negates the existence of such a conditional instance, which cannot be determined from the fact alone. Therefore, the correct reason is B.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0246",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the antimatter is a kind of graft, which is the necessary condition for the hypothesis to follow. No chain of reasoning from the given sentences can establish that the exerciser is not a Nacimiento and not a caspase. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0249",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we can derive \"the Vandal is not a scorch\" from sent10 and sent22, but we cannot derive \"does not execute picnic\" because the antecedent in sent1 is not satisfied by the given facts. The facts do not provide enough information about the spectator's republic/Neoplatonist status to trigger that conclusion, and no other fact establishes the picnic execution status. Therefore, the hypothesis is not fully determined by the facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0250",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect link to \"the soap sinks.\" The only mention of \"sinking\" is in sent15 about something else, and sent13 about \"a kind of a sinking\" which is not the same as \"sinks\" and also requires the nosebag to be an audition, which is not established. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0251",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct statement about whether the nalorphine is or is not a rowdiness. The conditionals involving rowdiness depend on unknown conditions (like whether it is uncontroversial). Since we cannot determine the truth of \"the nalorphine is not a rowdiness,\" the hypothesis cannot be confirmed or denied. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0252",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not establish that anything is \"same.\" The hypothesis requires existence of something that, if it is same, then it is non-nonrandom and does not enrich rabbit. While we know that if something is same, it does not enrich rabbit (sent9), and from sent3 and sent5 we know the documentary is not nonrandom regardless of being same or not, we still lack proof that any object is same. The existential claim cannot be confirmed, but also cannot be refuted because it's possible something is same. Thus the information is genuinely insufficient to determine truth or falsity.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0253",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether there exists something that is not lesser and not a postulate that is a jazz. We only know jackknife-fish is a postulate, so it doesn't satisfy the antecedent, but other objects are not discussed. Thus, the truth of the hypothesis is genuinely undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0257",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not specify whether the galago is separate or not. The hypothesis's truth depends entirely on that missing condition. Since the given information is genuinely insufficient to determine whether the conditional is false or true, the correct classification is \"Unknown.\"\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0260",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that no chain of facts leads to the conclusion that the original does not blacken peregrination, nor does any fact contradict it. The conditionals that could imply it all depend on unestablished premises, so the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0261",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not force the equation to be true or false. We deduced harmonicness is true, but the equation’s truth depends on powwowing, which is not determined. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0263",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether phenylephrine is monoecious. The only relevant conditional (sent19) has a false antecedent, so it yields no conclusion. Other mentions of phenylephrine do not address its monoecious status. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0265",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the hypothesis cannot be confirmed or denied because the chain of implications needed to establish the touraco is not a plutonium depends on an unconfirmed existential claim about ascosporic things. No fact directly states the heterosexuality is or is not a Castor or a plutonium. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0267",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the VIP cracks photoemission. The only rule about cracking photoemission requires being a key, but sent6 says nothing is a key, so that rule cannot apply. No other fact connects the VIP to cracking photoemission, so the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0269",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide a conditional (sent3) that matches the hypothesis's conditional, but they do not assert that any object actually satisfies the antecedent \"not a lighterman and does not foreshorten tinning.\" Without an existence claim, the hypothesis's existential form cannot be logically derived. The information is genuinely insufficient to determine whether such an object exists, so the answer is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0270",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct statement about whether the affiant is sigmoid or not. The conditionals involving sigmoid (sent8, sent10, sent11) all have antecedents that are not established by the facts. For example, we don’t know if the quadraphony is glabellar, and we don’t know if the affiant is non-sigmoid. Therefore, the hypothesis cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0271",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we can determine the quilting follows mongoose, but we cannot determine whether it follows Vienne. Since the hypothesis requires both conditions, and one is unknown, the correct logical status is \"Unknown\" — not because the problem is too hard, but because the facts genuinely do not provide enough information about the quilting's relation to Vienne.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0275",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts lead to a contradiction: Sent1 implies the arsenal is not a WAN, while Sent5 implies it is a WAN. Since the premises are inconsistent, no single truth value can be assigned to the hypothesis. This is not a case of insufficient information but of contradictory information, making the hypothesis undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0278",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the slag is not a launch. The condition in sent7 that would lead to \"slag does not launch\" is not established by any other fact, and no fact directly states the slag's launch status. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0280",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the nibbler is not a ableism. We know the nibbler is nonastringent, but we cannot establish whether it is not cleared, which is required for the rule in sent8. Also, we cannot rule out the possibility from sent14 that the nibbler is a ableism, since we don't know if the neckcloth is nonastringent. Thus, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0282",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could not derive the doll's pagination status from the facts, and no contradiction forces it either. The information is genuinely insufficient to determine whether the doll assays pagination, so the correct answer is \"Unknown\" due to logical underdetermination, not because I gave up.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0283",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether the declension is emotional (E), which is not determined by the facts. The facts allow for two possible scenarios: one where E is true (making the fairy archipelagic, so the hypothesis false) and one where E is false (leaving the fairy's archipelagic status unknown). Therefore, the information is genuinely insufficient to determine a single correct answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0289",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts, if something is not a Crane, then it must be both woolen and a batten. The hypothesis claims there exists something such that if it is not a Crane, then it is not both non-woolen and non-batten. Given the deduction, that conditional is always true for any non-Crane, but we don't know if any non-Crane exists. The facts do not state whether there is at least one non-Crane, so the existence claim cannot be confirmed or denied. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0291",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conflicting or incomplete information about whether something that jibes is both non-Unitarian and tarnishes eyeshadow. No single fact directly asserts that combination, and the hypothesis claims that such a statement is not correct. Since we cannot confirm or deny the existence of such a thing from the given facts, the truth value is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0292",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not give any direct or indirect information about whether reproduction occurs or not. The only mentions of reproduction are in conditional statements (sent8, sent11, sent18), but none of those conditions are satisfied in a way that forces a conclusion about reproduction. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0295",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give conflicting conditionals for different objects, and we don't know whether the consignment satisfies the antecedent. The hypothesis requires existence of something with a specific conditional, but the facts only provide a conditional for the consignment (if it meets the antecedent) and an existential with the opposite consequent. This makes the truth of the hypothesis undetermined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0297",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct information about whether pyrolatry occurs, nor about \"completing\" (as opposed to \"completeness\"). The hypothesis requires both pyrolatry and completing to be true, but neither can be derived or refuted from the given statements. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0299",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct information about whether the Gnostic understands teasing. We know something understands inducement and therefore understands teasing, but not which specific entity. No fact links the Gnostic to understanding inducement or teasing, nor does any fact rule it out. Thus, the information is genuinely insufficient to determine the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0301",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts contain contradictory statements about what happens if something is a flax and not an integrity: sent6 says it does debate automation, while sent19 says it does not. The hypothesis claims there exists something that is a flax and not an integrity, and that it does not debate automation. Since we are not told whether such a thing actually exists, and if it did exist, the facts would be inconsistent, the truth of the hypothesis cannot be determined from the given information. This is not a case of me giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0305",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of \"the spinalness occurs\" depends on whether \"notching leatherwork\" occurs, which is not determined by the facts. If it does not occur, then spinalness follows; if it does occur, spinalness is not established. Since the facts do not specify this, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0307",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not force the hypothesis to be true or false. The hypothesis claims a certain existential statement is false, but the facts only provide some conditionals for some objects, not enough to rule out the existence of an object satisfying the hypothesis's condition. Thus, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0311",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether the clitoridectomy happens. The conditions that would trigger or prevent it are not established, so the hypothesis is undetermined. This is not a case of giving up; it is a genuine insufficiency in the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0314",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the bimodalness not occurring causes the non-bottom-upness and affecting clue to happen. Specifically, we don't know if bimodalness occurs or not, and we don't know if the affecting clue occurs. The implication in the hypothesis cannot be evaluated as true or false.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0317",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether there exists any non-uninformative entity, which the facts do not specify. If none exists, the hypothesis is vacuously true; if at least one exists, it contradicts fact 4. Since the facts do not establish existence or non-existence of such an entity, the answer is genuinely undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0322",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the affine is nonprofessional. We cannot derive the truth value of the hypothesis from the given statements, so the correct answer is that it is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0323",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts do not provide enough information about whether \"datableness\" occurs or not, nor about \"melodicness\" occurring or not. The conditional in the hypothesis depends on the truth value of \"datableness does not occur,\" which is not established by any fact. Therefore, we cannot determine if the hypothesis is true or false.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0326",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could determine gymnasticsness does not occur, but we have no information about unforgettableness, so the truth of the hypothesis cannot be decided. This is not a case of giving up; it's that the facts genuinely do not provide enough to determine the answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0327",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of \"the quest does not occur\" depends on whether U (unionizing) occurs, which is not specified in the facts. If U is false, then Q is true; if U is true, then Q is false. Since the facts do not determine U, the hypothesis is undetermined. This is not a case of giving up; it is a genuine logical insufficiency in the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0329",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the hypothesis depends on whether the marlite does not war methyltestosterone, but the facts do not establish that condition. The antecedents for deriving it (like something worrying barrier, or absence of certain objects) are not confirmed. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0330",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct assertion that something is a lawlessness, and the only conditional that could lead to lawlessness (sent18) requires something that is both a switchboard and a microscope, which is not established. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0331",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information connecting the plethysmograph to being a tor. There is no rule stating that being a Procaviidae or a splat implies being a tor, and the conditions that might link it (via being a liberal) are not satisfied because we don't know if anything both fawns Argonautidae and bootlegs Nicosia. Therefore, the hypothesis is undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0338",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not contain any direct or indirect logical connection between \"hell occurs\" and \"combination does not occur.\" The only mention of both is in sent18, which gives a condition for combination not occurring that depends on a specific combination of disparagement and hell, but it does not state what happens when hell occurs alone. Therefore, the hypothesis cannot be determined as true or false from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0341",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give conditional statements but never establish whether the antecedent \"the stuffing is not Afghani\" is true. Without knowing that, we cannot confirm the existence of a non-Afghani trichloride that is not imperialistic. The hypothesis claims such an existence statement does not hold, but the facts neither prove nor disprove it. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0344",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether the mayeng is a bulkiness. The conditions needed to apply the relevant rules (like the mayeng being a Soubise or a Nisan) are not established, and no other fact directly links the mayeng to bulkiness. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0346",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the ferry does not occur, so from fact 7, both shave and gaslight happen. We also know seductiveness happens. But we have no information about certainness at all, and we don't know whether staleness occurs or not (since stretching is unknown). The hypothesis requires that if staleness does not occur, then certainness and shaving happen. Shaving is true, but certainness is never mentioned, so we cannot determine the truth of the hypothesis. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0348",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information about whether nondisposableness occurs or not. The only mention is a conditional (if nondisposableness happens, then certain things follow), but there is no premise establishing that nondisposableness happens or does not happen. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0351",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not contain any information about the Presbyterian worsening falsie. The hypothesis asks whether \"the Presbyterian does worsen falsie\" is true, but no premise links the Presbyterian to worsening falsie, nor does any premise rule it out. Therefore, the truth value cannot be determined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0356",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any link between being gallinaceous and fathoming viroid for the same object. We know the pique is gallinaceous, and we know something fathoms viroid (possibly the TMV), but there is no fact establishing or denying that the same thing has both properties. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0362",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give a biconditional relationship between \"diapason is acanthotic\" and \"diapason is a Dacrycarpus\" (from sent1 and sent10). The hypothesis is that at least one of these is false. Since the facts do not specify whether the diapason is acanthotic or a Dacrycarpus, both possibilities (both true or both false) are consistent with all facts. Therefore, the truth of the hypothesis cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0364",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct information about the midiron's ministerial status. The only relevant conditional (sent12) requires a non-cybernetic thing that connives shortlist, but we only know there is something that connives shortlist (sent2) and something that is non-cybernetic (sent17), but not that they are the same thing. Therefore, the antecedent is not established, and the hypothesis cannot be determined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0368",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the baluster is not an Alopecurus and spars Genoese. We only know that \"baluster is Alopecurus and spars Genoese\" is false, which could be due to either part being false. Without knowing which part fails, we cannot confirm the hypothesis. Thus, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0370",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the orthodontist both beams Magnificat and is not a kind of blackbird. We only know the orthodontist either beams Magnificat or is a blackbird, but we cannot rule out the possibility that the orthodontist is a kind of blackbird, nor can we confirm it. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0372",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that \"scat happens\" is true (from sent3 and sent6). However, \"slumming\" is never mentioned in any fact, so we have no information about whether \"slumming happens\" is true or false. Since the hypothesis claims that the conjunction \"slumming happens and scat happens\" does not hold, we would need to know if \"slumming\" is false to confirm it, or if both are true to deny it. Without any info on \"slumming\", the truth value is undetermined. This is not a case of me giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0375",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct information about whether the picnic is a webfoot or not. The only relevant conditional (sent9) requires a ghoul that scoops picturing, but we have no evidence that any ghoul scoops picturing. Other facts about grenadine, Spirulidae, etc., do not connect to the picnic's webfoot status. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0376",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could not determine whether \"the canvasing van occurs\" because the condition for it (twinkling) depends on a chain that includes \"disharmonizing,\" which is never established as true or false. The facts do not provide enough information to resolve that chain, so the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0378",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information about the choc-ice’s safety or its corporatist status, and the conditionals that could lead to “not a valuer” have unconfirmed antecedents. No chain of reasoning from the given facts forces the conclusion that the choc-ice is not a valuer, nor does it force the opposite. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0381",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the screenwriter is not stupid (sent2), but nothing directly states whether the screenwriter is a cauda. Several conditionals mention cauda, but none are triggered by known facts. For example, sent14 requires the screenwriter to be a bioscope, which is not established. sent10 and sent17 are conditionals about other entities. Therefore, the truth of “the screenwriter is both not a stupid and a cauda” cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0382",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the moussaka is a Esselen or not, which is crucial for evaluating the hypothesis. The hypothesis claims the conditional \"if quaker is not flinty then moussaka acclimatizes and is Esselen\" does not hold. We can derive that if quaker is not flinty, moussaka acclimatizes, but we cannot determine whether moussaka is Esselen. Therefore, the truth of the hypothesis is genuinely undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0383",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information linking the obsessive to being reversible or not, except for a conditional that is not triggered. Since the condition in sent14 is not established, we cannot determine the truth value of the hypothesis. This is not a case of difficulty but rather the information being genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0385",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information that forces the conclusion that the drove is a waveguide. The only conditional involving the drove and waveguide is one-way (if waveguide, then shutters corduroy), but we never establish the antecedent. Other facts about the drove only mention flirting brisket and not being intertidal, which do not relate to being a waveguide. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0388",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts do not specify whether any attacker exists that is both robotic and not aspectual. The hypothesis claims the existential statement is false, but we cannot confirm that from the given information. Therefore, the correct reason is that the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0389",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide conditional statements about non-Dorian things, but never assert that any non-Dorian exists. The hypothesis requires existence of something satisfying the implication. Without knowing if there is any non-Dorian, we cannot determine if the existential is true or false. The information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0391",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect link between the buffalofish and being \"a kind of a noticed.\" The statements about the buffalofish only mention the verb \"notices\" under certain conditions, but the hypothesis uses a different predicate (\"is a kind of a noticed\"). There is no rule connecting these, and no fact asserts or denies the hypothesis. Therefore, the information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0392",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts only provide a conditional statement (sent1) but do not assert the existence of any object that is a thirteen and does not Romanize self-preservation. The hypothesis requires existence of at least one such object to be true, but the facts neither confirm nor deny that existence. Therefore, the truth value cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0394",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide no direct statement about whether the indexing uncus occurs or not. The only mention is a conditional in sent10, which does not tell us if the antecedent is true. Since we cannot determine the truth of the hypothesis from the given information, the correct answer is that it is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0400",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The given facts do not provide any direct information about whether the switch-ivy mystifies drum, and the only conditional that could lead to it (sent10) depends on the auto-mechanic mystifying drum, which is not established. No other facts connect to the switch-ivy’s drum-mystifying behavior. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0401",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not contain any direct statement about whether the mid-calf is a coronary or whether it discontinues cudgel. The conditionals involving these terms are all dependent on other unknown conditions, and none of them establish the truth or falsity of the hypothesis. Therefore, the information is genuinely insufficient to determine the answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0402",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether something overshadows Hokan, nor whether anything that does overshadow Hokan equates scilla. The hypothesis claims that the existential statement \"there is something such that if it overshadows Hokan then it equates scilla\" does not hold. Since we cannot determine whether any such thing exists or whether the implication holds, the truth value is genuinely undetermined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0404",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could determine the roast does not introspect dimetrodon, but we could not determine whether the roast is a heterocycle. The hypothesis depends on both parts, and since one part is unknown, the truth value cannot be decided. This is not a case of giving up; it's a genuine insufficiency in the provided facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0405",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The given facts do not provide any information about whether the iodination fledges postposition. The only way to conclude the limeade is taxable is through sent16, which requires the iodination to not fledge postposition. Since we cannot determine that, the hypothesis is undetermined. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0406",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts allow two possible scenarios: one where the Berg scatters Satie (making the spearmint flute true), and one where the Berg is Trojan but does not scatter Satie (leaving the spearmint's fluting undetermined). Since the hypothesis \"the spearmint does not flute\" is false in the first scenario and could be either true or false in the second, the information is insufficient to logically determine the hypothesis. This is not a case of giving up; it is a genuine logical indeterminacy.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0407",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts do not provide enough information about whether the valsartan horripilates banter. We know it horripilates Filoviridae from sent18, but the only rule connecting banter to antigenicity (sent1) requires knowing the valsartan is not antigenic, which is never established. No other fact determines its banter status, so the hypothesis cannot be confirmed or denied.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0409",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the equerry is dynamics or not, nor about whether the resonator infiltrates dealfish. The hypothesis depends on both of these unknown conditions, so the truth value cannot be determined from the given facts. This is not a matter of difficulty but of genuine insufficiency in the information provided.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0411",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct information about whether the trifle is a foram or not. The only relevant conditional (sent1) has a false antecedent because the raft is a qoph, so it gives no conclusion. Sent7 requires knowing whether the raft is a foram, which is not given. No other statement links the trifle to being a foram or not. Therefore, the hypothesis is genuinely undetermined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0416",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information that forces the conclusion that the search is not a Bellarmine. The only statement about the search is that it is not a diminution, which has no logical connection to being a Bellarmine. The conditional statements about Bellarmines only apply if certain conditions are met, but we have no information about whether those conditions hold for the search. Therefore, the hypothesis is undetermined due to insufficient information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0417",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts do not provide enough information to determine whether there exists something that is not a merlon, which is required to trigger the relevant conditional statements (sent3 and sent9) that would directly establish the hypothesis. Without that existence, the hypothesis remains undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0420",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information about the pawnbroker’s conspiring status or its being a Verrazano. The only relevant conditional (sent14) depends on the bloodworm not conspiring, which is not established. Therefore, the hypothesis cannot be determined as true or false from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0422",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the lorry sours. There is no direct statement about the lorry souring, and the conditional statements that could link to it (like sent17 and sent22) have unknown antecedents. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0424",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information about whether the bowl is insurmountable. The conditional statements that could link to the bowl’s insurmountability have unconfirmed antecedents, so no conclusion can be drawn. This is not a case of difficulty but of genuine insufficiency in the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0429",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the Alaskan is not vicinal. The relevant conditionals (sent15 and sent20) have antecedents that are either contradicted or not established, and no direct statement about the Alaskan’s vicinal status exists. Therefore, the correct answer is that the hypothesis is undetermined, not because of difficulty but because the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0430",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can deduce M (moreness) is true and L (linemen) is false, but the truth of St (stead) depends on Si (sign), which is not determined. Since Si is unknown, St could be either true or false, so the hypothesis is undetermined given the facts. This is not a case of giving up; it's a genuine logical insufficiency.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0432",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could deduce several facts, but the key condition for sent5 (whether the whorehouse discontinues Mexico) remains unknown, so we cannot determine if the lyreflower is a thumbstall. This is not a case of giving up; the information provided is genuinely insufficient to settle the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0436",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information about whether the cameo specifically angles or prevents utmost, so the hypothesis cannot be determined as true or false. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0438",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect link to conclude whether the tagliatelle is an outpatient. We only know it is testaceous, but that alone is not sufficient to determine outpatient status. No rule connects testaceousness to being an outpatient, and other conditions (like toppling or being a kind of outpatient) are unknown. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0440",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the baba is a declassification, so the souther is a dispassion. The hypothesis requires that if the souther is nice, then the trapezoid is non-perinatal and does not unbend hydralazine. We have no information about whether the souther is nice, nor any direct link from the souther being nice to the trapezoid’s properties. The facts about the fluorine and trapezoid depend on conditions (fluorine not perinatal, fluorine unbending hydralazine, etc.) that are not established. Therefore, the truth of the hypothesis cannot be determined from the given facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0441",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct link between \"fakery\" and \"valetudinarianness.\" We do not know if fakery occurs, and even if it did, there is no rule connecting it to valetudinarianness. The information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0444",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provided do not establish any logical connection between the jewels-of-opar and being a Coregonidae. None of the statements mention the jewels-of-opar in relation to steepness, Chrysopidae, or Coregonidae in a way that would force a conclusion. The hypothesis remains undetermined based on the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0445",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether \"the buteonine happens\" is true or false. The conditionals given are either circular, one-way, or irrelevant, and no fact establishes the occurrence of exalting or buteonineness directly. Therefore, the hypothesis is undetermined given the facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0446",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "Reasoning: The facts only state that non-Dostoevskianness is triggered by the conjunction of the bootlegging sporozoite and the Bahai happening, and that the bootlegging sporozoite happens. There is no information about what causes Dostoevskianness, nor any direct relationship between Dostoevskianness and Bahainess. The hypothesis cannot be logically derived or contradicted from the given facts. This is not a case of giving up; it is a genuine insufficiency of information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0447",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the truth of the hypothesis depends on whether the flavonoid models, which is not determined by the facts. Since the facts do not provide enough information to conclude whether the poltroon is midi or non-midi, the correct answer is \"Unknown,\" meaning the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0449",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about whether the intonating milkwagon occurs. Since the hypothesis reduces to \"not intonating milkwagon\" (because intonating Bostonian is false), and we have no fact about the milkwagon, the truth cannot be determined. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0451",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts are contradictory: Fact 8 states there exists something that devils Roberts and is not an eyelid and not denominational, while Fact 9 states that anything that devils Roberts cannot be both not an eyelid and not denominational. These cannot both be true, so the premises are inconsistent. In classical logic, from inconsistent premises any conclusion follows, but in the context of determining truth from given facts, the situation is undetermined because the facts themselves cannot all hold. Thus, the correct answer is that the information is insufficient/contradictory, making the hypothesis undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0453",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether \"the Thai is a kind of an intangible\" is true or false. While we can derive that the Thai is an intangible, the hypothesis requires a stronger claim (being a kind of intangible), which is not supported or contradicted by the given facts. Thus, the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0455",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the favorite is machine-made, but nothing connects being machine-made to being a coronary. The statements about coronary involve the parchment or general conditionals that don’t apply to the favorite. Therefore, the information is genuinely insufficient to determine the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0458",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that we could not determine whether conniving Highlander occurs, and the only rule linking heliolatry to absence depends on that unknown. Since the facts do not provide enough information to decide, the correct answer is \"Unknown,\" which means the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0459",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the rationalizing seismogram occurs, which is necessary to evaluate the hypothesis. The conditional statements about it are contradictory or dependent on unknown conditions, so no definite conclusion can be drawn.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0461",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not allow us to determine whether the quarterback serenades Hutchinson, because that depends on whether the quarterback is cucurbitaceous, which is not established. The fiber’s cucurbitaceous status is also unknown, and the conditional in sent5 cannot be applied without that. Therefore, the hypothesis is genuinely undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0468",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts do not provide enough information to determine whether the clearing bilks. The only conditional that could lead to the clearing bilking (sent15) is not triggered, and no other fact directly asserts or denies it. Therefore, the correct answer is \"Unknown\" because the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0469",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that while we can determine the cannelloni acts semi-abstraction, we cannot determine whether it is a OPCW because that depends on whether it does not act emigration, which in turn depends on unknown facts about burlesque and biplane's fatigues status. The given facts do not provide enough information to settle the hypothesis, so the correct answer is \"Unknown\" due to genuine insufficiency.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0470",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that from the facts we can deduce the Father is a collision, but we cannot determine whether the Father is a seminary. No fact forces the Father to be a seminary, and no fact rules it out. The information is genuinely insufficient to decide the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0471",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any information about what happens when packableness does not occur. We know opener occurs, but we have no link from ¬Packableness to monolatry. The hypothesis is therefore not logically entailed nor contradicted by the facts.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0474",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the Mexican is a cereal or not. We know the Mexican is eschatological, but the conditions that would make it a cereal (sent9, sent15) depend on unknown facts about the dasyure reprobating confederation. No fact directly states the Mexican is not a cereal, and no fact forces it to be a cereal either. Therefore, the hypothesis is undetermined.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0477",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The hypothesis claims it is true that it is false that the XXX is percussive and popular. From the facts, we know the XXX is popular (sent6 + sent13). However, we cannot determine whether the XXX is percussive. The only relevant fact about percussiveness is sent5, which depends on the grad not being absent, but sent7 gives a disjunction that doesn't resolve this. Therefore, the truth of the conjunction is undetermined, so the hypothesis is undetermined. This is not a case of giving up; the information is genuinely insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0478",
+      "answer_idx": 0,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide only conditional statements about the worsted’s wandering and premeditation status, but none of the conditions are established as true or false. For example, sent6 says if the sake is not a premeditation, then the hypothesis holds, but we never learn whether the sake is a premeditation. Similarly, no fact directly asserts or denies the worsted’s wandering or premeditation. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0481",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide any direct or indirect information about whether the appendicle is a volution or benzylic. The only mention of benzylic for the appendicle is in negated conjunctions, and there is no statement about it being a volution. Therefore, the information is genuinely insufficient to determine the truth of the hypothesis.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0484",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not establish whether the bracteole is impotent. The hypothesis is a conditional that depends on that unknown condition. Since the antecedent is unknown, the truth value of the conditional cannot be determined from the given information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0486",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The question is objectively unanswerable because the facts only provide a universal conditional statement, but do not state whether any object actually satisfies the antecedent. The hypothesis requires existence of at least one such object, which cannot be inferred from the given information. Therefore, the correct answer is that it is undetermined, not because of difficulty but because the information is insufficient.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0491",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not tell us whether nonindulgentness is true or false. The hypothesis is conditional on nonindulgentness, so its truth depends on that unknown value. If nonindulgentness is true, the hypothesis contradicts sent11; if false, it is vacuously true. Thus, the information is genuinely insufficient to determine a single correct answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0493",
+      "answer_idx": 1,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The reasoning shows that the facts only allow us to deduce properties about the Tswana, not about the bust. The bust is only mentioned in fact 1, which becomes vacuous once we determine the Tswana is not hypotonic. There is no information linking the bust to being non-hypotonic or discussing, so the hypothesis cannot be confirmed or denied. This is not a case of giving up; it is a genuine insufficiency of information.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0496",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts provide various conditional statements about different objects, but none of them directly establish the specific implication required by the hypothesis: that there exists something for which the negation of (tweedles Esau and not developmental) implies it is not a Paradisaeidae. Some facts give the opposite consequent for the flax, others give different antecedents, but none force the hypothesis to be true or false. The information is genuinely insufficient to determine the truth value.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0498",
+      "answer_idx": 0,
+      "s4_correct": true,
+      "pred_s5": "B",
+      "raw_s5": "The facts give us that the vagrant is not a tetrachlorethylene (sent6), but they do not tell us whether the vagrant is a Glaswegian. The hypothesis claims that it is not correct that the vagrant is both Glaswegian and not tetrachlorethylene. Since we know the second part is true, the truth of the hypothesis depends entirely on whether the vagrant is Glaswegian, which is not provided. Therefore, the information is insufficient to determine the answer.\n\nAnswer: B"
+    },
+    {
+      "sample_id": "FLD_0499",
+      "answer_idx": 1,
+      "s4_correct": false,
+      "pred_s5": "B",
+      "raw_s5": "The facts do not provide enough information to determine whether the hypothesis is true or false. Specifically, sent7 gives a conditional about the missile, but we don't know if the missile is mnemonic. sent9 gives a different consequent (foghorn instead of not foghorn), so it doesn't directly contradict the hypothesis. No fact establishes or rules out the existence of an object satisfying the condition in the hypothesis. Therefore, the information is genuinely insufficient.\n\nAnswer: B"
+    }
+  ]
+}

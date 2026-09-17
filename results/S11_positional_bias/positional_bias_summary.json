@@ -1,0 +1,566 @@
+{
+  "rows": [
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FLD",
+      "position": "A",
+      "n": 500,
+      "n_valid": 496,
+      "excluded": 4,
+      "abstain_rate": 0.6431451612903226,
+      "label_acc": 0.26411290322580644,
+      "label_f1": 0.25966034224876045,
+      "counts": {
+        "A": 85,
+        "B": 92,
+        "UNKNOWN": 319,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 319,
+        "B": 85,
+        "C": 92,
+        "null": 4
+      }
+    },
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FLD",
+      "position": "B",
+      "n": 500,
+      "n_valid": 496,
+      "excluded": 4,
+      "abstain_rate": 0.6754032258064516,
+      "label_acc": 0.25,
+      "label_f1": 0.2517097581317765,
+      "counts": {
+        "A": 80,
+        "B": 81,
+        "UNKNOWN": 335,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 80,
+        "B": 335,
+        "C": 81,
+        "null": 4
+      }
+    },
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FLD",
+      "position": "C",
+      "n": 500,
+      "n_valid": 497,
+      "excluded": 3,
+      "abstain_rate": 0.6841046277665996,
+      "label_acc": 0.2414486921529175,
+      "label_f1": 0.24493435472455793,
+      "counts": {
+        "A": 75,
+        "B": 82,
+        "UNKNOWN": 340,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 75,
+        "B": 82,
+        "C": 340,
+        "null": 3
+      }
+    },
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FOLIO",
+      "position": "A",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.22,
+      "label_acc": 0.716,
+      "label_f1": 0.536179685224194,
+      "counts": {
+        "A": 203,
+        "B": 187,
+        "UNKNOWN": 110,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 110,
+        "B": 203,
+        "C": 187,
+        "null": 0
+      }
+    },
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FOLIO",
+      "position": "B",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.25,
+      "label_acc": 0.702,
+      "label_f1": 0.5347925616983913,
+      "counts": {
+        "A": 196,
+        "B": 179,
+        "UNKNOWN": 125,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 196,
+        "B": 125,
+        "C": 179,
+        "null": 0
+      }
+    },
+    {
+      "model": "nano",
+      "model_name": "gpt-5.4-nano",
+      "dataset": "FOLIO",
+      "position": "C",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.246,
+      "label_acc": 0.698,
+      "label_f1": 0.5303634313470379,
+      "counts": {
+        "A": 200,
+        "B": 177,
+        "UNKNOWN": 123,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 200,
+        "B": 177,
+        "C": 123,
+        "null": 0
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FLD",
+      "position": "A",
+      "n": 500,
+      "n_valid": 497,
+      "excluded": 3,
+      "abstain_rate": 0.40040241448692154,
+      "label_acc": 0.5291750503018109,
+      "label_f1": 0.440418118466899,
+      "counts": {
+        "A": 162,
+        "B": 136,
+        "UNKNOWN": 199,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 199,
+        "B": 162,
+        "C": 136,
+        "null": 3
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FLD",
+      "position": "B",
+      "n": 500,
+      "n_valid": 497,
+      "excluded": 3,
+      "abstain_rate": 0.3641851106639839,
+      "label_acc": 0.5573440643863179,
+      "label_f1": 0.45375038376395693,
+      "counts": {
+        "A": 173,
+        "B": 143,
+        "UNKNOWN": 181,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 173,
+        "B": 181,
+        "C": 143,
+        "null": 3
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FLD",
+      "position": "C",
+      "n": 500,
+      "n_valid": 497,
+      "excluded": 3,
+      "abstain_rate": 0.3782696177062374,
+      "label_acc": 0.545271629778672,
+      "label_f1": 0.44776548649842346,
+      "counts": {
+        "A": 167,
+        "B": 142,
+        "UNKNOWN": 188,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 167,
+        "B": 142,
+        "C": 188,
+        "null": 3
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FOLIO",
+      "position": "A",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.176,
+      "label_acc": 0.77,
+      "label_f1": 0.5626118685397172,
+      "counts": {
+        "A": 223,
+        "B": 189,
+        "UNKNOWN": 88,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 88,
+        "B": 223,
+        "C": 189,
+        "null": 0
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FOLIO",
+      "position": "B",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.162,
+      "label_acc": 0.78,
+      "label_f1": 0.5658237286422,
+      "counts": {
+        "A": 221,
+        "B": 198,
+        "UNKNOWN": 81,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 221,
+        "B": 81,
+        "C": 198,
+        "null": 0
+      }
+    },
+    {
+      "model": "gemini",
+      "model_name": "gemini-3.1-flash-lite",
+      "dataset": "FOLIO",
+      "position": "C",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.16,
+      "label_acc": 0.782,
+      "label_f1": 0.5663153677123608,
+      "counts": {
+        "A": 227,
+        "B": 193,
+        "UNKNOWN": 80,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 227,
+        "B": 193,
+        "C": 80,
+        "null": 0
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FLD",
+      "position": "A",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.476,
+      "label_acc": 0.48,
+      "label_f1": 0.4198468198468199,
+      "counts": {
+        "A": 135,
+        "B": 127,
+        "UNKNOWN": 238,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 238,
+        "B": 135,
+        "C": 127,
+        "null": 0
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FLD",
+      "position": "B",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.46,
+      "label_acc": 0.5,
+      "label_f1": 0.43274853801169594,
+      "counts": {
+        "A": 140,
+        "B": 130,
+        "UNKNOWN": 230,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 140,
+        "B": 230,
+        "C": 130,
+        "null": 0
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FLD",
+      "position": "C",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.476,
+      "label_acc": 0.484,
+      "label_f1": 0.4231398276273959,
+      "counts": {
+        "A": 138,
+        "B": 124,
+        "UNKNOWN": 238,
+        "UNPARSEABLE": 0
+      },
+      "raw_slot_counts": {
+        "A": 138,
+        "B": 124,
+        "C": 238,
+        "null": 0
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FOLIO",
+      "position": "A",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.196,
+      "label_acc": 0.752,
+      "label_f1": 0.5557070048595473,
+      "counts": {
+        "A": 222,
+        "B": 179,
+        "UNKNOWN": 98,
+        "UNPARSEABLE": 1
+      },
+      "raw_slot_counts": {
+        "A": 98,
+        "B": 222,
+        "C": 179,
+        "null": 1
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FOLIO",
+      "position": "B",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.194,
+      "label_acc": 0.756,
+      "label_f1": 0.5582545311268715,
+      "counts": {
+        "A": 220,
+        "B": 182,
+        "UNKNOWN": 97,
+        "UNPARSEABLE": 1
+      },
+      "raw_slot_counts": {
+        "A": 220,
+        "B": 97,
+        "C": 182,
+        "null": 1
+      }
+    },
+    {
+      "model": "deepseek",
+      "model_name": "deepseek-v4-flash",
+      "dataset": "FOLIO",
+      "position": "C",
+      "n": 500,
+      "n_valid": 500,
+      "excluded": 0,
+      "abstain_rate": 0.192,
+      "label_acc": 0.752,
+      "label_f1": 0.5547209878485194,
+      "counts": {
+        "A": 222,
+        "B": 181,
+        "UNKNOWN": 96,
+        "UNPARSEABLE": 1
+      },
+      "raw_slot_counts": {
+        "A": 222,
+        "B": 181,
+        "C": 96,
+        "null": 1
+      }
+    }
+  ],
+  "rebuttal_table": [
+    {
+      "model_key": "nano",
+      "model": "gpt-5.4-nano",
+      "dataset": "FLD",
+      "A": 64.3,
+      "B": 67.5,
+      "C": 68.4,
+      "max_minus_min_pp": 4.1,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 496,
+        "B": 496,
+        "C": 497
+      },
+      "min_n_valid": 496,
+      "unified_labels": true
+    },
+    {
+      "model_key": "nano",
+      "model": "gpt-5.4-nano",
+      "dataset": "FOLIO",
+      "A": 22.0,
+      "B": 25.0,
+      "C": 24.6,
+      "max_minus_min_pp": 3.0,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "min_n_valid": 500,
+      "unified_labels": true
+    },
+    {
+      "model_key": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "dataset": "FLD",
+      "A": 40.0,
+      "B": 36.4,
+      "C": 37.8,
+      "max_minus_min_pp": 3.6,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 497,
+        "B": 497,
+        "C": 497
+      },
+      "min_n_valid": 497,
+      "unified_labels": true
+    },
+    {
+      "model_key": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "dataset": "FOLIO",
+      "A": 17.6,
+      "B": 16.2,
+      "C": 16.0,
+      "max_minus_min_pp": 1.6,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "min_n_valid": 500,
+      "unified_labels": true
+    },
+    {
+      "model_key": "deepseek",
+      "model": "deepseek-v4-flash",
+      "dataset": "FLD",
+      "A": 47.6,
+      "B": 46.0,
+      "C": 47.6,
+      "max_minus_min_pp": 1.6,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "min_n_valid": 500,
+      "unified_labels": true
+    },
+    {
+      "model_key": "deepseek",
+      "model": "deepseek-v4-flash",
+      "dataset": "FOLIO",
+      "A": 19.6,
+      "B": 19.4,
+      "C": 19.2,
+      "max_minus_min_pp": 0.4,
+      "n_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "n_valid_per_position": {
+        "A": 500,
+        "B": 500,
+        "C": 500
+      },
+      "min_n_valid": 500,
+      "unified_labels": true
+    }
+  ],
+  "incomplete": [],
+  "incompatible": []
+}

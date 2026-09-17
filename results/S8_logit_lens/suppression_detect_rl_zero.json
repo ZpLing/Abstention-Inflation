@@ -1,0 +1,26 @@
+{
+  "checkpoint": "rl_zero",
+  "air": {
+    "n": 112,
+    "early_logit_gap_mean": -1.6804286709853582,
+    "flip_rate": 0.22321428571428573,
+    "flip_layer_median": 5.0,
+    "flip_layer_mean": 10.8
+  },
+  "non_air": {
+    "n": 188,
+    "early_logit_gap_mean": -1.6914210040518578,
+    "flip_rate": 0.2978723404255319
+  },
+  "car": {
+    "n": 132,
+    "early_rank_unknown_mean": 81274.15814393939
+  },
+  "non_car": {
+    "n": 168,
+    "early_rank_unknown_mean": 80683.20610119047
+  },
+  "classifier_auc": 0.504749240114389,
+  "classifier_acc": 0.6233333333333333,
+  "classifier_threshold": -2.69287109375
+}

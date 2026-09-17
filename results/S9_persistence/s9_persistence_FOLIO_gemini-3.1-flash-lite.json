@@ -1,0 +1,864 @@
+{
+  "model": "gemini-3.1-flash-lite",
+  "dataset": "FOLIO",
+  "n_ai": 77,
+  "n_repeats": 3,
+  "temperature": null,
+  "full_persistence": 0.7272727272727273,
+  "avg_persistence": 0.8571428571428571,
+  "n_unknown_distribution": {
+    "2": 11,
+    "1": 8,
+    "3": 56,
+    "0": 2
+  },
+  "rows": [
+    {
+      "id": "FOLIO_0006",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0035",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0038",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0040",
+      "n_repeats": 3,
+      "preds": [
+        "UNPARSEABLE",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0044",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0046",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNPARSEABLE"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0049",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0056",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0059",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0060",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0078",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0082",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0093",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0101",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0103",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0104",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0105",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0106",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0112",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0115",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0124",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0125",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0128",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0132",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0133",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0136",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0143",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0150",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0151",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0156",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0167",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0168",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0180",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0183",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0184",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0187",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0211",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0224",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0225",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0232",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0239",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0247",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0250",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0251",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0265",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0266",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0273",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0276",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0277",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0288",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0289",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0293",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0302",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0306",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0307",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0330",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0340",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0357",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0358",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0368",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0373",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0375",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0383",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0397",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0398",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FOLIO_0399",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0407",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0411",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0413",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FOLIO_0425",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FOLIO_0448",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0463",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0464",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FOLIO_0480",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0486",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0491",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FOLIO_0497",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    }
+  ]
+}
