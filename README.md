@@ -57,7 +57,8 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ├── infra/                        prompts, parser, metrics, loaders, and
 │                                 paired_pass, which runs S1/S2/S3/S5 over one
 │                                 sample list so their contrast stays per item
-├── experiments/
+├── experiments/                  `run_*.py` you invoke directly;
+│                                 `*_runner.py` main.py drives from a config
 │   ├── C1_structural_trigger/
 │   │   ├── S1_baseline/          s1_runner.py + run.py
 │   │   ├── S2_unknown_option_added/
