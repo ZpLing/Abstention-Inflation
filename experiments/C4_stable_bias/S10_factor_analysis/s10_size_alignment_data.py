@@ -37,26 +37,9 @@ TRUST_FLOOR = 0.70
 SIZES = ["E2B", "E4B", "26B-A4B", "31B"]
 DATASETS = ["FLD", "FOLIO"]
 
-#: Where to read cells from. The merged n=500 sweep wins when it exists: the
-#: pass-1 directory holds only the first 200 items per dataset (what the
-#: original gemma configs covered), and silently reporting those as the final
-#: result is the whole reason the sample size is called out on every row below.
-_N500 = ROOT / "results" / "s10_gemma_n500"
-_PASS1 = ROOT / "results" / "s10_gemma_mnt3072"
-
-
-#: Cells are taken per-file, merged-first: a cell that has been merged to n=500
-#: is read from there, one that has not yet is read from pass 1 at n=200.
-#:
-#: An all-or-nothing rule does not work while the sweep is in flight. Requiring
-#: the merged directory to be as complete as pass 1 hides every finished n=500
-#: cell until the last pass-2 job lands; switching on its mere existence lets a
-#: single stray file stand in for the whole sweep. Mixing is safe only because
-#: every row carries its own ``n`` and :func:`load_cells` warns when they
-#: disagree -- read those before comparing cells against each other.
-RESULTS_DIR = _N500 if any(_N500.glob("ab_summary_*.json")) else _PASS1
-_N_MERGED = len(list(_N500.glob("ab_summary_*.json")))
-_N_PASS1 = len(list(_PASS1.glob("ab_summary_*.json")))
+#: Where to read cells from: the n=500 sweep the paper reports. Every row still
+#: carries its own ``n`` so a caller can check what it is comparing.
+RESULTS_DIR = ROOT / "results" / "s10_gemma_n500"
 
 
 def _tag(size: str, is_it: bool) -> str:
@@ -71,16 +54,11 @@ def load_cells(results_dir: Path = RESULTS_DIR):
     fewer than 16 rows is looking at an incomplete sweep.
     """
     cells, missing = [], []
-    # When reading the default location, fall back to pass 1 for cells that have
-    # not been merged yet, so a sweep in flight shows every result it has.
-    fallback = _PASS1 if results_dir == _N500 else None
     for ds in DATASETS:
         for size in SIZES:
             for is_it in (False, True):
                 tag = _tag(size, is_it)
                 path = results_dir / f"ab_summary_{ds}_{tag}.json"
-                if not path.exists() and fallback is not None:
-                    path = fallback / f"ab_summary_{ds}_{tag}.json"
                 if not path.exists():
                     missing.append(f"{ds}/{tag}")
                     continue
@@ -126,11 +104,9 @@ def check_claims(cells, metric: str = "abs_rate_strict"):
     by = {(c["dataset"], c["size"], c["is_it"]): c for c in cells}
     out = []
 
-    # Cells are read merged-first with a pass-1 fallback, so a sweep in flight
-    # can hold both n=500 and n=200 cells. Comparing across them would put a
-    # 500-item estimate against a 200-item one and call the difference a
-    # finding, so every comparison below is restricted to one sample size --
-    # the most common one, since that is the sweep being reported.
+    # Every comparison below is restricted to a single sample size: putting a
+    # 500-item estimate against a differently-sized one and calling the gap a
+    # finding is exactly the error this guards against.
     sizes = Counter(c["n"] for c in cells if c["n"])
     ref_n = sizes.most_common(1)[0][0] if sizes else None
     off_size = [c for c in cells if c["n"] != ref_n]
@@ -210,13 +186,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     ns = {c["n"] for c in cells}
-    if RESULTS_DIR == _N500:
-        why = (f"{_N_MERGED} merged n=500 cell(s); the rest fall back to pass-1 "
-               f"at n=200 — see the n column")
-    else:
-        why = (f"pass-1 only ({_N_PASS1} cells, 200 items/dataset); merge the "
-               f"second pass for the n=500 the paper reports")
-    print(f"reading {RESULTS_DIR.relative_to(ROOT)}   [{why}]")
+    print(f"reading {RESULTS_DIR.relative_to(ROOT)}   [{len(cells)} cells]")
     if len(ns) > 1:
         print(f"  [warn] cells disagree on sample size: {sorted(ns)} — "
               f"they are not comparable")
