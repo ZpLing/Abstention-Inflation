@@ -244,11 +244,4 @@ Questions and issues are welcome, please reach out to **zpling0816@gmail.com**.
 
 ## License
 
-This project is released under the [MIT License](LICENSE). You are free to use,
-modify and distribute the code, including commercially, provided the copyright
-notice and permission notice are retained.
-
-The datasets are redistributed under their own licences and are not covered by
-the above: FLD (Apache-2.0), FOLIO (CC BY-SA 4.0), ARC (CC BY-SA 4.0), MedQA
-(MIT), MMLU (MIT) and LogiQA (CC BY-NC-SA 4.0). LogiQA in particular is
-non-commercial; check each source before redistributing.
+This project is released under the [MIT License](LICENSE).
