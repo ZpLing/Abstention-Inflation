@@ -28,7 +28,7 @@ invariance test (if only the final token moved, S1 and S2 agree), and over the
 Abstention Inflation subset alone, where S2's rates are the share of
 abstentions whose own reasoning had already settled the question.
 
-    python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7.py
+    python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
 """
 import argparse
 import json
@@ -42,9 +42,34 @@ sys.path.insert(0, str(ROOT))
 from infra.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from s7_runner import NLI_MODEL, LABEL_NAMES, strip_final_answer, take_tail
 
 # gold answer_idx -> the NLI verdict that agrees with it
+
+#: The NLI encoder and the three verdicts it returns.
+NLI_MODEL = "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+
+
+LABEL_NAMES = ["entailment", "neutral", "contradiction"]
+
+
+def strip_final_answer(raw: str) -> str:
+    """Remove the trailing 'Final answer: X' line so NLI sees CoT only."""
+    if not raw:
+        return ""
+    # cut at the last "Final answer" / "final answer:" if present
+    m = re.search(r"\n?\s*final\s+answer\s*:", raw, re.IGNORECASE)
+    if m:
+        return raw[:m.start()].strip()
+    return raw.strip()
+
+
+def take_tail(text: str, max_chars: int = 1500) -> str:
+    """NLI is 512-token limited; keep the last ~1500 chars (~300-400 tok) of CoT."""
+    if len(text) <= max_chars:
+        return text
+    return "..." + text[-max_chars:]
+
+
 GOLD_OF_IDX = {0: "entailment", 1: "contradiction"}
 
 CELLS = [

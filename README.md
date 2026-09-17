@@ -57,10 +57,10 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ├── infra/                        prompts, parser, metrics, loaders, and
 │                                 paired_pass, which runs S1/S2/S3/S5 over one
 │                                 sample list so their contrast stays per item
-├── experiments/                  `run_*.py` you invoke directly;
-│                                 `*_runner.py` main.py drives from a config
+├── experiments/                  run_S<n>_<setting>.py collects a setting,
+│                                 analyze_S<n>.py reports it
 │   ├── C1_structural_trigger/
-│   │   ├── S1_baseline/          s1_runner.py + run.py
+│   │   ├── S1_baseline/          run_S1_baseline.py + run.py
 │   │   ├── S2_unknown_option_added/
 │   │   ├── S3_question_format_ablation/
 │   │   └── S4_word_content_ablation/
@@ -128,7 +128,7 @@ done
 Reads the traces step 1 stored; needs a GPU but no API key.
 
 ```bash
-python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7.py
+python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
 ```
 
 ### 5. S8 — logit lens
@@ -168,7 +168,7 @@ are the ones the reported cells were produced with -- the defaults would give
 n=200 and truncate at 1024 tokens.
 
 ```bash
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
     --model gemini-3.1-flash-lite
 
 for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
@@ -194,7 +194,7 @@ python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
 ### 8. S11 — positional biases
 
 ```bash
-python experiments/C4_stable_bias/S11_positional_biases/run_S11.py \
+python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
     --model all --positions A B C --unified-labels
 ```
 

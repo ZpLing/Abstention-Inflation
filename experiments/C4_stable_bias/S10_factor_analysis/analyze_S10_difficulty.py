@@ -8,7 +8,7 @@ proxy.
 
 Inputs (no new API calls):
   - data/Judge/FLD.json — source FLD with `original_data.steps`
-  - results/ab_*/ab_summary_FLD_*.json — existing S1/S2 runs
+  - results/tfq/<model>/ab_summary_FLD_*.json — the paired S1/S2 pass
 
 Per sample:
   - id "FLD_NNNN"  → index NNNN into source array → look up steps

@@ -41,7 +41,7 @@ and the whole-text fallback then read a stray "cannot determine" as an
 abstention. There is no comparability reason to keep that cap here: this run
 replaces the 2.5 cells rather than extending them.
 
-    python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
+    python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
         --model gemini-3.1-flash-lite --limit 8     # smoke
     python run_S10_temperature_gemini31.py              # full, 12 cells x 500"""
 from __future__ import annotations

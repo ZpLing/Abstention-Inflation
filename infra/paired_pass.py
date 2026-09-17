@@ -45,17 +45,17 @@ from typing import Any, Dict, List
 from infra import metrics
 from infra.label_scheme import get_scheme
 
-from experiments.C1_structural_trigger.S1_baseline import s1_runner
-from experiments.C1_structural_trigger.S2_unknown_option_added import s2_runner
-from experiments.C1_structural_trigger.S3_question_format_ablation import s3_runner
-from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import s5_runner
+from experiments.C1_structural_trigger.S1_baseline import run_S1_baseline
+from experiments.C1_structural_trigger.S2_unknown_option_added import run_S2_unknown_option_added
+from experiments.C1_structural_trigger.S3_question_format_ablation import run_S3_question_format_ablation
+from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import run_S5_without_unknown_option_rerun
 from experiments.appendix import Appendix_E_calibration_suffix as calibration_suffix
 
 #: Each setting owns its prompt and whether the parser may see an abstention.
 SETTING_MODULES = {
-    "S1": s1_runner,
-    "S2": s2_runner,
-    "S3": s3_runner,
+    "S1": run_S1_baseline,
+    "S2": run_S2_unknown_option_added,
+    "S3": run_S3_question_format_ablation,
     "calibration_suffix": calibration_suffix,
 }
 from infra.result_schema import SCHEMA_VERSION
@@ -240,7 +240,7 @@ class ABRunner:
             raw_s5 = await self.llm_handler.batch_query(s5_prompts)
             preds_s5, tiers_s5 = await self._parse_batch(
                 raw_s5, ai_samples, task_type,
-                with_unknown=s5_runner.WITH_UNKNOWN, label="S5"
+                with_unknown=run_S5_without_unknown_option_rerun.WITH_UNKNOWN, label="S5"
             )
 
         # ---- Step 6+7: assemble & save.
@@ -301,7 +301,7 @@ class ABRunner:
 
     def _build_s5_rerun(self, samples, ai_indices, s2_prompts, raw_s2, task_type):
         """The S5 follow-up, for the abstaining samples only."""
-        return s5_runner.build_prompts(samples, ai_indices, s2_prompts,
+        return run_S5_without_unknown_option_rerun.build_prompts(samples, ai_indices, s2_prompts,
                                        raw_s2, task_type)
 
     # =================================================================

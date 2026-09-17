@@ -27,8 +27,7 @@ paired_pass.ABRunner                          S1 / S2 / S3 + S4 forced-choice
 s5_rerun_runner                              S5 (w/o "Unknown" Option Rerun)
 s6_self_diagnosis_runner                     S6 (Self-Diagnosis)
 truly_unknown_runner.TrulyUnknownRunner     S9 truly-Unknown perception
-s10_size_alignment_runner.ModelSweepRunner  S10 Alignment & Size sweep
-s10_difficulty_runner                        S10 FLD step-count difficulty
+run_S10_size_alignment.ModelSweepRunner  S10 Alignment & Size sweep
 posthoc_mitigation_runner                    Post-hoc mitigation baseline
                                               (Discussion appendix)
 """
