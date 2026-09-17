@@ -11,7 +11,7 @@ that is needed, and the results land in the ``s5_rerun`` block of
 Usage::
 
     python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/run.py \\
-        --config configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml
+        --config configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml
 
 Then aggregate with ``analyze_S5.py`` in this folder.
 """

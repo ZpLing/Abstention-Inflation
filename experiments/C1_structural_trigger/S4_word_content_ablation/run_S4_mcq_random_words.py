@@ -22,7 +22,7 @@ Model:    deepseek-v4-flash (configurable)
 
 Usage:
     python -m scripts.run_mcq_latent_label_mapping \
-        --config configs/C1_structural_trigger/MedQA_n500_DeepSeek_V4_Flash.yaml
+        --config configs/C1_structural_trigger/S1_S2_MedQA_n500_DeepSeek_V4_Flash.yaml
 """
 import argparse
 import asyncio
@@ -347,7 +347,7 @@ def main():
         description="MCQ Latent Label Mapping experiment"
     )
     parser.add_argument("--config",
-                        default="configs/C1_structural_trigger/MedQA_n500_DeepSeek_V4_Flash.yaml",
+                        default="configs/C1_structural_trigger/S1_S2_MedQA_n500_DeepSeek_V4_Flash.yaml",
                         help="Path to config YAML")
     args = parser.parse_args()
     config = load_config(args.config)

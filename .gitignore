@@ -245,3 +245,6 @@ configs/**/S10_qwen_bailian_*.yaml
 # Appendix experiments: kept locally, not part of the release
 /experiments/appendix/
 /experiments/appendix_E_mitigation/
+
+# Local working notes, not part of the release
+/CLAUDE.md

@@ -8,7 +8,7 @@ a model gradient. Each per-model run produces the standard
 `results/ab/ab_summary_<dataset>_<model>.json`; this runner reads them back
 afterward and writes the cross-model aggregate.
 
-Config block (configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml):
+Config block (configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml):
 
     exp2_model_sweep:
       models:

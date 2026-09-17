@@ -1,8 +1,13 @@
 # Configs
 
-One YAML per (model, dataset) cell, grouped by the claim it serves. The file
-names the gateway model, the datasets, and a `run_tasks` list that selects the
-runner in `core/runners/`:
+One YAML per (model, dataset) cell, grouped by the claim it serves. Each file
+name starts with the settings it collects, so `S1_S3_TFQ_n500_GPT_5_4_nano.yaml`
+is S1, S2 and S3 on FLD and FOLIO at n=500. S3 is a TFQ-only ablation, which is
+why the MCQ files stop at `S1_S2`; every one of these also yields the S5 rerun,
+since the runner replays the abstaining items in the same pass.
+
+The file names the gateway model, the datasets, and a `run_tasks` list that
+selects the runner in `core/runners/`:
 
 | `run_tasks` entry | Runner | Settings collected |
 | --- | --- | --- |

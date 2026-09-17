@@ -41,15 +41,15 @@ from core.metrics import label_acc, label_macro_f1, judge_classes
 MODELS = {
     "nano": {
         "model_name": "gpt-5.4-nano",
-        "config": "configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml",
+        "config": "configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml",
     },
     "gemini": {
         "model_name": "gemini-3.1-flash-lite",
-        "config": "configs/C1_structural_trigger/TFQ_n500_Gemini_3_1_Flash_Lite.yaml",
+        "config": "configs/C1_structural_trigger/S1_S3_TFQ_n500_Gemini_3_1_Flash_Lite.yaml",
     },
     "deepseek": {
         "model_name": "deepseek-v4-flash",
-        "config": "configs/C1_structural_trigger/TFQ_n500_DeepSeek_V4_Flash.yaml",
+        "config": "configs/C1_structural_trigger/S1_S3_TFQ_n500_DeepSeek_V4_Flash.yaml",
     },
 }
 

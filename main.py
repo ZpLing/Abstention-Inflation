@@ -101,7 +101,7 @@ def main() -> None:
     parser.add_argument(
         "--config",
         type=str,
-        default="configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml",
+        default="configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml",
         help="Path to the experiment YAML.",
     )
     args = parser.parse_args()
