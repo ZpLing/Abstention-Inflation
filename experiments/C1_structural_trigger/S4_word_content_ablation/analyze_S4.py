@@ -11,7 +11,7 @@ Two halves, both reported in the paper:
                 to the Unknown rate, which is what makes the trigger structural.
 
 Both are scored against the S2 cell of the paired summaries the main table is
-built from, so these numbers and Table 1's are the same numbers.
+built from, so these numbers and the main table's are the same numbers.
 
     python experiments/C1_structural_trigger/S4_word_content_ablation/analyze_S4.py
 """
@@ -40,7 +40,7 @@ DATASETS = ["FLD", "FOLIO"]
 def load_w1_per_sample(ds):
     """W1 is the S2 cell of the main table -- id -> pred_s2.
 
-    Read from the paired summary Table 1 is built from, so the wording sweep is
+    Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
     path = ROOT / f"results/tfq/dsv4flash/ab_summary_{ds}_{MODEL}.json"

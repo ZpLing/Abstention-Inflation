@@ -1,4 +1,4 @@
-"""S9 Stability — the truly-Unknown mirror (paper §4.4).
+"""S9 Stability — the truly-Unknown mirror.
 
 The other side of Abs Rate: on items that genuinely have no determinable
 answer, abstaining is correct, so this run measures whether the models can

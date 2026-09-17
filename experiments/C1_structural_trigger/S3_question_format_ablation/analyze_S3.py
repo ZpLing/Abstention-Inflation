@@ -7,7 +7,7 @@ artifact.
 
 Read from the paired summaries the main table is built from -- S1, S2 and S3
 come out of one pass, so the contrast below is per item -- and scored on the
-same keep-set, so these numbers and Table 1's are the same numbers.
+same keep-set, so these numbers and the main table's are the same numbers.
 
     python experiments/C1_structural_trigger/S3_question_format_ablation/analyze_S3.py
 """

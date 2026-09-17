@@ -204,7 +204,7 @@ if __name__ == "__main__":
     for claim, verdict, detail in check_claims(cells):
         print(f"  [{verdict:<11}] {claim:<44} {detail}")
     print("\n=== same claims on the unaudited abs_rate, for comparison only ===")
-    print("    (this is the quantity the original Figure 9 used; where the two")
+    print("    (this is the quantity the original the paper used; where the two")
     print("     tables disagree, the disagreement IS the parser artifact)")
     for claim, verdict, detail in check_claims(cells, metric="abs_rate"):
         print(f"  [{verdict:<11}] {claim:<44} {detail}")

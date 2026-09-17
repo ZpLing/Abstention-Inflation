@@ -1,4 +1,4 @@
-"""S9 Stability — re-prompting persistence (paper §4.4).
+"""S9 Stability — re-prompting persistence.
 
 For each Abstention Inflation sample (pred_s2 == UNKNOWN), re-run the *same* S2 prompt
 N=3 times at the default temperature. Measure how often the model still returns

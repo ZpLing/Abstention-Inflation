@@ -1,4 +1,4 @@
-"""S4 Word Content Ablation — random-word variants (paper §4.1, Figure 2 right).
+"""S4 Word Content Ablation — random-word variants.
 
 Tests whether Abstention Inflation is driven by the *semantic content* of the
 ``Unknown`` option, or by the mere structural presence of an extra slot.
@@ -403,7 +403,7 @@ async def run_experiment(config: Dict):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="§4.3 Appendix: Random Perturbation Control experiment"
+        description="S4 Word Content Ablation — random-word control"
     )
     parser.add_argument("--config", default="configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml",
                         help="Path to config YAML")

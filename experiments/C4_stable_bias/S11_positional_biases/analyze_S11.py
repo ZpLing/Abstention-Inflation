@@ -70,7 +70,7 @@ def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=N
         "Abstention rate with the `Unknown` option at positions A, B, and C on "
         "FLD and FOLIO. All cells use the same 500 balanced samples (250 True + "
         "250 False) and the unified True/False/Unknown label set; C is measured "
-        "directly (not taken from Table 1). Rows are labeled with the **actual "
+        "directly (not taken from the main table). Rows are labeled with the **actual "
         "API model id** that was queried.",
         "",
         "## Abstention Rate by Position",

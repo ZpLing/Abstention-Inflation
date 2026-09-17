@@ -11,12 +11,12 @@ prompts; what differs is which knob moves.
 The reported cells used --n_per_class 250 (500 items); the default of 100
 would give 200.
 
-A re-run of the sweep behind Figure 9. The original numbers went through
+A re-run of the sweep behind the size-by-alignment figure. The original numbers went through
 `infra/paired_pass.py`, whose parser has no guard against a base model echoing the
 prompt template: for S2 that template literally contains the word "Unknown", so
 a non-answer scores as an abstention, and with the option absent (S1) the same
 text scores UNPARSEABLE instead. The bias is therefore one-directional, into
-the S2 Abs Rate, and it hits base models hardest — exactly the cells Figure 9
+the S2 Abs Rate, and it hits base models hardest — exactly the cells the paper
 marked UNRELIABLE.
 
 This runner records, for every item, *where* the label came from, so the Abs

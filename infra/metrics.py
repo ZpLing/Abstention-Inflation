@@ -1,4 +1,4 @@
-"""Unified S1/S2 metrics — paper §3.5 Metrics.
+"""Unified S1/S2 metrics.5 Metrics.
 
 One evaluation layer, the same across every dataset:
 
@@ -137,7 +137,7 @@ def accuracy(preds, answer_idxs):
 #
 # Computed on genuinely-Unknown samples only (``answer_idx == -1``, filtered
 # by the runner). Here, choosing "Unknown" is the *correct* behaviour, so
-# ``correct_abstention_rate`` equals accuracy on that subset. Figure 7 (right)
+# ``correct_abstention_rate`` equals accuracy on that subset, and the paper
 # contrasts it with Abs Rate on the answerable subset.
 # ============================================================
 
@@ -145,8 +145,8 @@ def correct_abstention_rate(preds: Sequence[str]) -> float:
     """Fraction of predictions that abstain, on truly-Unknown samples.
 
     The higher, the better the model recognises that no determinable answer
-    exists. Paper Figure 7 (right) plots this against Abs Rate on answerable
-    items to show the bias is directional rather than indiscriminate.
+    exists. The paper plots it against Abs Rate on answerable items to show
+    the bias is directional rather than indiscriminate.
     """
     n = len(preds)
     if n == 0:

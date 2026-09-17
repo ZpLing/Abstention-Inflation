@@ -1,4 +1,4 @@
-"""S5 — w/o "Unknown" Option Rerun (paper §4.2.1, Figure 4 left).
+"""S5 — w/o "Unknown" Option Rerun.
 
 S5 is produced by the same runner as S1/S2: :class:`infra.paired_pass.ABRunner`
 first runs S2 to find the samples the model abstains on, then replays that
@@ -43,7 +43,7 @@ async def _run(config_path: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="S5 — w/o \"Unknown\" Option Rerun (paper §4.2.1)."
+        description="S5 — w/o \"Unknown\" Option Rerun."
     )
     parser.add_argument("--config", required=True, help="Path to the experiment YAML.")
     args = parser.parse_args()

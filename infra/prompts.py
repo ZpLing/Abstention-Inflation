@@ -1,4 +1,4 @@
-"""Prompt builders, named after the paper's experimental settings (§3.4, App. I).
+"""Prompt builders, named after the paper's experimental settings.
 
 Every prompt string below is byte-identical to the one that produced the
 reported numbers; only the *function names* follow the paper. The mapping from
@@ -410,7 +410,7 @@ def build_judge_s5_rerun_prompt(prior_messages: List[Dict[str, str]],
 # S6 — Self-Diagnosis (multi-turn, both families)
 #
 # The model attributes its own abstention to (A) subjective incapability or
-# (B) the sample being objectively unanswerable. Figure 4 (right) reports the
+# (B) the sample being objectively unanswerable. The paper reports the
 # share of (B).
 # =================================================================
 
@@ -462,7 +462,7 @@ def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
 #      option but explains when it should be used.
 #   2. stimulation + reflection — a two-stage multi-turn intervention.
 # Both are reported qualitatively in App. E ("Mitigation interventions and
-# failure modes"); neither contributes a number to Table 1 or Figures 3–9.
+# failure modes"); neither contributes a number to the main table.
 # =================================================================
 
 

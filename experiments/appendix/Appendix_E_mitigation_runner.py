@@ -10,7 +10,7 @@ For each configured dataset:
             asst_reply = s1_s2_summary.per_sample[id].raw_s2  (saved earlier)
     4.  Stage 1 (Stimulation): multi-turn extension of S2 with the shared S4
         stimulation core. Unknown is still on offer; the model is stimulated
-        against picking it (paper §S4 "post-hoc mitigation ending").
+        against picking it (post-hoc mitigation ending").
     5.  Stage 2 (Reflection): on the subset still UNKNOWN after Stage 1,
         multi-turn extension of Stage 1 asking the model to reflect on its
         own reasoning and finalize.
@@ -20,7 +20,7 @@ For each configured dataset:
 Key invariants
 --------------
 - We do NOT re-run S1/S2/S3. Abs Rate identification reuses the saved summary.
-- Stage 1 and Stage 2 prompt cores are aligned with S4 (paper §S4 contract:
+- Stage 1 and Stage 2 prompt cores are aligned with S4 (its contract:
   "S4 shares its stimulation prompt core with the Stage 1 prior-work template").
 - PMR has the same numerator structure as Recovery Rate (forced choice from
   S4) but allows the model to commit to a wrong answer; PMR_correct is the

@@ -5,7 +5,7 @@ Drives :class:`experiments.C4_stable_bias.S9_stability.s9_runner.TrulyUnknownRun
 ``software/dataset/``. The runner runs S1 / S2 / S3 prompts on items whose
 gold label is Unknown, so the resulting Abs Rate is the model's correct-rate
 on truly-Unknown items (compared against its inflated Abs Rate on
-answerable items, this gives the discrimination gap in Figure 6 right).
+answerable items, this gives the discrimination gap in the paper right).
 
 Usage::
 

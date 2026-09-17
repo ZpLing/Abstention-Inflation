@@ -1,4 +1,4 @@
-"""Aggregate S5 — w/o "Unknown" Option Rerun (paper §4.2.1, Figure 4 left).
+"""Aggregate S5 — w/o "Unknown" Option Rerun.
 
 For every ``ab_summary_*.json`` under ``results/``, restrict to the Abstention
 Inflation set (S2 == "Unknown") and report the accuracy the model reaches once

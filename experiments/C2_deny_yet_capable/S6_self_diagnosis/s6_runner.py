@@ -1,4 +1,4 @@
-"""S6 Self-Diagnosis — the model attributes its own abstention (paper §4.2.2).
+"""S6 Self-Diagnosis — the model attributes its own abstention.
 
 S5 was deliberately moved OUT of the main S1–S4 framework because it is not a
 label-prediction task on the original question — it is a meta-question

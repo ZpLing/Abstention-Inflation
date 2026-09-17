@@ -1,4 +1,4 @@
-"""Runner for the option-manipulation settings — paper §4.1 (C1) and §4.2 (C2).
+"""Runner for the option-manipulation settings: S1, S2, S3 and the S5 rerun.
 
 One orchestration loop covers both dataset families (TFQ: FLD / FOLIO; MCQ:
 ARC / MMLU / MedQA / LogiQA). Branching by ``task_type`` is confined to the
