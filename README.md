@@ -209,12 +209,6 @@ python -m experiments.appendix.Appendix_E_R2_self_consistency
 Each setting's own `analyze_*.py` prints the numbers for that setting; run it
 with `--help` to see what it takes.
 
-## Labels
-
-Predictions are letter strings: `A`–`D` (or `A`/`B` for TFQ), `UNKNOWN` for an
-abstention, `UNPARSEABLE` when extraction failed. Parsing is deterministic and
-tiered (strict exact match → lenient match); there is no LLM judge anywhere in
-the pipeline.
 
 ## Citation
 
