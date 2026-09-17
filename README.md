@@ -46,8 +46,8 @@ in the experiment YAML.
 # S1 + S2 + S3 and the S5 rerun, DeepSeek-V4-Flash on FLD and FOLIO
 python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml
 
-# Rebuild Table 1 from whatever is in results/
-python reporting/build_table1.py
+# Every setting's analysis prints its own numbers
+python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S1_vs_S2.py
 ```
 
 ## Repository layout
@@ -197,15 +197,11 @@ python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biase
     --model all --positions A B C --unified-labels
 ```
 
-### 9. Post-hoc analyses
+### 9. App. E's R2
 
-Pure post-processing over `results/`; no API calls.
+A post-hoc override, no API calls: take the S1 answer wherever S2 abstained.
 
 ```bash
-# App. C: Abs Rate against the accuracy each model loses, over Table 1's cells
-python experiments/C1_structural_trigger/abs_rate_dacc_regression.py
-
-# App. E's R2: take the S1 answer wherever S2 abstained
 python -m runners.appendix_remedy_r2_self_consistency
 ```
 
