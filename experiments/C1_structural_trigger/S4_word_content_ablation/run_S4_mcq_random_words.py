@@ -17,12 +17,12 @@ Key metric: OPT_X rate (% choosing E), split into:
     explicit_opt_x  — model output E or wrote the fifth-option text
     ghost_abstain   — model wrote "Unknown"/"Uncertain" when fifth option was NOT Unknown
 
-Datasets: ARC-Challenge_250 (n=200) + MedQA (n=200)
+Datasets: ARC (n=500) + MedQA (n=500)
 Model:    deepseek-v4-flash (configurable)
 
 Usage:
     python -m scripts.run_mcq_latent_label_mapping \
-        --config configs/mcq_latent_label_mapping_deepseek.yaml
+        --config configs/C1_structural_trigger/MedQA_n500_DeepSeek_V4_Flash.yaml
 """
 import argparse
 import asyncio
@@ -299,7 +299,7 @@ async def run_one_dataset(ds_name: str, n_samples: int,
 async def run_experiment(config: Dict):
     cfg = config.get("mcq_latent_label_mapping", {})
     datasets  = cfg.get("datasets", ["ARC-Challenge_250", "MedQA"])
-    n_samples = cfg.get("n_samples", 200)
+    n_samples = cfg.get("n_samples", 500)
     results_dir = Path(cfg.get("results_dir", "results/mcq_latent_label_mapping"))
     results_dir.mkdir(parents=True, exist_ok=True)
 
@@ -347,7 +347,7 @@ def main():
         description="MCQ Latent Label Mapping experiment"
     )
     parser.add_argument("--config",
-                        default="configs/mcq_latent_label_mapping_deepseek.yaml",
+                        default="configs/C1_structural_trigger/MedQA_n500_DeepSeek_V4_Flash.yaml",
                         help="Path to config YAML")
     args = parser.parse_args()
     config = load_config(args.config)

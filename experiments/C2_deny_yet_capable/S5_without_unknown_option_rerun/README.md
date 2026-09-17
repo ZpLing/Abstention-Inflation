@@ -27,14 +27,14 @@ selects the abstaining samples in the same loop and issues the follow-up when
 
 ```bash
 # any C1 config works — S5 only needs S1 + S2 to have run
-python experiments/C2_denied_capability/S5_without_unknown_option_rerun/run.py \
+python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/run.py \
     --config configs/C1_structural_trigger/DeepSeek_R1_FLD_FOLIO.yaml
 ```
 
 ## Aggregate
 
 ```bash
-python experiments/C2_denied_capability/S5_without_unknown_option_rerun/analyze_S5.py \
+python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/analyze_S5.py \
     --datasets FLD FOLIO
 ```
 

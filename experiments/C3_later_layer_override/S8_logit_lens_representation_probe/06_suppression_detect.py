@@ -29,7 +29,6 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from core.result_schema import canonical_sample_type
 
 def _normalize_sample_types(records):
     """Map pre-unification ``sample_type`` values ("AIR"/"non_AIR") onto the
@@ -55,6 +54,8 @@ plt.rcParams.update({
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+
+from core.result_schema import canonical_sample_type   # noqa: E402
 
 EARLY_LAYERS = slice(1, 9)    # layers 1-8 (skip embedding layer 0)
 LATE_LAYERS  = slice(-4, None) # last 4 transformer layers

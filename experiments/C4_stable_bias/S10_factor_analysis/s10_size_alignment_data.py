@@ -8,7 +8,7 @@ four model sizes" without mentioning the exclusion.
 
 Two things this module does that the hardcoded table could not:
 
-* **Abs Rate as a bracket.** ``run_S10_gemma_cuda.py`` records which parser
+* **Abs Rate as a bracket.** ``run_S10_local_hf_sweep.py`` records which parser
   tier produced each label, so a cell reports ``abs_rate`` (every UNKNOWN --
   the old, unaudited quantity) *and* ``abs_rate_strict`` (only explicit
   commitments). Base models echo the S2 prompt template, which literally

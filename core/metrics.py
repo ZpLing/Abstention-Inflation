@@ -15,7 +15,7 @@ question, which is whether the model's own reasoning reached a conclusion its
 final answer then withheld. That is read off the stored raw text by the NLI
 probe in experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/.
 
-S6 (self-diagnosis) lives in experiments/C2_denied_capability/S6_self_diagnosis/ and
+S6 (self-diagnosis) lives in experiments/C2_deny_yet_capable/S6_self_diagnosis/ and
 uses its own metrics — by design it is NOT a label-prediction task on the
 original question.
 

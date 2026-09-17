@@ -10,8 +10,8 @@ that is needed, and the results land in the ``s5_rerun`` block of
 
 Usage::
 
-    python experiments/C2_denied_capability/S5_without_unknown_option_rerun/run.py \\
-        --config configs/C1_structural_trigger/GPT_5_4_nano_FLD_FOLIO.yaml
+    python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/run.py \\
+        --config configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml
 
 Then aggregate with ``analyze_S5.py`` in this folder.
 """

@@ -24,7 +24,7 @@ returns UNPARSEABLE, with `with_unknown=True` (S2) it returns UNKNOWN. So
 noise flows into the S2 Abs Rate only, and the reported base-vs-IT gap is
 inflated by exactly that flow.
 
-`run_S10_local_Gemma_inference.py` guards against the echo case
+`run_S10_local_hf_sweep.py` guards against the echo case
 (`_TEMPLATE_ECHO_MARKERS`); the YAML/vLLM path (`core/ab_runner.py`), which
 produced the Fig. 9 base cells, does not.
 

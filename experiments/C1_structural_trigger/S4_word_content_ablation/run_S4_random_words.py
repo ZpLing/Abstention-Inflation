@@ -14,7 +14,7 @@ third slot is attributable to the slot itself (structural), not to the word
 (semantic). Everything else (model, temperature T=0, CoT format, the same
 samples) is held constant.
 
-Datasets: FLD + FOLIO, 200 answerable samples each (100 True-labeled + 100
+Datasets: FLD + FOLIO, 500 answerable samples each (250 True-labeled + 100
 False-labeled).
 
 Usage::
@@ -405,7 +405,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="§4.3 Appendix: Random Perturbation Control experiment"
     )
-    parser.add_argument("--config", default="configs/random_perturbation_control.yaml",
+    parser.add_argument("--config", default="configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml",
                         help="Path to config YAML")
     args = parser.parse_args()
     config = load_config(args.config)

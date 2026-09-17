@@ -3,7 +3,7 @@
 Inputs:
   T=0.0 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
                   — pred_s2 == "UNKNOWN" indicates abstain
-  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/temperature_sweep/summary_T<t>_<DS>_<model>.json
+  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/s10_temp_<model>/ab_summary_<DS>_<model>_T<t>.json
 
 Outputs:
   results/analysis/temperature_sweep_summary.json
@@ -16,7 +16,15 @@ from pathlib import Path
 from statistics import NormalDist
 
 ROOT = Path(".")
-MODEL = "deepseek-v4-flash"
+#: Set from --model. The sweep is reported on the two checkpoints whose
+#: sampling temperature the endpoint actually applies; the gateway ignored
+#: it for the other models, which is itself an S10 finding.
+MODEL = "gemini-3.1-flash-lite"
+
+#: The directories the reported sweep actually wrote to. The older
+#: results/temperature_sweep/ tree was a 200-item pass and is gone.
+OUT_DIR_OF = {"gemini-3.1-flash-lite": "s10_temp_gemini31",
+              "olmo3-instruct":        "s10_temp_olmo_topk20"}
 TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 
@@ -45,7 +53,7 @@ def load_w0_per_sample(ds):
 
 def load_temp_per_sample(t, ds):
     t_tag = f"T{t:.1f}".replace(".", "p")
-    p = ROOT / f"results/temperature_sweep/summary_{t_tag}_{ds}_{MODEL}.json"
+    p = ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_{t_tag}.json"
     s = json.loads(p.read_text())
     return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
 
@@ -95,7 +103,7 @@ def main():
     for ds in DATASETS:
         # Get sample IDs from any T>0 cell (they share IDs)
         t_tag = f"T{0.3:.1f}".replace(".", "p")
-        ref = json.loads((ROOT / f"results/temperature_sweep/summary_{t_tag}_{ds}_{MODEL}.json").read_text())
+        ref = json.loads((ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_{t_tag}.json").read_text())
         sample_ids = [ps["id"] for ps in ref["per_sample"]]
         # answer_idx map
         ans_by_id = {ps["id"]: ps["answer_idx"] for ps in ref["per_sample"]}
@@ -145,7 +153,7 @@ def main():
         print()
 
     # Paired McNemar T=0 vs each T
-    print("=== Paired McNemar (T=0 vs each T, same 200 samples) ===\n")
+    print("=== Paired McNemar (T=0 vs each T, same items) ===\n")
     print(f"{'Dataset':8s} {'T_a':>4s} {'vs':>3s} {'T_b':>4s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
     print("-" * 60)
     mcn_records = []
@@ -186,5 +194,15 @@ def main():
     print(f"\nWrote {out_path}")
 
 
+def _cli():
+    import argparse
+    global MODEL
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--model", default=MODEL, choices=sorted(OUT_DIR_OF),
+                    help="Which swept checkpoint to analyse.")
+    MODEL = ap.parse_args().model
+
+
 if __name__ == "__main__":
+    _cli()
     main()

@@ -17,6 +17,10 @@ import asyncio
 import json
 from collections import Counter
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
 from typing import Any, Dict, List, Optional
 
 from core.config_loader import load_config

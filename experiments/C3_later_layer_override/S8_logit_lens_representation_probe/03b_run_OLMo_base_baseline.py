@@ -17,7 +17,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-MODEL_PATH = ROOT / "models" / "olmo3-base"
+#: Overridable with --model_path; the S8 runs used a local checkout.
+MODEL_PATH   = ROOT / "models" / "olmo3-base"
 DATA_PATH  = ROOT / "data" / "Judge" / "FLD.json"
 OUT_PATH   = ROOT / "results" / "c3" / "base_baseline_logit_lens.json"
 
@@ -115,5 +116,15 @@ def main():
           f"(>0 = Unknown winning; expected <0 for base)")
 
 
+def _cli():
+    import argparse
+    global MODEL_PATH
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--model_path", default=str(MODEL_PATH),
+                    help="Local checkout of the checkpoint to run.")
+    MODEL_PATH = Path(ap.parse_args().model_path)
+
+
 if __name__ == "__main__":
+    _cli()
     main()

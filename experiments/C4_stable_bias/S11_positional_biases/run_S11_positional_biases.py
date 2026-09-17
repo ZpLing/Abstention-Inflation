@@ -16,7 +16,7 @@ Outputs:
 
 Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
-        --model all --positions A B C --full-dataset --unified-labels
+        --model all --positions A B C --unified-labels
 """
 import argparse
 import asyncio
@@ -41,45 +41,15 @@ from core.metrics import label_acc, label_macro_f1, judge_classes
 MODELS = {
     "nano": {
         "model_name": "gpt-5.4-nano",
-        "config": "configs/C1_structural_trigger/GPT_5_4_nano_FLD_FOLIO.yaml",
-        "sources": {
-            "FLD": [
-                "results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
-                "results/ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json",
-            ],
-            "FOLIO": [
-                "results/ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
-                "results/ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json",
-            ],
-        },
+        "config": "configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml",
     },
     "gemini": {
         "model_name": "gemini-3.1-flash-lite",
-        "config": "configs/C1_structural_trigger/Gemini_3_1_Flash_Lite_FLD_FOLIO.yaml",
-        "sources": {
-            "FLD": [
-                "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
-                "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json",
-            ],
-            "FOLIO": [
-                "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
-                "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
-            ],
-        },
+        "config": "configs/C1_structural_trigger/TFQ_n500_Gemini_3_1_Flash_Lite.yaml",
     },
     "deepseek": {
         "model_name": "deepseek-v4-flash",
-        "config": "configs/C1_structural_trigger/DeepSeek_V4_Flash_FLD_FOLIO.yaml",
-        "sources": {
-            "FLD": [
-                "results/ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
-                "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
-            ],
-            "FOLIO": [
-                "results/ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
-                "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
-            ],
-        },
+        "config": "configs/C1_structural_trigger/TFQ_n500_DeepSeek_V4_Flash.yaml",
     },
 }
 
@@ -90,7 +60,6 @@ POSITIONS = ("A", "B", "C")
 LETTERS = ("A", "B", "C")
 SLOT_OF = {"A": 1, "B": 2, "C": 3}
 _EVALUATOR = Evaluator()
-OUT_DIR = ROOT / "results/positional_bias"
 # Full canonical 500-sample runs (250 True + 250 False) go to a separate dir so
 # the existing 200-sample A/B summaries stay intact.
 OUT_DIR_500 = ROOT / "results/positional_bias_n500"
@@ -104,9 +73,8 @@ FULL_DATASET_PATHS = {
 def load_full_dataset(dataset: str) -> List[Sample]:
     """Load the canonical 500-sample TFQ file as unified Sample objects.
 
-    Unlike load_sample_ids (which draws the 200-sample id union from prior AB
-    summaries), this returns the full 250-True + 250-False set so A/B/C can be
-    measured on an identical 500-sample basis.
+    This is how the paper's S11 cells are collected: the full 250-True +
+    250-False set, so the three slots are measured on an identical basis.
     """
     path = FULL_DATASET_PATHS[dataset]
     rows = json.loads(Path(path).read_text())
@@ -186,23 +154,6 @@ def parse_position_output(text: str, scheme, unknown_position: str) -> Tuple[str
     return pred, slot_of_prediction(scheme, unknown_position, pred), tier
 
 
-def load_sample_ids(paths: Iterable[str], limit: int):
-    seen, ids = set(), []
-    for rel in paths:
-        path = ROOT / rel
-        if not path.exists():
-            print(f"  [warn] missing source summary: {path}")
-            continue
-        data = json.loads(path.read_text())
-        for row in data.get("per_sample", []):
-            sid = row.get("id")
-            if sid and sid not in seen:
-                seen.add(sid)
-                ids.append(sid)
-            if limit and len(ids) >= limit:
-                return ids
-    return ids
-
 
 def _is_invalid(r) -> bool:
     """True if a response is not a usable measurement (infra error / empty)."""
@@ -227,23 +178,17 @@ def condition_metrics(preds: List[str], answer_idxs: List[int]):
 
 async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
                    dataset: str, unknown_position: str, sample_limit: int,
-                   full_dataset: bool = False, unified_labels: bool = False,
+                   unified_labels: bool = False,
                    max_retries: int = 3):
-    out_dir = OUT_DIR_500 if full_dataset else OUT_DIR
+    out_dir = OUT_DIR_500
     out_path = out_dir / f"summary_unknown_{unknown_position}_{dataset}_{model_name}.json"
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.
     scheme = unified_scheme(dataset) if unified_labels else get_scheme(dataset)
-    if full_dataset:
-        samples = [s for s in load_full_dataset(dataset) if s.answer_idx >= 0]
-        if sample_limit:
-            samples = samples[:sample_limit]
-    else:
-        ids = load_sample_ids(MODELS[model_key]["sources"][dataset], sample_limit)
-        all_samples = [s for s in load_judge(dataset) if s.answer_idx >= 0]
-        by_id = {s.id: s for s in all_samples}
-        samples = [by_id[sid] for sid in ids if sid in by_id]
+    samples = [s for s in load_full_dataset(dataset) if s.answer_idx >= 0]
+    if sample_limit:
+        samples = samples[:sample_limit]
         missing = [sid for sid in ids if sid not in by_id]
         if missing:
             print(f"  [warn] {dataset}: {len(missing)} ids not found in loader.")
@@ -367,10 +312,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         "metrics": metrics,
         "raw_slot_counts": raw_slot_counts,
         "tier_counts": tier_counts,
-        "source_summaries": (
-            [str(FULL_DATASET_PATHS[dataset].relative_to(ROOT))]
-            if full_dataset else MODELS[model_key]["sources"][dataset]
-        ),
+        "source_summaries": [str(FULL_DATASET_PATHS[dataset].relative_to(ROOT))],
         "per_sample": [
             {
                 "id": samples[i].id,
@@ -398,7 +340,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
 
 async def run_model(model_key: str, datasets: List[str], positions: List[str],
                     sample_limit: int, max_workers: Optional[int],
-                    full_dataset: bool = False, unified_labels: bool = False,
+                    unified_labels: bool = False,
                     max_retries: int = 3):
     spec = MODELS[model_key]
     model_name = spec["model_name"]
@@ -412,7 +354,7 @@ async def run_model(model_key: str, datasets: List[str], positions: List[str],
     for dataset in datasets:
         for position in positions:
             await run_cell(handler, model_key, model_name, dataset, position,
-                           sample_limit, full_dataset, unified_labels, max_retries)
+                           sample_limit, unified_labels, max_retries)
 
 
 def _parse_args():
@@ -481,7 +423,7 @@ async def main():
     positions = args.positions
     for model_key in model_keys:
         await run_model(model_key, datasets, positions, args.sample_limit,
-                        args.max_workers, args.full_dataset, args.unified_labels,
+                        args.max_workers, args.unified_labels,
                         args.max_retries)
     print("\nDone.")
 

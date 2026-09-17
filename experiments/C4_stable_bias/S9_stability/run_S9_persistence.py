@@ -79,7 +79,7 @@ async def main():
     ap.add_argument("--n_repeats", type=int, default=3)
     # Default: the endpoint's own temperature, the one S2 ran under.
     ap.add_argument("--temperature", type=float, default=None)
-    ap.add_argument("--config", default="configs/experiment.yaml")
+    ap.add_argument("--config", default="configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 

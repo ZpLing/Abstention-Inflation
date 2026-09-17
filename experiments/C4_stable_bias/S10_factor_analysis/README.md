@@ -8,7 +8,7 @@ paper.
 | ------ | ------- | ------- |
 | Temperature (T = 0, 0.3, 0.7, 1.0, 1.5, 2.0) | `run_S10_temperature_sweep.py`, `run_S10_temperature_sweep_generic.py`, `analyze_S10_temperature.py` | Fig. 7 right: Abs Rate flat across T ⇒ not stochastic. |
 | Task difficulty (FLD proof depth, 1–9 steps) | `analyze_S10_difficulty.py` | Fig. 7 left: Abs Rate rises with depth (Spearman ρ ≈ +0.39). |
-| Model size & alignment (Gemma family) | `run_S10_local_Gemma_inference.py`, `run_S10_Gemma_sweep.sh`, configs `gemma_*` | Fig. 8 A/B/C: IT lifts Abs Rate at every size; IT Abs Rate is flat across size. |
+| Model size & alignment (Gemma family) | `run_S10_local_hf_sweep.py`, `run_S10_Gemma_sweep.sh`, configs `gemma_*` | Fig. 8 A/B/C: IT lifts Abs Rate at every size; IT Abs Rate is flat across size. |
 
 ## Run — temperature sweep
 
@@ -33,7 +33,7 @@ python experiments/C4_stable_bias/S10_factor_analysis/analyze_S10_difficulty.py
 
 ```bash
 # Single Gemma scale (one config = one Base / IT pair)
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_Gemma_inference.py \
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
     --config configs/C4_stable_bias/gemma_E2B_it.yaml
 
 # Whole sweep (vLLM server lifecycle handled by the shell script)

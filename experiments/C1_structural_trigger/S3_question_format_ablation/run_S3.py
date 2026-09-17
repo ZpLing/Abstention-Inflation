@@ -362,7 +362,7 @@ async def main() -> None:
                     help="Output cap. The 4096 default truncated ~76%% of "
                          "Gemini's FLD proofs before any final answer.")
     ap.add_argument("--base-config",
-                    default="configs/C1_structural_trigger/GPT_5_4_nano_FLD_FOLIO.yaml",
+                    default="configs/C1_structural_trigger/TFQ_n500_GPT_5_4_nano.yaml",
                     help="Only api_key / base_url are taken from here.")
     args = ap.parse_args()
 

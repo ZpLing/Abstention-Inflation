@@ -45,8 +45,8 @@ Table 1 comes from S1/S2 (`build_table1_accuracy.py`), Figure 3 from S4
 
 | Setting | What it does | Entry point |
 |---|---|---|
-| **S5** w/o "Unknown" Option Rerun | multi-turn follow-up that removes the option and forces a commitment | `experiments/C2_denied_capability/S5_without_unknown_option_rerun/{run,analyze_S5}.py` |
-| **S6** Self-Diagnosis | model attributes its abstention to (A) incapability or (B) truly-Unknown | `experiments/C2_denied_capability/S6_self_diagnosis/run_S6.py` |
+| **S5** w/o "Unknown" Option Rerun | multi-turn follow-up that removes the option and forces a commitment | `experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/{run,analyze_S5}.py` |
+| **S6** Self-Diagnosis | model attributes its abstention to (A) incapability or (B) truly-Unknown | `experiments/C2_deny_yet_capable/S6_self_diagnosis/run_S6.py` |
 
 S5 is computed by `ABRunner` itself (`run_s5_rerun: true`) and stored in the
 `s5_rerun` block of each summary — there is no separate S5 pass. Figure 4 is
@@ -164,6 +164,6 @@ back in the current namespace. Old YAML configs keep working too: the legacy
 
 ```bash
 # S5: accuracy once the "Unknown" option is removed (paper §4.2.1, ~64% pooled)
-python experiments/C2_denied_capability/S5_without_unknown_option_rerun/analyze_S5.py \
+python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/analyze_S5.py \
     --datasets FLD FOLIO
 ```

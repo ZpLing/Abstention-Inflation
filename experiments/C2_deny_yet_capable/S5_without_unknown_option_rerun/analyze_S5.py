@@ -12,7 +12,7 @@ in this repo.
 
 Usage::
 
-    python experiments/C2_denied_capability/S5_without_unknown_option_rerun/analyze_S5.py
+    python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/analyze_S5.py
     python .../analyze_S5.py --results_root results --datasets FLD FOLIO
 """
 from __future__ import annotations

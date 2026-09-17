@@ -21,8 +21,8 @@ consumes existing S1/S2 result files (no new S1/S2 calls) and queries only the
 abstaining samples.
 
 ```bash
-python experiments/C2_denied_capability/S6_self_diagnosis/run_S6.py \
-    --config configs/C2_denied_capability/S6_DeepSeek_R1.yaml
+python experiments/C2_deny_yet_capable/S6_self_diagnosis/run_S6.py \
+    --config configs/C2_deny_yet_capable/S6_DeepSeek_R1.yaml
 ```
 
 `run.py` is a thin alternative that dispatches through `main.py` and drives

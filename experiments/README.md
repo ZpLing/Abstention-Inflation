@@ -10,7 +10,7 @@ C1_structural_trigger/                §4.1  structural trigger, not semantic
   S3_question_format_ablation/              TFQ re-rendered as A/B/C letters
   S4_word_content_ablation/                 abstain word -> synonym / random word
 
-C2_denied_capability/                 §4.2  it denies it can answer, even when it can
+C2_deny_yet_capable/                 §4.2  it denies it can answer, even when it can
   S5_without_unknown_option_rerun/          remove the option, force a commitment
   S6_self_diagnosis/                        it attributes its own abstention
 

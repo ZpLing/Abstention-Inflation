@@ -1,19 +1,11 @@
-experiment_name: "temp_sweep_gemini"
+# Credentials and model name for S10(a)'s temperature sweep. The sweep itself
+# is defined in run_S10_temperature_api.py -- 250 items per class (n=500 per
+# dataset) over T in {0, 0.3, 0.7, 1.0, 1.5, 2.0} -- not here; this file only
+# tells the gateway which model to call.
+experiment_name: "s10_temperature_gemini31"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 20
-
-temperature_sweep:
-  temperatures: [1.5, 2.0]
-  datasets: ["FLD", "FOLIO"]
-  n_samples: 200
-  sample_sources:
-    FLD:
-      - "ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json"
-      - "ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json"
-    FOLIO:
-      - "ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json"
-      - "ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

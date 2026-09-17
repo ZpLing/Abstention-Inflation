@@ -23,8 +23,8 @@ pipeline); `abs_rate_strict` counts only explicit commitments (lower bound).
 Sampling reproduces `ABRunner._apply_sample_limit` exactly: the first N items
 of each gold class in dataset order, no RNG.
 
-    python run_S10_gemma_cuda.py --model_path .../gemma-4-E2B --model_tag gemma-4-E2B
-    python run_S10_gemma_cuda.py --model_path .../gemma-4-E2B-it \
+    python run_S10_local_hf_sweep.py --model_path .../gemma-4-E2B --model_tag gemma-4-E2B
+    python run_S10_local_hf_sweep.py --model_path .../gemma-4-E2B-it \
         --model_tag gemma-4-E2B-it --use_chat_template
 """
 from __future__ import annotations

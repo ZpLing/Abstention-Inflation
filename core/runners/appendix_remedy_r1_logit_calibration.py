@@ -277,7 +277,8 @@ async def run_one(llm: LLMHandler, dataset: str, n_samples: int,
 def load_config(path: str) -> Dict[str, Any]:
     with open(path) as f:
         cfg = yaml.safe_load(f)
-    repo_root = Path(__file__).resolve().parent.parent
+    # core/runners/<this file> -> repo root
+    repo_root = Path(__file__).resolve().parents[2]
     secrets_path = repo_root / cfg.get("secrets_path", "secrets.yaml")
     if secrets_path.exists():
         with open(secrets_path) as f:

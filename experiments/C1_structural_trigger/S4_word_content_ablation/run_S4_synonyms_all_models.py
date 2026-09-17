@@ -159,8 +159,9 @@ async def run_one_cell(handler: LLMHandler, scheme, samples,
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-async def main():
-    for model_cfg in MODELS:
+async def main(models=None, datasets=None):
+    wanted = set(models or [m["name"] for m in MODELS])
+    for model_cfg in [m for m in MODELS if m["name"] in wanted]:
         model_name = model_cfg["name"]
         print(f"\n{'='*60}\nModel: {model_name}\n{'='*60}")
         config = load_config(str(ROOT / model_cfg["config"]))
@@ -168,7 +169,7 @@ async def main():
         config["model_name"] = model_name
         handler = LLMHandler(config)
 
-        for ds in DATASETS:
+        for ds in (datasets or DATASETS):
             scheme = get_scheme(ds)
             all_samples = load_judge(ds)
             by_id = {s.id: s for s in all_samples}
@@ -187,4 +188,12 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--models", nargs="+", default=None,
+                    choices=[m["name"] for m in MODELS],
+                    help="Restrict to these models (default: all three).")
+    ap.add_argument("--datasets", nargs="+", default=None, choices=DATASETS,
+                    help="Restrict to these datasets (default: both).")
+    _args = ap.parse_args()
+    asyncio.run(main(_args.models, _args.datasets))

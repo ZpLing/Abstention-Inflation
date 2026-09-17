@@ -17,7 +17,7 @@ from math import sqrt
 from pathlib import Path
 from statistics import NormalDist
 
-ROOT = Path("/Users/timchef/WakenLLM-toolkit")
+ROOT = Path(__file__).resolve().parents[3]
 MODEL = "deepseek-v4-flash"
 
 WORDINGS = ["W1", "W2", "W3", "W4", "W5"]
@@ -34,25 +34,14 @@ DATASETS = ["FLD", "FOLIO"]
 
 
 def load_w1_per_sample(ds):
-    """Pool batch1+batch2 main-exp per_sample into id→pred map."""
-    if ds == "FLD":
-        sources = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
-        ]
-    else:
-        sources = [
-            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
-        ]
-    pred_by_id = {}
-    for rel in sources:
-        ab = json.loads((ROOT / "results" / rel).read_text())
-        for ps in ab.get("per_sample", []):
-            sid = ps["id"]
-            if sid not in pred_by_id:
-                pred_by_id[sid] = ps["pred_s2"]
-    return pred_by_id
+    """W1 is the S2 cell of the main table -- id -> pred_s2.
+
+    Read from the paired summary Table 1 is built from, so the wording sweep is
+    compared against the same run the paper reports rather than an earlier one.
+    """
+    path = ROOT / f"results/tfq_n500/dsv4flash/ab_summary_{ds}_{MODEL}.json"
+    ab = json.loads(path.read_text())
+    return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 
 
 def load_wording_per_sample(w, ds):
@@ -142,7 +131,7 @@ def main():
         print()
 
     # Paired McNemar W1 vs each Wi
-    print("=== Paired McNemar (W1 vs Wi, same 200 samples) ===\n")
+    print("=== Paired McNemar (W1 vs Wi, same items) ===\n")
     print(f"{'Dataset':8s} {'W1':>4s} {'vs':>3s} {'Wi':>4s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
     print("-" * 60)
     mcnemar_table = []
