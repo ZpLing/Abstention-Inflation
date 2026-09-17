@@ -56,14 +56,17 @@ python reporting/build_table1.py
 main.py                      dispatcher; --config selects the runner
 core/                        shared infrastructure — prompts, parser, metrics,
                              loaders. Nothing here is setting-specific.
-  runners/                   one runner per setting: a file here answers "how
-                             was S6 collected", a file above it answers "how is
-                             any answer parsed"
-experiments/                 one folder per claim, one subfolder per setting
-  C1_structural_trigger/       S1  S2  S3  S4
-  C2_deny_yet_capable/         S5  S6
-  C3_later_layer_override/     S7  S8
-  C4_stable_bias/              S9  S10  S11
+  runners/                   one runner per setting
+experiments/
+  C1_structural_trigger/     S1_baseline/  S2_unknown_option_added/
+                             S3_question_format_ablation/
+                             S4_word_content_ablation/
+  C2_deny_yet_capable/       S5_without_unknown_option_rerun/
+                             S6_self_diagnosis/
+  C3_later_layer_override/   S7_reasoning_traces_evaluation/
+                             S8_logit_lens_representation_probe/
+  C4_stable_bias/            S9_stability/  S10_factor_analysis/
+                             S11_positional_biases/
 configs/                     one YAML per (model, dataset) cell, named for the
                              settings it collects
 reporting/                   rebuilds the reported numbers from results/
@@ -125,14 +128,14 @@ python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7
 Six numbered steps on a local OLMo-3-7B checkout.
 
 ```bash
-cd experiments/C3_later_layer_override/S8_logit_lens_representation_probe
-python 01_download_OLMo3.py                 # or point --model_path at your own
-python 02_collect_samples.py
-python 03_run_OLMo_inference.py  --model_path <checkpoint>
-python 03b_run_OLMo_base_baseline.py --model_path <checkpoint>
-python 04_compute_logit_lens.py
-python 05_compute_wrong_prediction_baseline.py --model_path <checkpoint>
-python 06_suppression_detect.py
+S8=experiments/C3_later_layer_override/S8_logit_lens_representation_probe
+python $S8/01_download_OLMo3.py                 # or bring your own checkout
+python $S8/02_collect_samples.py
+python $S8/03_run_OLMo_inference.py           --model_path <checkpoint>
+python $S8/03b_run_OLMo_base_baseline.py      --model_path <checkpoint>
+python $S8/04_compute_logit_lens.py
+python $S8/05_compute_wrong_prediction_baseline.py --model_path <checkpoint>
+python $S8/06_suppression_detect.py
 ```
 
 ### 6. S9 — stability
@@ -155,12 +158,16 @@ python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
 # temperature, on the two checkpoints whose temperature the endpoint applies
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
     --model gemini-3.1-flash-lite
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
-    --model_path <olmo-instruct> --out_dir results/s10_temp_olmo_topk20
+for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
+  python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
+      --model_path <olmo-instruct> --model_tag olmo3-instruct --use_chat_template \
+      --temperature $T --top_k 20 --out_dir results/s10_temp_olmo_topk20
+done
 
 # size and alignment, four Gemma sizes x {base, it}
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
-    --model_path <gemma-checkpoint> --out_dir results/s10_gemma_n500
+    --model_path <gemma-checkpoint> --model_tag gemma-4-E4B-it --use_chat_template \
+    --out_dir results/s10_gemma_n500
 ```
 
 ### 8. S11 — positional biases
@@ -182,29 +189,6 @@ python -m core.runners.appendix_remedy_r2_self_consistency   # App. E's R2
 
 Each analysis script under `experiments/` prints the numbers for its own
 setting; run it with `--help` to see what it takes.
-
-### One denominator
-
-Every rate is scored on the set `core.result_schema.paired_keep_ids` returns:
-the items that **both** settings of a paired contrast answered. An item is
-dropped only when a setting returned nothing usable — an exhausted retry, a
-content-filter refusal, a decoding collapse. A response that declines to commit
-is kept, because refusing to commit is the behaviour under study, not a missing
-measurement.
-
-## Datasets
-
-`dataset/` holds all eight files in one schema — no per-dataset loader:
-
-| File | Type | Use |
-| --- | --- | --- |
-| `FLD.json`, `FOLIO.json` | TFQ | S1–S11 (500 answerable items each: 250 True + 250 False) |
-| `FLD_unknown.json`, `FOLIO_unknown.json` | TFQ | S9 truly-Unknown subset (300 each) |
-| `ARC.json`, `MMLU.json`, `MedQA.json`, `LogiQA.json` | MCQ | S1, S2 (500 each) |
-
-Each record carries `id / source / task_type / question / context / options /
-answer_idx`; `answer_idx == -1` marks a truly-Unknown item.
-`core.dataset_loader` is the only reader.
 
 ## Labels
 
