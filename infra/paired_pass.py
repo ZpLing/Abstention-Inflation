@@ -49,15 +49,22 @@ from experiments.C1_structural_trigger.S1_baseline import run_S1_baseline
 from experiments.C1_structural_trigger.S2_unknown_option_added import run_S2_unknown_option_added
 from experiments.C1_structural_trigger.S3_question_format_ablation import run_S3_question_format_ablation
 from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import run_S5_without_unknown_option_rerun
-from experiments.appendix import Appendix_E_calibration_suffix as calibration_suffix
+#: App. E's calibration-suffix mitigation lives in ``experiments/appendix``,
+#: which is kept local rather than released, so its absence must not stop
+#: S1/S2/S3/S5 from importing this module.
+try:
+    from experiments.appendix import Appendix_E_calibration_suffix as calibration_suffix
+except ModuleNotFoundError:
+    calibration_suffix = None
 
 #: Each setting owns its prompt and whether the parser may see an abstention.
 SETTING_MODULES = {
     "S1": run_S1_baseline,
     "S2": run_S2_unknown_option_added,
     "S3": run_S3_question_format_ablation,
-    "calibration_suffix": calibration_suffix,
 }
+if calibration_suffix is not None:
+    SETTING_MODULES["calibration_suffix"] = calibration_suffix
 from infra.result_schema import SCHEMA_VERSION
 
 from loader.data_handler import DataHandler
@@ -296,6 +303,12 @@ class ABRunner:
         """Delegate to the setting that owns this prompt."""
         mod = SETTING_MODULES.get(setting)
         if mod is None:
+            if setting == "calibration_suffix":
+                raise ValueError(
+                    "Setting 'calibration_suffix' (App. E mitigation) needs "
+                    "experiments/appendix/, which is kept local and is not part "
+                    "of the released tree."
+                )
             raise ValueError(f"Setting {setting!r} has no prompt builder.")
         return mod.build_prompts(samples, task_type)
 
