@@ -1,6 +1,6 @@
 """Score the clean-prompt S3 rerun and contrast it with the superseded run.
 
-Reads results/s3_clean/summary_s3_{DS}_{MODEL}.json (written by
+Reads the S3 column of the paired summaries the main table is built from
 run_S3.py) and, when present, the old confounded condition in
 results/positional_bias/summary_unknown_C_{DS}_{MODEL}.json, which used the
 same letter rendering *plus* the calibration note. The paired contrast on the
@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-CLEAN = ROOT / "results/s3_clean"
+CLEAN = ROOT / "results/tfq"
 OLD = ROOT / "results/positional_bias"
 
 MODELS = [

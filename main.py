@@ -70,22 +70,22 @@ async def _dispatch(config: dict) -> None:
 
     if "main_experiment" in tasks:
         print("\n===== S1 / S2 / S3 + S5 rerun =====")
-        from runners.ab_runner import ABRunner
+        from experiments.C1_structural_trigger.ab_runner import ABRunner
         await ABRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s9_truly_unknown" in tasks:
         print("\n===== S9 perception on truly-Unknown samples =====")
-        from runners.s9_truly_unknown_runner import TrulyUnknownRunner
+        from experiments.C4_stable_bias.S9_stability.s9_truly_unknown_runner import TrulyUnknownRunner
         await TrulyUnknownRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s6_self_diagnosis" in tasks:
         print("\n===== S6 self-diagnosis =====")
-        from runners.s6_self_diagnosis_runner import S6SelfDiagnosisRunner
+        from experiments.C2_deny_yet_capable.S6_self_diagnosis.s6_runner import S6SelfDiagnosisRunner
         await S6SelfDiagnosisRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s10_model_sweep" in tasks:
         print("\n===== S10 alignment & model-size sweep =====")
-        from runners.s10_model_sweep_runner import ModelSweepRunner
+        from experiments.C4_stable_bias.S10_factor_analysis.s10_model_sweep_runner import ModelSweepRunner
         await ModelSweepRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "appendix_mitigation" in tasks:
