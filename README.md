@@ -127,7 +127,7 @@ done
 Reads the traces step 1 stored; needs a GPU but no API key.
 
 ```bash
-python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
+python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7.py
 ```
 
 ### 5. S8 — logit lens
@@ -136,13 +136,13 @@ Six numbered steps on a local OLMo-3-7B checkout.
 
 ```bash
 S8=experiments/C3_later_layer_override/S8_logit_lens_representation_probe
-python $S8/01_download_OLMo3.py                 # or bring your own checkout
-python $S8/02_collect_samples.py
-python $S8/03_run_OLMo_inference.py           --model_path <checkpoint>
-python $S8/03b_run_OLMo_base_baseline.py      --model_path <checkpoint>
-python $S8/04_compute_logit_lens.py
-python $S8/05_compute_wrong_prediction_baseline.py --model_path <checkpoint>
-python $S8/06_suppression_detect.py
+python $S8/run_S8_01_download.py                 # or bring your own checkout
+python $S8/run_S8_02_collect_samples.py
+python $S8/run_S8_03_inference.py           --model_path <checkpoint>
+python $S8/run_S8_03b_base_baseline.py      --model_path <checkpoint>
+python $S8/run_S8_04_logit_lens.py
+python $S8/run_S8_05_wrong_prediction_baseline.py --model_path <checkpoint>
+python $S8/run_S8_06_suppression_detect.py
 ```
 
 ### 6. S9 — stability
@@ -171,7 +171,7 @@ python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py
     --model gemini-3.1-flash-lite
 
 for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
-  python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
+  python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
       --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
       --use_chat_template --settings S2 --n_per_class 250 \
       --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
@@ -184,7 +184,7 @@ Size and alignment: four Gemma sizes × {base, it}, at T=0. Pass
 ones -- that is the only difference between the two arms.
 
 ```bash
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
     --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
     --n_per_class 250 --max_new_tokens 3072 --batch_size 8 \
     --out_dir results/s10_gemma
@@ -193,7 +193,7 @@ python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py 
 ### 8. S11 — positional biases
 
 ```bash
-python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
+python experiments/C4_stable_bias/S11_positional_biases/run_S11.py \
     --model all --positions A B C --unified-labels
 ```
 

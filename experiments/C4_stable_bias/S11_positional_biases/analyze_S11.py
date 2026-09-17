@@ -1,4 +1,4 @@
-"""Aggregate the S11 option-position cells written by run_S11_positional_biases.py."""
+"""Aggregate the S11 option-position cells written by run_S11.py."""
 import argparse
 import json
 import sys
@@ -22,108 +22,12 @@ MODELS = [
 DATASETS = ["FLD", "FOLIO"]
 POSITIONS = ["A", "B", "C"]
 
-C_FALLBACK_SOURCES = {
-    ("nano", "FLD"): [
-        "results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json",
-        "results/ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json",
-    ],
-    ("nano", "FOLIO"): [
-        "results/ab_gpt5_nano/ab_summary_FOLIO_gpt-5.4-nano.json",
-        "results/ab_nano_batch2/ab_summary_FOLIO_gpt-5.4-nano.json",
-    ],
-    ("gemini", "FLD"): [
-        "results/ab_gemini_flash_lite/ab_summary_FLD_gemini-3.1-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FLD_gemini-3.1-flash-lite.json",
-    ],
-    ("gemini", "FOLIO"): [
-        "results/ab_gemini_flash_lite/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
-        "results/ab_gemini_batch2/ab_summary_FOLIO_gemini-3.1-flash-lite.json",
-    ],
-    # DeepSeek's original FLD batch1 did not include pred_s5; ab_s5 fills that
-    # exact first-batch sample set, and ab_deepseek_batch2 fills the second.
-    ("deepseek", "FLD"): [
-        "results/ab_s5/ab_summary_FLD_deepseek-v4-flash.json",
-        "results/ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
-    ],
-    ("deepseek", "FOLIO"): [
-        "results/ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
-        "results/ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
-    ],
-}
-
-
 def load_summary(model_name: str, dataset: str, position: str, result_dir: Path = None):
     result_dir = result_dir or RESULT_DIR
     path = result_dir / f"summary_unknown_{position}_{dataset}_{model_name}.json"
     if path.exists():
         return json.loads(path.read_text())
     return None
-
-
-def load_c_fallback(model_key: str, model_name: str, dataset: str):
-    paths = C_FALLBACK_SOURCES.get((model_key, dataset), [])
-    per_sample = []
-    seen = set()
-    for rel in paths:
-        path = ROOT / rel
-        if not path.exists():
-            continue
-        data = json.loads(path.read_text())
-        for row in data.get("per_sample", []):
-            if "pred_s5" not in row:
-                continue
-            sid = row["id"]
-            if sid in seen:
-                continue
-            seen.add(sid)
-            pred = row["pred_s5"]
-            # Slot the chosen verb occupied. This synthetic cell reuses the S2
-            # ordering (True | False | Unknown), so abstention sits in slot C.
-            raw_slot = "C" if pred == "UNKNOWN" else pred if pred in ("A", "B") else None
-            per_sample.append({
-                "id": sid,
-                "source": row.get("source", dataset),
-                "answer_idx": row["answer_idx"],
-                "pred": pred,
-                "raw_slot": raw_slot,
-                "tier": "fallback_s5",
-                "raw": row.get("raw_s5", ""),
-            })
-    if not per_sample:
-        return None
-    preds = [r["pred"] for r in per_sample]
-    answer_idxs = [r["answer_idx"] for r in per_sample]
-    raw_slots = [r["raw_slot"] for r in per_sample]
-    metrics = {
-        "n": len(per_sample),
-        "label_acc": label_acc(preds, answer_idxs),
-        "label_f1": label_macro_f1(preds, answer_idxs, judge_classes(with_unknown=True)),
-        "abstain_rate": sum(p == "UNKNOWN" for p in preds) / len(preds),
-        "counts": {
-            "A": preds.count("A"),
-            "B": preds.count("B"),
-            "UNKNOWN": preds.count("UNKNOWN"),
-            "UNPARSEABLE": preds.count("UNPARSEABLE"),
-        },
-    }
-    return {
-        "experiment": "positional_bias",
-        "model_key": model_key,
-        "model": model_name,
-        "dataset": dataset,
-        "unknown_position": "C",
-        "n": len(per_sample),
-        "metrics": metrics,
-        "raw_slot_counts": {
-            "A": raw_slots.count("A"),
-            "B": raw_slots.count("B"),
-            "C": raw_slots.count("C"),
-            "null": raw_slots.count(None),
-        },
-        "source_summaries": paths,
-        "per_sample": per_sample,
-        "source_note": "C loaded from original AB/S5 pred_s5 summaries",
-    }
 
 
 # Row order by model_key. Row LABELS are taken from the actual model id in the
@@ -314,11 +218,6 @@ def main():
              "(e.g. results/positional_bias for the 500-sample run).",
     )
     ap.add_argument(
-        "--no-c-fallback", action="store_true",
-        help="Do not synthesize C from old AB summaries; require a real C run. "
-             "Use for the full run where all three positions are measured.",
-    )
-    ap.add_argument(
         "--expect-n", type=int, default=500,
         help="Absolute per-cell sample count required to certify a row "
              "(guards against stale runs of a different size). Default 500.",
@@ -351,8 +250,6 @@ def main():
             loaded = {}
             for pos in POSITIONS:
                 summary = load_summary(model_name, ds, pos, result_dir)
-                if summary is None and pos == "C" and not args.no_c_fallback:
-                    summary = load_c_fallback(model_key, model_name, ds)
                 if not summary:
                     continue
                 # Flag runs that did not finish cleanly so a partial result is

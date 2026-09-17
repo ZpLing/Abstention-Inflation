@@ -59,7 +59,7 @@ from infra.prompts import build_judge_s2_prompt          # noqa: E402
 from infra.label_scheme import get_scheme                # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
-    "_s10_runner", Path(__file__).with_name("run_S10_local_hf_sweep.py"))
+    "_s10_runner", Path(__file__).with_name("run_S10_local_sweep.py"))
 _runner = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_runner)
 

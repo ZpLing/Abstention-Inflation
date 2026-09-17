@@ -103,7 +103,7 @@ def random_word_half():
     print("=" * 78)
     print(f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Rand1':>8} {'Rand2':>8} "
           f"{'max |d|':>8}")
-    worst = []
+    worst, every = [], []
     for model, label in RPC_MODELS:
         for ds in DATASETS:
             path = RPC / f"rpc_{ds}_{model}.json"
@@ -114,14 +114,19 @@ def random_word_half():
             base = d["C1_Unknown"]["opt_x_rate"]
             r1 = d["C2_Rand1"]["opt_x_rate"]
             r2 = d["C3_Rand2"]["opt_x_rate"]
-            delta = max(abs(r1 - base), abs(r2 - base)) * 100
+            shifts = [abs(r1 - base) * 100, abs(r2 - base) * 100]
+            every += shifts
+            delta = max(shifts)
             worst.append(delta)
             print(f"{label:<24} {ds:<7} {base:>7.1%} {r1:>7.1%} {r2:>7.1%} "
                   f"{delta:>7.1f}pp")
     if worst:
         print("-" * 78)
         print(f"Largest shift from the Unknown baseline : {max(worst):.1f} points")
-        print(f"Mean shift                              : {sum(worst)/len(worst):.1f} points")
+        # Averaged over every word x cell comparison, which is what the paper
+        # quotes; averaging the per-cell maxima instead would read 2.9.
+        print(f"Mean shift over all {len(every)} comparisons      : "
+              f"{sum(every)/len(every):.1f} points")
 
 
 def main():

@@ -28,7 +28,7 @@ invariance test (if only the final token moved, S1 and S2 agree), and over the
 Abstention Inflation subset alone, where S2's rates are the share of
 abstentions whose own reasoning had already settled the question.
 
-    python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
+    python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7.py
 """
 import argparse
 import json
@@ -42,7 +42,7 @@ sys.path.insert(0, str(ROOT))
 from infra.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from nli_probe_DeBERTa import NLI_MODEL, LABEL_NAMES, strip_final_answer, take_tail
+from s7_runner import NLI_MODEL, LABEL_NAMES, strip_final_answer, take_tail
 
 # gold answer_idx -> the NLI verdict that agrees with it
 GOLD_OF_IDX = {0: "entailment", 1: "contradiction"}
