@@ -380,7 +380,7 @@ def main():
                     help="S10(a) only needs S2 -- S1 has no abstain option to "
                          "measure and would double the generation cost.")
     ap.add_argument("--datasets", nargs="+", default=DATASETS)
-    ap.add_argument("--out_dir", default=str(ROOT / "results" / "s10_gemma_rerun"))
+    ap.add_argument("--out_dir", default=str(ROOT / "results" / "S10_size_alignment"))
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir); out_dir.mkdir(parents=True, exist_ok=True)

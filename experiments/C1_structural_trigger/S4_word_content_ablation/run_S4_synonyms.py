@@ -2,7 +2,7 @@
 
 Runs W2-W5 × {FLD, FOLIO} × the full 500 samples for each model.
 
-Output: results/wording_sweep/summary_{W}_{DS}_{MODEL}.json
+Output: results/S4_synonyms/summary_{W}_{DS}_{MODEL}.json
 """
 import asyncio
 import json
@@ -54,7 +54,7 @@ MODELS = [
     },
 ]
 
-OUT_DIR = ROOT / "results/wording_sweep"
+OUT_DIR = ROOT / "results/S4_synonyms"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 

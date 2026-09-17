@@ -13,7 +13,7 @@ proxy.
 
 Inputs (no new API calls):
   - data/Judge/FLD.json — source FLD with `original_data.steps`
-  - results/tfq/<model>/ab_summary_FLD_*.json — the paired S1/S2 pass
+  - results/S1_S3_tfq/<model>/ab_summary_FLD_*.json — the paired S1/S2 pass
 
 Per sample:
   - id "FLD_NNNN"  → index NNNN into source array → look up steps
@@ -98,7 +98,7 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
     """
     rows: List[dict] = []
     for slug, model in TFQ_CELLS:
-        path = ROOT / f"results/tfq/{slug}/ab_summary_FLD_{model}.json"
+        path = ROOT / f"results/S1_S3_tfq/{slug}/ab_summary_FLD_{model}.json"
         if not path.exists():
             continue
         summary = json.loads(path.read_text())
@@ -222,7 +222,7 @@ def main() -> None:
     print(f"Loaded {len(steps_map)} FLD items with a `depth` annotation.")
 
     rows = collect_per_sample(steps_map)
-    print(f"Collected {len(rows)} (model, sample) cells from results/positional_bias/.")
+    print(f"Collected {len(rows)} (model, sample) cells from results/S11_positional_bias/.")
     if not rows:
         sys.exit("No FLD ab_summary data found.")
 

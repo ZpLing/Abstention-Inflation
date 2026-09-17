@@ -12,8 +12,8 @@ Method:
     logit_gap is trivially 0; use rank_unknown as the signal instead).
   Then build a simple threshold classifier and report AUC + accuracy.
 
-Input:  results/c3/logit_lens_instruct.json  (or any checkpoint)
-Output: results/c3/suppression_detect_{ckpt}.json
+Input:  results/S8_logit_lens/logit_lens_instruct.json  (or any checkpoint)
+Output: results/S8_logit_lens/suppression_detect_{ckpt}.json
         figures/c3_suppression_detect.pdf
 
 Run:
@@ -69,7 +69,7 @@ COLORS = {
 
 
 def load_data(ckpt: str) -> list[dict]:
-    path = ROOT / "results" / "c3" / f"logit_lens_{ckpt}.json"
+    path = ROOT / "results" / "S8_logit_lens" / f"logit_lens_{ckpt}.json"
     raw = json.loads(path.read_text())
     return _normalize_sample_types(raw["per_sample"])
 
@@ -223,7 +223,7 @@ def main():
         "classifier_acc":      acc,
         "classifier_threshold": thr,
     }
-    out_dir = ROOT / "results" / "c3"
+    out_dir = ROOT / "results" / "S8_logit_lens"
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"suppression_detect_{args.ckpt}.json").write_text(
         json.dumps(out_data, indent=2)

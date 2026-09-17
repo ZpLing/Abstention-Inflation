@@ -346,7 +346,7 @@ async def run_experiment(config: Dict):
     rpc_cfg = config.get("random_perturbation_control", {})
     datasets = rpc_cfg.get("datasets", ["FLD", "FOLIO"])
     n_per_class = rpc_cfg.get("n_per_class", 100)
-    results_dir = Path(rpc_cfg.get("results_dir", "results/random_perturbation_control"))
+    results_dir = Path(rpc_cfg.get("results_dir", "results/S4_random_words"))
     results_dir.mkdir(parents=True, exist_ok=True)
     # Optional: {FLD: "path/to/rpc_FLD_*.json", FOLIO: "..."} — skips S1/C1 queries
     baseline_files: Dict[str, str] = rpc_cfg.get("baseline_result_files", {})

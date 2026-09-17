@@ -33,7 +33,7 @@ DATASETS = ("FLD", "FOLIO")
 
 def cell(slug: str, model: str, dataset: str) -> dict:
     summary = json.loads(
-        (ROOT / f"results/tfq/{slug}/ab_summary_{dataset}_{model}.json").read_text())
+        (ROOT / f"results/S1_S3_tfq/{slug}/ab_summary_{dataset}_{model}.json").read_text())
     # The S1/S2 keep-set, minus whatever S3 itself failed to answer -- the same
     # rule the runner applies when it writes metrics.S3.n_scored. Counting an
     # exhausted retry as "did not abstain" would understate S3's Abs Rate.

@@ -11,8 +11,8 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/c3/olmo_inference_FLD.json
-Output: results/c3/logit_lens_{ckpt}.json
+Input:  results/S8_logit_lens/olmo_inference_FLD.json
+Output: results/S8_logit_lens/logit_lens_{ckpt}.json
         (each sample has layers_s1 and layers_s2)
 
 Run one checkpoint per GPU in parallel:
@@ -33,8 +33,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-INFERENCE_PATH = ROOT / "results" / "c3" / "olmo_inference_FLD.json"
-OUT_DIR        = ROOT / "results" / "c3"
+INFERENCE_PATH = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
+OUT_DIR        = ROOT / "results" / "S8_logit_lens"
 
 CHECKPOINTS = {
     "base":     ROOT / "models" / "olmo3-base",

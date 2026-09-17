@@ -71,7 +71,10 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 │       └── S11_positional_biases/
 ├── configs/                      one YAML per (model, dataset) cell, named
 │                                 for the settings it collects
-└── dataset/                      the eight benchmark files, one schema
+├── dataset/                      the eight benchmark files, one schema
+└── results/                      git-ignored; one directory per setting,
+                                  named `S<n>_<setting>` so it matches the
+                                  runner and analyzer above (e.g. S6_self_diagnosis).
 ```
 
 **Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
@@ -143,14 +146,14 @@ python $S8/run_S8_step6_suppression_detect.py
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C4_stable_bias/S9_truly_unknown_$m.yaml
+  python main.py --config configs/C4_stable_bias/S9_unknown_labeled_$m.yaml
 done
 
 # the three re-draws, per (model, dataset)
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-    --summary results/tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
+    --summary results/S1_S3_tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/persistence/s9_persistence_FLD_gpt-5.4-nano.json
+    --out results/S9_persistence/s9_persistence_FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis
@@ -169,7 +172,7 @@ for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
       --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
       --use_chat_template --settings S2 --n_per_class 250 \
       --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
-      --out_dir results/s10_temp_olmo_topk20
+      --out_dir results/S10_temperature_olmo_topk20
 done
 ```
 
@@ -181,7 +184,7 @@ ones -- that is the only difference between the two arms.
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
     --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
     --n_per_class 250 --max_new_tokens 3072 --batch_size 8 \
-    --out_dir results/s10_gemma
+    --out_dir results/S10_size_alignment
 ```
 
 ### 8. S11 — positional biases

@@ -133,7 +133,7 @@ def accuracy(preds, answer_idxs):
 
 
 # ============================================================
-# S9 — truly-Unknown subset (the mirror image of Abs Rate)
+# S9 — Unknown-labeled subset (the mirror image of Abs Rate)
 #
 # Computed on genuinely-Unknown samples only (``answer_idx == -1``, filtered
 # by the runner). Here, choosing "Unknown" is the *correct* behaviour, so
@@ -142,7 +142,7 @@ def accuracy(preds, answer_idxs):
 # ============================================================
 
 def correct_abstention_rate(preds: Sequence[str]) -> float:
-    """Fraction of predictions that abstain, on truly-Unknown samples.
+    """Fraction of predictions that abstain, on Unknown-labeled samples.
 
     The higher, the better the model recognises that no determinable answer
     exists. The paper plots it against Abs Rate on answerable items to show

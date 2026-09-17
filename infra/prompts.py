@@ -456,7 +456,7 @@ def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
 # =================================================================
 # S9 — the calibration-suffix condition
 #
-# S9 asks the same truly-Unknown sample three ways: without the abstain
+# S9 asks the same Unknown-labeled sample three ways: without the abstain
 # option (S1), with it (S2), and with it plus a suffix spelling out when it
 # should be chosen. The builder below is that third condition, which the
 # paper reports as S9's CAR_S3.

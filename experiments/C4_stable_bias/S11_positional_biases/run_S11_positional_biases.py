@@ -12,7 +12,7 @@ own S2 ordering rather than a look-alike, and the model keeps answering with a
 verb. The slot letters name the position; they are never shown to the model.
 
 Outputs:
-    results/positional_bias/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
+    results/S11_positional_bias/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
 
 Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
@@ -62,7 +62,7 @@ SLOT_OF = {"A": 1, "B": 2, "C": 3}
 _EVALUATOR = Evaluator()
 # Full canonical 500-sample runs (250 True + 250 False) go to a separate dir so
 # the existing 200-sample A/B summaries stay intact.
-OUT_DIR_500 = ROOT / "results/positional_bias"
+OUT_DIR_500 = ROOT / "results/S11_positional_bias"
 # Canonical balanced 500-sample TFQ files (unified schema, answer_idx 0=True/1=False).
 FULL_DATASET_PATHS = {
     "FLD": ROOT / "dataset/FLD.json",
@@ -391,7 +391,7 @@ def _parse_args():
         action="store_true",
         help="Load the canonical 500-sample dataset/{DS}.json (250 True + 250 "
              "False) directly instead of the 200-sample id union from prior AB "
-             "summaries. Writes to results/positional_bias/.",
+             "summaries. Writes to results/S11_positional_bias/.",
     )
     parser.add_argument(
         "--unified-labels",

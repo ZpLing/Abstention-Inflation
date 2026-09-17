@@ -1,7 +1,7 @@
 # S4 Word Content Ablation, random-word half: the third option becomes
 # "Triangular" / "Cerulean", words with no bearing on the task. Any abstention
 # into that slot is attributable to the slot, not to what it says.
-experiment_name: "s4_random_words_gemini31"
+experiment_name: "S4_random_words_gemini31"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
@@ -13,7 +13,7 @@ random_perturbation_control:
     - "FLD"
     - "FOLIO"
   n_per_class: 250          # 250 True + 250 False = the full 500 per dataset
-  results_dir: "results/random_perturbation_control"
+  results_dir: "results/S4_random_words"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

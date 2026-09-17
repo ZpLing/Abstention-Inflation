@@ -1,11 +1,11 @@
-"""S9 Stability — the truly-Unknown mirror.
+"""S9 Stability — the Unknown-labeled mirror.
 
 The other side of Abs Rate: on items that genuinely have no determinable
 answer, abstaining is correct, so this run measures whether the models can
 tell the two populations apart. Paired against the Abs Rate on answerable
 items, it is what shows the bias is directional rather than indiscriminate.
 
-Driven by main.py through configs/C4_stable_bias/S9_truly_unknown_*.yaml.
+Driven by main.py through configs/C4_stable_bias/S9_unknown_labeled_*.yaml.
 """
 import sys
 from pathlib import Path
@@ -42,7 +42,7 @@ SUPPLEMENTARY_DATASETS = ("FLD", "FOLIO", "FLD_unknown", "FOLIO_unknown")
 _SYMBOLIC_RE = re.compile(r"[∀∃∧∨¬→↔⊕⇒⇔]")
 
 
-class TrulyUnknownRunner:
+class UnknownLabeledRunner:
     """Runs S1/S2/S3 on the genuinely-Unknown subset of FLD."""
 
     def __init__(self, config: Dict[str, Any], data_handler: DataHandler,
@@ -52,20 +52,20 @@ class TrulyUnknownRunner:
         self.llm_handler = llm_handler
         self.evaluator = evaluator
 
-        sup = get_block(config, "s9_truly_unknown")
+        sup = get_block(config, "s9_unknown_labeled")
         self.dataset_names = sup.get("datasets", list(SUPPLEMENTARY_DATASETS))
         self.sample_limits = sup.get("sample_limits", {}) or {}
-        self.results_dir = Path(sup.get("results_dir", "results/supplementary"))
+        self.results_dir = Path(sup.get("results_dir", "results/S9_unknown_labeled"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
 
     async def run(self):
         for ds_name in self.dataset_names:
             if ds_name not in SUPPLEMENTARY_DATASETS:
-                print(f"[TrulyUnknownRunner] Skipping {ds_name}: supported = {SUPPLEMENTARY_DATASETS}.")
+                print(f"[UnknownLabeledRunner] Skipping {ds_name}: supported = {SUPPLEMENTARY_DATASETS}.")
                 continue
             print(f"\n===== Supplementary :: {ds_name} =====")
-            # Truly-Unknown items now live in their own files (FLD_unknown.json /
+            # Unknown-labeled items now live in their own files (FLD_unknown.json /
             # FOLIO_unknown.json) under the unified schema. We accept either
             # form: when a user supplies "FLD" we auto-route to FLD_unknown.
             target = ds_name if ds_name.endswith("_unknown") else f"{ds_name}_unknown"
@@ -224,7 +224,7 @@ def main() -> None:
     args = ap.parse_args()
 
     config = load_config(args.config)
-    asyncio.run(TrulyUnknownRunner(config, DataHandler(config), LLMHandler(config),
+    asyncio.run(UnknownLabeledRunner(config, DataHandler(config), LLMHandler(config),
                       Evaluator()).run())
 
 

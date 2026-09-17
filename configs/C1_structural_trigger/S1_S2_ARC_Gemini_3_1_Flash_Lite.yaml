@@ -1,5 +1,5 @@
 # ARC at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
-experiment_name: "arc_gemini31"
+experiment_name: "S1_S2_mcq_ARC_gemini31"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
@@ -11,7 +11,7 @@ main_experiment:
   datasets:
     - "ARC"
   run_s5_rerun: true
-  results_dir: "results/mcq/ARC_gemini31"
+  results_dir: "results/S1_S2_mcq/ARC_gemini31"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

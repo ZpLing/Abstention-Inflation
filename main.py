@@ -9,7 +9,7 @@ of the paper's settings (see the root README for the full paper↔code map):
 
     main_experiment      S1 / S2 / S3 + the S5 rerun on abstaining samples
     s6_self_diagnosis    S6 self-diagnosis follow-up (multi-turn)
-    s9_truly_unknown     S9 perception on truly-Unknown samples
+    s9_unknown_labeled     S9 perception on Unknown-labeled samples
     s10_model_sweep      S10 alignment & model-size sweep (Gemma, Qwen)
 
 Settings that are not driven from a YAML — S4 word content ablation, S7 trace
@@ -38,7 +38,7 @@ from infra.llm_handler import LLMHandler
 #: pre-rename run_tasks name -> current name.
 LEGACY_TASK_ALIASES = {
     "ab_experiment": "main_experiment",
-    "supplementary_experiment": "s9_truly_unknown",
+    "supplementary_experiment": "s9_unknown_labeled",
     "s5_supplementary": "s6_self_diagnosis",
     "exp2_model_sweep": "s10_model_sweep",
 }
@@ -71,10 +71,10 @@ async def _dispatch(config: dict) -> None:
         from infra.paired_pass import ABRunner
         await ABRunner(config, data_handler, llm_handler, evaluator).run()
 
-    if "s9_truly_unknown" in tasks:
-        print("\n===== S9 perception on truly-Unknown samples =====")
-        from experiments.C4_stable_bias.S9_stability.run_S9_perception_of_truly_unknown_samples import TrulyUnknownRunner
-        await TrulyUnknownRunner(config, data_handler, llm_handler, evaluator).run()
+    if "s9_unknown_labeled" in tasks:
+        print("\n===== S9 perception on Unknown-labeled samples =====")
+        from experiments.C4_stable_bias.S9_stability.run_S9_perception_of_unknown_labeled_samples import UnknownLabeledRunner
+        await UnknownLabeledRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s6_self_diagnosis" in tasks:
         print("\n===== S6 self-diagnosis =====")

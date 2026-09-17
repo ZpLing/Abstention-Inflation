@@ -7,7 +7,7 @@ This package serves three paper benchmarks under the TFQ format:
     FLD         | "FLD", "FLD_unknown"                        | True / False (answer_idx 0/1)
     FOLIO       | "FOLIO", "FOLIO_unknown"                    | True / False (answer_idx 0/1)
 
-Truly-Unknown subsets reuse the same scheme; they only differ in gold
+Unknown-labeled subsets reuse the same scheme; they only differ in gold
 (``answer_idx == -1`` instead of 0/1). The MCQ datasets (ARC, MedQA, MMLU,
 LogiQA) do not need a LabelScheme — the MCQ prompt builders read options
 straight off the Sample.
@@ -222,7 +222,7 @@ SCHEMES: Dict[str, LabelScheme] = {
 }
 
 
-# Truly-Unknown subsets reuse the parent dataset's verb scheme.
+# Unknown-labeled subsets reuse the parent dataset's verb scheme.
 _SCHEME_ALIASES = {
     "FLD_unknown":   "FLD",
     "FOLIO_unknown": "FOLIO",

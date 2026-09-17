@@ -1,6 +1,6 @@
 """
 C3 Step 1: Run OLMo-3-Instruct on FLD in S1 and S2 conditions.
-Saves raw outputs + predictions to results/c3/olmo_inference_FLD.json
+Saves raw outputs + predictions to results/S8_logit_lens/olmo_inference_FLD.json
 
 Run on the 3090 server after downloading models:
     python scripts/c3_run_olmo_inference.py
@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 #: Overridable with --model_path; the S8 runs used a local checkout.
 MODEL_PATH   = ROOT / "models" / "olmo3-instruct"
 DATA_PATH    = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH     = ROOT / "results" / "c3" / "olmo_inference_FLD.json"
+OUT_PATH     = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
 BATCH_SIZE   = 4    # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
 
 S1_SYSTEM = (
@@ -141,7 +141,7 @@ def main():
            and s["proof_label"] == "__UNKNOWN__"]
     print(f"\nDone. Saved to {OUT_PATH}")
     print(f"  Abstention Inflation candidates (answerable → UNKNOWN): {len(ai)}")
-    print(f"  CAR candidates (truly-unknown → UNKNOWN): {len(car)}")
+    print(f"  CAR candidates (Unknown-labeled → UNKNOWN): {len(car)}")
 
 
 def _cli():

@@ -22,7 +22,7 @@ redefined, and new files carry ``"schema": SCHEMA_VERSION``.
 
 Pre-rename files also carried a ``pred_s3`` holding a mitigation variant that
 no paper setting uses. It is no longer translated, which also means S9's own
-``pred_s3`` -- its third, calibration-suffix condition on truly-Unknown
+``pred_s3`` -- its third, calibration-suffix condition on Unknown-labeled
 samples -- survives a read intact instead of being renamed out from under the
 analysis.
 

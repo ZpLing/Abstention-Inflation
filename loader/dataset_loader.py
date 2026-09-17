@@ -1,7 +1,7 @@
 """Unified dataset loader.
 
 Every paper benchmark (FLD, FOLIO, ARC, MedQA, MMLU, LogiQA, plus the two
-truly-Unknown subsets ``FLD_unknown`` / ``FOLIO_unknown``) is stored in
+Unknown-labeled subsets ``FLD_unknown`` / ``FOLIO_unknown``) is stored in
 ``dataset/<name>.json`` under a single canonical schema:
 
     {
@@ -10,7 +10,7 @@ truly-Unknown subsets ``FLD_unknown`` / ``FOLIO_unknown``) is stored in
       "context":     str,           # FLD Facts / FOLIO Premises / "" for MCQ
       "options":     list[str],     # ["True","False"] for TFQ; 4 strings for MCQ
       "answer":      str,           # gold answer text ("True"/"False"/"Unknown" or option text)
-      "answer_idx":  int,           # 0..N-1, or -1 for truly-Unknown samples
+      "answer_idx":  int,           # 0..N-1, or -1 for Unknown-labeled samples
       "task_type":   "tf" | "mcq",
       "source":      str,           # dataset name (FLD / FOLIO / ARC / ...)
       "depth":       int,           # FLD only: proof-tree step count (S10 difficulty)
@@ -21,7 +21,7 @@ Each row converts directly to ``Sample`` via :py:meth:`Sample.from_dict`.
 Routing rule
 ------------
 ``load_dataset(name)`` returns the full list of items in
-``dataset/<name>.json``. Truly-Unknown subsets used by S9 truly-unknown
+``dataset/<name>.json``. Unknown-labeled subsets used by S9 Unknown-labeled
 perception are addressed as ``FLD_unknown`` / ``FOLIO_unknown``. For S2-style
 "answerable only" experiments, filter the returned list with
 ``[s for s in samples if s.answer_idx >= 0]``.
@@ -42,7 +42,7 @@ from typing import Any, Dict, List, Optional
 # Canonical dataset directory bundled with this software package.
 DEFAULT_DATASET_ROOT = Path(__file__).resolve().parents[1] / "dataset"
 
-# Datasets enumerated in the paper (Section "Datasets"). Truly-Unknown subsets
+# Datasets enumerated in the paper (Section "Datasets"). Unknown-labeled subsets
 # carry the ``_unknown`` suffix and supply gold answer_idx = -1.
 PAPER_DATASETS = (
     "FLD", "FLD_unknown",
@@ -63,7 +63,7 @@ class Sample:
     id: str
     question: str
     options: List[str]      # ["True","False"] for TFQ; 4 strings for MCQ
-    answer_idx: int         # 0..N-1; -1 = truly-Unknown gold label
+    answer_idx: int         # 0..N-1; -1 = Unknown-labeled gold label
     task_type: str = "mcq"  # "tf" | "mcq"
     source: str = ""
     context: str = ""
@@ -136,13 +136,13 @@ load_logiqa = load_dataset
 def answerable_subset(samples: List[Sample]) -> List[Sample]:
     """Filter to items whose gold label is a committed True/False/option.
 
-    The paper computes S2 Abs Rate over this subset; truly-Unknown items
+    The paper computes S2 Abs Rate over this subset; Unknown-labeled items
     are evaluated separately by S9 (and live in the ``*_unknown`` files).
     """
     return [s for s in samples if s.answer_idx >= 0]
 
 
-def truly_unknown_subset(samples: List[Sample]) -> List[Sample]:
+def unknown_labeled_subset(samples: List[Sample]) -> List[Sample]:
     """Filter to gold ``Unknown`` items (answer_idx == -1)."""
     return [s for s in samples if s.answer_idx == -1]
 

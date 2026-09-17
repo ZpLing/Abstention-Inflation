@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 MODEL_PATH = ROOT / "models" / "olmo3-base"
 DATA_PATH  = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH   = ROOT / "results" / "c3" / "base_baseline_logit_lens.json"
+OUT_PATH   = ROOT / "results" / "S8_logit_lens" / "base_baseline_logit_lens.json"
 
 N_SAMPLES  = 100   # answerable samples to probe
 

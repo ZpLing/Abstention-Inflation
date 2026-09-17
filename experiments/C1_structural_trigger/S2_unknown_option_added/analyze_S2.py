@@ -1,7 +1,7 @@
 """Effect of adding the Unknown option (S1 → S2) on accuracy, split by task type.
 
 Loads the paired summaries the main table is built from:
-results/tfq/<model>/ and results/mcq/<dataset>_<model>/.
+results/S1_S3_tfq/<model>/ and results/S1_S2_mcq/<dataset>_<model>/.
 For each (model, dataset), computes per-sample (correct_s1, correct_s2) pairs.
 Groups by MCQ vs TF, then runs:
   - McNemar's test (within-group pooled): p-value for accuracy change
@@ -98,7 +98,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--results_dirs", nargs="*",
-        help="Directories to scan (default: results/tfq/* and results/mcq/*).",
+        help="Directories to scan (default: results/S1_S3_tfq/* and results/S1_S2_mcq/*).",
     )
     args = parser.parse_args()
 
@@ -106,8 +106,8 @@ def main():
     if args.results_dirs:
         results_dirs = [Path(d) for d in args.results_dirs]
     else:
-        results_dirs = (sorted(root.glob("results/tfq/*/"))
-                        + sorted(root.glob("results/mcq/*/")))
+        results_dirs = (sorted(root.glob("results/S1_S3_tfq/*/"))
+                        + sorted(root.glob("results/S1_S2_mcq/*/")))
 
     print(f"Scanning {len(results_dirs)} result directory/ies:")
     for d in results_dirs:

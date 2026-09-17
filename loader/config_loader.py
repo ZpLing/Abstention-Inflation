@@ -8,7 +8,7 @@ from pathlib import Path
 BLOCK_ALIASES = {
     "main_experiment":     ("main_experiment", "ab_experiment"),
     "s6_self_diagnosis":   ("s6_self_diagnosis", "s5_supplementary"),
-    "s9_truly_unknown":    ("s9_truly_unknown", "supplementary_experiment"),
+    "s9_unknown_labeled":    ("s9_unknown_labeled", "supplementary_experiment"),
     "s10_model_sweep":     ("s10_model_sweep", "exp2_model_sweep"),
     "s10_difficulty":      ("s10_difficulty", "exp3_difficulty"),
 }

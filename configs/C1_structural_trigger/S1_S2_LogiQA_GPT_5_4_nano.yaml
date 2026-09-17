@@ -1,5 +1,5 @@
 # LogiQA at n=500 on gpt-5.4-nano, the model Table 1 names.
-experiment_name: "logiqa_nano"
+experiment_name: "S1_S2_mcq_LogiQA_nano"
 model_name: "gpt-5.4-nano"
 override_model: true
 max_workers: 100
@@ -11,7 +11,7 @@ main_experiment:
   datasets:
     - "LogiQA"
   run_s5_rerun: true
-  results_dir: "results/mcq/LogiQA_nano"
+  results_dir: "results/S1_S2_mcq/LogiQA_nano"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

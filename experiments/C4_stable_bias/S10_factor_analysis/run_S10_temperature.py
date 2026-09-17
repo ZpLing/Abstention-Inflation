@@ -70,8 +70,8 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-OUT_DIRS = {"gemini-3.1-flash-lite": "s10_temp_gemini31",
-            "deepseek-v4-flash":     "s10_temp_dsv4flash",
+OUT_DIRS = {"gemini-3.1-flash-lite": "S10_temperature_gemini31",
+            "deepseek-v4-flash":     "S10_temperature_dsv4flash",
             "deepseek-v4-pro":       "s10_temp_dsv4pro"}
 CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
 

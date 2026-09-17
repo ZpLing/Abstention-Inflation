@@ -15,7 +15,7 @@ What this runner does:
        for MCQ) and query the model.
     4. Parse A/B responses; cross with S4 correctness flags from the same
        summary; compute SelfDiagnosisAcc + 4-bucket cross-tab.
-    5. Write `results/supplementary/s5_<dataset>_<model>.json`.
+    5. Write `results/S6_self_diagnosis/<model>/s5_<dataset>_<model>.json`.
 
 Key design: this runner does NOT re-query S1/S2/S3 — it consumes existing
 ABRunner output. So running S5 is cheap (~|Abs Rate| extra calls per dataset).
@@ -142,7 +142,7 @@ class S6SelfDiagnosisRunner:
         cfg = get_block(config, "s6_self_diagnosis")
         self.dataset_names = cfg.get("datasets", [])
         self.s1_s2_results_dir = Path(cfg.get("s1_s2_results_dir", "results/ab"))
-        self.results_dir = Path(cfg.get("results_dir", "results/supplementary"))
+        self.results_dir = Path(cfg.get("results_dir", "results/S6_self_diagnosis"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
 

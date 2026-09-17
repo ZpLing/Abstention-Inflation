@@ -12,7 +12,7 @@ from infra.metrics import label_acc, label_macro_f1, judge_classes
 
 #: The reported cells are the n=500 runs; `--result-dir` still reaches the
 #: earlier 200-sample sweep.
-RESULT_DIR = ROOT / "results/positional_bias"
+RESULT_DIR = ROOT / "results/S11_positional_bias"
 
 MODELS = [
     ("nano", "gpt-5.4-nano"),
@@ -215,7 +215,7 @@ def main():
     ap.add_argument(
         "--result-dir", default=str(RESULT_DIR),
         help="Directory of summary_unknown_*.json files "
-             "(e.g. results/positional_bias for the 500-sample run).",
+             "(e.g. results/S11_positional_bias for the 500-sample run).",
     )
     ap.add_argument(
         "--expect-n", type=int, default=500,

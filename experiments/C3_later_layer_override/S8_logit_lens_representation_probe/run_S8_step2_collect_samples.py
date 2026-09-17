@@ -3,10 +3,10 @@ C3 Step 2: Collect Abs Rate and CAR samples directly from OLMo-3-Instruct infere
 No NLI probe needed — simple label-based filtering.
 
   Abstention Inflation samples: answerable (gold != UNKNOWN), model outputs UNKNOWN in S2
-  CAR samples: truly-unknown (gold == UNKNOWN), model correctly outputs UNKNOWN
+  CAR samples: Unknown-labeled (gold == UNKNOWN), model correctly outputs UNKNOWN
 
-Input:  results/c3/olmo_inference_FLD.json
-Output: results/c3/c3_samples.json
+Input:  results/S8_logit_lens/olmo_inference_FLD.json
+Output: results/S8_logit_lens/c3_samples.json
 
 Run:
     python scripts/c3_collect_samples.py
@@ -19,8 +19,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-INFERENCE_PATH = ROOT / "results" / "c3" / "olmo_inference_FLD.json"
-OUT_PATH       = ROOT / "results" / "c3" / "c3_samples.json"
+INFERENCE_PATH = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
+OUT_PATH       = ROOT / "results" / "S8_logit_lens" / "c3_samples.json"
 
 
 def main():

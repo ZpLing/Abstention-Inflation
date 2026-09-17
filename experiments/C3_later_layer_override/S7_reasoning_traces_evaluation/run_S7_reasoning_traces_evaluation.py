@@ -78,7 +78,7 @@ CELLS = [
     ("dsv4flash", "deepseek-v4-flash"),
 ]
 DATASETS = ("FLD", "FOLIO")
-OUT_DIR = ROOT / "results/s7_nli_probe"
+OUT_DIR = ROOT / "results/S7_reasoning_traces"
 
 
 _SENT = re.compile(r"(?<=[.!?])\s+|\n+")
@@ -141,7 +141,7 @@ def main():
         by_id = {s.id: s for s in load_judge(ds)}
         for slug, model in CELLS:
             summary = json.loads(
-                (ROOT / f"results/tfq/{slug}/ab_summary_{ds}_{model}.json").read_text(encoding="utf-8"))
+                (ROOT / f"results/S1_S3_tfq/{slug}/ab_summary_{ds}_{model}.json").read_text(encoding="utf-8"))
             items = [s for s in summary["per_sample"]
                      if s["id"] in by_id and by_id[s["id"]].answer_idx in GOLD_OF_IDX]
             n_ai = sum(1 for s in items if s.get("pred_s2") == "UNKNOWN")

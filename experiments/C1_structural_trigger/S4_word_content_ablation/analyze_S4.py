@@ -43,13 +43,13 @@ def load_w1_per_sample(ds):
     Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
-    path = ROOT / f"results/tfq/dsv4flash/ab_summary_{ds}_{MODEL}.json"
+    path = ROOT / f"results/S1_S3_tfq/dsv4flash/ab_summary_{ds}_{MODEL}.json"
     ab = json.loads(path.read_text())
     return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 
 
 def load_wording_per_sample(w, ds):
-    p = ROOT / f"results/wording_sweep/summary_{w}_{ds}_{MODEL}.json"
+    p = ROOT / f"results/S4_synonyms/summary_{w}_{ds}_{MODEL}.json"
     s = json.loads(p.read_text())
     return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
 
@@ -90,7 +90,7 @@ def mcnemar_exact_p(b, c):
     return p, z
 
 
-RPC = ROOT / "results/random_perturbation_control"
+RPC = ROOT / "results/S4_random_words"
 RPC_MODELS = [("deepseek-v4-flash", "DeepSeek-V4-Flash"),
               ("gpt-5.4-nano", "GPT-5.4-nano"),
               ("gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
@@ -138,7 +138,7 @@ def main():
         # W1 from main exp
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
-        w2_path = ROOT / f"results/wording_sweep/summary_W2_{ds}_{MODEL}.json"
+        w2_path = ROOT / f"results/S4_synonyms/summary_W2_{ds}_{MODEL}.json"
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
         # W1 restricted to these IDs

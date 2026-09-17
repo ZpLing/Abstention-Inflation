@@ -3,7 +3,7 @@
 Inputs:
   T=0.0 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
                   — pred_s2 == "UNKNOWN" indicates abstain
-  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/s10_temp_<model>/ab_summary_<DS>_<model>_T<t>.json
+  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_temperature_<model>/ab_summary_<DS>_<model>_T<t>.json
 
 Outputs:
   results/analysis/temperature_sweep_summary.json
@@ -22,8 +22,8 @@ MODEL = "gemini-3.1-flash-lite"
 
 #: The directories the reported sweep actually wrote to. The older
 #: results/temperature_sweep/ tree was a 200-item pass and is gone.
-OUT_DIR_OF = {"gemini-3.1-flash-lite": "s10_temp_gemini31",
-              "olmo3-instruct":        "s10_temp_olmo_topk20"}
+OUT_DIR_OF = {"gemini-3.1-flash-lite": "S10_temperature_gemini31",
+              "olmo3-instruct":        "S10_temperature_olmo_topk20"}
 TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 
