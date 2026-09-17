@@ -1,7 +1,7 @@
 """§6.3 Re-prompting persistence (paper T-5C).
 
 For each Abstention Inflation sample (pred_s2 == UNKNOWN), re-run the *same* S2 prompt
-N=3 times at temperature > 0. Measure how often the model still returns
+N=3 times at the default temperature. Measure how often the model still returns
 UNKNOWN. Target: >95% persistence → abstain is deterministic policy,
 not sampling lottery.
 
@@ -9,7 +9,7 @@ Usage:
     python -m scripts.run_reprompting_persistence \
         --summary results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json \
                   results/ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json \
-        --dataset FLD --model gpt-5.4-nano --n_repeats 3 --temperature 0.5 \
+        --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
         --out results/persistence/<model>_<dataset>.json
 """
 import argparse
@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 from collections import Counter
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from core.config_loader import load_config
@@ -38,23 +38,25 @@ async def rerun_one(handler, prompts, n_repeats, temperature):
     """Rerun the same prompt list n_repeats times. Returns list of list of responses."""
     results = []  # results[rep][i] = response string
     for rep in range(n_repeats):
-        # batch_query uses temperature=0 hardcoded; we need to override
         responses = await handler.batch_query_temp(prompts, temperature=temperature)
         results.append(responses)
     return results
 
 
-# Patch LLMHandler with temperature parameter (used only here)
+# Patch LLMHandler with a temperature parameter (used only here).
+# `temperature=None` sends no temperature at all, which is what the endpoint's
+# own default means; `batch_query` would instead put 0.0 in the request body.
 async def batch_query_temp(self, messages, temperature):
-    """Same as batch_query but with arbitrary temperature."""
+    """Same as batch_query, with the temperature set or left to the endpoint."""
     sem = self.semaphore
     async def one(msg):
         async with sem:
+            kwargs = {"model": self.model_name, "messages": msg,
+                      "max_tokens": self.max_tokens}
+            if temperature is not None:
+                kwargs["temperature"] = temperature
             try:
-                resp = await self.client.chat.completions.create(
-                    model=self.model_name, messages=msg, temperature=temperature,
-                    max_tokens=self.max_tokens,
-                )
+                resp = await self.client.chat.completions.create(**kwargs)
                 return resp.choices[0].message.content or ""
             except Exception as e:
                 return f"__API_ERROR__: {e}"
@@ -75,7 +77,8 @@ async def main():
     ap.add_argument("--dataset", required=True)
     ap.add_argument("--model", required=True)
     ap.add_argument("--n_repeats", type=int, default=3)
-    ap.add_argument("--temperature", type=float, default=0.5)
+    # Default: the endpoint's own temperature, the one S2 ran under.
+    ap.add_argument("--temperature", type=float, default=None)
     ap.add_argument("--config", default="configs/experiment.yaml")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
@@ -100,21 +103,21 @@ async def main():
             if _is_ai(ps):
                 sid = ps["id"]
                 if sid in id_to_sample:
-                    abs_rate.append((sid, id_to_sample[sid], ps))
+                    ai.append((sid, id_to_sample[sid], ps))
     print(f"Loaded {len(ai)} Abstention Inflation samples for {args.model}/{args.dataset}")
 
-    if not abs_rate:
+    if not ai:
         print("No Abstention Inflation samples"); return
 
     # Build prompts
-    prompts = [build_judge_s2_prompt(scheme, s.question, s.context) for _, s, _ in abs_rate]
+    prompts = [build_judge_s2_prompt(scheme, s.question, s.context) for _, s, _ in ai]
     print(f"Running {args.n_repeats} reruns at T={args.temperature} ...")
 
     rerun_outputs = await rerun_one(handler, prompts, args.n_repeats, args.temperature)
 
     # Parse + persistence count per sample
     rows = []
-    for i, (sid, s, ps) in enumerate(abs_rate):
+    for i, (sid, s, ps) in enumerate(ai):
         preds = []
         for rep_outs in rerun_outputs:
             preds.append(parse_pred(rep_outs[i], evaluator, scheme))
