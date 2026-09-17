@@ -53,7 +53,7 @@ plt.rcParams.update({
     "legend.fontsize": 11,
 })
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 EARLY_LAYERS = slice(1, 9)    # layers 1-8 (skip embedding layer 0)

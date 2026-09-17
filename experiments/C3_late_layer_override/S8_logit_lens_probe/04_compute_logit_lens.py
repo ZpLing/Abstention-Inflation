@@ -30,7 +30,7 @@ from pathlib import Path
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 INFERENCE_PATH = ROOT / "results" / "c3" / "olmo_inference_FLD.json"
