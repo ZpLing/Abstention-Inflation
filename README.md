@@ -11,9 +11,9 @@ Adding an "Unknown" option to a True/False question makes a model abstain on
 questions it can answer. We call this **Abstention Inflation** and show it is a
 structural property of the prompt rather than an expression of uncertainty.
 
-Pooled over 3 models × 2 TFQ datasets at 500 items each, offering the option
+Pooled over 3 models × 2 TFQ datasets at 500 samples each, offering the option
 costs **19.8 accuracy points** and pushes abstention to **34.5%**. The same
-manipulation on 4-option MCQs, over the same models and the same 500-item
+manipulation on 4-option MCQs, over the same models and the same 500-sample
 scale, costs **1.2 points**.
 
 | Format | Samples | Acc without the “Unknown” option | Acc with the "Unknown" Option | Abs Rate |
@@ -22,7 +22,7 @@ scale, costs **1.2 points**.
 | Multiple-Choice Questions | 6,000 | 84.5% | 83.3% | 2.3% |
 
 The abstention is not uncertainty: removing the option again recovers **63.6%**
-accuracy on exactly the items that abstained (S5), the models attribute those
+accuracy on exactly the samples that abstained (S5), the models attribute those
 abstentions to the question being unanswerable **95–100%** of the time (S6), and
 the effect survives re-sampling, re-wording, and moving the option's position.
 
@@ -95,8 +95,8 @@ command is run from the repo root and writes under `results/`.
 ### 1. Main experiments — S1, S2, S3 and the S5 rerun
 
 One pass per (model, dataset) cell. S1/S2/S3 and S5 share it because the paper
-compares them per item, and scoring them from separate runs would compare
-different samples.
+compares them per sample, and scoring them from separate runs would compare
+two different subsets of the dataset.
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
