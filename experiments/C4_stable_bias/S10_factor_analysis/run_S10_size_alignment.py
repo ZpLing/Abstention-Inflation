@@ -28,6 +28,13 @@ Per model, this runner:
     3. Awaits ABRunner.run() — produces the standard per-model summaries.
 
 Then it reads back each summary and writes `exp2_model_sweep_<dataset>.json`."""
+import sys
+from pathlib import Path
+
+# Importable as a module and runnable as a file.
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
 import asyncio
 import json
 from pathlib import Path
@@ -163,3 +170,26 @@ class ModelSweepRunner:
                 else:
                     cells.append(str(v).ljust(widths[i]))
             print("  " + "  ".join(cells))
+
+
+def main() -> None:
+    """Run this setting from a config."""
+    import argparse
+    import asyncio
+
+    from infra.config_loader import load_config
+    from infra.data_handler import DataHandler
+    from infra.evaluator import Evaluator
+    from infra.llm_handler import LLMHandler
+
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--config", required=True, help="Experiment YAML.")
+    args = ap.parse_args()
+
+    config = load_config(args.config)
+    asyncio.run(ModelSweepRunner(config, DataHandler(config), LLMHandler(config),
+                      Evaluator()).run())
+
+
+if __name__ == "__main__":
+    main()

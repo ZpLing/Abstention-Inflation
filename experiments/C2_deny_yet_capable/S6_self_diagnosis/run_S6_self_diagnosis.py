@@ -30,6 +30,13 @@ Mirrors `core.paired_pass.ABRunner`:
       replies with a single letter, which `parse_ab_tiered` handles).
     * Summary records `tier_counts`.
 """
+import sys
+from pathlib import Path
+
+# Importable as a module and runnable as a file.
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
 import asyncio
 import json
 from pathlib import Path
@@ -282,3 +289,26 @@ def _is_correct_letter(letter, answer_idx) -> bool:
     if letter in (None, "UNKNOWN", "UNPARSEABLE"):
         return False
     return ord(letter) - ord("A") == answer_idx
+
+
+def main() -> None:
+    """Run this setting from a config."""
+    import argparse
+    import asyncio
+
+    from infra.config_loader import load_config
+    from infra.data_handler import DataHandler
+    from infra.evaluator import Evaluator
+    from infra.llm_handler import LLMHandler
+
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--config", required=True, help="Experiment YAML.")
+    args = ap.parse_args()
+
+    config = load_config(args.config)
+    asyncio.run(S6SelfDiagnosisRunner(config, DataHandler(config), LLMHandler(config),
+                      Evaluator()).run())
+
+
+if __name__ == "__main__":
+    main()

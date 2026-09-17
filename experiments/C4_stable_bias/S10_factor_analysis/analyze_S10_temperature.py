@@ -29,32 +29,22 @@ DATASETS = ["FLD", "FOLIO"]
 
 
 def load_w0_per_sample(ds):
-    """T=0 baseline = main exp pooled batch1+batch2 per_sample."""
-    if ds == "FLD":
-        srcs = [
-            "ab_e_option_baseline/ab_summary_FLD_deepseek-v4-flash.json",
-            "ab_deepseek_batch2/ab_summary_FLD_deepseek-v4-flash.json",
-        ]
-    else:
-        srcs = [
-            "ab_followup/ab_summary_FOLIO_deepseek-v4-flash.json",
-            "ab_deepseek_batch2/ab_summary_FOLIO_deepseek-v4-flash.json",
-        ]
-    pred_by_id = {}
-    for rel in srcs:
-        ab = json.loads((ROOT / "results" / rel).read_text())
-        for ps in ab.get("per_sample", []):
-            sid = ps["id"]
-            if sid not in pred_by_id:
-                pred_by_id[sid] = ps["pred_s2"]
-    return pred_by_id
+    """T=0 baseline, taken from the sweep's own T=0.0 cell.
+
+    Same model, same run, same items as every other temperature, so the paired
+    contrast below is per item. An earlier version pooled two deepseek batches
+    from a different collection round, which is a different sample.
+    """
+    path = ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_T0p0.json"
+    rows = json.loads(path.read_text()).get("per_sample", [])
+    return {r["id"]: r["pred_s2"] for r in rows}
 
 
 def load_temp_per_sample(t, ds):
     t_tag = f"T{t:.1f}".replace(".", "p")
     p = ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_{t_tag}.json"
     s = json.loads(p.read_text())
-    return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
+    return {ps["id"]: ps.get("pred_s2", ps.get("pred")) for ps in s["per_sample"]}
 
 
 def mcnemar_b_c(pa, pb, ids):

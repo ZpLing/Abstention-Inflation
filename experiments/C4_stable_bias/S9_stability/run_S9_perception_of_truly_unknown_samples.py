@@ -7,6 +7,13 @@ items, it is what shows the bias is directional rather than indiscriminate.
 
 Driven by main.py through configs/C4_stable_bias/S9_truly_unknown_*.yaml.
 """
+import sys
+from pathlib import Path
+
+# Importable as a module and runnable as a file.
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
 import asyncio
 import re
 from pathlib import Path
@@ -200,3 +207,26 @@ class TrulyUnknownRunner:
             f"Δ={m['CAR_Improvement_S2_to_S3']:+.2%}  "
             f"S1 ForcedCommit={m['ForcedCommitmentRate_S1']:.2%}"
         )
+
+
+def main() -> None:
+    """Run this setting from a config."""
+    import argparse
+    import asyncio
+
+    from infra.config_loader import load_config
+    from infra.data_handler import DataHandler
+    from infra.evaluator import Evaluator
+    from infra.llm_handler import LLMHandler
+
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--config", required=True, help="Experiment YAML.")
+    args = ap.parse_args()
+
+    config = load_config(args.config)
+    asyncio.run(TrulyUnknownRunner(config, DataHandler(config), LLMHandler(config),
+                      Evaluator()).run())
+
+
+if __name__ == "__main__":
+    main()
