@@ -1,7 +1,6 @@
-"""Wording sweep — GPT-nano + Gemini (DeepSeek W2-W5 already done).
+"""S4 Word Content Ablation — the four wording variants of the S2 option.
 
 Runs W2-W5 × {FLD, FOLIO} × the full 500 samples for each model.
-Skips cells where output file already exists.
 
 Output: results/wording_sweep/summary_{W}_{DS}_{MODEL}.json
 """
@@ -114,12 +113,7 @@ def parse_output(text: str, scheme, abstain_text: str) -> Tuple[str, str]:
 
 # ── Sample loader ─────────────────────────────────────────────────────────────
 def load_sample_ids(sources: List[str]) -> List[str]:
-    """Ids of the S2 run this ablation re-words, in the order it stored them.
-
-    Every item is kept: S4 swaps one word of the prompt on the same 500 the
-    other settings report, and the 200 this used to cut to was the size of an
-    earlier sweep, not a property of the ablation.
-    """
+    """Ids of the S2 run this ablation re-words, in the order it stored them."""
     seen, ids = set(), []
     for rel in sources:
         path = ROOT / "results" / rel
@@ -184,38 +178,8 @@ async def main():
 
             for wording_id, abstain_text in WORDINGS:
                 out_path = OUT_DIR / f"summary_{wording_id}_{ds}_{model_name}.json"
-                # Top up rather than redo: an earlier sweep drew 200 of these
-                # same items, so only the ones it never queried are sent, and
-                # the stored rows are kept as they are.
-                done = {}
-                if out_path.exists():
-                    prev = json.loads(out_path.read_text())
-                    done = {r["id"]: r for r in prev.get("per_sample", [])}
-                todo = [s for s in samples if s.id not in done]
-                if not todo:
-                    print(f"  [{wording_id}] {ds} — complete ({len(done)}), skipping")
-                    continue
-                if done:
-                    print(f"  [{wording_id}] {ds} — {len(done)} already stored, "
-                          f"querying the remaining {len(todo)}")
                 summary = await run_one_cell(
-                    handler, scheme, todo, abstain_text, wording_id, ds, model_name)
-                if done:
-                    order = {s.id: i for i, s in enumerate(samples)}
-                    merged = sorted(list(done.values()) + summary["per_sample"],
-                                    key=lambda r: order.get(r["id"], 1 << 30))
-                    preds = [r["pred"] for r in merged]
-                    tiers = [r.get("tier") for r in merged]
-                    n_unk = preds.count("UNKNOWN")
-                    summary["per_sample"] = merged
-                    summary["n"] = len(merged)
-                    summary["abs_rate"] = n_unk / len(preds) if preds else 0.0
-                    summary["counts"] = {"A": preds.count("A"), "B": preds.count("B"),
-                                         "UNKNOWN": n_unk,
-                                         "UNPARSEABLE": preds.count("UNPARSEABLE")}
-                    summary["tier_counts"] = {
-                        t: sum(x == t for x in tiers)
-                        for t in ("strict_em", "lenient_em", "lenient_global", "unparseable")}
+                    handler, scheme, samples, abstain_text, wording_id, ds, model_name)
                 out_path.write_text(json.dumps(summary, indent=2))
                 print(f"  saved → {out_path.name} ({len(summary['per_sample'])} items)")
 

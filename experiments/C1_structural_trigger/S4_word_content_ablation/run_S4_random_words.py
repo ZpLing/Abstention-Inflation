@@ -30,7 +30,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 from core.config_loader import load_config
 from core.data_handler import DataHandler
@@ -188,14 +188,18 @@ def condition_metrics(preds: List[str], answer_idxs: List[int],
 # =============================================================================
 
 def load_balanced_samples(data_handler: DataHandler, ds_name: str, n_per_class: int):
-    """Load n_per_class proved + n_per_class disproved answerable samples."""
+    """Load n_per_class True + n_per_class False answerable samples.
+
+    The class is read from `answer_idx` (0 = True, 1 = False), which is what
+    the unified dataset carries; the `native_label` field this used to filter
+    on belonged to the pre-rename schema and is not in the shipped files, so
+    the filter matched nothing and every cell came back empty.
+    """
     all_samples = data_handler.load_dataset(ds_name)
     answerable = [s for s in all_samples if s.answer_idx >= 0]
-    proved = [s for s in answerable
-              if (s.extra or {}).get("native_label") == "__PROVED__"][:n_per_class]
-    disproved = [s for s in answerable
-                 if (s.extra or {}).get("native_label") == "__DISPROVED__"][:n_per_class]
-    return proved + disproved
+    pos = [s for s in answerable if s.answer_idx == 0][:n_per_class]
+    neg = [s for s in answerable if s.answer_idx == 1][:n_per_class]
+    return pos + neg
 
 
 # =============================================================================
