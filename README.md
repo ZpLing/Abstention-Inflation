@@ -154,7 +154,7 @@ for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
 done
 
 # the three re-draws, per (model, dataset)
-python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
+python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
     --summary results/tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
     --out results/persistence/s9_persistence_FLD_gpt-5.4-nano.json
