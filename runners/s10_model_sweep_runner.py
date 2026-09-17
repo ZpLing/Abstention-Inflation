@@ -35,11 +35,11 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from .ab_runner import ABRunner
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
-from ..config_loader import get_block
+from infra.config_loader import get_block
 
 
 class ModelSweepRunner:

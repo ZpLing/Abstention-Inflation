@@ -28,13 +28,13 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Ensure ``core`` is importable when invoked as ``python main.py``.
+# Ensure ``infra`` is importable when invoked as ``python main.py``.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from core.config_loader import load_config
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.config_loader import load_config
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
 #: pre-rename run_tasks name -> current name.
 LEGACY_TASK_ALIASES = {
@@ -70,27 +70,27 @@ async def _dispatch(config: dict) -> None:
 
     if "main_experiment" in tasks:
         print("\n===== S1 / S2 / S3 + S5 rerun =====")
-        from core.runners.ab_runner import ABRunner
+        from runners.ab_runner import ABRunner
         await ABRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s9_truly_unknown" in tasks:
         print("\n===== S9 perception on truly-Unknown samples =====")
-        from core.runners.s9_truly_unknown_runner import TrulyUnknownRunner
+        from runners.s9_truly_unknown_runner import TrulyUnknownRunner
         await TrulyUnknownRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s6_self_diagnosis" in tasks:
         print("\n===== S6 self-diagnosis =====")
-        from core.runners.s6_self_diagnosis_runner import S6SelfDiagnosisRunner
+        from runners.s6_self_diagnosis_runner import S6SelfDiagnosisRunner
         await S6SelfDiagnosisRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s10_model_sweep" in tasks:
         print("\n===== S10 alignment & model-size sweep =====")
-        from core.runners.s10_model_sweep_runner import ModelSweepRunner
+        from runners.s10_model_sweep_runner import ModelSweepRunner
         await ModelSweepRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "appendix_mitigation" in tasks:
         print("\n===== App. E post-hoc mitigation =====")
-        from core.runners.appendix_mitigation_runner import PostHocMitigationRunner
+        from runners.appendix_mitigation_runner import PostHocMitigationRunner
         await PostHocMitigationRunner(config, data_handler, llm_handler, evaluator).run()
 
 

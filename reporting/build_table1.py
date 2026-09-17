@@ -14,7 +14,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core.result_schema import paired_keep_ids   # noqa: E402
+from infra.result_schema import paired_keep_ids   # noqa: E402
 TEX = ROOT / "paper/acl_latex.tex"
 
 MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),

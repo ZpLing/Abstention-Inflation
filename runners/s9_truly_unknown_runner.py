@@ -24,7 +24,7 @@ which is what `judge_loader._load_fld` already extracts. Symbolic fields
 are never read here and never reach the model. A regex sanity check at the
 top of `_run_one` enforces this contract at runtime.
 
-Settings (reused verbatim from core.prompts)
+Settings (reused verbatim from infra.prompts)
 --------------------------------------------------------
     S1 (no Unknown)   → forced binary; measures forced-commitment cost
     S2 (with Unknown) → CAR (Correct Abstention Rate)
@@ -46,20 +46,20 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core.label_scheme import get_scheme
-from core.dataset_loader import load_dataset as load_judge
-from core.prompts import (
+from infra.label_scheme import get_scheme
+from infra.dataset_loader import load_dataset as load_judge
+from infra.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
     build_judge_calibration_suffix_prompt,
 )
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
-from .. import metrics
+from infra import metrics
 
-from ..config_loader import get_block
+from infra.config_loader import get_block
 
 
 SUPPLEMENTARY_DATASETS = ("FLD", "FOLIO", "FLD_unknown", "FOLIO_unknown")

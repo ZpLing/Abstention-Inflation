@@ -1,4 +1,4 @@
-"""S5 self-diagnosis (metacognition) supplementary experiment.
+"""S6 Self-Diagnosis — the model attributes its own abstention (paper §4.2.2).
 
 S5 was deliberately moved OUT of the main S1–S4 framework because it is not a
 label-prediction task on the original question — it is a meta-question
@@ -35,8 +35,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core.label_scheme import get_scheme
-from core.prompts import (
+from infra.label_scheme import get_scheme
+from infra.prompts import (
     S6_OPTION_A,
     S6_OPTION_B,
     build_judge_s6_selfdiag_prompt,
@@ -44,14 +44,14 @@ from core.prompts import (
     build_mcq_s2_prompt,
     build_judge_s2_prompt,
 )
-from core import metrics as main_metrics
+from infra import metrics as main_metrics
 
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
-from ..config_loader import get_block
-from ..result_schema import get_field
+from infra.config_loader import get_block
+from infra.result_schema import get_field
 
 
 # =================================================================
@@ -61,7 +61,7 @@ from ..result_schema import get_field
 # A/B option texts surfaced to the model. Reused as the option list when the
 # LLM-as-Judge fallback re-asks `judge_mcq` to map an unparseable raw reply
 # onto a letter — keeping these in one place makes that mapping unambiguous.
-#: The follow-up is built by :mod:`core.prompts`, not here. This module used
+#: The follow-up is built by :mod:`infra.prompts`, not here. This module used
 #: to carry its own copy with A and B the other way round -- A "objectively
 #: unanswerable", B "uncertain but answerable" -- while the paper and the
 #: builder define A as the model's own inability and B as the item being

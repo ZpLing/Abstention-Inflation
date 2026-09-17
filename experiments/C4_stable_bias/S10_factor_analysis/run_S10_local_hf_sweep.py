@@ -1,7 +1,7 @@
 """S10(c) size x alignment sweep — Gemma-4 base/IT pairs on CUDA.
 
 A re-run of the sweep behind Figure 9. The original numbers went through
-`core/ab_runner.py`, whose parser has no guard against a base model echoing the
+`infra/ab_runner.py`, whose parser has no guard against a base model echoing the
 prompt template: for S2 that template literally contains the word "Unknown", so
 a non-answer scores as an abstention, and with the option absent (S1) the same
 text scores UNPARSEABLE instead. The bias is therefore one-directional, into
@@ -43,11 +43,11 @@ sys.path.insert(0, str(ROOT))
 import torch                                                        # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer        # noqa: E402
 
-from core.dataset_loader import load_judge                          # noqa: E402
-from core.evaluator import Evaluator                                # noqa: E402
-from core.label_scheme import get_scheme                            # noqa: E402
-from core.result_schema import TRUSTED_TIERS                        # noqa: E402
-from core.prompts import (                                          # noqa: E402
+from infra.dataset_loader import load_judge                          # noqa: E402
+from infra.evaluator import Evaluator                                # noqa: E402
+from infra.label_scheme import get_scheme                            # noqa: E402
+from infra.result_schema import TRUSTED_TIERS                        # noqa: E402
+from infra.prompts import (                                          # noqa: E402
     build_judge_s1_prompt,
     build_judge_s2_prompt,
 )

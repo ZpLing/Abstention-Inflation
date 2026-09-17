@@ -42,9 +42,9 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from .. import metrics
-from ..label_scheme import get_scheme
-from ..prompts import (
+from infra import metrics
+from infra.label_scheme import get_scheme
+from infra.prompts import (
     build_mcq_s2_prompt,
     build_judge_s2_prompt,
     build_mcq_stage1_mitigation_prompt,
@@ -52,12 +52,12 @@ from ..prompts import (
     build_judge_stage1_mitigation_prompt,
     build_judge_stage2_reflection_prompt,
 )
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
-from ..config_loader import get_block
-from ..result_schema import get_field
+from infra.config_loader import get_block
+from infra.result_schema import get_field
 
 
 class PostHocMitigationRunner:

@@ -6,7 +6,7 @@ The S3 condition as first run appended a calibration note ("Select C. Unknown
 ONLY if ... Do NOT select it simply because you feel uncertain") on top of the
 letter rendering. That is a second manipulation, and S2 does not carry it, so
 the original FLD_MCQ / FOLIO_MCQ cells did not isolate question format. This
-runner re-measures S3 with :func:`core.prompts.build_judge_s3_format_prompt`,
+runner re-measures S3 with :func:`infra.prompts.build_judge_s3_format_prompt`,
 which is byte-for-byte the S2 prompt except that the ternary is rendered as
 ``A. <pos> / B. <neg> / C. <abstain>`` and the final answer is a letter.
 
@@ -39,10 +39,10 @@ from typing import List, Optional
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from core.config_loader import load_config
-from core.label_scheme import get_scheme
-from core.llm_handler import LLMHandler
-from core.prompts import (build_judge_s1_letter_prompt,
+from infra.config_loader import load_config
+from infra.label_scheme import get_scheme
+from infra.llm_handler import LLMHandler
+from infra.prompts import (build_judge_s1_letter_prompt,
                           build_judge_s3_format_prompt)
 
 # The positional-bias runner owns the letter-space parser, the retry loop and
@@ -295,7 +295,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     summary = {
         "experiment": "s3_question_format_ablation_clean",
         "setting": setting,
-        "prompt_builder": f"core.prompts.{spec['builder'].__name__}",
+        "prompt_builder": f"infra.prompts.{spec['builder'].__name__}",
         "prompt_note": spec["label"] + "; no calibration note (unlike the "
                        "superseded run).",
         "model_key": model_key,

@@ -2,7 +2,7 @@
 
 Every prompt string below is byte-identical to the one that produced the
 reported numbers; only the *function names* follow the paper. The mapping from
-the pre-submission code names is recorded in :mod:`core.result_schema`.
+the pre-submission code names is recorded in :mod:`infra.result_schema`.
 
 Output format
 -------------
@@ -16,7 +16,7 @@ Two prompt families
 -------------------
 MCQ  (ARC / MMLU / MedQA / LogiQA) : letter-coded, 4 options, ``E. Unknown``
                                      appended in S2.
-TFQ  (FLD / FOLIO)                 : verb-coded; :class:`core.label_scheme.
+TFQ  (FLD / FOLIO)                 : verb-coded; :class:`infra.label_scheme.
                                      LabelScheme` owns the verbs (FLD abstains
                                      with "Unknown", FOLIO with "Uncertain").
 

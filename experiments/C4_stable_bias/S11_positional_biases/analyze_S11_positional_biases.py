@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from scipy.stats import binomtest
-from core.metrics import label_acc, label_macro_f1, judge_classes
+from infra.metrics import label_acc, label_macro_f1, judge_classes
 
 #: The reported cells are the n=500 runs; `--result-dir` still reaches the
 #: earlier 200-sample sweep.

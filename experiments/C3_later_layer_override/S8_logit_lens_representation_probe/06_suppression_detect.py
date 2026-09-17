@@ -55,7 +55,7 @@ plt.rcParams.update({
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.result_schema import canonical_sample_type   # noqa: E402
+from infra.result_schema import canonical_sample_type   # noqa: E402
 
 EARLY_LAYERS = slice(1, 9)    # layers 1-8 (skip embedding layer 0)
 LATE_LAYERS  = slice(-4, None) # last 4 transformer layers

@@ -29,13 +29,13 @@ from typing import Dict, Iterable, List, Optional, Tuple
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.config_loader import load_config
-from core.llm_handler import LLMHandler
-from core.label_scheme import get_scheme
-from core.dataset_loader import load_judge, Sample
-from core.evaluator import Evaluator
-from core.prompts import build_judge_s11_position_prompt, judge_verb_order
-from core.metrics import label_acc, label_macro_f1, judge_classes
+from infra.config_loader import load_config
+from infra.llm_handler import LLMHandler
+from infra.label_scheme import get_scheme
+from infra.dataset_loader import load_judge, Sample
+from infra.evaluator import Evaluator
+from infra.prompts import build_judge_s11_position_prompt, judge_verb_order
+from infra.metrics import label_acc, label_macro_f1, judge_classes
 
 
 MODELS = {

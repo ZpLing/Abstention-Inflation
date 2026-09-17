@@ -1,7 +1,7 @@
 """Entry point for S3 (Question Format Ablation) — paper §C1.
 
 This script is a thin wrapper around the central dispatcher (``main.py``).
-The actual runner is :class:`core.runners.ab_runner.ABRunner`; this script just loads the
+The actual runner is :class:`runners.ab_runner.ABRunner`; this script just loads the
 YAML config you point it at and invokes the runner.
 
 Usage::
@@ -19,11 +19,11 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from core.runners.ab_runner import ABRunner
-from core.config_loader import block_key, load_config
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from runners.ab_runner import ABRunner
+from infra.config_loader import block_key, load_config
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
 
 async def _run(config_path: str) -> None:

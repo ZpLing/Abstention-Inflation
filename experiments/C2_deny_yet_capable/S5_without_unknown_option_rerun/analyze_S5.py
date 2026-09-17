@@ -7,7 +7,7 @@ the 50% random baseline (~64% pooled), i.e. the abstention hid a recoverable
 answer rather than a genuine inability.
 
 Reads both current and pre-rename summary files through
-:func:`core.result_schema.load_summary`, so it works on every result directory
+:func:`infra.result_schema.load_summary`, so it works on every result directory
 in this repo.
 
 Usage::
@@ -25,7 +25,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from core.result_schema import load_summary
+from infra.result_schema import load_summary
 
 RANDOM_BASELINE_TFQ = 0.50
 

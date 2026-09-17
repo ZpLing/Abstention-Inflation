@@ -25,7 +25,7 @@ noise flows into the S2 Abs Rate only, and the reported base-vs-IT gap is
 inflated by exactly that flow.
 
 `run_S10_local_hf_sweep.py` guards against the echo case
-(`_TEMPLATE_ECHO_MARKERS`); the YAML/vLLM path (`core/ab_runner.py`), which
+(`_TEMPLATE_ECHO_MARKERS`); the YAML/vLLM path (`infra/ab_runner.py`), which
 produced the Fig. 9 base cells, does not.
 
 Policy compared here
@@ -61,9 +61,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.evaluator import Evaluator          # noqa: E402
-from core.label_scheme import get_scheme      # noqa: E402
-from core.result_schema import load_summary   # noqa: E402
+from infra.evaluator import Evaluator          # noqa: E402
+from infra.label_scheme import get_scheme      # noqa: E402
+from infra.result_schema import load_summary   # noqa: E402
 
 EV = Evaluator()
 

@@ -31,7 +31,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from core.result_schema import paired_keep_ids
+from infra.result_schema import paired_keep_ids
 from typing import Any, Dict, List, Tuple
 
 # Gold answer_idx convention from ab_runner: 0->A, 1->B, 2->C, 3->D.

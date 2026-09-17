@@ -41,7 +41,7 @@ from typing import Dict, List, Tuple
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.result_schema import paired_keep_ids
+from infra.result_schema import paired_keep_ids
 
 #: Difficulty comes from the proof-tree depth the dataset ships with. The
 #: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;

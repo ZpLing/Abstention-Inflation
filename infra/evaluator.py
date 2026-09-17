@@ -11,7 +11,7 @@ class Evaluator:
         Extract a canonical FLD-style label token from the model's text output.
 
         The model is prompted to emit True / False / Unknown (see
-        :py:class:`core.label_scheme.LabelScheme`), but downstream code still
+        :py:class:`infra.label_scheme.LabelScheme`), but downstream code still
         compares predictions against the legacy ``__PROVED__`` / ``__DISPROVED__``
         / ``__UNKNOWN__`` namespace, so we normalise both surface forms here.
 

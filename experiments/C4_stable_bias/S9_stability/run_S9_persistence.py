@@ -21,12 +21,12 @@ from collections import Counter
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.config_loader import load_config
-from core.llm_handler import LLMHandler
-from core.evaluator import Evaluator
-from core.dataset_loader import load_judge
-from core.label_scheme import get_scheme
-from core.prompts import build_judge_s2_prompt
+from infra.config_loader import load_config
+from infra.llm_handler import LLMHandler
+from infra.evaluator import Evaluator
+from infra.dataset_loader import load_judge
+from infra.label_scheme import get_scheme
+from infra.prompts import build_judge_s2_prompt
 
 
 def _is_ai(s):

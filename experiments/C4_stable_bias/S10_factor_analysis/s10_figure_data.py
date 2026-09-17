@@ -7,7 +7,7 @@ were only visible once the numbers came from the runs again:
     sweep it is plotted against;
   * the S10(b) bins ran to "16+" although ``dataset/FLD.json`` only carries
     proof depths 1-8;
-  * every FLD figure silently depended on ``core/label_scheme.py``, whose FLD
+  * every FLD figure silently depended on ``infra/label_scheme.py``, whose FLD
     verbs changed from Proved/Disproved to True/False *after* the runs, so the
     stored outputs re-parsed to the wrong label until the FLD scheme was taught
     to accept both surface forms.
@@ -29,9 +29,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.evaluator import Evaluator          # noqa: E402
-from core.label_scheme import get_scheme      # noqa: E402
-from core.result_schema import load_summary   # noqa: E402
+from infra.evaluator import Evaluator          # noqa: E402
+from infra.label_scheme import get_scheme      # noqa: E402
+from infra.result_schema import load_summary   # noqa: E402
 
 EV = Evaluator()
 RESULTS = ROOT / "results"

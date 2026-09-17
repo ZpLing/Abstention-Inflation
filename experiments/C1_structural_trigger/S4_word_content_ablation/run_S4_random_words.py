@@ -32,11 +32,11 @@ from typing import Dict, List, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from core.config_loader import load_config
-from core.data_handler import DataHandler
-from core.llm_handler import LLMHandler
-from core.label_scheme import get_scheme
-from core.prompts import (
+from infra.config_loader import load_config
+from infra.data_handler import DataHandler
+from infra.llm_handler import LLMHandler
+from infra.label_scheme import get_scheme
+from infra.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
     build_judge_s4_word_prompt,

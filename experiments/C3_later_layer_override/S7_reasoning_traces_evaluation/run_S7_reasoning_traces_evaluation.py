@@ -39,7 +39,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.dataset_loader import load_judge
+from infra.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from nli_probe_DeBERTa import NLI_MODEL, LABEL_NAMES, strip_final_answer, take_tail

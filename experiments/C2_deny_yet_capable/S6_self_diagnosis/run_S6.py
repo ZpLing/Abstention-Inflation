@@ -23,12 +23,12 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from typing import Any, Dict, List, Optional
 
-from core.config_loader import load_config
-from core.llm_handler import LLMHandler
-from core.evaluator import Evaluator
-from core.data_handler import DataHandler
-from core.label_scheme import get_scheme
-from core.prompts import build_judge_s2_prompt
+from infra.config_loader import load_config
+from infra.llm_handler import LLMHandler
+from infra.evaluator import Evaluator
+from infra.data_handler import DataHandler
+from infra.label_scheme import get_scheme
+from infra.prompts import build_judge_s2_prompt
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
 

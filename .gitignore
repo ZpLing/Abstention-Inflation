@@ -199,6 +199,7 @@ pyrightconfig.json
 docs/design_spec.md
 
 secrets.yaml
+API_Config.yaml
 # gateway-style LLM credentials file at repo root (extensionless YAML)
 /config
 

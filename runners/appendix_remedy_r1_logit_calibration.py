@@ -42,7 +42,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
 
-from core.llm_handler import LLMHandler
+from infra.llm_handler import LLMHandler
 
 
 ABSTAIN_VERB = "Unknown"
@@ -56,7 +56,7 @@ def load_dataset(name: str, n: int = 100) -> List[Dict[str, Any]]:
     each item into the local ``{id, facts, conclusion, gold_verb}`` record
     used by the S5 multi-turn rerun.
     """
-    from core.dataset_loader import answerable_subset, load_dataset as _load
+    from infra.dataset_loader import answerable_subset, load_dataset as _load
     samples = answerable_subset(_load(name))
     out: List[Dict[str, Any]] = []
     for s in samples:
@@ -277,7 +277,7 @@ async def run_one(llm: LLMHandler, dataset: str, n_samples: int,
 def load_config(path: str) -> Dict[str, Any]:
     with open(path) as f:
         cfg = yaml.safe_load(f)
-    # core/runners/<this file> -> repo root
+    # runners/<this file> -> repo root
     repo_root = Path(__file__).resolve().parents[2]
     secrets_path = repo_root / cfg.get("secrets_path", "secrets.yaml")
     if secrets_path.exists():

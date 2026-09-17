@@ -213,7 +213,7 @@ def paired_keep_ids(summary: Dict[str, Any],
     This is the same rule ``ABRunner`` applies when it writes ``n_scored``;
     it lives here so downstream scripts do not each re-derive it.
     """
-    from core.evaluator import Evaluator
+    from infra.evaluator import Evaluator
 
     ev = Evaluator()
     keep = set()

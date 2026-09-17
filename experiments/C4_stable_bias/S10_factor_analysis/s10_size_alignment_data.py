@@ -28,7 +28,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from core.result_schema import get_field, load_summary   # noqa: E402
+from infra.result_schema import get_field, load_summary   # noqa: E402
 
 #: Below this share of explicitly-committed answers, a cell's Abs Rate is
 #: whatever the whole-text fallback happened to find, and is not reportable.

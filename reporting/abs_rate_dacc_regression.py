@@ -18,7 +18,7 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core.result_schema import paired_keep_ids   # noqa: E402
+from infra.result_schema import paired_keep_ids   # noqa: E402
 OUT = ROOT / "results/analysis/abs_rate_dacc_regression.json"
 
 MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),

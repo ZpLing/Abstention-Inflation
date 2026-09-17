@@ -35,15 +35,15 @@ Workflow per dataset
    itself reached a conclusion is S7's question, answered by the NLI probe
    over the stored raw text rather than by a similarity score here.
 7. Write ``ab_summary_<dataset>_<model>.json`` in the canonical schema
-   (:mod:`core.result_schema`).
+   (:mod:`infra.result_schema`).
 """
 import asyncio
 import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from .. import metrics
-from ..prompts import (
+from infra import metrics
+from infra.prompts import (
     # MCQ family
     build_mcq_s1_prompt,
     build_mcq_s2_prompt,
@@ -56,14 +56,14 @@ from ..prompts import (
     build_judge_s5_rerun_prompt,
     build_judge_calibration_suffix_prompt,
 )
-from ..label_scheme import get_scheme
-from ..result_schema import SCHEMA_VERSION
+from infra.label_scheme import get_scheme
+from infra.result_schema import SCHEMA_VERSION
 
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
-from ..config_loader import get_block
+from infra.config_loader import get_block
 
 
 #: Settings this runner knows how to build prompts for, in dispatch order.
@@ -349,7 +349,7 @@ class ABRunner:
         return [r[0] for r in results], [r[1] for r in results]
 
     # =================================================================
-    # Summary + persistence (canonical schema — see core.result_schema)
+    # Summary + persistence (canonical schema — see infra.result_schema)
     # =================================================================
     def _build_summary(self, ds_name, task_type, samples, answer_idxs, ai_indices,
                        preds, tiers, raw_by_setting,
@@ -420,7 +420,7 @@ class ABRunner:
                 counts[t if t in counts else "unparseable"] += 1
             return counts
 
-        # Per-sample dump keyed by the canonical schema (core.result_schema).
+        # Per-sample dump keyed by the canonical schema (infra.result_schema).
         sample_key = {
             "S1": ("pred_s1", "raw_s1"),
             "S2": ("pred_s2", "raw_s2"),

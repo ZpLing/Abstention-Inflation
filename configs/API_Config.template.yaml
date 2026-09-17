@@ -1,0 +1,15 @@
+# Copy this file to API_Config.yaml at the repo root and fill it in.
+# API_Config.yaml is git-ignored; this template is the only version tracked.
+#
+# Either shape works. Flat, if you only need credentials:
+#
+#     api_key: "sk-..."
+#     base_url: "https://your-gateway/v1"
+#
+# or nested. Leaving `model` empty lets each experiment yaml name its own
+# backbone; set it to override them all.
+
+llm:
+  api_key: "YOUR_API_KEY_HERE"
+  base_url: "YOUR_API_BASE_URL_HERE"
+  model: ""

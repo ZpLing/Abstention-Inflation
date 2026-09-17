@@ -35,13 +35,27 @@ def get_block(config: dict, name: str) -> dict:
 def load_config(config_path: str) -> dict:
     """Load + merge three sources into one flat dict:
 
-        1. main experiment yaml      (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml)
-        2. optional secrets.yaml     (top-level api_key / base_url)
-        3. optional `config` file    (extensionless YAML at repo root, gateway
-                                       schema: llm.{api_key, base_url, model})
+        1. main experiment yaml   (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml)
+        2. API_Config.yaml        (repo root, git-ignored) — credentials
 
-    Precedence: experiment.yaml < secrets.yaml < config (later wins).
-    Both secrets.yaml and `config` are gitignored.
+    API_Config.yaml takes either shape. Flat:
+
+        api_key: ...
+        base_url: ...
+
+    or nested, which also names the backbone every runner calls:
+
+        llm:
+          api_key: ...
+          base_url: ...
+          model: ...
+
+    Credentials win over the experiment yaml. The model does not when the
+    experiment sets ``override_model: true``, which is how several experiments
+    share one gateway while pinning different backbones.
+
+    `secrets.yaml` and an extensionless `config` are still read if present, so
+    an existing checkout keeps working.
 
     Args:
         config_path: Path to the main configuration file (e.g., 'configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml').
@@ -55,7 +69,7 @@ def load_config(config_path: str) -> dict:
 
     repo_root = Path(__file__).parent.parent
 
-    # 2. Optional secrets.yaml (legacy path)
+    # 2. API_Config.yaml, plus the two paths earlier checkouts used.
     secrets_path = repo_root / "secrets.yaml"
     if secrets_path.exists():
         with open(secrets_path, "r", encoding="utf-8") as f:
@@ -66,8 +80,10 @@ def load_config(config_path: str) -> dict:
 
     # 3. Optional `config` file (gateway-style):
     #        llm: {api_key, base_url, model}   → the backbone every runner uses
-    gateway_config = repo_root / "config"
-    if gateway_config.exists() and gateway_config.is_file():
+    gateway_config = next(
+        (p for p in (repo_root / "API_Config.yaml", repo_root / "config")
+         if p.exists() and p.is_file()), None)
+    if gateway_config is not None:
         with open(gateway_config, "r", encoding="utf-8") as f:
             extra = yaml.safe_load(f) or {}
 
@@ -83,14 +99,21 @@ def load_config(config_path: str) -> dict:
             config["api_key"] = llm_cfg["api_key"]
         if "base_url" in llm_cfg:
             config["base_url"] = llm_cfg["base_url"]
-        if "model" in llm_cfg and not override_model:
+        # An empty `model` means "let each experiment yaml name its own", which
+        # is what the shipped template does; writing it through would blank
+        # every model_name.
+        if llm_cfg.get("model") and not override_model:
             config["model_name"] = llm_cfg["model"]
+        # A flat file (api_key / base_url at top level) is accepted too.
+        for k in ("api_key", "base_url"):
+            if k in extra and k not in llm_cfg:
+                config[k] = extra[k]
         print(
-            f"Loaded LLM credentials from `config` "
+            f"Loaded LLM credentials from {gateway_config.name} "
             f"(model={llm_cfg.get('model')!r}, base_url={llm_cfg.get('base_url')!r})."
         )
 
     if not config.get("api_key"):
-        print("Warning: no api_key resolved (check secrets.yaml or `config`).")
+        print("Warning: no api_key resolved (check API_Config.yaml).")
 
     return config

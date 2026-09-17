@@ -29,7 +29,7 @@ perception are addressed as ``FLD_unknown`` / ``FOLIO_unknown``. For S2-style
 The on-disk schema is identical across datasets, so no per-dataset loader
 or per-dataset label remapping is needed — everything else (prompt verbs,
 context labels, task instructions, output parser) is owned by
-:py:class:`core.label_scheme.LabelScheme`.
+:py:class:`infra.label_scheme.LabelScheme`.
 """
 from __future__ import annotations
 

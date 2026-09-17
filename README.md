@@ -33,12 +33,12 @@ the effect survives re-sampling, re-wording, and moving the option's position.
 git clone https://github.com/ZpLing/EMNLP2026_Abstention-Inflation.git
 cd EMNLP2026_Abstention-Inflation
 pip install -r requirements.txt
-cp configs/secrets.template.yaml secrets.yaml   # fill in api_key / base_url
+cp configs/API_Config.template.yaml API_Config.yaml   # fill in your key
 ```
 
-`secrets.yaml` is git-ignored. Credentials resolve in `core/config_loader.py`:
-the experiment YAML, then `secrets.yaml`, then an extensionless `config` file at
-the repo root, later winning.
+`API_Config.yaml` is git-ignored and holds the only credentials this code
+reads. Everything else — which model, which datasets, where results land — is
+in the experiment YAML.
 
 ## Quick start
 
@@ -55,9 +55,10 @@ python reporting/build_table1.py
 ```
 .
 ├── main.py                       dispatcher; --config selects the runner
-├── core/                         shared infrastructure — prompts, parser,
-│   │                             metrics, loaders. Nothing setting-specific.
-│   └── runners/                  one runner per setting
+├── infra/                        prompts, parser, metrics, dataset and config
+│                                 loaders. Nothing setting-specific.
+├── runners/                      one runner per setting; each drives a
+│                                 setting end to end using infra/
 ├── experiments/
 │   ├── C1_structural_trigger/
 │   │   ├── S1_baseline/
@@ -186,7 +187,7 @@ ones -- that is the only difference between the two arms.
 ```bash
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
     --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
-    --n_per_class 100 --max_new_tokens 3072 --batch_size 8 \
+    --n_per_class 250 --max_new_tokens 3072 --batch_size 8 \
     --out_dir results/s10_gemma
 ```
 
@@ -204,7 +205,7 @@ Pure post-processing over `results/`; no API calls.
 ```bash
 python reporting/build_table1.py                  # Table 1, all 24 cells
 python reporting/abs_rate_dacc_regression.py      # the App. C regressions
-python -m core.runners.appendix_remedy_r2_self_consistency   # App. E's R2
+python -m runners.appendix_remedy_r2_self_consistency   # App. E's R2
 ```
 
 Each analysis script under `experiments/` prints the numbers for its own

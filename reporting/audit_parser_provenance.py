@@ -2,7 +2,7 @@
 
 Post-hoc, zero API calls. Re-scores every `ab_summary_*.json` that carries
 per-sample raw outputs and reports *where* each label came from, because the
-tiers in `core/evaluator.py` are not equally trustworthy:
+tiers in `infra/evaluator.py` are not equally trustworthy:
 
   strict_em   whole response is the label                       — trustworthy
   final_line  the model's `Final answer:` line                  — trustworthy
@@ -50,9 +50,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core.evaluator import Evaluator          # noqa: E402
-from core.label_scheme import get_scheme      # noqa: E402
-from core.result_schema import load_summary   # noqa: E402
+from infra.evaluator import Evaluator          # noqa: E402
+from infra.label_scheme import get_scheme      # noqa: E402
+from infra.result_schema import load_summary   # noqa: E402
 
 EV = Evaluator()
 

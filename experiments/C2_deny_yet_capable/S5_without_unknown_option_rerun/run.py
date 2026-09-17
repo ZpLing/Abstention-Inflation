@@ -1,9 +1,9 @@
 """S5 — w/o "Unknown" Option Rerun (paper §4.2.1, Figure 4 left).
 
-S5 is produced by the same runner as S1/S2: :class:`core.runners.ab_runner.ABRunner`
+S5 is produced by the same runner as S1/S2: :class:`runners.ab_runner.ABRunner`
 first runs S2 to find the samples the model abstains on, then replays that
 conversation and appends a follow-up turn with the "Unknown" option removed
-(``core.prompts.build_{judge,mcq}_s5_rerun_prompt``). There is therefore no
+(``infra.prompts.build_{judge,mcq}_s5_rerun_prompt``). There is therefore no
 separate S5 pass — enabling ``run_s5_rerun`` on a normal S1/S2 config is all
 that is needed, and the results land in the ``s5_rerun`` block of
 ``ab_summary_<dataset>_<model>.json``.
@@ -25,11 +25,11 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from core.runners.ab_runner import ABRunner
-from core.config_loader import block_key, load_config
-from core.data_handler import DataHandler
-from core.evaluator import Evaluator
-from core.llm_handler import LLMHandler
+from runners.ab_runner import ABRunner
+from infra.config_loader import block_key, load_config
+from infra.data_handler import DataHandler
+from infra.evaluator import Evaluator
+from infra.llm_handler import LLMHandler
 
 
 async def _run(config_path: str) -> None:
