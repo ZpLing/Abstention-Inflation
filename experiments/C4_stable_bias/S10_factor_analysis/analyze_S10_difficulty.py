@@ -41,11 +41,17 @@ from typing import Dict, List, Tuple
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from core.result_schema import paired_keep_ids
+
 #: Difficulty comes from the proof-tree depth the dataset ships with. The
 #: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;
 #: `dataset/FLD.json` carries `depth`, which is the same quantity under the
 #: unified schema.
 FLD_SOURCE = ROOT / "dataset" / "FLD.json"
+TFQ_CELLS = [("dsv4flash", "deepseek-v4-flash"),
+             ("nano", "gpt-5.4-nano"),
+             ("gemini31", "gemini-3.1-flash-lite")]
+
 ID_RE = re.compile(r"FLD_(\d+)")
 
 # `depth` runs 1..8 in the shipped file, near-uniformly (62-64 items each), so
@@ -80,25 +86,21 @@ def load_source_steps() -> Dict[int, int]:
 def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
     """One row per (model, sample) of the S2 cell, stratified by proof depth.
 
-    The universe is the S2 run alone -- the abstain-verb-last cell of S11,
-    which is `build_judge_s2_prompt` byte for byte -- because the question is
-    how S2's Abs Rate moves with depth. Pairing with S1 would drop whatever S1
-    happened to lose and put this table on a different sample than the figure
-    built from the same cell. S1 is read when it is there, but only to record
-    whether the item was already abstained on without the option offered.
+    Read from the same paired summaries the main table is built from, on the
+    same keep-set, so the depth trend and the Abs Rate it trends over are the
+    same numbers. An earlier version read the abstain-verb-last cell of S11,
+    which reproduces the S2 prompt byte for byte but is a separate run.
     """
-    pb = ROOT / "results/positional_bias_n500"
     rows: List[dict] = []
-    for s2_path in sorted(pb.glob("summary_unknown_C_FLD_*.json")):
-        model = json.loads(s2_path.read_text()).get("model", "?")
-        s2 = [r for r in json.loads(s2_path.read_text())["per_sample"]
-              if not r.get("excluded")]
-        s1_path = pb / f"summary_s1_FLD_{model}.json"
-        s1 = {}
-        if s1_path.exists():
-            s1 = {r["id"]: r for r in json.loads(s1_path.read_text())["per_sample"]
-                  if not r.get("excluded")}
-        for r in s2:
+    for slug, model in TFQ_CELLS:
+        path = ROOT / f"results/tfq_n500/{slug}/ab_summary_FLD_{model}.json"
+        if not path.exists():
+            continue
+        summary = json.loads(path.read_text())
+        keep = paired_keep_ids(summary)
+        for r in summary["per_sample"]:
+            if r["id"] not in keep:
+                continue
             m = ID_RE.match(r.get("id", ""))
             if not m:
                 continue
@@ -111,9 +113,9 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
                 "steps":        steps_map[idx],
                 "answer_idx":   r.get("answer_idx", -1),
                 "gold_unknown": r.get("answer_idx", -1) < 0,
-                "abstained_s1": s1.get(r["id"], {}).get("pred") == "UNKNOWN",
-                "abstained_s2": r.get("pred") == "UNKNOWN",
-                "source_file":  s2_path.name,
+                "abstained_s1": r.get("pred_s1") == "UNKNOWN",
+                "abstained_s2": r.get("pred_s2") == "UNKNOWN",
+                "source_file":  path.name,
             })
     return rows
 

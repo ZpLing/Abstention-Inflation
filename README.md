@@ -70,17 +70,32 @@ Figure 5 = `plot_fig5_S7_trace_invariance.py`, Figure 6 = S8 step `07_`.
 | **S10** Factor Analysis | difficulty (FLD step count), temperature, model size, alignment | `experiments/C4_stable_bias/S10_factor_analysis/` |
 | **S11** Positional Biases | the abstain verb moves to slot 1 / 2 / 3 of the S2 prompt | `experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py` |
 
-Figure 7 = `plot_fig7_S9_stability.py`; Figures 8–9 =
-`plot_fig8_S10_difficulty_temperature.py`, `plot_fig9_S10_size_alignment.py`;
-the S11 figure = `plot_positional_bias.py`.
-
 ### Appendix
 
 | Appendix | Contents | Location |
 |---|---|---|
-| C Additional Quantitative Analyses | Abs Rate–ΔAcc regression, dataset breakdown | `experiments/appendix/C_quantitative_analyses/` |
-| E Mitigation | calibration suffix, stimulation+reflection, remedies R1/R2 | `core/appendix_mitigation_runner.py`, `core/appendix_remedy_r{1,2}_*.py` |
-| — (not reported) | positional bias, no-CoT control, open-ended abstention, compound option, prompt-stability decomposition, 1-D structural probe | `experiments/appendix/unreported_controls/` |
+| C Additional Quantitative Analyses | Abs Rate–ΔAcc regression over the 18 cells of Table 1 | `reporting/abs_rate_dacc_regression.py` |
+| E Mitigation | calibration suffix, stimulation+reflection | `core/appendix_mitigation_runner.py` |
+| E Remedy R1 | option-presence logit calibration (needs logprobs, so open weights) | `experiments/appendix_E_mitigation/run_R1_logit_calibration.py` |
+| E Remedy R2 | contrastive self-consistency override (post-hoc, no API calls) | `core/appendix_remedy_r2_self_consistency.py` |
+
+### Reproducing the reported numbers
+
+`reporting/` rebuilds what the paper states, from `results/` alone:
+
+| Script | Produces |
+|---|---|
+| `build_table1.py` | Table 1, all 24 cells, on the paired keep-set |
+| `abs_rate_dacc_regression.py` | the App. C regressions |
+| `audit_parser_provenance.py` | which parser tier each reported label came from |
+
+Every rate in the paper is scored on the keep-set that
+`core.result_schema.paired_keep_ids` defines: the items both settings of a
+paired contrast answered. An item is dropped only when a setting returned
+nothing usable (an exhausted retry, a content-filter refusal, a decoding
+collapse); a response that declines to commit is kept, because that is the
+behaviour under study. Reading a summary's stored `metrics` block instead is
+not equivalent for the MCQ cells, whose block predates that rule.
 
 ## Datasets
 

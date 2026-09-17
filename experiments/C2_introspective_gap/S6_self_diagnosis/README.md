@@ -26,6 +26,6 @@ python experiments/C2_introspective_gap/S6_self_diagnosis/run_S6_self_diagnosis.
 ```
 
 `run.py` is a thin alternative that dispatches through `main.py` and drives
-`core.s6_self_diagnosis_legacy_runner` — an earlier variant that additionally
+`core.s6_self_diagnosis_runner` — an earlier variant that additionally
 cross-tabulates the A/B answer against S5 correctness. Prefer
 `run_S6_self_diagnosis.py` when reproducing the paper.

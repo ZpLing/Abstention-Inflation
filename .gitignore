@@ -237,3 +237,7 @@ env/
 
 # Configs that embed real API keys (Aliyun Bailian / DashScope etc.)
 configs/**/S10_qwen_bailian_*.yaml
+
+# Generated paper figures (the plotting scripts live under tools/, also ignored)
+/figures/
+/tmp/

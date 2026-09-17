@@ -17,7 +17,7 @@ below-chance non-abstention accuracy; re-measured it is 45.2 / 39.8.
 The condition was also re-run because the original prompt appended a
 calibration note ("Select C. Unknown ONLY if …") that S2 does not
 carry, which made it two manipulations rather than one. Use
-`run_S3_clean_n500.py`; `core.prompts.build_judge_s3_format_prompt` is
+`run_S3.py`; `core.prompts.build_judge_s3_format_prompt` is
 now byte-for-byte the S2 prompt apart from the letter rendering, and
 the superseded string is kept as
 `build_judge_s3_format_prompt_calibrated`.
@@ -26,7 +26,7 @@ the superseded string is kept as
 
 ```bash
 # current: clean prompt, full 500 samples, per-sample records
-python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3_clean_n500.py \
+python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3.py \
     --max-workers 30 --max-tokens 32768              # DeepSeek needs 16384
 python experiments/C1_structural_trigger/S3_question_format_ablation/report_S3_clean.py
 python experiments/C1_structural_trigger/S3_question_format_ablation/update_table1_s3.py

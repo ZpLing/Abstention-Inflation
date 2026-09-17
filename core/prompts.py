@@ -64,10 +64,10 @@ def _cot_instr_judge(verb_options: str) -> str:
 
 
 # ---- Direct-answer (no-CoT) instructions -------------------------------------
-# Used ONLY by the unreported CoT control (App. "unreported_controls"). The
-# prompt body stays byte-for-byte identical to the CoT builders; only the
-# trailing format instruction is swapped, so any change in Abs Rate / accuracy
-# is attributable to CoT prompting alone.
+# Reachable through the `cot=False` argument of the builders below. No reported
+# setting uses it -- every cell in the paper is collected with CoT -- and it is
+# kept because the prompt body stays byte-for-byte identical to the CoT
+# builders, so a no-CoT control run remains attributable to CoT prompting alone.
 _DIRECT_INSTR_MCQ = (
     "\nAnswer with only the letter of your chosen option (a single character), "
     "with no reasoning or explanation."

@@ -1,7 +1,7 @@
 """Score the clean-prompt S3 rerun and contrast it with the superseded run.
 
 Reads results/s3_clean_n500/summary_s3_{DS}_{MODEL}.json (written by
-run_S3_clean_n500.py) and, when present, the old confounded condition in
+run_S3.py) and, when present, the old confounded condition in
 results/positional_bias_n500/summary_unknown_C_{DS}_{MODEL}.json, which used the
 same letter rendering *plus* the calibration note. The paired contrast on the
 shared item ids isolates what the note was doing.

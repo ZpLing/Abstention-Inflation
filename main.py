@@ -80,8 +80,8 @@ async def _dispatch(config: dict) -> None:
 
     if "s6_self_diagnosis" in tasks:
         print("\n===== S6 self-diagnosis =====")
-        from core.s6_self_diagnosis_legacy_runner import S6SelfDiagnosisLegacyRunner
-        await S6SelfDiagnosisLegacyRunner(config, data_handler, llm_handler, evaluator).run()
+        from core.s6_self_diagnosis_runner import S6SelfDiagnosisRunner
+        await S6SelfDiagnosisRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s10_model_sweep" in tasks:
         print("\n===== S10 alignment & model-size sweep =====")

@@ -21,8 +21,8 @@ positional-bias summaries, including ``per_sample`` for paired McNemar tests.
 
 Usage
 -----
-    python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3_clean_n500.py
-    python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3_clean_n500.py \
+    python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3.py
+    python experiments/C1_structural_trigger/S3_question_format_ablation/run_S3.py \
         --model nano --dataset FLD --sample-limit 10 --out-dir results/_s3_smoke
 """
 from __future__ import annotations

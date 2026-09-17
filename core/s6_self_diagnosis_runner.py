@@ -124,7 +124,7 @@ def s4_s5_cross_buckets(s5_preds: List[str], s4_correct_flags: List[bool]) -> Di
 # Runner
 # =================================================================
 
-class S6SelfDiagnosisLegacyRunner:
+class S6SelfDiagnosisRunner:
     def __init__(self, config: Dict[str, Any], data_handler: DataHandler,
                  llm_handler: LLMHandler, evaluator: Evaluator):
         self.config = config
@@ -141,7 +141,7 @@ class S6SelfDiagnosisLegacyRunner:
 
     async def run(self):
         if not self.dataset_names:
-            print("[S6SelfDiagnosisLegacyRunner] No datasets configured — nothing to do.")
+            print("[S6SelfDiagnosisRunner] No datasets configured — nothing to do.")
             return
         for ds_name in self.dataset_names:
             print(f"\n===== S5 Supplementary :: {ds_name} =====")
