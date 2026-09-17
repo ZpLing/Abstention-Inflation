@@ -20,7 +20,10 @@ from scipy.stats import binomtest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from infra.evaluator import Evaluator             # noqa: E402
 from infra.result_schema import paired_keep_ids   # noqa: E402
+
+_EV = Evaluator()
 
 MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
           ("nano", "gpt-5.4-nano", "GPT-5.4-nano"),
@@ -31,9 +34,20 @@ DATASETS = ("FLD", "FOLIO")
 def cell(slug: str, model: str, dataset: str) -> dict:
     summary = json.loads(
         (ROOT / f"results/tfq/{slug}/ab_summary_{dataset}_{model}.json").read_text())
+    # The S1/S2 keep-set, minus whatever S3 itself failed to answer -- the same
+    # rule the runner applies when it writes metrics.S3.n_scored. Counting an
+    # exhausted retry as "did not abstain" would understate S3's Abs Rate.
     keep = paired_keep_ids(summary)
-    rows = [r for r in summary["per_sample"]
-            if r["id"] in keep and r.get("pred_s3_format")]
+    rows = []
+    for r in summary["per_sample"]:
+        if r["id"] not in keep:
+            continue
+        pred = r.get("pred_s3_format")
+        if pred == "UNPARSEABLE" and _EV.classify_unanswered(
+                r.get("raw_s3_format") or "") != "no_commitment":
+            continue
+        if pred:
+            rows.append(r)
     n = len(rows)
     s2 = sum(r["pred_s2"] == "UNKNOWN" for r in rows)
     s3 = sum(r["pred_s3_format"] == "UNKNOWN" for r in rows)

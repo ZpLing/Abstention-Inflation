@@ -1,15 +1,19 @@
-"""§6.1 Wording sweep aggregation + paired McNemar + variance partition.
+"""S4 Word Content Ablation — does the abstain word matter, or just the slot?
 
-Inputs:
-  W1 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
-               — pred_s2 == "UNKNOWN" indicates abstain
-  W2-W5: results/wording_sweep/summary_<W>_<DS>_<model>.json
-               — pred == "UNKNOWN" indicates abstain (parser maps each
-                 wording's abstain phrase back to canonical "UNKNOWN" label)
+Two halves, both reported in the paper:
 
-Outputs:
-  results/analysis/wording_sweep_summary.json
-  Console: per-cell Abs Rate table + paired McNemar W1 vs each Wi + variance partition
+  synonyms      W2-W5 replace "Unknown" with "I don't know", "Indeterminate",
+                "Cannot be determined from the facts", "Insufficient
+                information". If abstention tracked the word's meaning, a
+                near-synonym would move it; it does not.
+  random words  the third option becomes "Triangular" or "Cerulean", words with
+                no bearing on the task. Models still select that slot at close
+                to the Unknown rate, which is what makes the trigger structural.
+
+Both are scored against the S2 cell of the paired summaries the main table is
+built from, so these numbers and Table 1's are the same numbers.
+
+    python experiments/C1_structural_trigger/S4_word_content_ablation/analyze_S4.py
 """
 import json
 from glob import glob
@@ -84,6 +88,40 @@ def mcnemar_exact_p(b, c):
     if (b - c) < 0:
         z = -z
     return p, z
+
+
+RPC = ROOT / "results/random_perturbation_control"
+RPC_MODELS = [("deepseek-v4-flash", "DeepSeek-V4-Flash"),
+              ("gpt-5.4-nano", "GPT-5.4-nano"),
+              ("gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+
+
+def random_word_half():
+    """The Triangular / Cerulean control, against the same S2 baseline."""
+    print("\n" + "=" * 78)
+    print("Random words — rate at which the third slot is selected")
+    print("=" * 78)
+    print(f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Rand1':>8} {'Rand2':>8} "
+          f"{'max |d|':>8}")
+    worst = []
+    for model, label in RPC_MODELS:
+        for ds in DATASETS:
+            path = RPC / f"rpc_{ds}_{model}.json"
+            if not path.exists():
+                print(f"{label:<24} {ds:<7} (missing)")
+                continue
+            d = json.loads(path.read_text())
+            base = d["C1_Unknown"]["opt_x_rate"]
+            r1 = d["C2_Rand1"]["opt_x_rate"]
+            r2 = d["C3_Rand2"]["opt_x_rate"]
+            delta = max(abs(r1 - base), abs(r2 - base)) * 100
+            worst.append(delta)
+            print(f"{label:<24} {ds:<7} {base:>7.1%} {r1:>7.1%} {r2:>7.1%} "
+                  f"{delta:>7.1f}pp")
+    if worst:
+        print("-" * 78)
+        print(f"Largest shift from the Unknown baseline : {max(worst):.1f} points")
+        print(f"Mean shift                              : {sum(worst)/len(worst):.1f} points")
 
 
 def main():
@@ -211,5 +249,7 @@ def main():
     print(f"Wrote {out_path}")
 
 
+
 if __name__ == "__main__":
     main()
+    random_word_half()

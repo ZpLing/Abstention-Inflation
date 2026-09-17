@@ -107,7 +107,7 @@ done
 ### 2. S4 — word content ablation
 
 ```bash
-python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_synonyms_all_models.py
+python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_synonyms.py
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
   python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \
       --config configs/C1_structural_trigger/S4_random_words_$m.yaml
