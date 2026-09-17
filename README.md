@@ -27,6 +27,32 @@ python main.py --config configs/C1_structural_trigger/DeepSeek_R1_FLD_FOLIO.yaml
 Every setting can also be launched from its own folder; each one has a README
 with the exact command and the expected output path.
 
+## Repository layout
+
+```
+main.py                     dispatcher; --config selects the runner
+core/                       shared infrastructure -- prompts, parser, metrics,
+                            loaders. Nothing here is setting-specific.
+  runners/                  one runner per setting: a file here answers "how
+                            was S6 collected", a file above it answers "how is
+                            any answer parsed"
+experiments/                one folder per claim, one subfolder per setting
+  C1_structural_trigger/      S1  S2  S3  S4
+  C2_deny_yet_capable/        S5  S6
+  C3_later_layer_override/    S7  S8
+  C4_stable_bias/             S9  S10  S11
+configs/                    one YAML per (model, dataset) cell, named for the
+                            settings it collects
+reporting/                  rebuilds the reported numbers from results/
+dataset/                    the eight benchmark files, one schema
+```
+
+Every rate is scored on the keep-set `core.result_schema.paired_keep_ids`
+defines: the items both settings of a paired contrast answered. An item is
+dropped only when a setting returned nothing usable -- an exhausted retry, a
+content-filter refusal, a decoding collapse. A response that declines to commit
+is kept, because refusing to commit is the behaviour under study.
+
 ## Paper → code map
 
 ### C1 — the trigger is the structural presence of an extra option (§4.1)

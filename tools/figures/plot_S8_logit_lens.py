@@ -39,7 +39,6 @@ from matplotlib.lines import Line2D
 # Repo root on the path before importing from `core` -- this script is run from
 # its own directory, so the package is not otherwise importable.
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
-from core.result_schema import canonical_sample_type   # noqa: E402
 
 def _normalize_sample_types(records):
     """Map pre-unification ``sample_type`` values ("AIR"/"non_AIR") onto the
@@ -63,11 +62,14 @@ plt.rcParams.update({
     "legend.fontsize": 11,
 })
 
-ROOT = Path(__file__).resolve().parents[3]   # repo root
+ROOT = Path(__file__).resolve().parents[2]   # repo root
+sys.path.insert(0, str(ROOT))
+
+from core.result_schema import canonical_sample_type   # noqa: E402
 sys.path.insert(0, str(ROOT))
 
 DATA_DIR     = ROOT / "results" / "c3"
-OUT_DIR      = Path.home() / "Desktop" / "EMNLP Abstention Inflation" / "Abstention Chart"
+OUT_DIR      = ROOT / "figures"
 INFERENCE_PATH = ROOT / "results" / "c3" / "olmo_inference_FLD.json"
 
 CKPTS = ["base", "sft", "rl_zero"]

@@ -248,3 +248,8 @@ configs/**/S10_qwen_bailian_*.yaml
 
 # Local working notes, not part of the release
 /CLAUDE.md
+
+# Per-folder notes are kept locally; the root README is the released one
+experiments/**/README.md
+configs/**/README.md
+reporting/README.md
