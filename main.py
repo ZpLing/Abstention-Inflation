@@ -31,8 +31,8 @@ from pathlib import Path
 # Ensure ``infra`` is importable when invoked as ``python main.py``.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from infra.config_loader import load_config
-from infra.data_handler import DataHandler
+from loader.config_loader import load_config
+from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 

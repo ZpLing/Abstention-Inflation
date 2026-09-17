@@ -37,8 +37,8 @@ def main() -> None:
     import argparse
     import asyncio
 
-    from infra.config_loader import block_key, load_config
-    from infra.data_handler import DataHandler
+    from loader.config_loader import block_key, load_config
+    from loader.data_handler import DataHandler
     from infra.evaluator import Evaluator
     from infra.llm_handler import LLMHandler
     from infra.paired_pass import ABRunner

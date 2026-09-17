@@ -60,11 +60,11 @@ SETTING_MODULES = {
 }
 from infra.result_schema import SCHEMA_VERSION
 
-from infra.data_handler import DataHandler
+from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
-from infra.config_loader import get_block
+from loader.config_loader import get_block
 
 
 #: Settings this runner knows how to build prompts for, in dispatch order.

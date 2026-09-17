@@ -39,7 +39,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from infra.dataset_loader import load_judge
+from loader.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 

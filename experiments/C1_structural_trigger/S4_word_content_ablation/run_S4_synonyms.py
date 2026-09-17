@@ -14,10 +14,10 @@ from typing import Dict, List, Tuple
 ROOT = Path(".")
 sys.path.insert(0, str(ROOT))
 
-from infra.config_loader import load_config
+from loader.config_loader import load_config
 from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
-from infra.dataset_loader import load_judge
+from loader.dataset_loader import load_judge
 
 WORDINGS = [
     ("W2", "I don't know"),

@@ -56,7 +56,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from infra.config_loader import load_config              # noqa: E402
+from loader.config_loader import load_config              # noqa: E402
 from infra.llm_handler import LLMHandler                 # noqa: E402
 from infra.prompts import build_judge_s2_prompt          # noqa: E402
 from infra.label_scheme import get_scheme                # noqa: E402

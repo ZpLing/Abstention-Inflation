@@ -53,11 +53,11 @@ from infra.prompts import (
 )
 from infra import metrics as main_metrics
 
-from infra.data_handler import DataHandler
+from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
-from infra.config_loader import get_block
+from loader.config_loader import get_block
 from infra.result_schema import get_field
 
 
@@ -296,8 +296,8 @@ def main() -> None:
     import argparse
     import asyncio
 
-    from infra.config_loader import load_config
-    from infra.data_handler import DataHandler
+    from loader.config_loader import load_config
+    from loader.data_handler import DataHandler
     from infra.evaluator import Evaluator
     from infra.llm_handler import LLMHandler
 

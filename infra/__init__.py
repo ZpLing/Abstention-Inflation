@@ -1,33 +1,15 @@
-"""Shared infrastructure for the Abstention Inflation experiments.
+"""The method itself, shared by every setting.
 
-The paper-aligned per-setting entry points live under ``experiments/Cx_*/Sy_*/``.
-This package is what they all import from.
+    prompts          the prompt builders, one per setting, strings frozen
+    label_scheme     per-dataset verbs and framing
+    evaluator        the deterministic tiered parser
+    metrics          Acc, Abs Rate, macro-F1
+    result_schema    the summary schema, and `paired_keep_ids` -- the rule that
+                     decides which items a paired contrast is scored on
+    llm_handler      the async OpenAI-compatible client
+    paired_pass      the one pass that collects S1, S2, S3 and the S5 rerun,
+                     so the paper's per-item contrasts see the same samples
 
-Modules
--------
-config_loader         YAML config + secrets merging
-data_handler          Thin compatibility wrapper around :mod:`dataset_loader`
-runners/              One runner per setting; everything else here is the
-                      shared infrastructure those runners call into
-dataset_loader        Unified loader for ``software/dataset/<name>.json``
-                      (FLD, FLD_unknown, FOLIO, FOLIO_unknown, ARC, MedQA,
-                       MMLU, LogiQA)
-label_scheme          ``LabelScheme`` — per-dataset verbs, framing labels,
-                      task instructions, output parser. FLD and FOLIO both
-                      use True / False; FLD's abstain verb is ``Unknown`` and
-                      FOLIO's is ``Uncertain``.
-prompts               S1..S6 prompt builders (MCQ + Judge / TFQ)
-llm_handler           Async OpenAI-compatible client wrapper
-evaluator             Standalone output parser used by legacy summaries
-metrics               Acc, Abs Rate, macro-F1
-
-Runner classes (one entry point each, mapped to a paper setting)
-----------------
-paired_pass.ABRunner                          S1 / S2 / S3 + S4 forced-choice
-s5_rerun_runner                              S5 (w/o "Unknown" Option Rerun)
-s6_self_diagnosis_runner                     S6 (Self-Diagnosis)
-truly_unknown_runner.TrulyUnknownRunner     S9 truly-Unknown perception
-run_S10_size_alignment.ModelSweepRunner  S10 Alignment & Size sweep
-posthoc_mitigation_runner                    Post-hoc mitigation baseline
-                                              (Discussion appendix)
+Reading from disk lives in `loader/`; everything specific to one setting lives
+in that setting's folder under `experiments/`.
 """

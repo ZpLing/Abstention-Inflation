@@ -53,7 +53,7 @@ sys.path.insert(0, str(ROOT))
 import torch                                                        # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer        # noqa: E402
 
-from infra.dataset_loader import load_judge                          # noqa: E402
+from loader.dataset_loader import load_judge                          # noqa: E402
 from infra.evaluator import Evaluator                                # noqa: E402
 from infra.label_scheme import get_scheme                            # noqa: E402
 from infra.result_schema import TRUSTED_TIERS                        # noqa: E402

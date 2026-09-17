@@ -16,7 +16,7 @@ costs **19.8 accuracy points** and pushes abstention to **34.5%**. The same
 manipulation on 4-option MCQs, over the same models and the same 500-item
 scale, costs **1.2 points**.
 
-| Format | Items | Acc without “Unknown” option | Acc with "Unknown" Option | Abs Rate |
+| Format | Items | Acc without the “Unknown” option | Acc with the "Unknown" Option | Abs Rate |
 | --- | ---: | ---: | ---: | ---: |
 | TFQ (FLD, FOLIO) | 3,000 | 79.4% | **59.5%** | **34.5%** |
 | MCQ (ARC, MedQA, MMLU, LogiQA) | 6,000 | 84.5% | 83.3% | 2.3% |
@@ -54,9 +54,11 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ```
 .
 ├── main.py                       dispatcher; --config selects the runner
-├── infra/                        prompts, parser, metrics, loaders, and
-│                                 paired_pass, which runs S1/S2/S3/S5 over one
-│                                 sample list so their contrast stays per item
+├── infra/                        the method: prompts, parser, metrics, the
+│                                 keep-set rule, and paired_pass, which runs
+│                                 S1/S2/S3/S5 over one sample list
+├── loader/                       everything that reads from disk: the config,
+│                                 the datasets, the sample-fetch interface
 ├── experiments/                  run_S<n>_<setting>.py collects a setting,
 │                                 analyze_S<n>.py reports it
 │   ├── C1_structural_trigger/

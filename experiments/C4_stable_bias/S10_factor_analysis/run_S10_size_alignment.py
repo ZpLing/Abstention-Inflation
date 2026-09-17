@@ -41,11 +41,11 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from infra.paired_pass import ABRunner
-from infra.data_handler import DataHandler
+from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
-from infra.config_loader import get_block
+from loader.config_loader import get_block
 
 
 class ModelSweepRunner:
@@ -177,8 +177,8 @@ def main() -> None:
     import argparse
     import asyncio
 
-    from infra.config_loader import load_config
-    from infra.data_handler import DataHandler
+    from loader.config_loader import load_config
+    from loader.data_handler import DataHandler
     from infra.evaluator import Evaluator
     from infra.llm_handler import LLMHandler
 

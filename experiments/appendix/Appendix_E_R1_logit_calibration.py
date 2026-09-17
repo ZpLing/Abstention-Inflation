@@ -41,7 +41,7 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from infra.dataset_loader import load_judge
+from loader.dataset_loader import load_judge
 from infra.label_scheme import get_scheme
 from infra.prompts import build_judge_s1_prompt, build_judge_s2_prompt
 
