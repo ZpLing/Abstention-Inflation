@@ -74,7 +74,7 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 └── dataset/                      the eight benchmark files, one schema
 ```
 
-C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
+**Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
 runs a local checkpoint, so neither reaches the gateway. Both take their
 arguments on the command line.
 
