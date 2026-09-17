@@ -81,6 +81,13 @@ CANONICAL_SAMPLE_KEYS: Dict[str, tuple] = {
 LEGACY_SETTING_MAP: Dict[str, str] = {
     "S1": "S1",
     "S2": "S2",
+    # Legacy ``S3`` was a mitigation variant no paper setting uses. It still
+    # needs a target: legacy ``S5`` becomes the paper's ``S3``, so leaving
+    # legacy ``S3`` to fall through to itself puts two different settings on
+    # one key, and whichever the file happens to list second wins -- silently,
+    # and differently per file. Parking it on a dead name keeps the collision
+    # impossible instead of merely unlikely.
+    "S3": "legacy_mitigation_dropped",
     "S4": "S5",
     "S5": "S3",
 }
