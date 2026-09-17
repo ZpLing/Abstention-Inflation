@@ -11,7 +11,7 @@ Comparing COMP vs COMP_WW isolates whether the OPT_X attraction comes from
 the correct answer being mentioned (partial-truth trap) or from the compound
 phrasing alone (structural compound effect).
 
-Loads the aligned sample order from the existing result files, skips conditions
+Loads the aligned sample order from the existing result files, runs conditions
 already present, and merges new results back into the same JSON files.
 
 Usage:
@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 from core.config_loader import load_config
 from core.llm_handler import LLMHandler
@@ -175,45 +175,39 @@ async def run_one_dataset(result_path: Path, llm_handler: LLMHandler,
     n = len(samples)
     print(f"  {ds_name}: {n} samples aligned from existing result.")
 
-    # --- COMP (correct + wrong) — skip if already present ---
-    if "COMP_compound" not in existing:
-        comp_prompts, comp_texts = zip(*[
-            build_mcq_compound_prompt(s.question, s.options, ai)
-            for s, ai in zip(samples, answer_idxs)
-        ])
-        print(f"  Querying COMP (correct+wrong) ({n} samples) ...")
-        raw_comp = await llm_handler.batch_query(list(comp_prompts))
-        comp_parsed = [parse_compound_output(r, ct) for r, ct in zip(raw_comp, comp_texts)]
-        preds_comp, cats_comp = zip(*comp_parsed)
-        existing["COMP_compound"] = _build_metrics(list(preds_comp), answer_idxs,
-                                                    list(cats_comp), s1_acc)
-        for i, row in enumerate(per_sample):
-            row["pred_comp"]      = preds_comp[i]
-            row["cat_comp"]       = cats_comp[i]
-            row["raw_comp"]       = raw_comp[i]
-            row["compound_text"]  = comp_texts[i]
-    else:
-        print(f"  COMP already present — skipping.")
+    # --- COMP (correct + wrong) ---
+    comp_prompts, comp_texts = zip(*[
+        build_mcq_compound_prompt(s.question, s.options, ai)
+        for s, ai in zip(samples, answer_idxs)
+    ])
+    print(f"  Querying COMP (correct+wrong) ({n} samples) ...")
+    raw_comp = await llm_handler.batch_query(list(comp_prompts))
+    comp_parsed = [parse_compound_output(r, ct) for r, ct in zip(raw_comp, comp_texts)]
+    preds_comp, cats_comp = zip(*comp_parsed)
+    existing["COMP_compound"] = _build_metrics(list(preds_comp), answer_idxs,
+                                                list(cats_comp), s1_acc)
+    for i, row in enumerate(per_sample):
+        row["pred_comp"]      = preds_comp[i]
+        row["cat_comp"]       = cats_comp[i]
+        row["raw_comp"]       = raw_comp[i]
+        row["compound_text"]  = comp_texts[i]
 
     # --- COMP_WW (wrong + wrong) ---
-    if "COMP_WW" not in existing:
-        ww_prompts, ww_texts = zip(*[
-            build_mcq_compound_ww_prompt(s.question, s.options, ai)
-            for s, ai in zip(samples, answer_idxs)
-        ])
-        print(f"  Querying COMP_WW (wrong+wrong) ({n} samples) ...")
-        raw_ww = await llm_handler.batch_query(list(ww_prompts))
-        ww_parsed = [parse_compound_output(r, ct) for r, ct in zip(raw_ww, ww_texts)]
-        preds_ww, cats_ww = zip(*ww_parsed)
-        existing["COMP_WW"] = _build_metrics(list(preds_ww), answer_idxs,
-                                              list(cats_ww), s1_acc)
-        for i, row in enumerate(per_sample):
-            row["pred_ww"]     = preds_ww[i]
-            row["cat_ww"]      = cats_ww[i]
-            row["raw_ww"]      = raw_ww[i]
-            row["ww_text"]     = ww_texts[i]
-    else:
-        print(f"  COMP_WW already present — skipping.")
+    ww_prompts, ww_texts = zip(*[
+        build_mcq_compound_ww_prompt(s.question, s.options, ai)
+        for s, ai in zip(samples, answer_idxs)
+    ])
+    print(f"  Querying COMP_WW (wrong+wrong) ({n} samples) ...")
+    raw_ww = await llm_handler.batch_query(list(ww_prompts))
+    ww_parsed = [parse_compound_output(r, ct) for r, ct in zip(raw_ww, ww_texts)]
+    preds_ww, cats_ww = zip(*ww_parsed)
+    existing["COMP_WW"] = _build_metrics(list(preds_ww), answer_idxs,
+                                          list(cats_ww), s1_acc)
+    for i, row in enumerate(per_sample):
+        row["pred_ww"]     = preds_ww[i]
+        row["cat_ww"]      = cats_ww[i]
+        row["raw_ww"]      = raw_ww[i]
+        row["ww_text"]     = ww_texts[i]
 
     with open(result_path, "w", encoding="utf-8") as f:
         json.dump(existing, f, indent=2, ensure_ascii=False)

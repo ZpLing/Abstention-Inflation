@@ -79,16 +79,6 @@ def parse_binary(text, scheme):
 
 async def run_cell(handler, model_key, model_name, dataset, sample_limit, max_retries):
     out_path = OUT_DIR / f"summary_s1_{dataset}_{model_name}.json"
-    if out_path.exists():
-        try:
-            prev = json.loads(out_path.read_text())
-        except (ValueError, OSError):
-            prev = {}
-        if prev.get("complete") is True:
-            print(f"  [{model_key}/{dataset}] complete, skipping: {out_path.name}")
-            return
-        print(f"  [{model_key}/{dataset}] prior run incomplete, re-running.")
-
     scheme = rpb.unified_scheme(dataset)
     samples = [s for s in rpb.load_full_dataset(dataset) if s.answer_idx >= 0]
     if sample_limit:

@@ -113,8 +113,6 @@ class ABRunner:
             return
         for ds_name in self.dataset_names:
             print(f"\n===== S1/S2/S3 :: {ds_name} =====")
-            if self._already_done(ds_name):
-                continue
             samples = self.data_handler.load_dataset(ds_name)
             samples = [s for s in samples if s.answer_idx >= 0]  # answerable only
             samples = self._apply_sample_limit(ds_name, samples)
@@ -124,26 +122,6 @@ class ABRunner:
             task_type = samples[0].task_type
             print(f"  loaded {len(samples)} answerable samples (task_type={task_type}).")
             await self._run_one_dataset(ds_name, samples, task_type)
-
-    def _already_done(self, ds_name: str) -> bool:
-        """Skip a cell that a previous run finished, so a rerun tops up.
-
-        ``overwrite: true`` in the YAML forces the cell to be collected again,
-        which is what a changed prompt or model calls for.
-        """
-        if get_block(self.config, "main_experiment").get("overwrite"):
-            return False
-        path = self._summary_path(ds_name)
-        if not path.exists():
-            return False
-        try:
-            prev = json.loads(path.read_text(encoding="utf-8"))
-        except (ValueError, OSError):
-            return False
-        n = prev.get("n_total")
-        print(f"  [skip] {ds_name}: already collected ({n} samples) in "
-              f"{path.name}. Delete it or set `overwrite: true` to re-collect.")
-        return True
 
     def _summary_path(self, ds_name: str) -> Path:
         model = str(self.config.get("model_name", "model")).replace("/", "_")

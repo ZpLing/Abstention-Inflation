@@ -208,17 +208,6 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
                    max_retries: int, setting: str = "s3") -> Path:
     spec = SETTINGS[setting]
     out_path = out_dir / f"summary_{setting}_{dataset}_{model_name}.json"
-    if out_path.exists():
-        try:
-            prev = json.loads(out_path.read_text())
-        except (ValueError, OSError):
-            prev = {}
-        if prev.get("complete") is True:
-            print(f"  [{model_key}/{dataset}] complete, skipping: {out_path.name}")
-            return out_path
-        print(f"  [{model_key}/{dataset}] prior run incomplete "
-              f"(api_errors={prev.get('api_errors', '?')}), re-running.")
-
     scheme = get_scheme(dataset)
     samples = [s for s in _pb.load_full_dataset(dataset) if s.answer_idx >= 0]
     if sample_limit:

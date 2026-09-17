@@ -234,17 +234,6 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.
-    if out_path.exists():
-        try:
-            prev = json.loads(out_path.read_text())
-        except (ValueError, OSError):
-            prev = {}
-        if prev.get("complete") is True:
-            print(f"  [{model_key}/{dataset}/U={unknown_position}] complete, skipping: {out_path.name}")
-            return out_path
-        print(f"  [{model_key}/{dataset}/U={unknown_position}] prior run incomplete "
-              f"(api_errors={prev.get('api_errors', '?')}), re-running: {out_path.name}")
-
     scheme = unified_scheme(dataset) if unified_labels else get_scheme(dataset)
     if full_dataset:
         samples = [s for s in load_full_dataset(dataset) if s.answer_idx >= 0]

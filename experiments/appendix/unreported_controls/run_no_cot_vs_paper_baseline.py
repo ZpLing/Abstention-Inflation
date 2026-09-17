@@ -155,9 +155,7 @@ async def main_async(args):
     rows = []
     for model, ds in pairs:
         rows.append(await run_one(model, ds, base_cfg, evaluator))
-        # Incremental save after each (model, dataset) so a timeout can't lose results.
-        out.write_text(json.dumps({"rows": rows}, indent=2, ensure_ascii=False))
-        print(f"    [saved {len(rows)}/{len(pairs)} rows -> {out}]")
+    out.write_text(json.dumps({"rows": rows}, indent=2, ensure_ascii=False))
     print(f"\nWrote {out}")
     print("\n" + "=" * 104)
     print(f"{'Model':<30} {'DS':<6} {'n':>4}  {'Abs CoT(paper)':>14} {'Abs no-CoT':>11} "

@@ -68,7 +68,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from core.label_scheme import get_scheme  # noqa: E402
@@ -800,10 +800,6 @@ async def run_experiment(args) -> None:
         return
 
     out_path = Path(args.out).resolve()
-    if out_path.exists() and not args.overwrite:
-        raise FileExistsError(
-            f"Refusing to overwrite {out_path}; choose a new path or pass --overwrite"
-        )
 
     config_path = Path(args.config).resolve()
     config = load_config(str(config_path))
@@ -914,10 +910,6 @@ def analyze_saved(args) -> None:
         out_path = Path(args.out).resolve()
     else:
         out_path = input_path.with_name(input_path.stem + "_reanalyzed.json")
-    if out_path.exists() and not args.overwrite:
-        raise FileExistsError(
-            f"Refusing to overwrite {out_path}; choose a new path or pass --overwrite"
-        )
     _atomic_json_write(out_path, payload)
     md_path = out_path.with_suffix(".md")
     md_path.write_text(render_markdown(payload, analysis))
@@ -1033,14 +1025,12 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     run.add_argument("--dry-run", action="store_true")
-    run.add_argument("--overwrite", action="store_true")
 
     analyze = sub.add_parser("analyze", help="Recompute analysis from a saved run.")
     analyze.add_argument("--input", required=True)
     analyze.add_argument("--out", default=None)
     analyze.add_argument("--bootstrap-reps", type=int, default=10_000)
     analyze.add_argument("--seed", type=int, default=20260710)
-    analyze.add_argument("--overwrite", action="store_true")
 
     sub.add_parser("self-test", help="Run deterministic synthetic checks.")
     return parser
