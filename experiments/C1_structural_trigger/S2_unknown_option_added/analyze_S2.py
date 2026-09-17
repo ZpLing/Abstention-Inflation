@@ -10,7 +10,7 @@ Groups by MCQ vs TF, then runs:
 
 Usage:
     python -m scripts.analyze_acc_effect
-    python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S1_vs_S2.py
+    python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 """
 import argparse
 import json

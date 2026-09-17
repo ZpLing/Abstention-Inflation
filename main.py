@@ -85,7 +85,7 @@ async def _dispatch(config: dict) -> None:
 
     if "s10_model_sweep" in tasks:
         print("\n===== S10 alignment & model-size sweep =====")
-        from experiments.C4_stable_bias.S10_factor_analysis.s10_model_sweep_runner import ModelSweepRunner
+        from experiments.C4_stable_bias.S10_factor_analysis.s10_size_alignment_runner import ModelSweepRunner
         await ModelSweepRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "appendix_mitigation" in tasks:

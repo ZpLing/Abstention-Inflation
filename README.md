@@ -46,7 +46,7 @@ in the experiment YAML.
 python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml
 
 # Every setting's analysis prints its own numbers
-python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S1_vs_S2.py
+python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ```
 
 ## Repository layout

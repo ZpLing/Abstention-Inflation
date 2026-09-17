@@ -19,7 +19,7 @@ Why a fresh sweep rather than a complement
 although every config file, figure label and paper mention calls the model
 Gemini-3.1-Flash-Lite: the rename reached the file names
 (`S10_temperature_Gemini_3_1_Flash_Lite.yaml`) and the display map in
-`s10_figure_data.py`, but never the `model_name` field. So the old cells cannot
+the figure data layer, but never the `model_name` field. So the old cells cannot
 be extended, only replaced.
 
 Three things are aligned with the local sweeps (`run_temp_olmo_topk.sbatch`,
