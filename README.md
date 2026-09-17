@@ -1,14 +1,17 @@
 <h1 align="center">LLM Abstention Can Be a Prompt Artifact,<br>in Addition to Genuine Uncertainty</h1>
 
 <p align="center">
-  <a href="#"><img alt="EMNLP 2026" src="https://img.shields.io/badge/EMNLP%202026-Main%20Conference-b31b1b"></a>
-  <a href="#citation"><img alt="Paper" src="https://img.shields.io/badge/paper-BibTeX-blue"></a>
+  <a href="https://arxiv.org/abs/2507.16199"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2507.16199-b31b1b.svg"></a>
+  <a href="https://arxiv.org/abs/2507.16199"><img alt="EMNLP 2026" src="https://img.shields.io/badge/EMNLP%202026-Main%20Conference-2c6fbb"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776ab">
 </p>
 
-<p align="center"><b>Accepted to the EMNLP 2026 Main Conference.</b></p>
+<p align="center">
+  <b>Accepted to the EMNLP 2026 Main Conference.</b><br>
+  <a href="https://arxiv.org/abs/2507.16199">arXiv:2507.16199</a>
+</p>
 
-Adding an ``Unknown'' option to a True/False question makes a model abstain on
+Adding an "Unknown" option to a True/False question makes a model abstain on
 questions it can answer. We call this **Abstention Inflation** and show it is a
 structural property of the prompt rather than an expression of uncertainty.
 
@@ -166,13 +169,14 @@ the pipeline.
 ## Citation
 
 ```bibtex
-@inproceedings{ling2026abstention,
-  title     = {LLM Abstention Can Be a Prompt Artifact, in Addition to Genuine Uncertainty},
-  author    = {Ling, Zipeng and Liu, Shuliang and Tang, Yuehao and Yang, Junqi and
-               Fu, Shenghong and Son, Seonil and Huang, Chen and Huang, Kejia and
-               Wan, Yao and Hou, Zhichao and Hu, Xuming},
-  booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
-  year      = {2026}
+@misc{ling2026llmabstentionpromptartifact,
+      title={LLM Abstention Can Be a Prompt Artifact, in Addition to Genuine Uncertainty}, 
+      author={Zipeng Ling and Shuliang Liu and Yuehao Tang and Junqi Yang and Shenghong Fu and Seonil Son and Chen Huang and Kejia Huang and Yao Wan and Zhichao Hou and Xuming Hu},
+      year={2026},
+      eprint={2507.16199},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2507.16199}, 
 }
 ```
 
