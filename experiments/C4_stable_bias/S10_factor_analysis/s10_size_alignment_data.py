@@ -39,7 +39,7 @@ DATASETS = ["FLD", "FOLIO"]
 
 #: Where to read cells from: the n=500 sweep the paper reports. Every row still
 #: carries its own ``n`` so a caller can check what it is comparing.
-RESULTS_DIR = ROOT / "results" / "s10_gemma_n500"
+RESULTS_DIR = ROOT / "results" / "s10_gemma"
 
 
 def _tag(size: str, is_it: bool) -> str:

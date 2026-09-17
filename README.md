@@ -44,7 +44,7 @@ the repo root, later winning.
 
 ```bash
 # S1 + S2 + S3 and the S5 rerun, DeepSeek-V4-Flash on FLD and FOLIO
-python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_n500_DeepSeek_V4_Flash.yaml
+python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml
 
 # Rebuild Table 1 from whatever is in results/
 python reporting/build_table1.py
@@ -97,9 +97,9 @@ different samples.
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_n500_$m.yaml
+  python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_$m.yaml
   for ds in ARC MedQA MMLU LogiQA; do
-    python main.py --config configs/C1_structural_trigger/S1_S2_${ds}_n500_$m.yaml
+    python main.py --config configs/C1_structural_trigger/S1_S2_${ds}_$m.yaml
   done
 done
 ```
@@ -118,7 +118,7 @@ done
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C2_deny_yet_capable/S6_n500_$m.yaml
+  python main.py --config configs/C2_deny_yet_capable/S6_$m.yaml
 done
 ```
 
@@ -149,32 +149,45 @@ python $S8/06_suppression_detect.py
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C4_stable_bias/S9_truly_unknown_n300_$m.yaml
+  python main.py --config configs/C4_stable_bias/S9_truly_unknown_$m.yaml
 done
 
 # the three re-draws, per (model, dataset)
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
-    --summary results/tfq_n500/nano/ab_summary_FLD_gpt-5.4-nano.json \
+    --summary results/tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/persistence_n500/s9_persistence_FLD_gpt-5.4-nano.json
+    --out results/persistence/s9_persistence_FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis
 
+Temperature, on the two checkpoints whose temperature the endpoint actually
+applies. The local sweep takes one temperature per call, and the flags below
+are the ones the reported cells were produced with -- the defaults would give
+n=200 and truncate at 1024 tokens.
+
 ```bash
-# temperature, on the two checkpoints whose temperature the endpoint applies
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
     --model gemini-3.1-flash-lite
+
 for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
   python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
-      --model_path <olmo-instruct> --model_tag olmo3-instruct --use_chat_template \
-      --temperature $T --top_k 20 --out_dir results/s10_temp_olmo_topk20
+      --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
+      --use_chat_template --settings S2 --n_per_class 250 \
+      --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
+      --out_dir results/s10_temp_olmo_topk20
 done
+```
 
-# size and alignment, four Gemma sizes x {base, it}
+Size and alignment: four Gemma sizes × {base, it}, at T=0. Pass
+`--use_chat_template` for the `-it` checkpoints and leave it off for the base
+ones -- that is the only difference between the two arms.
+
+```bash
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
-    --model_path <gemma-checkpoint> --model_tag gemma-4-E4B-it --use_chat_template \
-    --out_dir results/s10_gemma_n500
+    --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
+    --n_per_class 100 --max_new_tokens 3072 --batch_size 8 \
+    --out_dir results/s10_gemma
 ```
 
 ### 8. S11 — positional biases

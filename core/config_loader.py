@@ -35,7 +35,7 @@ def get_block(config: dict, name: str) -> dict:
 def load_config(config_path: str) -> dict:
     """Load + merge three sources into one flat dict:
 
-        1. main experiment yaml      (configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml)
+        1. main experiment yaml      (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml)
         2. optional secrets.yaml     (top-level api_key / base_url)
         3. optional `config` file    (extensionless YAML at repo root, gateway
                                        schema: llm.{api_key, base_url, model})
@@ -44,7 +44,7 @@ def load_config(config_path: str) -> dict:
     Both secrets.yaml and `config` are gitignored.
 
     Args:
-        config_path: Path to the main configuration file (e.g., 'configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml').
+        config_path: Path to the main configuration file (e.g., 'configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml').
 
     Returns:
         A dictionary containing all configuration information.

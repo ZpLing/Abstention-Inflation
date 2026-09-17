@@ -16,7 +16,7 @@ comparable to the ``unknown_C`` cells written by that runner.
 
 Outputs
 -------
-``results/s3_clean_n500/summary_s3_{DATASET}_{MODEL}.json`` -- same shape as the
+``results/s3_clean/summary_s3_{DATASET}_{MODEL}.json`` -- same shape as the
 positional-bias summaries, including ``per_sample`` for paired McNemar tests.
 
 Usage
@@ -355,14 +355,14 @@ async def main() -> None:
                     help="Cap samples per cell (default: the full 500).")
     ap.add_argument("--setting", choices=list(SETTINGS), default="s3",
                     help="s3 = letter-rendered ternary; s1 = its binary baseline.")
-    ap.add_argument("--out-dir", default="results/s3_clean_n500")
+    ap.add_argument("--out-dir", default="results/s3_clean")
     ap.add_argument("--max-workers", type=int, default=20)
     ap.add_argument("--max-retries", type=int, default=3)
     ap.add_argument("--max-tokens", type=int, default=16384,
                     help="Output cap. The 4096 default truncated ~76%% of "
                          "Gemini's FLD proofs before any final answer.")
     ap.add_argument("--base-config",
-                    default="configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml",
+                    default="configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
                     help="Only api_key / base_url are taken from here.")
     args = ap.parse_args()
 

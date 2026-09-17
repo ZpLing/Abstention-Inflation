@@ -140,11 +140,11 @@ BASELINE_SOURCES = {
 #: `build_judge_s2_prompt` byte for byte.
 DIFFICULTY_SOURCE = {
     "deepseek-v4-flash":
-        "positional_bias_n500/summary_unknown_C_FLD_deepseek-v4-flash.json",
+        "positional_bias/summary_unknown_C_FLD_deepseek-v4-flash.json",
     "gpt-5.4-nano":
-        "positional_bias_n500/summary_unknown_C_FLD_gpt-5.4-nano.json",
+        "positional_bias/summary_unknown_C_FLD_gpt-5.4-nano.json",
     "gemini-3.1-flash-lite":
-        "positional_bias_n500/summary_unknown_C_FLD_gemini-3.1-flash-lite.json",
+        "positional_bias/summary_unknown_C_FLD_gemini-3.1-flash-lite.json",
 }
 
 
@@ -309,7 +309,7 @@ def temperature_table():
             # T=0 baseline.
             sources = [RESULTS / rel for rel in BASELINE_SOURCES[(tag, ds)]]
             if sweep_ids and len(sweep_ids) > 200:
-                sources += sorted(RESULTS.glob(f"ab_*_n500/ab_summary_{ds}*_{tag}.json"))
+                sources += sorted(RESULTS.glob(f"ab_*/ab_summary_{ds}*_{tag}.json"))
             for path in sources:
                 if not path.exists():
                     continue

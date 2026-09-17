@@ -126,7 +126,7 @@ _SKIP_PREFIXES = ("s10_", "temperature_sweep", "wording_sweep", "gemma_",
 def find_summaries(results_root: Path) -> List[Path]:
     """Every paired ab_summary under results/, whatever it is nested in.
 
-    The MCQ cells moved to `results/mcq_n500/<dataset>_<model>/`, so matching
+    The MCQ cells moved to `results/mcq/<dataset>_<model>/`, so matching
     on a top-level directory named `ab*` would silently skip all of them; a
     plain recursive glob goes too far the other way and sweeps in the
     single-condition runs, so a summary has to actually carry both sides.

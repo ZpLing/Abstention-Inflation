@@ -1,6 +1,6 @@
-# MedQA at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
-experiment_name: "medqa_n500_gemini31"
-model_name: "gemini-3.1-flash-lite"
+# MedQA at n=500 on deepseek-v4-flash, the model Table 1 names.
+experiment_name: "medqa_dsv4flash"
+model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 100
 max_retries: 3
@@ -11,7 +11,7 @@ main_experiment:
   datasets:
     - "MedQA"
   run_s5_rerun: true
-  results_dir: "results/mcq_n500/MedQA_gemini31"
+  results_dir: "results/mcq/MedQA_dsv4flash"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

@@ -49,12 +49,12 @@ def _rates(summary, second):
 def cell(slug, model, col):
     """(S1 Acc, S2-or-S3 Acc, Abs Rate) for one column, as percentages."""
     if col.endswith("_MCQ"):
-        path = ROOT / f"results/tfq_n500/{slug}/ab_summary_{col[:-4]}_{model}.json"
+        path = ROOT / f"results/tfq/{slug}/ab_summary_{col[:-4]}_{model}.json"
         return _rates(json.loads(path.read_text()), "S3")
     if col in ("FLD", "FOLIO"):
-        path = ROOT / f"results/tfq_n500/{slug}/ab_summary_{col}_{model}.json"
+        path = ROOT / f"results/tfq/{slug}/ab_summary_{col}_{model}.json"
     else:
-        path = Path(glob.glob(str(ROOT / f"results/mcq_n500/*/ab_summary_{col}_{model}.json"))[0])
+        path = Path(glob.glob(str(ROOT / f"results/mcq/*/ab_summary_{col}_{model}.json"))[0])
     return _rates(json.loads(path.read_text()), "S2")
 
 

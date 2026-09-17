@@ -372,7 +372,7 @@ class ABRunner:
         # S1 and S2 are scored over the SAME items, because the reported
         # contrast is paired: scoring them over different subsets would
         # compare two different samples of the dataset. This is the same
-        # denominator `build_mcq_n500_table.py` and `build_table1_accuracy.py`
+        # denominator `build_mcq_table.py` and `build_table1_accuracy.py`
         # use. A further setting (S3, the calibration suffix) is scored over
         # that pair minus whatever it failed to answer itself, and says so in
         # its own `n_scored`.

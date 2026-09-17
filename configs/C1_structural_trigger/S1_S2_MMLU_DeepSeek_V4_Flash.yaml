@@ -1,5 +1,5 @@
-# MedQA at n=500 on deepseek-v4-flash, the model Table 1 names.
-experiment_name: "medqa_n500_dsv4flash"
+# MMLU at n=500 on deepseek-v4-flash, the model Table 1 names.
+experiment_name: "mmlu_dsv4flash"
 model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 100
@@ -9,9 +9,9 @@ run_tasks: ['main_experiment']
 
 main_experiment:
   datasets:
-    - "MedQA"
+    - "MMLU"
   run_s5_rerun: true
-  results_dir: "results/mcq_n500/MedQA_dsv4flash"
+  results_dir: "results/mcq/MMLU_dsv4flash"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

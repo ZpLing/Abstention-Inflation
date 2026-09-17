@@ -33,9 +33,9 @@ def load_points():
     for slug, model, label in MODELS:
         for ds in TFQ + MCQ:
             if ds in TFQ:
-                path = ROOT / f"results/tfq_n500/{slug}/ab_summary_{ds}_{model}.json"
+                path = ROOT / f"results/tfq/{slug}/ab_summary_{ds}_{model}.json"
             else:
-                path = Path(glob.glob(str(ROOT / f"results/mcq_n500/*/ab_summary_{ds}_{model}.json"))[0])
+                path = Path(glob.glob(str(ROOT / f"results/mcq/*/ab_summary_{ds}_{model}.json"))[0])
             # Scored on the paired keep-set, the same denominator Table 1
             # uses; the MCQ summaries' own metrics block is not on it.
             summary = json.loads(path.read_text())

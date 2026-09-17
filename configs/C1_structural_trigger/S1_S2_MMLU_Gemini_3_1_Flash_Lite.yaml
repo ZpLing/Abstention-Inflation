@@ -1,6 +1,6 @@
-# LogiQA at n=500 on gpt-5.4-nano, the model Table 1 names.
-experiment_name: "logiqa_n500_nano"
-model_name: "gpt-5.4-nano"
+# MMLU at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
+experiment_name: "mmlu_gemini31"
+model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
 max_retries: 3
@@ -9,9 +9,9 @@ run_tasks: ['main_experiment']
 
 main_experiment:
   datasets:
-    - "LogiQA"
+    - "MMLU"
   run_s5_rerun: true
-  results_dir: "results/mcq_n500/LogiQA_nano"
+  results_dir: "results/mcq/MMLU_gemini31"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

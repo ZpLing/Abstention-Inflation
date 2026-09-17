@@ -1,8 +1,8 @@
 # S6 Self-Diagnosis: replay the S2 conversation on each Abstention Inflation
 # sample and ask the model to attribute its own abstention to (A) being unable
 # to work it out or (B) the item being objectively unanswerable.
-experiment_name: "s6_selfdiag_nano"
-model_name: "gpt-5.4-nano"
+experiment_name: "s6_selfdiag_gemini31"
+model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
 
@@ -12,8 +12,8 @@ s6_self_diagnosis:
   datasets:
     - "FLD"
     - "FOLIO"
-  s1_s2_results_dir: "results/tfq_n500/nano"
-  results_dir: "results/s6_selfdiag/nano"
+  s1_s2_results_dir: "results/tfq/gemini31"
+  results_dir: "results/s6_selfdiag/gemini31"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

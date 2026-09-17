@@ -39,7 +39,7 @@ def load_w1_per_sample(ds):
     Read from the paired summary Table 1 is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
-    path = ROOT / f"results/tfq_n500/dsv4flash/ab_summary_{ds}_{MODEL}.json"
+    path = ROOT / f"results/tfq/dsv4flash/ab_summary_{ds}_{MODEL}.json"
     ab = json.loads(path.read_text())
     return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 

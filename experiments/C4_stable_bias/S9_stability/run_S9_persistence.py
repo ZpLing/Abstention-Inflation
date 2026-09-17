@@ -7,9 +7,9 @@ not sampling lottery.
 
 Usage:
     python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
-        --summary results/tfq_n500/nano/ab_summary_FLD_gpt-5.4-nano.json \
+        --summary results/tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-        --out results/persistence_n500/s9_persistence_FLD_gpt-5.4-nano.json
+        --out results/persistence/s9_persistence_FLD_gpt-5.4-nano.json
 """
 import argparse
 import asyncio
@@ -78,7 +78,7 @@ async def main():
     ap.add_argument("--n_repeats", type=int, default=3)
     # Default: the endpoint's own temperature, the one S2 ran under.
     ap.add_argument("--temperature", type=float, default=None)
-    ap.add_argument("--config", default="configs/C1_structural_trigger/S1_S3_TFQ_n500_GPT_5_4_nano.yaml")
+    ap.add_argument("--config", default="configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 

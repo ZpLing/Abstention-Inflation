@@ -93,7 +93,7 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
     """
     rows: List[dict] = []
     for slug, model in TFQ_CELLS:
-        path = ROOT / f"results/tfq_n500/{slug}/ab_summary_FLD_{model}.json"
+        path = ROOT / f"results/tfq/{slug}/ab_summary_FLD_{model}.json"
         if not path.exists():
             continue
         summary = json.loads(path.read_text())
@@ -217,7 +217,7 @@ def main() -> None:
     print(f"Loaded {len(steps_map)} FLD items with a `depth` annotation.")
 
     rows = collect_per_sample(steps_map)
-    print(f"Collected {len(rows)} (model, sample) cells from results/positional_bias_n500/.")
+    print(f"Collected {len(rows)} (model, sample) cells from results/positional_bias/.")
     if not rows:
         sys.exit("No FLD ab_summary data found.")
 

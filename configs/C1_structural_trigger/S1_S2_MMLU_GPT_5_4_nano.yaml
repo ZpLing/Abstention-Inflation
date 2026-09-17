@@ -1,6 +1,6 @@
-# ARC at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
-experiment_name: "arc_n500_gemini31"
-model_name: "gemini-3.1-flash-lite"
+# MMLU at n=500 on gpt-5.4-nano, the model Table 1 names.
+experiment_name: "mmlu_nano"
+model_name: "gpt-5.4-nano"
 override_model: true
 max_workers: 100
 max_retries: 3
@@ -9,9 +9,9 @@ run_tasks: ['main_experiment']
 
 main_experiment:
   datasets:
-    - "ARC"
+    - "MMLU"
   run_s5_rerun: true
-  results_dir: "results/mcq_n500/ARC_gemini31"
+  results_dir: "results/mcq/MMLU_nano"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

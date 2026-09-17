@@ -1,5 +1,5 @@
 # LogiQA at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
-experiment_name: "logiqa_n500_gemini31"
+experiment_name: "logiqa_gemini31"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
@@ -11,7 +11,7 @@ main_experiment:
   datasets:
     - "LogiQA"
   run_s5_rerun: true
-  results_dir: "results/mcq_n500/LogiQA_gemini31"
+  results_dir: "results/mcq/LogiQA_gemini31"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"
