@@ -90,7 +90,7 @@ async def _dispatch(config: dict) -> None:
 
     if "appendix_mitigation" in tasks:
         print("\n===== App. E post-hoc mitigation =====")
-        from runners.appendix_mitigation_runner import PostHocMitigationRunner
+        from experiments.appendix.Appendix_E_mitigation_runner import PostHocMitigationRunner
         await PostHocMitigationRunner(config, data_handler, llm_handler, evaluator).run()
 
 

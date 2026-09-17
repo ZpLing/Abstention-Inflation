@@ -1,6 +1,7 @@
 """Effect of adding the Unknown option (S1 → S2) on accuracy, split by task type.
 
-Loads all ab_summary_*.json files under results/ab_*/ directories.
+Loads the paired summaries the main table is built from:
+results/tfq/<model>/ and results/mcq/<dataset>_<model>/.
 For each (model, dataset), computes per-sample (correct_s1, correct_s2) pairs.
 Groups by MCQ vs TF, then runs:
   - McNemar's test (within-group pooled): p-value for accuracy change
@@ -9,7 +10,7 @@ Groups by MCQ vs TF, then runs:
 
 Usage:
     python -m scripts.analyze_acc_effect
-    python -m scripts.analyze_acc_effect --results_dirs results/ab_gpt5_nano results/ab_gemini_flash_lite
+    python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S1_vs_S2.py
 """
 import argparse
 import json
@@ -97,15 +98,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--results_dirs", nargs="*",
-        help="Directories to scan (default: all results/ab_*/ under project root)",
+        help="Directories to scan (default: results/tfq/* and results/mcq/*).",
     )
     args = parser.parse_args()
 
-    root = Path(__file__).resolve().parent.parent
+    root = Path(__file__).resolve().parents[3]
     if args.results_dirs:
         results_dirs = [Path(d) for d in args.results_dirs]
     else:
-        results_dirs = sorted(root.glob("results/ab_*/"))
+        results_dirs = (sorted(root.glob("results/tfq/*/"))
+                        + sorted(root.glob("results/mcq/*/")))
 
     print(f"Scanning {len(results_dirs)} result directory/ies:")
     for d in results_dirs:

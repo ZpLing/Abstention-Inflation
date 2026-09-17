@@ -38,6 +38,11 @@ import math
 import os
 import re
 from pathlib import Path
+import sys
+
+# Importable as a module and runnable as a file.
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
 from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
