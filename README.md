@@ -2,7 +2,6 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2507.16199"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2507.16199-b31b1b.svg"></a>
-  <a href="https://arxiv.org/abs/2507.16199"><img alt="EMNLP 2026" src="https://img.shields.io/badge/EMNLP%202026-Main%20Conference-2c6fbb"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776ab">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </p>
