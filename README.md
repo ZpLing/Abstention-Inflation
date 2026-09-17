@@ -9,13 +9,8 @@
 
 
 Adding an "Unknown" option to a True/False question makes a model abstain on
-questions it can answer. We call this **Abstention Inflation** phenomenon and show it is a
-structural property of the prompt rather than an expression of uncertainty.
+questions it can answer. We call this **Abstention Inflation**.
 
-Pooled over 3 models × 2 TFQ datasets at 500 samples each, offering the option
-costs **19.8 accuracy points** and pushes abstention to **34.5%**. The same
-manipulation on 4-option MCQs, over the same models and the same 500-sample
-scale, costs **1.2 points**.
 
 | Format | Samples | Acc without the “Unknown” option | Acc with the "Unknown" Option | Abs Rate |
 | --- | ---: | ---: | ---: | ---: |
@@ -23,9 +18,7 @@ scale, costs **1.2 points**.
 | Multiple-Choice Questions | 6,000 | 84.5% | 83.3% | 2.3% |
 
 The abstention does not result from uncertainty: removing the option again recovers **63.6%**
-accuracy on exactly the samples that abstained, the models attribute those
-abstentions to the question being unanswerable **95–100%** of the time (S6), and
-the effect survives re-sampling, re-wording, and moving the option's position.
+accuracy on exactly the samples that previously abstained.
 
 ## Installation
 
