@@ -9,12 +9,16 @@ Output: results/analysis/abs_rate_dacc_regression.json
 """
 import glob
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
+from core.result_schema import paired_keep_ids   # noqa: E402
 OUT = ROOT / "results/analysis/abs_rate_dacc_regression.json"
 
 MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
@@ -32,11 +36,19 @@ def load_points():
                 path = ROOT / f"results/tfq_n500/{slug}/ab_summary_{ds}_{model}.json"
             else:
                 path = Path(glob.glob(str(ROOT / f"results/mcq_n500/*/ab_summary_{ds}_{model}.json"))[0])
-            m = json.loads(path.read_text())["metrics"]
+            # Scored on the paired keep-set, the same denominator Table 1
+            # uses; the MCQ summaries' own metrics block is not on it.
+            summary = json.loads(path.read_text())
+            keep = paired_keep_ids(summary)
+            rows = [r for r in summary["per_sample"] if r["id"] in keep]
+            n = len(rows)
+            gold = lambda r: chr(ord("A") + r["answer_idx"])
+            a1 = sum(r["pred_s1"] == gold(r) for r in rows) / n
+            a2 = sum(r["pred_s2"] == gold(r) for r in rows) / n
             pts.append({"model": label, "dataset": ds,
                         "type": "tf" if ds in TFQ else "mcq",
-                        "abs_rate": m["S2"]["abs_rate"],
-                        "d_acc": m["S2"]["label_acc"] - m["S1"]["label_acc"]})
+                        "abs_rate": sum(r["pred_s2"] == "UNKNOWN" for r in rows) / n,
+                        "d_acc": a2 - a1})
     return pts
 
 

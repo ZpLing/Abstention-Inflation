@@ -30,6 +30,8 @@ import argparse
 import json
 from collections import Counter
 from pathlib import Path
+
+from core.result_schema import paired_keep_ids
 from typing import Any, Dict, List, Tuple
 
 # Gold answer_idx convention from ab_runner: 0->A, 1->B, 2->C, 3->D.
@@ -67,7 +69,10 @@ def metrics(per: List[Dict[str, Any]], key: str) -> Dict[str, float]:
 
 def process_one(summary_path: Path, out_dir: Path) -> Dict[str, Any]:
     raw = json.loads(summary_path.read_text())
-    per_sample = raw["per_sample"]
+    # The same paired keep-set the main table is scored on, so R2's S1 and S2
+    # columns reproduce it rather than quoting a second denominator.
+    keep = paired_keep_ids(raw)
+    per_sample = [r for r in raw["per_sample"] if r["id"] in keep]
     r2_rows = apply_r2(per_sample)
 
     m_s1 = metrics(r2_rows, "s1")
@@ -80,6 +85,7 @@ def process_one(summary_path: Path, out_dir: Path) -> Dict[str, Any]:
         "dataset": raw.get("dataset"),
         "task_type": raw.get("task_type"),
         "n_total": raw.get("n_total"),
+        "n_scored": len(r2_rows),
         "n_r2_fired": n_fired,
         "metrics": {
             "S1": {"label_acc": m_s1["label_acc"]},
@@ -109,7 +115,10 @@ _SKIP_DIRS = {"ab_followup", "ab_s5", "ab_e_option_baseline", "ab_mcq_extended"}
 
 #: R2 needs a paired S1/S2 cell. The sweeps vary one knob on the S2 prompt and
 #: never record an S1 side, so including them would report an S1 accuracy of
-#: zero and an override that cannot fire.
+#: zero and an override that cannot fire. The TFQ cells are read from the same
+#: paired summaries as the MCQ cells; the S11 slot-C file reproduces the S2
+#: prompt but is a separate run, so pairing it with a separate S1 sweep would
+#: report R2 on numbers that are not the ones the main table states.
 _SKIP_PREFIXES = ("s10_", "temperature_sweep", "wording_sweep", "gemma_",
                   "qwen_", "_smoke", "probe", "positional_bias")
 
@@ -138,36 +147,6 @@ def find_summaries(results_root: Path) -> List[Path]:
     return out
 
 
-def find_tfq_pairs(results_root: Path) -> List[tuple]:
-    """(dataset, model, s1_path, s2_path) for the TFQ cells.
-
-    FLD and FOLIO are collected by the S1 and S11 runners, which write one
-    file per condition rather than the MCQ runner's single summary, so the
-    pair is assembled here. The S2 side is the abstain-verb-last cell of S11,
-    which is `build_judge_s2_prompt` byte for byte.
-    """
-    pb = results_root / "positional_bias_n500"
-    out = []
-    if not pb.is_dir():
-        return out
-    for s2 in sorted(pb.glob("summary_unknown_C_*.json")):
-        stem = s2.name[len("summary_unknown_C_"):-len(".json")]
-        dataset, _, model = stem.partition("_")
-        s1 = pb / f"summary_s1_{dataset}_{model}.json"
-        if s1.exists():
-            out.append((dataset, model, s1, s2))
-    return out
-
-
-def tfq_per_sample(s1_path: Path, s2_path: Path) -> List[Dict[str, Any]]:
-    """The MCQ per-sample shape (`pred_s1` / `pred_s2`) from two TFQ files."""
-    def load(p):
-        return {r["id"]: r for r in json.loads(p.read_text())["per_sample"]
-                if not r.get("excluded")}
-    a, b = load(s1_path), load(s2_path)
-    return [{"id": i, "answer_idx": b[i]["answer_idx"],
-             "pred_s1": a[i]["pred"], "pred_s2": b[i]["pred"]}
-            for i in sorted(set(a) & set(b))]
 
 
 def pretty_table(rows: List[Dict[str, Any]]) -> str:
@@ -208,37 +187,6 @@ def main():
             rows.append(row)
         except Exception as e:
             print(f"  SKIP {p.name}: {e}")
-
-    pairs = find_tfq_pairs(root)
-    print(f"Found {len(pairs)} TFQ S1/S2 pairs")
-    for dataset, model, s1_path, s2_path in pairs:
-        per_sample = tfq_per_sample(s1_path, s2_path)
-        if not per_sample:
-            print(f"  SKIP {dataset}/{model}: no items valid in both cells")
-            continue
-        r2_rows = apply_r2(per_sample)
-        row = {
-            "model": model,
-            "dataset": dataset,
-            "task_type": "tf",
-            "n_total": len(r2_rows),
-            "n_r2_fired": sum(1 for r in r2_rows if r["r2_fired"]),
-            "metrics": {
-                "S1": {"label_acc": metrics(r2_rows, "s1")["label_acc"]},
-                "S2": metrics(r2_rows, "s2"),
-                "R2": metrics(r2_rows, "r2"),
-            },
-            "source_summary": f"{s1_path.name} + {s2_path.name}",
-            "per_sample": r2_rows,
-        }
-        row["metrics"]["R2"]["delta_acc_vs_s2"] = (
-            row["metrics"]["R2"]["label_acc"] - row["metrics"]["S2"]["label_acc"])
-        row["metrics"]["R2"]["delta_abs_rate_vs_s2"] = (
-            row["metrics"]["R2"]["abs_rate"] - row["metrics"]["S2"]["abs_rate"])
-        out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / f"r2_summary_{dataset}_{model}.json").write_text(
-            json.dumps(row, indent=2, ensure_ascii=False))
-        rows.append(row)
 
     rows.sort(key=lambda r: ((r.get("model") or ""), (r.get("dataset") or "")))
     table = pretty_table(rows)
