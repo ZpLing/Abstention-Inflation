@@ -22,8 +22,8 @@ accuracy on exactly the samples that previously abstained.
 ## Installation
 
 ```bash
-git clone https://github.com/ZpLing/EMNLP2026_Abstention-Inflation.git
-cd EMNLP2026_Abstention-Inflation
+git clone https://github.com/ZpLing/Abstention-Inflation.git
+cd Abstention-Inflation
 pip install -r requirements.txt
 cp configs/API_Config.template.yaml API_Config.yaml   # fill in your key
 ```
