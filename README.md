@@ -53,24 +53,31 @@ python reporting/build_table1.py
 ## Repository layout
 
 ```
-main.py                      dispatcher; --config selects the runner
-core/                        shared infrastructure — prompts, parser, metrics,
-                             loaders. Nothing here is setting-specific.
-  runners/                   one runner per setting
-experiments/
-  C1_structural_trigger/     S1_baseline/  S2_unknown_option_added/
-                             S3_question_format_ablation/
-                             S4_word_content_ablation/
-  C2_deny_yet_capable/       S5_without_unknown_option_rerun/
-                             S6_self_diagnosis/
-  C3_later_layer_override/   S7_reasoning_traces_evaluation/
-                             S8_logit_lens_representation_probe/
-  C4_stable_bias/            S9_stability/  S10_factor_analysis/
-                             S11_positional_biases/
-configs/                     one YAML per (model, dataset) cell, named for the
-                             settings it collects
-reporting/                   rebuilds the reported numbers from results/
-dataset/                     the eight benchmark files, one schema
+.
+├── main.py                       dispatcher; --config selects the runner
+├── core/                         shared infrastructure — prompts, parser,
+│   │                             metrics, loaders. Nothing setting-specific.
+│   └── runners/                  one runner per setting
+├── experiments/
+│   ├── C1_structural_trigger/
+│   │   ├── S1_baseline/
+│   │   ├── S2_unknown_option_added/
+│   │   ├── S3_question_format_ablation/
+│   │   └── S4_word_content_ablation/
+│   ├── C2_deny_yet_capable/
+│   │   ├── S5_without_unknown_option_rerun/
+│   │   └── S6_self_diagnosis/
+│   ├── C3_later_layer_override/
+│   │   ├── S7_reasoning_traces_evaluation/
+│   │   └── S8_logit_lens_representation_probe/
+│   └── C4_stable_bias/
+│       ├── S9_stability/
+│       ├── S10_factor_analysis/
+│       └── S11_positional_biases/
+├── configs/                      one YAML per (model, dataset) cell, named
+│                                 for the settings it collects
+├── reporting/                    rebuilds the reported numbers from results/
+└── dataset/                      the eight benchmark files, one schema
 ```
 
 C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
