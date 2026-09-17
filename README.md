@@ -6,10 +6,7 @@
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776ab">
 </p>
 
-<p align="center">
-  <b>Accepted to the EMNLP 2026 Main Conference.</b><br>
-  <a href="https://arxiv.org/abs/2507.16199">arXiv:2507.16199</a>
-</p>
+<p align="center"><b>Accepted to the EMNLP 2026 Main Conference.</b></p>
 
 Adding an "Unknown" option to a True/False question makes a model abstain on
 questions it can answer. We call this **Abstention Inflation** and show it is a
