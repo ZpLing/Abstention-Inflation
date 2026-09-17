@@ -197,3 +197,32 @@ def load_summary(path: str | Path) -> Dict[str, Any]:
     """Load an ``ab_summary_*.json`` and normalize it to the canonical namespace."""
     with Path(path).open("r", encoding="utf-8") as f:
         return normalize(json.load(f))
+
+
+def paired_keep_ids(summary: Dict[str, Any],
+                    settings: tuple[str, ...] = ("s1", "s2")) -> set[str]:
+    """Ids of the items an S1/S2 contrast is scored on.
+
+    The runner drops an item from the paired contrast when a setting returned
+    nothing usable -- an API error, a persistent failure, a content-filter
+    refusal or a decoding collapse -- and keeps it when the model answered but
+    declined to commit, which is a real response. Any analysis that reports a
+    rate alongside the paper's accuracies has to use the same set, or it is
+    quoting two different samples of the dataset as though they were one.
+
+    This is the same rule ``ABRunner`` applies when it writes ``n_scored``;
+    it lives here so downstream scripts do not each re-derive it.
+    """
+    from core.evaluator import Evaluator
+
+    ev = Evaluator()
+    keep = set()
+    for row in summary.get("per_sample", []):
+        for name in settings:
+            if row.get(f"pred_{name}") != "UNPARSEABLE":
+                continue
+            if ev.classify_unanswered(row.get(f"raw_{name}") or "") != "no_commitment":
+                break
+        else:
+            keep.add(row["id"])
+    return keep
