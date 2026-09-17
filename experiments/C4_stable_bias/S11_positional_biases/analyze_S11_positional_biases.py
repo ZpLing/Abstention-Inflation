@@ -1,4 +1,4 @@
-"""Aggregate the S11 option-position cells written by run_S11_option_position.py."""
+"""Aggregate the S11 option-position cells written by run_S11_positional_biases.py."""
 import argparse
 import json
 import sys

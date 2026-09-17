@@ -39,7 +39,7 @@ from core.data_handler import DataHandler
 from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
-from .config_loader import get_block
+from ..config_loader import get_block
 
 
 class ModelSweepRunner:

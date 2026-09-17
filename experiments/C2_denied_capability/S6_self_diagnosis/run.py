@@ -6,8 +6,8 @@ paper-grade examples.
 
 Usage::
 
-    python experiments/C2_introspective_gap/S6_self_diagnosis/run.py \\
-        --config configs/C2_introspective_gap/GPT_5_4_nano_FLD.yaml
+    python experiments/C2_denied_capability/S6_self_diagnosis/run.py \\
+        --config configs/C2_denied_capability/GPT_5_4_nano_FLD.yaml
 """
 from __future__ import annotations
 

@@ -13,9 +13,9 @@ elsewhere (ARC, MedQA). It is gone: two different metrics under one column
 name are not comparable across datasets, and neither answers S7's actual
 question, which is whether the model's own reasoning reached a conclusion its
 final answer then withheld. That is read off the stored raw text by the NLI
-probe in experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/.
+probe in experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/.
 
-S6 (self-diagnosis) lives in experiments/C2_introspective_gap/S6_self_diagnosis/ and
+S6 (self-diagnosis) lives in experiments/C2_denied_capability/S6_self_diagnosis/ and
 uses its own metrics — by design it is NOT a label-prediction task on the
 original question.
 

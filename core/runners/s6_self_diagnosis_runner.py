@@ -50,8 +50,8 @@ from core.data_handler import DataHandler
 from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
-from .config_loader import get_block
-from .result_schema import get_field
+from ..config_loader import get_block
+from ..result_schema import get_field
 
 
 # =================================================================

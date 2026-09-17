@@ -42,8 +42,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from . import metrics
-from .prompts import (
+from .. import metrics
+from ..prompts import (
     # MCQ family
     build_mcq_s1_prompt,
     build_mcq_s2_prompt,
@@ -56,14 +56,14 @@ from .prompts import (
     build_judge_s5_rerun_prompt,
     build_judge_calibration_suffix_prompt,
 )
-from .label_scheme import get_scheme
-from .result_schema import SCHEMA_VERSION
+from ..label_scheme import get_scheme
+from ..result_schema import SCHEMA_VERSION
 
 from core.data_handler import DataHandler
 from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
-from .config_loader import get_block
+from ..config_loader import get_block
 
 
 #: Settings this runner knows how to build prompts for, in dispatch order.

@@ -24,8 +24,8 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from . import metrics
-from .result_schema import get_field
+from .. import metrics
+from ..result_schema import get_field
 
 
 # ---------------------------------------------------------------------------

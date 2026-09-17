@@ -19,18 +19,18 @@ ordering" holds by construction rather than by resemblance.
 
 | File | Purpose | Output |
 | ---- | ------- | ------ |
-| `run_S11_option_position.py` | Query the three slots on FLD / FOLIO. Retries transient failures, excludes content-filter refusals from the denominator, and gates a cell as `complete` only when it is safe to publish. | `results/positional_bias_n500/summary_unknown_{A,B,C}_<dataset>_<model>.json` |
-| `analyze_S11_option_position.py` | Pool the cells, run the paired McNemar tests between positions, and emit the table behind Figure `positional_bias_control.pdf`. | stdout + `results/positional_bias_n500/positional_bias_report.md` |
+| `run_S11_positional_biases.py` | Query the three slots on FLD / FOLIO. Retries transient failures, excludes content-filter refusals from the denominator, and gates a cell as `complete` only when it is safe to publish. | `results/positional_bias_n500/summary_unknown_{A,B,C}_<dataset>_<model>.json` |
+| `analyze_S11_positional_biases.py` | Pool the cells, run the paired McNemar tests between positions, and emit the table behind Figure `positional_bias_control.pdf`. | stdout + `results/positional_bias_n500/positional_bias_report.md` |
 
-`run_S11_option_position.py` also owns the plumbing S1 and S3 borrow — the
+`run_S11_positional_biases.py` also owns the plumbing S1 and S3 borrow — the
 full-dataset loader, the unified True/False/Unknown scheme, and the
 content-filter accounting — so all three settings are scored on one code path.
 
 ## Run
 
 ```bash
-python experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py \
+python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
     --model all --dataset all --positions A B C --full-dataset --unified-labels
 
-python experiments/C4_stable_bias/S11_option_position/analyze_S11_option_position.py
+python experiments/C4_stable_bias/S11_positional_biases/analyze_S11_positional_biases.py
 ```

@@ -28,7 +28,7 @@ invariance test (if only the final token moved, S1 and S2 agree), and over the
 Abstention Inflation subset alone, where S2's rates are the share of
 abstentions whose own reasoning had already settled the question.
 
-    python experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/run_S7_nli_probe.py
+    python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
 """
 import argparse
 import json

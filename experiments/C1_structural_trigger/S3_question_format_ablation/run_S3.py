@@ -47,7 +47,7 @@ from core.prompts import (build_judge_s1_letter_prompt,
 
 # The positional-bias runner owns the letter-space parser, the retry loop and
 # the completion gate; import it by path rather than duplicating ~150 lines.
-_PB_PATH = _REPO / "experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py"
+_PB_PATH = _REPO / "experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py"
 _spec = importlib.util.spec_from_file_location("_pb", _PB_PATH)
 _pb = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_pb)

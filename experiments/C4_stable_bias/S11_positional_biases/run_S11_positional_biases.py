@@ -15,7 +15,7 @@ Outputs:
     results/positional_bias_n500/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
 
 Usage:
-    python experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py \
+    python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
         --model all --positions A B C --full-dataset --unified-labels
 """
 import argparse

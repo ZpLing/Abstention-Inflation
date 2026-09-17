@@ -27,13 +27,13 @@ S8 is a multi-stage pipeline; run the scripts in numeric order.
 
 ```bash
 cd software
-python experiments/C3_late_layer_override/S8_logit_lens_probe/01_download_OLMo3.py
-python experiments/C3_late_layer_override/S8_logit_lens_probe/02_collect_samples.py
-python experiments/C3_late_layer_override/S8_logit_lens_probe/03_run_OLMo_inference.py --variant instruct
-python experiments/C3_late_layer_override/S8_logit_lens_probe/03_run_OLMo_inference.py --variant base
-python experiments/C3_late_layer_override/S8_logit_lens_probe/03_run_OLMo_inference.py --variant rl_zero
-python experiments/C3_late_layer_override/S8_logit_lens_probe/04_compute_logit_lens.py
-python experiments/C3_late_layer_override/S8_logit_lens_probe/05_compute_wrong_prediction_baseline.py
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/01_download_OLMo3.py
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/02_collect_samples.py
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/03_run_OLMo_inference.py --variant instruct
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/03_run_OLMo_inference.py --variant base
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/03_run_OLMo_inference.py --variant rl_zero
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/04_compute_logit_lens.py
+python experiments/C3_later_layer_override/S8_logit_lens_representation_probe/05_compute_wrong_prediction_baseline.py
 ```
 
 Requires a GPU. The plot script `plots/fig_S8_logit_lens.py`

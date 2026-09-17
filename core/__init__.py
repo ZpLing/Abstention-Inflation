@@ -7,6 +7,8 @@ Modules
 -------
 config_loader         YAML config + secrets merging
 data_handler          Thin compatibility wrapper around :mod:`dataset_loader`
+runners/              One runner per setting; everything else here is the
+                      shared infrastructure those runners call into
 dataset_loader        Unified loader for ``software/dataset/<name>.json``
                       (FLD, FLD_unknown, FOLIO, FOLIO_unknown, ARC, MedQA,
                        MMLU, LogiQA)

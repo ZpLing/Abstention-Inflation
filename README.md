@@ -45,8 +45,8 @@ Table 1 comes from S1/S2 (`build_table1_accuracy.py`), Figure 3 from S4
 
 | Setting | What it does | Entry point |
 |---|---|---|
-| **S5** w/o "Unknown" Option Rerun | multi-turn follow-up that removes the option and forces a commitment | `experiments/C2_introspective_gap/S5_without_unknown_rerun/{run,analyze_S5}.py` |
-| **S6** Self-Diagnosis | model attributes its abstention to (A) incapability or (B) truly-Unknown | `experiments/C2_introspective_gap/S6_self_diagnosis/run_S6_self_diagnosis.py` |
+| **S5** w/o "Unknown" Option Rerun | multi-turn follow-up that removes the option and forces a commitment | `experiments/C2_denied_capability/S5_without_unknown_option_rerun/{run,analyze_S5}.py` |
+| **S6** Self-Diagnosis | model attributes its abstention to (A) incapability or (B) truly-Unknown | `experiments/C2_denied_capability/S6_self_diagnosis/run_S6.py` |
 
 S5 is computed by `ABRunner` itself (`run_s5_rerun: true`) and stored in the
 `s5_rerun` block of each summary — there is no separate S5 pass. Figure 4 is
@@ -56,8 +56,8 @@ S5 is computed by `ABRunner` itself (`run_s5_rerun: true`) and stored in the
 
 | Setting | What it does | Entry point |
 |---|---|---|
-| **S7** Reasoning Traces Evaluation | F1 of generated vs annotated traces + DeBERTa NLI probe | `experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/` |
-| **S8** Logit-Lens Representation Probe | OLMo-3-7B Base / Instruct / RL-Zero, 33 layers | `experiments/C3_late_layer_override/S8_logit_lens_probe/` (numbered `01_`…`07_` pipeline) |
+| **S7** Reasoning Traces Evaluation | F1 of generated vs annotated traces + DeBERTa NLI probe | `experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/` |
+| **S8** Logit-Lens Representation Probe | OLMo-3-7B Base / Instruct / RL-Zero, 33 layers | `experiments/C3_later_layer_override/S8_logit_lens_representation_probe/` (numbered `01_`…`07_` pipeline) |
 
 S7 and S8 add no new prompts — both reuse S1 and S2 verbatim.
 Figure 5 = `plot_fig5_S7_trace_invariance.py`, Figure 6 = S8 step `07_`.
@@ -68,7 +68,7 @@ Figure 5 = `plot_fig5_S7_trace_invariance.py`, Figure 6 = S8 step `07_`.
 |---|---|---|
 | **S9** Stability | 3 re-draws at *T*=0.5; Abs Rate on truly-Unknown samples | `experiments/C4_stable_bias/S9_stability/run_S9_{persistence,truly_unknown}.py` |
 | **S10** Factor Analysis | difficulty (FLD step count), temperature, model size, alignment | `experiments/C4_stable_bias/S10_factor_analysis/` |
-| **S11** Positional Biases | the abstain verb moves to slot 1 / 2 / 3 of the S2 prompt | `experiments/C4_stable_bias/S11_option_position/run_S11_option_position.py` |
+| **S11** Positional Biases | the abstain verb moves to slot 1 / 2 / 3 of the S2 prompt | `experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py` |
 
 ### Appendix
 
@@ -164,6 +164,6 @@ back in the current namespace. Old YAML configs keep working too: the legacy
 
 ```bash
 # S5: accuracy once the "Unknown" option is removed (paper §4.2.1, ~64% pooled)
-python experiments/C2_introspective_gap/S5_without_unknown_rerun/analyze_S5.py \
+python experiments/C2_denied_capability/S5_without_unknown_option_rerun/analyze_S5.py \
     --datasets FLD FOLIO
 ```

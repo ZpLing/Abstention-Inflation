@@ -57,9 +57,9 @@ from core.data_handler import DataHandler
 from core.evaluator import Evaluator
 from core.llm_handler import LLMHandler
 
-from . import metrics
+from .. import metrics
 
-from .config_loader import get_block
+from ..config_loader import get_block
 
 
 SUPPLEMENTARY_DATASETS = ("FLD", "FOLIO", "FLD_unknown", "FOLIO_unknown")

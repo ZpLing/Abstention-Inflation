@@ -32,11 +32,11 @@ the Reasoning block of every CoT, and answers two questions:
 
 ```bash
 # F1T (trace quality invariance)
-python experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/compute_F1T.py \
+python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/compute_F1T.py \
     --runs results/<run-name>
 
 # NLI probe (DeBERTa MultiNLI)
-python experiments/C3_late_layer_override/S7_reasoning_trace_evaluation/nli_probe_DeBERTa.py \
+python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/nli_probe_DeBERTa.py \
     --transcripts results/<run-name>
 ```
 
