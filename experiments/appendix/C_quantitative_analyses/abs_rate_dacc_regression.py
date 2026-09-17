@@ -1,93 +1,83 @@
-"""
-T-4A: Abs Rate–ΔAcc scatter regression
-使用 results_summary.txt 中 n=200 池化版干净数据，跑 OLS + Spearman 相关。
-输出：results/analysis/abs_rate_dacc_regression.json
-"""
+"""Abs Rate vs. Delta-Acc regression across every cell of the main table.
 
-import json, os
+One point per (model, dataset): the S2 Abs Rate against the S1->S2 accuracy
+change. The question is whether abstention alone accounts for the accuracy a
+model loses when the option appears, which it does on TFQs and does not on
+4-option MCQs.
+
+Output: results/analysis/abs_rate_dacc_regression.json
+"""
+import glob
+import json
+from pathlib import Path
+
 import numpy as np
 from scipy import stats
 
-# ── 干净数据点（来自 results_summary.txt PART 0，n=200 池化版）────────────────
-# 格式: (model_short, dataset, task_type, Abs Rate, ΔAcc)
-DATA = [
-    # TF — FLD (n=200)
-    ("deepseek", "FLD",   "tf",  0.380, -0.185),
-    ("nano",     "FLD",   "tf",  0.660, -0.280),
-    ("gemini",   "FLD",   "tf",  0.410, -0.175),
-    # TF — FOLIO (n=200)
-    ("deepseek", "FOLIO", "tf",  0.130, -0.080),
-    ("nano",     "FOLIO", "tf",  0.245, -0.145),
-    ("gemini",   "FOLIO", "tf",  0.150, -0.080),
-    # TF — FEVER (deepseek n=250, nano/gemini n=100)
-    ("deepseek", "FEVER", "tf",  0.096, -0.024),
-    ("nano",     "FEVER", "tf",  0.100, -0.060),
-    ("gemini",   "FEVER", "tf",  0.060, -0.050),
-    # MCQ — ARC-Challenge (n=200)
-    ("deepseek", "ARC-C", "mcq", 0.004, +0.032),
-    ("nano",     "ARC-C", "mcq", 0.005, -0.015),
-    ("gemini",   "ARC-C", "mcq", 0.000, -0.005),
-    # MCQ — MedQA (n=200 generic)
-    ("deepseek", "MedQA", "mcq", 0.020, +0.045),
-    ("nano",     "MedQA", "mcq", 0.035, +0.045),
-    ("gemini",   "MedQA", "mcq", 0.015, +0.025),
-]
+ROOT = Path(__file__).resolve().parents[3]
+OUT = ROOT / "results/analysis/abs_rate_dacc_regression.json"
 
-models   = [d[0] for d in DATA]
-datasets = [d[1] for d in DATA]
-types    = [d[2] for d in DATA]
-abs_rate      = np.array([d[3] for d in DATA])
-dAcc     = np.array([d[4] for d in DATA])
+MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
+          ("nano", "gpt-5.4-nano", "GPT-5.4-nano"),
+          ("gemini31", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+TFQ = ["FLD", "FOLIO"]
+MCQ = ["ARC", "MedQA", "MMLU", "LogiQA"]
 
-tf_mask  = np.array([t == "tf"  for t in types])
-mcq_mask = np.array([t == "mcq" for t in types])
+
+def load_points():
+    pts = []
+    for slug, model, label in MODELS:
+        for ds in TFQ + MCQ:
+            if ds in TFQ:
+                path = ROOT / f"results/tfq_n500/{slug}/ab_summary_{ds}_{model}.json"
+            else:
+                path = Path(glob.glob(str(ROOT / f"results/mcq_n500/*/ab_summary_{ds}_{model}.json"))[0])
+            m = json.loads(path.read_text())["metrics"]
+            pts.append({"model": label, "dataset": ds,
+                        "type": "tf" if ds in TFQ else "mcq",
+                        "abs_rate": m["S2"]["abs_rate"],
+                        "d_acc": m["S2"]["label_acc"] - m["S1"]["label_acc"]})
+    return pts
 
 
 def regress(x, y, label):
-    slope, intercept, r, p, se = stats.linregress(x, y)
-    rho, psp = stats.spearmanr(x, y)
-    return {
-        "label":     label,
-        "n":         len(x),
-        "slope":     round(slope, 4),
-        "intercept": round(intercept, 4),
-        "r":         round(r, 4),
-        "r2":        round(r**2, 4),
-        "p_pearson": float(f"{p:.4e}"),
-        "spearman_rho": round(rho, 4),
-        "p_spearman":   float(f"{psp:.4e}"),
-    }
+    slope, intercept, r, p, _se = stats.linregress(x, y)
+    rho, p_rho = stats.spearmanr(x, y)
+    return {"label": label, "n": len(x), "slope": round(slope, 4),
+            "intercept": round(intercept, 4), "r": round(r, 4),
+            "r2": round(r ** 2, 4), "p_pearson": float(f"{p:.4e}"),
+            "spearman_rho": round(rho, 4), "p_spearman": float(f"{p_rho:.4e}")}
 
 
-results = {
-    "all":  regress(abs_rate,          dAcc,          "All (TF+MCQ)"),
-    "tf":   regress(abs_rate[tf_mask], dAcc[tf_mask], "TF only"),
-    "mcq":  regress(abs_rate[mcq_mask],dAcc[mcq_mask],"MCQ only"),
-    "data_points": [
-        {"model": m, "dataset": ds, "type": t, "abs_rate": a, "dAcc": d}
-        for m, ds, t, a, d in zip(models, datasets, types, abs_rate.tolist(), dAcc.tolist())
-    ]
-}
+def main():
+    pts = load_points()
+    x = np.array([p["abs_rate"] for p in pts])
+    y = np.array([p["d_acc"] for p in pts])
+    tf = np.array([p["type"] == "tf" for p in pts])
 
-# ── 打印摘要 ─────────────────────────────────────────────────────────────────
-print("=" * 65)
-print("Abs Rate – ΔAcc Regression Analysis")
-print("=" * 65)
-for key in ("all", "tf", "mcq"):
-    r = results[key]
-    print(f"\n[{r['label']}]  n={r['n']}")
-    print(f"  OLS slope={r['slope']:+.4f}  intercept={r['intercept']:+.4f}")
-    print(f"  Pearson r={r['r']:+.4f}  R²={r['r2']:.4f}  p={r['p_pearson']:.2e}")
-    print(f"  Spearman ρ={r['spearman_rho']:+.4f}  p={r['p_spearman']:.2e}")
+    groups = [regress(x, y, "All (TFQ+MCQ)"),
+              regress(x[tf], y[tf], "TFQ only"),
+              regress(x[~tf], y[~tf], "MCQ only")]
 
-print("\n── Per-point detail ──────────────────────────────────────────")
-print(f"{'Model':<10} {'Dataset':<8} {'Type':<5} {'Abs Rate':>7} {'ΔAcc':>8}")
-for pt in results["data_points"]:
-    print(f"{pt['model']:<10} {pt['dataset']:<8} {pt['type']:<5} {pt['Abs Rate']:>7.1%} {pt['dAcc']:>+8.1%}")
+    print("=" * 65)
+    print("Abs Rate - Delta Acc Regression")
+    print("=" * 65)
+    for g in groups:
+        print(f"\n[{g['label']}]  n={g['n']}")
+        print(f"  OLS slope={g['slope']:+.4f}  intercept={g['intercept']:+.4f}")
+        print(f"  Pearson r={g['r']:+.4f}  R2={g['r2']:.4f}  p={g['p_pearson']:.3g}")
+        print(f"  Spearman rho={g['spearman_rho']:+.4f}  p={g['p_spearman']:.3g}")
 
-# ── 保存 ─────────────────────────────────────────────────────────────────────
-out = "/Users/timchef/WakenLLM-toolkit/results/analysis/abs_rate_dacc_regression.json"
-os.makedirs(os.path.dirname(out), exist_ok=True)
-with open(out, "w") as f:
-    json.dump(results, f, indent=2)
-print(f"\nSaved → {out}")
+    print("\n-- Per-point detail " + "-" * 44)
+    print(f"{'Model':<24} {'Dataset':<8} {'Type':<5} {'Abs Rate':>9} {'dAcc':>8}")
+    for p in pts:
+        print(f"{p['model']:<24} {p['dataset']:<8} {p['type']:<5} "
+              f"{p['abs_rate']:>8.1%} {p['d_acc']:>+8.1%}")
+
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps({"groups": groups, "points": pts}, indent=2))
+    print(f"\nSaved -> {OUT.relative_to(ROOT)}")
+
+
+if __name__ == "__main__":
+    main()
