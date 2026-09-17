@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 from scipy import stats
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import paired_keep_ids   # noqa: E402

@@ -77,7 +77,6 @@ python reporting/build_table1.py
 │       └── S11_positional_biases/
 ├── configs/                      one YAML per (model, dataset) cell, named
 │                                 for the settings it collects
-├── reporting/                    rebuilds the reported numbers from results/
 └── dataset/                      the eight benchmark files, one schema
 ```
 
@@ -198,18 +197,20 @@ python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biase
     --model all --positions A B C --unified-labels
 ```
 
-### 9. Rebuild the reported numbers
+### 9. Post-hoc analyses
 
 Pure post-processing over `results/`; no API calls.
 
 ```bash
-python reporting/build_table1.py                  # Table 1, all 24 cells
-python reporting/abs_rate_dacc_regression.py      # the App. C regressions
-python -m runners.appendix_remedy_r2_self_consistency   # App. E's R2
+# App. C: Abs Rate against the accuracy each model loses, over Table 1's cells
+python experiments/C1_structural_trigger/abs_rate_dacc_regression.py
+
+# App. E's R2: take the S1 answer wherever S2 abstained
+python -m runners.appendix_remedy_r2_self_consistency
 ```
 
-Each analysis script under `experiments/` prints the numbers for its own
-setting; run it with `--help` to see what it takes.
+Each setting's own `analyze_*.py` prints the numbers for that setting; run it
+with `--help` to see what it takes.
 
 ## Labels
 
