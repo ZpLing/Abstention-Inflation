@@ -2,7 +2,7 @@
   "dataset": "FOLIO",
   "task_type": "tf",
   "model": "gpt-5.4-nano",
-  "n_ai_evaluated": 111,
+  "n_abstention_inflation_evaluated": 111,
   "tier_counts": {
     "strict_em": 0,
     "lenient_em": 111,

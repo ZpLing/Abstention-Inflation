@@ -141,7 +141,7 @@ def main():
         by_id = {s.id: s for s in load_judge(ds)}
         for slug, model in CELLS:
             summary = json.loads(
-                (ROOT / f"results/S1_S3_tfq/{slug}/ab_summary_{ds}_{model}.json").read_text(encoding="utf-8"))
+                (ROOT / f"results/S1_S3_tfq/{slug}/{ds}_{model}.json").read_text(encoding="utf-8"))
             items = [s for s in summary["per_sample"]
                      if s["id"] in by_id and by_id[s["id"]].answer_idx in GOLD_OF_IDX]
             n_ai = sum(1 for s in items if s.get("pred_s2") == "UNKNOWN")
@@ -196,7 +196,7 @@ def main():
                 metrics[setting] = rates(rs)
                 metrics_ai[setting] = rates([r for r in rs if r["abstention_inflation"]])
 
-            out = OUT_DIR / f"nli_{ds}_{model}.json"
+            out = OUT_DIR / f"{ds}_{model}.json"
             out.write_text(json.dumps({
                 "dataset": ds, "model": model, "nli_model": NLI_MODEL,
                 "mode": args.mode,

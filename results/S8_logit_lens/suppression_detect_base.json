@@ -1,22 +1,22 @@
 {
   "checkpoint": "base",
-  "air": {
+  "abstention_inflation": {
     "n": 112,
     "early_logit_gap_mean": -2.42397734948567,
     "flip_rate": 1.0,
     "flip_layer_median": 25.0,
     "flip_layer_mean": 25.0
   },
-  "non_air": {
+  "non_abstention_inflation": {
     "n": 188,
     "early_logit_gap_mean": -2.42376753604634,
     "flip_rate": 1.0
   },
-  "car": {
+  "correct_abstention": {
     "n": 132,
     "early_rank_unknown_mean": 80909.00284090909
   },
-  "non_car": {
+  "non_correct_abstention": {
     "n": 168,
     "early_rank_unknown_mean": 81057.17559523809
   },

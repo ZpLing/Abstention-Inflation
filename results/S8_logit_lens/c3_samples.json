@@ -1,5 +1,5 @@
 {
-  "ai_samples": [
+  "abstention_inflation_samples": [
     {
       "id": "FLD_0000",
       "proof_label": "__PROVED__",
@@ -1009,7 +1009,7 @@
       "sample_type": "ai"
     }
   ],
-  "car_samples": [
+  "correct_abstention_samples": [
     {
       "id": "FLD_0002",
       "proof_label": "__UNKNOWN__",
@@ -2199,7 +2199,7 @@
       "sample_type": "CAR"
     }
   ],
-  "car_balanced": [
+  "correct_abstention_balanced": [
     {
       "id": "FLD_0002",
       "proof_label": "__UNKNOWN__",
@@ -3210,7 +3210,7 @@
     }
   ],
   "stats": {
-    "n_ai": 112,
+    "n_abstention_inflation": 112,
     "n_car": 132,
     "n_car_balanced": 112
   }

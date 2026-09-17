@@ -1,7 +1,7 @@
 {
   "model": "deepseek-v4-flash",
   "dataset": "FLD",
-  "n_ai": 212,
+  "n_abstention_inflation": 212,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.5471698113207547,

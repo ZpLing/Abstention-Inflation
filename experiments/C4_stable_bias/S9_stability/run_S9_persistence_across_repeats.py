@@ -7,9 +7,9 @@ not sampling lottery.
 
 Usage:
     python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-        --summary results/S1_S3_tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
+        --summary results/S1_S3_tfq/nano/FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-        --out results/S9_persistence/s9_persistence_FLD_gpt-5.4-nano.json
+        --out results/S9_persistence/FLD_gpt-5.4-nano.json
 """
 import argparse
 import asyncio
@@ -149,7 +149,7 @@ async def main():
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps({
         "model": args.model, "dataset": args.dataset,
-        "n_ai": n, "n_repeats": args.n_repeats, "temperature": args.temperature,
+        "n_abstention_inflation": n, "n_repeats": args.n_repeats, "temperature": args.temperature,
         "full_persistence": full_persist / n,
         "avg_persistence": avg_persist,
         "n_unknown_distribution": {str(k): v for k, v in dist.items()},

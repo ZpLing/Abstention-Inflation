@@ -3,7 +3,7 @@
 Inputs:
   T=0.0 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
                   — pred_s2 == "UNKNOWN" indicates abstain
-  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_temperature_<model>/ab_summary_<DS>_<model>_T<t>.json
+  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_temperature_<model>/<DS>_<model>_T<t>.json
 
 Outputs:
   results/analysis/temperature_sweep_summary.json
@@ -35,14 +35,14 @@ def load_w0_per_sample(ds):
     contrast below is per item. An earlier version pooled two deepseek batches
     from a different collection round, which is a different sample.
     """
-    path = ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_T0p0.json"
+    path = ROOT / f"results/{OUT_DIR_OF[MODEL]}/{ds}_{MODEL}_T0p0.json"
     rows = json.loads(path.read_text()).get("per_sample", [])
     return {r["id"]: r["pred_s2"] for r in rows}
 
 
 def load_temp_per_sample(t, ds):
     t_tag = f"T{t:.1f}".replace(".", "p")
-    p = ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_{t_tag}.json"
+    p = ROOT / f"results/{OUT_DIR_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json"
     s = json.loads(p.read_text())
     return {ps["id"]: ps.get("pred_s2", ps.get("pred")) for ps in s["per_sample"]}
 
@@ -92,7 +92,7 @@ def main():
     for ds in DATASETS:
         # Get sample IDs from any T>0 cell (they share IDs)
         t_tag = f"T{0.3:.1f}".replace(".", "p")
-        ref = json.loads((ROOT / f"results/{OUT_DIR_OF[MODEL]}/ab_summary_{ds}_{MODEL}_{t_tag}.json").read_text())
+        ref = json.loads((ROOT / f"results/{OUT_DIR_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json").read_text())
         sample_ids = [ps["id"] for ps in ref["per_sample"]]
         # answer_idx map
         ans_by_id = {ps["id"]: ps["answer_idx"] for ps in ref["per_sample"]}
@@ -109,7 +109,7 @@ def main():
                (ans_by_id[sid] == 1 and w0.get(sid) == "B")
         )
         cells[(ds, 0.0)] = {
-            "n": n0, "n_ai": n_ai_0,
+            "n": n0, "n_abstention_inflation": n_ai_0,
             "abs_rate": n_ai_0 / n0 if n0 else 0,
             "acc": acc_correct_0 / n0 if n0 else 0,
             "pred_by_id": w0_aligned,
@@ -126,7 +126,7 @@ def main():
                    (ans_by_id[sid] == 1 and pred_aligned.get(sid) == "B")
             )
             cells[(ds, t)] = {
-                "n": n, "n_ai": n_ai,
+                "n": n, "n_abstention_inflation": n_ai,
                 "abs_rate": n_ai / n if n else 0,
                 "acc": acc_correct / n if n else 0,
                 "pred_by_id": pred_aligned,
@@ -138,7 +138,7 @@ def main():
     for ds in DATASETS:
         for t in TEMPS:
             c = cells[(ds, t)]
-            print(f"{ds:8s} {t:>4.1f} {c['n']:>4} {c['n_ai']:>6} {c['abs_rate']:>7.1%} {c['acc']:>7.1%}")
+            print(f"{ds:8s} {t:>4.1f} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>7.1%} {c['acc']:>7.1%}")
         print()
 
     # Paired McNemar T=0 vs each T

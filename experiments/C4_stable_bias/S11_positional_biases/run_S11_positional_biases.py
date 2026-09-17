@@ -12,7 +12,7 @@ own S2 ordering rather than a look-alike, and the model keeps answering with a
 verb. The slot letters name the position; they are never shown to the model.
 
 Outputs:
-    results/S11_positional_bias/summary_unknown_{A,B,C}_{DS}_{MODEL}.json
+    results/S11_positional_bias/{DS}_{MODEL}_pos{A,B,C}.json
 
 Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
@@ -181,7 +181,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
                    unified_labels: bool = False,
                    max_retries: int = 3):
     out_dir = OUT_DIR_500
-    out_path = out_dir / f"summary_unknown_{unknown_position}_{dataset}_{model_name}.json"
+    out_path = out_dir / f"{dataset}_{model_name}_pos{unknown_position}.json"
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.

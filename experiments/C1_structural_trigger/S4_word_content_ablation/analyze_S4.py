@@ -43,13 +43,13 @@ def load_w1_per_sample(ds):
     Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
-    path = ROOT / f"results/S1_S3_tfq/dsv4flash/ab_summary_{ds}_{MODEL}.json"
+    path = ROOT / f"results/S1_S3_tfq/dsv4flash/{ds}_{MODEL}.json"
     ab = json.loads(path.read_text())
     return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 
 
 def load_wording_per_sample(w, ds):
-    p = ROOT / f"results/S4_synonyms/summary_{w}_{ds}_{MODEL}.json"
+    p = ROOT / f"results/S4_synonyms/{ds}_{MODEL}_{w}.json"
     s = json.loads(p.read_text())
     return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
 
@@ -106,7 +106,7 @@ def random_word_half():
     worst, every = [], []
     for model, label in RPC_MODELS:
         for ds in DATASETS:
-            path = RPC / f"rpc_{ds}_{model}.json"
+            path = RPC / f"{ds}_{model}.json"
             if not path.exists():
                 print(f"{label:<24} {ds:<7} (missing)")
                 continue
@@ -138,7 +138,7 @@ def main():
         # W1 from main exp
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
-        w2_path = ROOT / f"results/S4_synonyms/summary_W2_{ds}_{MODEL}.json"
+        w2_path = ROOT / f"results/S4_synonyms/{ds}_{MODEL}_W2.json"
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
         # W1 restricted to these IDs
@@ -147,7 +147,7 @@ def main():
         n_ai_w1 = sum(1 for v in w1_pred_aligned.values() if v == "UNKNOWN")
         cells[(ds, "W1")] = {
             "n": n_w1,
-            "n_ai": n_ai_w1,
+            "n_abstention_inflation": n_ai_w1,
             "abs_rate": n_ai_w1 / n_w1 if n_w1 else 0,
             "pred_by_id": w1_pred_aligned,
         }
@@ -159,7 +159,7 @@ def main():
             n_ai = sum(1 for v in pred_aligned.values() if v == "UNKNOWN")
             cells[(ds, w)] = {
                 "n": n,
-                "n_ai": n_ai,
+                "n_abstention_inflation": n_ai,
                 "abs_rate": n_ai / n if n else 0,
                 "pred_by_id": pred_aligned,
             }
@@ -170,7 +170,7 @@ def main():
     for ds in DATASETS:
         for w in WORDINGS:
             c = cells[(ds, w)]
-            print(f"{ds:8s} {w:5s} {c['n']:>4} {c['n_ai']:>6} {c['abs_rate']:>7.1%}  {WORDING_TEXTS[w]}")
+            print(f"{ds:8s} {w:5s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>7.1%}  {WORDING_TEXTS[w]}")
         print()
 
     # Paired McNemar W1 vs each Wi

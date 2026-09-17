@@ -2,7 +2,7 @@
 
 Runs W2-W5 × {FLD, FOLIO} × the full 500 samples for each model.
 
-Output: results/S4_synonyms/summary_{W}_{DS}_{MODEL}.json
+Output: results/S4_synonyms/{DS}_{MODEL}_{W}.json
 """
 import asyncio
 import json
@@ -32,24 +32,24 @@ MODELS = [
         "name": "gpt-5.4-nano",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
         "sources": {
-            "FLD":   ["tfq/nano/ab_summary_FLD_gpt-5.4-nano.json"],
-            "FOLIO": ["tfq/nano/ab_summary_FOLIO_gpt-5.4-nano.json"],
+            "FLD":   ["tfq/nano/FLD_gpt-5.4-nano.json"],
+            "FOLIO": ["tfq/nano/FOLIO_gpt-5.4-nano.json"],
         },
     },
     {
         "name": "gemini-3.1-flash-lite",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
         "sources": {
-            "FLD":   ["tfq/gemini31/ab_summary_FLD_gemini-3.1-flash-lite.json"],
-            "FOLIO": ["tfq/gemini31/ab_summary_FOLIO_gemini-3.1-flash-lite.json"],
+            "FLD":   ["tfq/gemini31/FLD_gemini-3.1-flash-lite.json"],
+            "FOLIO": ["tfq/gemini31/FOLIO_gemini-3.1-flash-lite.json"],
         },
     },
     {
         "name": "deepseek-v4-flash",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
         "sources": {
-            "FLD":   ["tfq/dsv4flash/ab_summary_FLD_deepseek-v4-flash.json"],
-            "FOLIO": ["tfq/dsv4flash/ab_summary_FOLIO_deepseek-v4-flash.json"],
+            "FLD":   ["tfq/dsv4flash/FLD_deepseek-v4-flash.json"],
+            "FOLIO": ["tfq/dsv4flash/FOLIO_deepseek-v4-flash.json"],
         },
     },
 ]

@@ -8,14 +8,14 @@ label is derived from S4 behavior. So it doesn't fit the unified
 
 What this runner does:
     1. For each (dataset, model) tuple, read the ABRunner summary JSON
-       at `results/ab/ab_summary_<dataset>_<model>.json`.
+       at `results/ab/<dataset>_<model>.json`.
     2. Identify Abstention Inflation samples (S2 == UNKNOWN) and the corresponding raw_s2 +
        prior S2 prompt history (re-built from sample data).
     3. Build S5 self-diagnosis prompts (verb-coded for Judge, letter-coded
        for MCQ) and query the model.
     4. Parse A/B responses; cross with S4 correctness flags from the same
        summary; compute SelfDiagnosisAcc + 4-bucket cross-tab.
-    5. Write `results/S6_self_diagnosis/<model>/s5_<dataset>_<model>.json`.
+    5. Write `results/S6_self_diagnosis/<model>/<dataset>_<model>.json`.
 
 Key design: this runner does NOT re-query S1/S2/S3 — it consumes existing
 ABRunner output. So running S5 is cheap (~|Abs Rate| extra calls per dataset).
@@ -156,7 +156,7 @@ class S6SelfDiagnosisRunner:
 
     async def _run_one_dataset(self, ds_name: str):
         model = self.config.get("model_name", "unknown").replace("/", "_")
-        in_path = self.s1_s2_results_dir / f"ab_summary_{ds_name}_{model}.json"
+        in_path = self.s1_s2_results_dir / f"{ds_name}_{model}.json"
         if not in_path.exists():
             print(f"  [skip] missing {in_path} — run main ab_experiment first.")
             return
@@ -243,7 +243,7 @@ class S6SelfDiagnosisRunner:
             "dataset":           ds_name,
             "task_type":         task_type,
             "model":             self.config.get("model_name"),
-            "n_ai_evaluated":   len(ai_records),
+            "n_abstention_inflation_evaluated":   len(ai_records),
             "tier_counts":       _tier_breakdown(tiers_s5),
             "metrics": {
                 "self_diagnosis_acc": sd_acc,
@@ -261,7 +261,7 @@ class S6SelfDiagnosisRunner:
                 for k, rec in enumerate(ai_records)
             ],
         }
-        out_path = self.results_dir / f"s5_{ds_name}_{self.config.get('model_name','unknown').replace('/','_')}.json"
+        out_path = self.results_dir / f"{ds_name}_{self.config.get('model_name','unknown').replace('/','_')}.json"
         self.data_handler.save_json(out, out_path)
         print(f"  [Result] SelfDiagAcc={sd_acc:.2%}  SelfDiagF1={sd_f1:.2%}")
         print(f"  [Buckets] {buckets}")

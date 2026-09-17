@@ -2,7 +2,7 @@
   "dataset": "FLD",
   "task_type": "tf",
   "model": "gemini-3.1-flash-lite",
-  "n_ai_evaluated": 192,
+  "n_abstention_inflation_evaluated": 192,
   "tier_counts": {
     "strict_em": 0,
     "lenient_em": 192,

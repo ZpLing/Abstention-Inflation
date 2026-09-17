@@ -1,7 +1,7 @@
 {
   "model": "deepseek-v4-flash",
   "dataset": "FOLIO",
-  "n_ai": 97,
+  "n_abstention_inflation": 97,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.6907216494845361,

@@ -63,11 +63,11 @@ def main():
     print(f"CAR samples: {len(car_samples)}  (using {n} balanced)")
 
     output = {
-        "ai_samples":   ai_samples,
-        "car_samples":   car_samples,
-        "car_balanced":  car_balanced,
+        "abstention_inflation_samples":   ai_samples,
+        "correct_abstention_samples":   car_samples,
+        "correct_abstention_balanced":  car_balanced,
         "stats": {
-            "n_ai":         len(ai_samples),
+            "n_abstention_inflation":         len(ai_samples),
             "n_car":         len(car_samples),
             "n_car_balanced": n,
         },

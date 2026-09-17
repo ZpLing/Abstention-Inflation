@@ -1,7 +1,7 @@
 """Effect of adding the Unknown option (S1 → S2) on accuracy, split by task type.
 
 Loads the paired summaries the main table is built from:
-results/S1_S3_tfq/<model>/ and results/S1_S2_mcq/<dataset>_<model>/.
+results/S1_S3_tfq/<model>/ and results/S1_S2_mcq/<model>/.
 For each (model, dataset), computes per-sample (correct_s1, correct_s2) pairs.
 Groups by MCQ vs TF, then runs:
   - McNemar's test (within-group pooled): p-value for accuracy change
@@ -20,6 +20,8 @@ from typing import List, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
+from infra.result_schema import is_paired_summary  # noqa: E402
+
 
 _BAD = {"UNKNOWN", "UNPARSEABLE", None, ""}
 
@@ -37,7 +39,7 @@ def is_correct(pred: str, answer_idx: int) -> bool:
 def load_summaries(results_dirs: List[Path]) -> List[dict]:
     summaries = []
     for d in results_dirs:
-        for path in sorted(d.glob("ab_summary_*.json")):
+        for path in [q for q in sorted(d.glob("*.json")) if is_paired_summary(q)]:
             try:
                 with open(path) as f:
                     data = json.load(f)

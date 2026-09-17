@@ -31,7 +31,7 @@ Workflow per dataset
 6. Compute (Acc, Abs Rate, macro-F1) per setting. Whether the reasoning
    itself reached a conclusion is S7's question, answered by the NLI probe
    over the stored raw text rather than by a similarity score here.
-7. Write ``ab_summary_<dataset>_<model>.json`` in the canonical schema
+7. Write ``<dataset>_<model>.json`` in the canonical schema
    (:mod:`infra.result_schema`).
 """
 import asyncio
@@ -120,7 +120,7 @@ class ABRunner:
 
     def _summary_path(self, ds_name: str) -> Path:
         model = str(self.config.get("model_name", "model")).replace("/", "_")
-        return self.results_dir / f"ab_summary_{ds_name}_{model}.json"
+        return self.results_dir / f"{ds_name}_{model}.json"
 
     def _apply_sample_limit(self, ds_name: str, samples: list) -> list:
         """Honour ``sample_limits[ds_name]`` + ``sample_offsets[ds_name]`` from YAML.

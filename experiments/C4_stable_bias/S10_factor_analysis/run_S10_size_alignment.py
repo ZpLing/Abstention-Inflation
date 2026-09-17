@@ -5,7 +5,7 @@ then aggregates abs_rate_s2 / abs_rate_s3 / Acc per (dataset, model) into a sing
 
 No new prompts, parsers, or metrics — S10(c) is the same S1/S2 logic run across
 a model gradient. Each per-model run produces the standard
-`results/ab/ab_summary_<dataset>_<model>.json`; this runner reads them back
+`results/ab/<dataset>_<model>.json`; this runner reads them back
 afterward and writes the cross-model aggregate.
 
 Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
@@ -121,7 +121,7 @@ class ModelSweepRunner:
         for entry in self.models:
             model_name = entry["name"] if isinstance(entry, dict) else str(entry)
             safe_model = model_name.replace("/", "_")
-            path = self.ab_results_dir / f"ab_summary_{dataset}_{safe_model}.json"
+            path = self.ab_results_dir / f"{dataset}_{safe_model}.json"
             if not path.exists():
                 print(f"  [warn] missing summary for {model_name} on {dataset}: {path}")
                 continue

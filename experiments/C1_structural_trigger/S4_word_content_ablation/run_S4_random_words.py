@@ -335,7 +335,7 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
     }
 
     safe_model = model_name.replace("/", "_")
-    out_path = results_dir / f"rpc_{ds_name}_{safe_model}.json"
+    out_path = results_dir / f"{ds_name}_{safe_model}.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
     print(f"  Saved → {out_path}")
@@ -348,7 +348,7 @@ async def run_experiment(config: Dict):
     n_per_class = rpc_cfg.get("n_per_class", 100)
     results_dir = Path(rpc_cfg.get("results_dir", "results/S4_random_words"))
     results_dir.mkdir(parents=True, exist_ok=True)
-    # Optional: {FLD: "path/to/rpc_FLD_*.json", FOLIO: "..."} — skips S1/C1 queries
+    # Optional: {FLD: "path/to/FLD_*.json", FOLIO: "..."} — skips S1/C1 queries
     baseline_files: Dict[str, str] = rpc_cfg.get("baseline_result_files", {})
 
     data_handler = DataHandler(config)

@@ -42,7 +42,7 @@ legacy name                what it holds                   paper term
 ``sample_type: "non_AIR"`` an item that did not abstain    ``"non_ai"``
 =========================  ==============================  ==================
 
-Read every ``ab_summary_*.json`` through :func:`load_summary` and you get the
+Read every ``*.json`` through :func:`load_summary` and you get the
 canonical namespace regardless of when the file was written. For files read
 with a bare ``json.load``, :func:`get_field` and :func:`canonical_sample_type`
 resolve the legacy spellings individually.
@@ -176,7 +176,7 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
 
     n_ai = get_field(summary, "n_abstention_inflation")
     if n_ai is not None:
-        out["n_abstention_inflation"] = n_ai
+        out['n_abstention_inflation'] = n_ai
         out.pop("n_air_s2", None)
         out.pop("n_air", None)
 
@@ -202,8 +202,41 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
+def is_paired_summary(path: str | Path) -> bool:
+    """True when ``path`` is a paired S1/S2 summary in the canonical schema.
+
+    Decided by the ``schema`` field the writer stamps into the file, not by the
+    file name: the name says which cell a file holds, the schema says how to
+    read it, and only the second is a contract. Reads the head of the file so a
+    30 MB summary costs the same as a small one.
+    """
+    path = Path(path)
+    if path.suffix != ".json":
+        return False
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            head = f.read(4096)
+    except OSError:
+        return False
+    if f'"{SCHEMA_VERSION}"' in head:
+        return True
+    if '"schema"' in head:          # some other schema, decided
+        return False
+    try:                            # schema past the head, or absent
+        with path.open("r", encoding="utf-8") as f:
+            doc = json.load(f)
+        return isinstance(doc, dict) and doc.get("schema") == SCHEMA_VERSION
+    except (OSError, ValueError):
+        return False
+
+
+def find_paired_summaries(root: str | Path):
+    """Every paired S1/S2 summary under ``root``, in sorted path order."""
+    return [p for p in sorted(Path(root).rglob("*.json")) if is_paired_summary(p)]
+
+
 def load_summary(path: str | Path) -> Dict[str, Any]:
-    """Load an ``ab_summary_*.json`` and normalize it to the canonical namespace."""
+    """Load a paired S1/S2 summary and normalize it to the canonical namespace."""
     with Path(path).open("r", encoding="utf-8") as f:
         return normalize(json.load(f))
 

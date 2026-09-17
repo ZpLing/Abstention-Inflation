@@ -158,7 +158,7 @@ async def main() -> None:
                             "endpoint": "api",
                             "use_chat_template": True})
             tag = f"_T{temp}".replace(".", "p")
-            path = OUT_DIR / f"ab_summary_{ds}_{MODEL}{tag}.json"
+            path = OUT_DIR / f"{ds}_{MODEL}{tag}.json"
             path.write_text(json.dumps(summary, indent=2))
             m = summary["metrics"]["S2"]
             err = sum(1 for r in raw_s2 if r.startswith("__API_ERROR__"))

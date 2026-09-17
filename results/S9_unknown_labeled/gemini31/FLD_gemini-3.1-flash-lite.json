@@ -25,9 +25,9 @@
     }
   },
   "metrics": {
-    "CAR_S2": 0.8533333333333334,
-    "CAR_S3": 0.8533333333333334,
-    "CAR_Improvement_S2_to_S3": 0.0,
+    "correct_abstention_s2": 0.8533333333333334,
+    "correct_abstention_s3": 0.8533333333333334,
+    "correct_abstention_improvement_s2_to_s3": 0.0,
     "ForcedCommitmentRate_S1": 0.9966666666666667,
     "POS_rate_S1": 0.37333333333333335,
     "NEG_rate_S1": 0.6233333333333333

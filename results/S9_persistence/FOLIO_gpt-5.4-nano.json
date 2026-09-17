@@ -1,7 +1,7 @@
 {
   "model": "gpt-5.4-nano",
   "dataset": "FOLIO",
-  "n_ai": 111,
+  "n_abstention_inflation": 111,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.5945945945945946,

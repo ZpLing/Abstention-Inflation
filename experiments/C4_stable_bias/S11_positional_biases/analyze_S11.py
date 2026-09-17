@@ -24,7 +24,7 @@ POSITIONS = ["A", "B", "C"]
 
 def load_summary(model_name: str, dataset: str, position: str, result_dir: Path = None):
     result_dir = result_dir or RESULT_DIR
-    path = result_dir / f"summary_unknown_{position}_{dataset}_{model_name}.json"
+    path = result_dir / f"{dataset}_{model_name}_pos{position}.json"
     if path.exists():
         return json.loads(path.read_text())
     return None
@@ -214,7 +214,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--result-dir", default=str(RESULT_DIR),
-        help="Directory of summary_unknown_*.json files "
+        help="Directory of *_pos*.json files "
              "(e.g. results/S11_positional_bias for the 500-sample run).",
     )
     ap.add_argument(
@@ -368,7 +368,7 @@ def main():
         for c in incompatible:
             print(f"    - {c}")
 
-    out_path = result_dir / "positional_bias_summary.json"
+    out_path = result_dir / "summary.json"
     out_path.write_text(json.dumps(
         {"rows": rows, "rebuttal_table": table_rows,
          "incomplete": incomplete, "incompatible": incompatible},
@@ -376,7 +376,7 @@ def main():
     print(f"\nSaved -> {out_path}")
 
     md_path = write_markdown_report(
-        table_rows, incomplete, result_dir / "positional_bias_report.md",
+        table_rows, incomplete, result_dir / "report.md",
         incompatible=incompatible)
     print(f"Saved -> {md_path}")
 

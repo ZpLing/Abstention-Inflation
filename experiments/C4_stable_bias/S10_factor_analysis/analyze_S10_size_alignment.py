@@ -63,7 +63,7 @@ def load_cells(results_dir: Path = RESULTS_DIR):
         for size in SIZES:
             for is_it in (False, True):
                 tag = _tag(size, is_it)
-                path = results_dir / f"ab_summary_{ds}_{tag}.json"
+                path = results_dir / f"{ds}_{tag}.json"
                 if not path.exists():
                     missing.append(f"{ds}/{tag}")
                     continue

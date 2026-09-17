@@ -419,7 +419,7 @@ def main():
             "use_chat_template": bool(args.use_chat_template),
         })
         suffix = "" if args.temperature is None else f"_T{args.temperature}".replace(".", "p")
-        path = out_dir / f"ab_summary_{ds}_{args.model_tag}{suffix}.json"
+        path = out_dir / f"{ds}_{args.model_tag}{suffix}.json"
         path.write_text(json.dumps(summary, indent=2))
         m = summary["metrics"]
         a1 = m["S1"]["label_acc"]

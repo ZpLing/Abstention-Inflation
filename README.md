@@ -151,9 +151,9 @@ done
 
 # the three re-draws, per (model, dataset)
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-    --summary results/S1_S3_tfq/nano/ab_summary_FLD_gpt-5.4-nano.json \
+    --summary results/S1_S3_tfq/nano/FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/S9_persistence/s9_persistence_FLD_gpt-5.4-nano.json
+    --out results/S9_persistence/FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis

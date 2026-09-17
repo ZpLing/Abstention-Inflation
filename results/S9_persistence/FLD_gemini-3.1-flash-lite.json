@@ -1,7 +1,7 @@
 {
   "model": "gemini-3.1-flash-lite",
   "dataset": "FLD",
-  "n_ai": 192,
+  "n_abstention_inflation": 192,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.6979166666666666,

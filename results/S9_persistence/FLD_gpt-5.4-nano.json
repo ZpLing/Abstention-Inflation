@@ -1,7 +1,7 @@
 {
   "model": "gpt-5.4-nano",
   "dataset": "FLD",
-  "n_ai": 344,
+  "n_abstention_inflation": 344,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.7093023255813954,

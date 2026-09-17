@@ -1,7 +1,7 @@
 {
   "model": "gemini-3.1-flash-lite",
   "dataset": "FOLIO",
-  "n_ai": 77,
+  "n_abstention_inflation": 77,
   "n_repeats": 3,
   "temperature": null,
   "full_persistence": 0.7272727272727273,
