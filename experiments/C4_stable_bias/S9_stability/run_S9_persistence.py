@@ -6,11 +6,10 @@ UNKNOWN. Target: >95% persistence → abstain is deterministic policy,
 not sampling lottery.
 
 Usage:
-    python -m scripts.run_reprompting_persistence \
-        --summary results/ab_gpt5_nano/ab_summary_FLD_gpt-5.4-nano.json \
-                  results/ab_nano_batch2/ab_summary_FLD_gpt-5.4-nano.json \
+    python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
+        --summary results/tfq_n500/nano/ab_summary_FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-        --out results/persistence/<model>_<dataset>.json
+        --out results/persistence_n500/s9_persistence_FLD_gpt-5.4-nano.json
 """
 import argparse
 import asyncio

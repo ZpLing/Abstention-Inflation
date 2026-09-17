@@ -77,57 +77,114 @@ C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
 runs a local checkpoint, so neither reaches the gateway. Both take their
 arguments on the command line.
 
-## Paper → code map
+## Running everything
 
-### C1 — the trigger is the structural presence of an extra option (§4.1)
+The API settings come out of `main.py`; the rest own their runner. Every
+command is run from the repo root and writes under `results/`.
 
-| Setting | What it does | Entry point |
-| --- | --- | --- |
-| **S1** Baseline | original label set, no extra option | `core/runners/ab_runner.py` |
-| **S2** "Unknown" Option Added | the manipulation under study | same pass as S1 |
-| **S3** Question Format Ablation | TFQ re-rendered as A/B/C letters | same pass (TFQ only) |
-| **S4** Word Content Ablation | abstain word → synonym or random word | `experiments/C1_structural_trigger/S4_word_content_ablation/` |
+### 1. Main experiments — S1, S2, S3 and the S5 rerun
 
-### C2 — the model denies it can answer, even when it can (§4.2)
+One pass per (model, dataset) cell. S1/S2/S3 and S5 share it because the paper
+compares them per item, and scoring them from separate runs would compare
+different samples.
 
-| Setting | What it does | Entry point |
-| --- | --- | --- |
-| **S5** w/o "Unknown" Option Rerun | remove the option, force a commitment | `core/runners/ab_runner.py` (`run_s5_rerun`) |
-| **S6** Self-Diagnosis | the model attributes its own abstention | `experiments/C2_deny_yet_capable/S6_self_diagnosis/` |
+```bash
+for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
+  python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_n500_$m.yaml
+  for ds in ARC MedQA MMLU LogiQA; do
+    python main.py --config configs/C1_structural_trigger/S1_S2_${ds}_n500_$m.yaml
+  done
+done
+```
 
-### C3 — a later-layer output override (§4.3)
+### 2. S4 — word content ablation
 
-| Setting | What it does | Entry point |
-| --- | --- | --- |
-| **S7** Reasoning Traces Evaluation | DeBERTa NLI probe over whole traces | `experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/` |
-| **S8** Logit-Lens Representation Probe | OLMo-3-7B, 33 layers, steps `01_`…`06_` | `experiments/C3_later_layer_override/S8_logit_lens_representation_probe/` |
+```bash
+python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_synonyms_all_models.py
+for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
+  python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \
+      --config configs/C1_structural_trigger/S4_random_words_$m.yaml
+done
+```
 
-### C4 — a stable bias installed by instruction tuning (§4.4)
+### 3. S6 — self-diagnosis
 
-| Setting | What it does | Entry point |
-| --- | --- | --- |
-| **S9** Stability | 3 re-draws at default temperature; truly-Unknown mirror | `experiments/C4_stable_bias/S9_stability/` |
-| **S10** Factor Analysis | difficulty, temperature, model size, alignment | `experiments/C4_stable_bias/S10_factor_analysis/` |
-| **S11** Positional Biases | the abstain verb moves to slot 1 / 2 / 3 | `experiments/C4_stable_bias/S11_positional_biases/` |
+```bash
+for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
+  python main.py --config configs/C2_deny_yet_capable/S6_n500_$m.yaml
+done
+```
 
-### Appendix
+### 4. S7 — reasoning traces
 
-| Appendix | Contents | Location |
-| --- | --- | --- |
-| C Additional Quantitative Analyses | Abs Rate–ΔAcc regression over the 18 cells of Table 1 | `reporting/abs_rate_dacc_regression.py` |
-| E Mitigation | calibration suffix, stimulation + reflection | `core/runners/appendix_mitigation_runner.py` |
-| E Remedy R2 | contrastive self-consistency override (post-hoc, no API calls) | `core/runners/appendix_remedy_r2_self_consistency.py` |
+Reads the traces step 1 stored; needs a GPU but no API key.
 
-## Reproducing the reported numbers
+```bash
+python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
+```
 
-`reporting/` rebuilds what the paper states, from `results/` alone. Nothing
-there issues an API call.
+### 5. S8 — logit lens
 
-| Script | Produces |
-| --- | --- |
-| `build_table1.py` | Table 1 — 24 cells, three metric rows per model |
-| `abs_rate_dacc_regression.py` | the App. C regressions over the same 18 cells |
-| `audit_parser_provenance.py` | which parser tier each reported label came from |
+Six numbered steps on a local OLMo-3-7B checkout.
+
+```bash
+cd experiments/C3_later_layer_override/S8_logit_lens_representation_probe
+python 01_download_OLMo3.py                 # or point --model_path at your own
+python 02_collect_samples.py
+python 03_run_OLMo_inference.py  --model_path <checkpoint>
+python 03b_run_OLMo_base_baseline.py --model_path <checkpoint>
+python 04_compute_logit_lens.py
+python 05_compute_wrong_prediction_baseline.py --model_path <checkpoint>
+python 06_suppression_detect.py
+```
+
+### 6. S9 — stability
+
+```bash
+for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
+  python main.py --config configs/C4_stable_bias/S9_truly_unknown_n300_$m.yaml
+done
+
+# the three re-draws, per (model, dataset)
+python experiments/C4_stable_bias/S9_stability/run_S9_persistence.py \
+    --summary results/tfq_n500/nano/ab_summary_FLD_gpt-5.4-nano.json \
+    --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
+    --out results/persistence_n500/s9_persistence_FLD_gpt-5.4-nano.json
+```
+
+### 7. S10 — factor analysis
+
+```bash
+# temperature, on the two checkpoints whose temperature the endpoint applies
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature_api.py \
+    --model gemini-3.1-flash-lite
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
+    --model_path <olmo-instruct> --out_dir results/s10_temp_olmo_topk20
+
+# size and alignment, four Gemma sizes x {base, it}
+python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_hf_sweep.py \
+    --model_path <gemma-checkpoint> --out_dir results/s10_gemma_n500
+```
+
+### 8. S11 — positional biases
+
+```bash
+python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
+    --model all --positions A B C --unified-labels
+```
+
+### 9. Rebuild the reported numbers
+
+Pure post-processing over `results/`; no API calls.
+
+```bash
+python reporting/build_table1.py                  # Table 1, all 24 cells
+python reporting/abs_rate_dacc_regression.py      # the App. C regressions
+python -m core.runners.appendix_remedy_r2_self_consistency   # App. E's R2
+```
+
+Each analysis script under `experiments/` prints the numbers for its own
+setting; run it with `--help` to see what it takes.
 
 ### One denominator
 
@@ -137,13 +194,6 @@ dropped only when a setting returned nothing usable — an exhausted retry, a
 content-filter refusal, a decoding collapse. A response that declines to commit
 is kept, because refusing to commit is the behaviour under study, not a missing
 measurement.
-
-### One source per setting
-
-Read the canonical summary for a setting, not a second run of the same prompt.
-The S11 slot-C cell reproduces `build_judge_s2_prompt` byte for byte, but it is
-a separate run: an analysis that pairs it with a standalone S1 sweep will
-disagree with Table 1.
 
 ## Datasets
 

@@ -20,7 +20,7 @@ False-labeled).
 Usage::
 
     python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \\
-        --config configs/C1_structural_trigger/S4_random_words.yaml
+        --config configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml
 """
 import argparse
 import asyncio
