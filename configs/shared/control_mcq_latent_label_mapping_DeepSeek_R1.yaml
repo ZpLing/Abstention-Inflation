@@ -1,0 +1,16 @@
+experiment_name: "mcq_latent_label_mapping_deepseek"
+model_name: "deepseek-r1-distill-llama-8b"
+override_model: true
+max_workers: 100
+
+run_tasks: []
+
+mcq_latent_label_mapping:
+  datasets:
+    - "ARC-Challenge_250"
+    - "MedQA"
+  n_samples: 200
+  results_dir: "results/mcq_latent_label_mapping"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

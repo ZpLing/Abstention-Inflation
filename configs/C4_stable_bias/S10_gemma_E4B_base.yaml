@@ -1,0 +1,31 @@
+# §5.2 Gemma size+IT sweep — gemma-4-E4B (base)
+experiment_name: "gemma_e4b_base_s52"
+override_model: true
+model_name: "gemma-4-E4B"
+dataset_name: "FLD"
+max_workers: 32
+
+run_tasks: ['s10_model_sweep']
+
+s10_model_sweep:
+  models:
+    - name: "gemma-4-E4B"
+      api_key: "EMPTY"
+      base_url: "http://<VLLM_HOST>:8081/v1"
+  datasets: ["FLD", "FOLIO"]
+  ab_results_dir: "results/gemma_it_vs_base"
+  results_dir:    "results/gemma_it_vs_base"
+
+main_experiment:
+  datasets: ["FLD", "FOLIO"]
+  sample_limits:
+    FLD:   {proved: 100, disproved: 100}
+    FOLIO: {proved: 100, disproved: 100}
+  settings: ["S1", "S2"]
+  run_s5_rerun: false
+  results_dir: "results/gemma_it_vs_base"
+  judge:
+    enabled: false
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

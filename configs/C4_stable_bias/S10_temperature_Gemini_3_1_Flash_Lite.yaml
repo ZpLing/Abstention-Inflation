@@ -1,0 +1,19 @@
+experiment_name: "temp_sweep_gemini"
+model_name: "gemini-2.5-flash-lite"
+override_model: true
+max_workers: 20
+
+temperature_sweep:
+  temperatures: [1.5, 2.0]
+  datasets: ["FLD", "FOLIO"]
+  n_samples: 200
+  sample_sources:
+    FLD:
+      - "ab_gemini_flash_lite/ab_summary_FLD_gemini-2.5-flash-lite.json"
+      - "ab_gemini_batch2/ab_summary_FLD_gemini-2.5-flash-lite.json"
+    FOLIO:
+      - "ab_gemini_flash_lite/ab_summary_FOLIO_gemini-2.5-flash-lite.json"
+      - "ab_gemini_batch2/ab_summary_FOLIO_gemini-2.5-flash-lite.json"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

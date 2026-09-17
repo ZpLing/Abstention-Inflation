@@ -1,0 +1,23 @@
+experiment_name: "mmlu_gemini"
+model_name: "gemini-2.5-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "MMLU_200"
+  sample_limits:
+    MMLU_200: 200
+  run_s5_rerun: true
+  results_dir: "results/ab_mmlu_gemini"
+  judge:
+    enabled: true
+    model_name: "gemini-2.5-flash-lite"
+    api_key: null
+    base_url: null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

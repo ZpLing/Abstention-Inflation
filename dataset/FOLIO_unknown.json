@@ -1,0 +1,3902 @@
+[
+  {
+    "id": "FOLIO_unknown_0000",
+    "question": "Robert Lewandowski is a star.",
+    "context": "Robert Lewandowski is a striker.\nStrikers are soccer players.\nRobert Lewandowski left Bayern Munchen.\nIf a player leaves a team they no longer play for that team.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0001",
+    "question": "Nelson fought Story at UFC Fight Night.",
+    "context": "UFC Fight Night was a mixed martial arts event held in Sweden.\nAt UFC Fight Night, Sadollah was scheduled to fight Musoke.\nSadollah fought Akiyama at UFC Fight Night.\nMusoke fought Yakovlev at UFC Fight Night.\nJung was injured at UFC Fight Night.\nPeople injured at UFC Fight Night did not fight.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0002",
+    "question": "The Harvard Weekly Book club has legal obligations.",
+    "context": "All business organizations are legal entities.\nAll companies are business organizations.\nAll private companies are companies.\nAll legal entities are created under law. \nAll legal entities have legal obligations.\nIf the Harvard Weekly Book Club is created under law, then it is not a private company.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0003",
+    "question": "Herodicus was born in a city-state.",
+    "context": "Herodicus was a Greek physician, dietician, sophist, and gymnast.\nHerodicus was born in the city of Selymbria.\nSelymbria is a colony of the city-state Megara.\nOne of the tutors of Hippocrates was Herodicus.\nMassages were recommended by Herodicus.\nSome of the theories of Herodicus are considered to be the foundation of sports medicine.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0004",
+    "question": "Moonwatch is a mechanical watch.",
+    "context": "No battery-powered watch is automatic.\nAll digital watches are battery-powered.\nSome mechanical watches are automatic.\nAll smart watches are digital.\nMoonwatch is either a digital watch and an automatic, or it is neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0005",
+    "question": "There exists a SpaceX commercial aircraft.",
+    "context": "The world's only major large passenger aircraft manufacturers are Boeing and Airbus.\nAll American Airlines planes are from the world's major large passenger aircraft manufacturers. \nAirbus made more revenue than Boeing last year.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0006",
+    "question": "If George will not compose, George can not compose.",
+    "context": "If George likes music, he wants to compose.\nIf George has access to a program, he can compose.\nIf George can compose and wants to compose, he will compose.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0007",
+    "question": "No pets are cats.",
+    "context": "All cats are mammals.\nSome pets are not mammals.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0008",
+    "question": "Maggie Friedman developed Witches of East End.",
+    "context": "Maggie Friedman is an American screenwriter and producer.\nMaggie Friedman was the showrunner and executive producer of the lifetime television series Witches of East End.\nWitches of East End is a fantasy-drama series.\nMaggie Friedman produced and developed Eastwick.\nEastwick is a series by ABC.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0009",
+    "question": "David Ha'ivri is a United States citizen.",
+    "context": "David Ha'ivri is a political strategist. \nIf you are born in Israel to at least one Israeli parent, you receive Israeli citizenship at birth. \nDavid Ha'ivri emigrated to the United States from Israel, where he was born to Israeli parents. \nSeveral Zionist leaders have been elected to the Shomron Regional Municipal council. \nDavid Ha'ivri is a Zionist leader.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0010",
+    "question": "Jack is a thing.",
+    "context": "All phones are things.\nAll cell phones are phones. \nAll iPhones are cell phones. \nAll employees are wage earners.\nAll wage earners are human. \nJack is either an employee or a wage earner.\nJack is either a human or a phone.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0011",
+    "question": "CPSC 201 has no prerequisites.",
+    "context": "If a class has prerequisites, the student must take the prerequisites to take the class.\nIf a class has no prerequisites, then the student can take the class\nCPSC 201 and CPSC 223 are prerequisites for CPSC 323.\nIntro Microeconomics is the only prerequisite for Intermediate Microeconomics.\nIntro Geology has no prerequisites.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0012",
+    "question": "A Lamborghini SUV is made in Italy.",
+    "context": "Hermès bags are not made in Italy.\nAll Birkin bags are Hermès bags. \nAll Ferraris are made in Italy. \nAll cars that carry a Ferrari V12 engine are Ferraris. \nAll cars that are made in Maranello carry a Ferrari V12 engine.\nA Lamborghini SUV is not both a Ferrari and made in Maranello. \nA Kelly bag is a Hermès bag, or it is a car that carries a Ferrari V12 engine.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0013",
+    "question": "The National Lobster Hatchery releases animals into the wild.",
+    "context": "The National Lobster Hatchery is a hatchery located in Padstow, England.\nThe National Lobster Hatchery is open to visitors.\nA hatchery is either for profit or for conservation.\nIf a hatchery is for conservation, it might release animals into the wild.\nThe National Lobster Hatchery is not for profit.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0014",
+    "question": "G-910 is not displayed on the homepage.",
+    "context": "All of this brand's products are either produced in China or in the US. \nAll of this brand's products produced in China are labeled. \nAll of this brand's products produced in the US are sold in the US. \nThe products of this brand that are labeled are cheaper.\nAll of this brand's products sold in the US are sold at Walmart. \nAll products of this brand displayed on the homepage are sold at Walmart. \nNone of this brand's products that are returned by customers are sold at Walmart. \nG-910 is a product of this brand, and it is either displayed on the homepage and is cheaper, or it is neither displayed on the homepage nor is it cheaper.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0015",
+    "question": "Cancer researchers tend to use the cancer effect size to determine the relative importance of the genetic alterations that confer selective advantage to cancer cells.",
+    "context": "Cancer biology is finding genetic alterations that confer a selective advantage to cancer cells. \nCancer researchers have frequently ranked the importance of substitutions to cancer growth by the P value.\nP values are thresholds for belief, not metrics of effect.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0016",
+    "question": "The end of a relationship is invigorating",
+    "context": "When something is depressing, it is sad.\nThe end of a relationship is depressing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0017",
+    "question": "Joey is a wild turkey.",
+    "context": "There are six types of wild turkeys: Eastern wild turkey, Osceola wild turkey, Gould’s wild turkey, Merriam’s wild turkey, Rio Grande wild turkey, and Ocellated wild turkey.\nTom is not an Eastern wild turkey.\nTom is not an Osceola wild turkey.\nTom is not a Gould's wild turkey.\nTom is neither a Merriam's wild turkey nor a Rio Grande wild turkey.\nTom is a wild turkey.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0018",
+    "question": "The LaLaurie House is a terrifying building on Halloween.",
+    "context": "There are no mansion houses in an urban area.\nAll skyscrapers are in urban areas.\nEvery creepy haunted house is a mansion house.\nEvery terrifying building on Halloween is a creepy haunted house.\nThe LaLaurie House is a creepy haunted house or a terrifying building on Halloween.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0019",
+    "question": "Baku is southeast of Shafaq-Asiman.",
+    "context": "Shafaq-Asiman is a large complex of offshore geological structures in the Caspian Sea.\nBaku is northwest of Shafaq-Asiman.\nIf place A is northwest of place B, then place B is southeast of place A.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0020",
+    "question": "Hulu is capable of abstract thoughts.",
+    "context": "All humans are capable of abstract thoughts.\nPlants are not capable of abstract thoughts.\nAll multicellular creatures that are autotrophic or digest food internally are plants and animals.\nAll goats are animals.\nDirt is not an animal.\nHulu is a goat or a human.\nHulu is a multicellular creature that is autotrophic or digests food internally.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0021",
+    "question": "John lives in Belgium.",
+    "context": "Belgium, France, and Germany are European countries.\nParis is the capital of France.\nThe Eiffel Tower is one of the main tourist attractions located in Paris.\nSome people who live in Belgium speak French.\nIf John goes to Europe, he will see some tourist attractions.\nJohn speaks French.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0022",
+    "question": "No cutmen appear in boxing matches.",
+    "context": "A cutman is responsible for preventing and treating physical damage to a fighter.\nCutmen appear in boxing matches, kickboxing matches, or mixed martial arts matches bout. \nCutmen handle swelling, nosebleeds and lacerations. \nJack is a cutman.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0023",
+    "question": "James goes to cinemas every week.",
+    "context": "If a customer subscribes to AMC A-List, then he/she can watch 3 movies every week without any additional fees. \nSome customers go to cinemas every week. \nCustomers who prefer TV series will not watch TV series in cinemas.\nJames watches TV series in cinemas. \nJames subscribes to AMC A-List.\nPeter prefers TV series.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0024",
+    "question": "The Controlled Substances Act prevents harmful things.",
+    "context": "A controlled substance is a drug.\nThere exist both harmful and beneficial controlled substances.\nIf a child is exposed to a controlled substance, they are in chemical endangerment.\nChemical Endangerment is harmful. \nThe Controlled Substances Act was an act passed in 1971.\nSome Acts prevent harmful things.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0025",
+    "question": "Battery towers are higher than adjacent walls.",
+    "context": "A roundel is a rounded artillery fortification.\nA roundel is not higher than adjacent walls. \nCannons can be deployed on artillery fortifications. \nRoundels are the oldest artillery fortifications.\nBattery towers are artillery fortifications.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0026",
+    "question": "Guam has participated in the Summer Olympics at least once.",
+    "context": "Guam sent an athlete to the Calgary Winter Olympics.\nIf Guan sent an athlete to the Calgary Winter Olympics, then the athelete participated in the Olympics in 1988.\nJudd Bankert is the only athlete from Guam who has ever competed in the Winter Olympics.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0027",
+    "question": "The Croton River watershed is in the Bronx.",
+    "context": "The Croton River watershed is the drainage basin of the Croton River.\nThe Croton River is in southwestern New York.\nWater from the Croton River watershed flows to the Bronx.\nThe Bronx is in New York.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0028",
+    "question": "Ann J. Land was elected to the Philadelphia City Council in 1987.",
+    "context": "Ann J. Land was a member of the Philadelphia City Council and the Democratic Party.\nAnn J. Land ran unopposed for the Philadelphia City Council in 1980.\nPeople who run unopposed for the Philadelphia City Council are elected to the positions they run for in the same year.\nMichael Nutter was a political challenger.\nAnn J. Land defeated Michael Nutter and ran for the Philadelphia City Council in 1987.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0029",
+    "question": "Dagfinn Dahl is a Norwegian physician.",
+    "context": "Notable people with the given name include Dagfinn Aarskog, Dagfinn Bakke and Dagfinn Dahl.\nDagfinn Aarskog is a Norwegian physician.\nDagfinn Dahl is a Norwegian barrister.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0030",
+    "question": "Cris Carter played for Minnesota Vikings.",
+    "context": "If a person coaches a football club, the person is a football coach.\nIf a person has a position in a club in a year, and the club is in NFL in the same year, the person plays in NFL.\nMinnesota Vikings is a football club.\nDennis Green coached Minnesota Vikings.\nCris Carter had 13 touchdown receptions.\nMinnesota Vikings were in the National Football League in 1997.\nJohn Randle was Minnesota Vikings defensive tackle in 1997.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0031",
+    "question": "There is an axe that is found in Western Europe.",
+    "context": "Palstaves are a type of early bronze axe.\nPalstaves are found in northern, western, and southwestern Europe and are cast in molds.\nJohn Evans is an archeologist who popularized the term \"palstave.\"\nPaalstabs are not a type of axe but rather a digging shovel.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0032",
+    "question": "No fears lead to terror.",
+    "context": "Some fears lead to anxiety.\nSome anxiety leads to terror.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0033",
+    "question": "John is engaged.",
+    "context": "All people who make wedding plans are people who are engaged.\nAll people who invite others to come to their ceremony make wedding plans.\nAnyone who has a well-attended wedding invites others to come to their ceremony.\nSome people that have well-attended weddings have larger families.\nIf John is engaged, then John does not invite friends to their ceremony and make wedding plans.\nIf John has a larger family, then either John has a well-attended wedding or invites friends to their ceremony.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0034",
+    "question": "Professional wide receivers are good at catching balls.",
+    "context": "Quincy McDuffie is an American professional wide receiver in Canadian Football.\nPeople who can catch balls are good wide receivers. \nQuincy McDuffie can catch some footballs easily.\nGood wide receivers play professionally.\nGood wide receivers can catch with both their left and right hand.\nAll footballs are balls.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0035",
+    "question": "Billy is a student.",
+    "context": "None of the kids in our family love the opera.\nAll of the adults in our family love the opera.\nIf someone in our family is a scientist, then they are an adult.\nSome students in our family are kids.\nBilly is a kid in our family.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0036",
+    "question": "Fort Carillon was located in Europe.",
+    "context": "Fort Ticonderoga is the current name for Fort Carillon.\nPierre de Rigaud de Vaudreuil built Fort Carillon.\nFort Carillon was located in New France.\nNew France is not in Europe.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0037",
+    "question": "Lana Wilson has won the Independent Spirit Award.",
+    "context": "Lana Wilson directed After Tiller, The Departure, and Miss Americana.\nIf a film is directed by a person, the person is a filmmaker.\nAfter Tiller is a documentary.\nThe documentary is a type of film.\nLana Wilson is from Kirkland.\nKirkland is a US city.\nIf a person is from a city in a country, the person is from the country.\nAfter Tiller is nominated for the Independent Spirit Award for Best Documentary.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0038",
+    "question": "James is a late night person.",
+    "context": "Some people are both late-night and early-morning people.\nIf a person is an earl- morning person, they have early-morning habits.\nEveryone who has early-morning habits gets up early.\nEveryone who gets up early catches the sunrise.\nJames doesn't catch the sunrise.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0039",
+    "question": "Minsk joined the Scottish Premiership.",
+    "context": "St Johnstone is a Scottish team.\nSt Johnstone is part of the Scottish Premiership league.\nIf a team is part of the league, it has joined the league.\nSt Johnstone and Minsk are different teams.\nFor two teams, either one team wins, or the other team wins.\nMinsk won against St Johnstone.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0040",
+    "question": "FIFA 22 is made by a Japanese video game company.",
+    "context": "A Japanese game company created the game the Legend of Zelda.\nAll games on the Top 10 list are made by Japanese game companies.\nIf a game sells more than one million copies, then it will be included in the Top 10 list.\nThe Legend of Zelda sold more than one million copies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0041",
+    "question": "1984 is printed text.",
+    "context": "No digital media are analog.\nEvery printed text is analog media.\nAll streaming services are digital media.\nIf an object is a hardcover book, then it is printed text.\nIf 1984 is a streaming service, then 1984 is a hardcover book.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0042",
+    "question": "No warships are commercial vessels.",
+    "context": "All nuclear-powered submarines are warships.\nNo nuclear-powered submarines are commercial vessels.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0043",
+    "question": "Mike has a J1 visa.",
+    "context": "International students in the US have either an F1 visa or a J1 visa.\nAn international student in the US with an F1 visa needs to apply for CPT or OPT if the student wants to work in the US.\nMike is an international student.\nMike needs to apply for CPT if he wants to work in the US.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0044",
+    "question": "Zaha Hadid was born on the 31st of October in 1982.",
+    "context": "Zaha Hadid is a British-Iraqi architect, artist, and designer.\nZaha Hadid was born on 31 October 1950 in Baghdad, Iraq.\nZaha Hadid was a visiting professor of Architectural Design at the Yale School of Architecture.\nMax is an aspiring architecture student and plans to apply to the Yale School of Architecture.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0045",
+    "question": "Kat is a person who comes to work every day with a positive attitude.",
+    "context": "If people work well in teams in the workplace, then they get along with all their colleagues at their work.\nIf people come to work every day with a positive attitude, then they work well in teams in the workplace.\nPeople either come to work every day with a positive attitude or are always tired every morning.\nIf people are always tired in the morning, then they are criticized by their boss.\nIf people are criticized by their boss, then they do not receive positive feedback from teams at work.\nKat either is a person who works well in teams in the workplac and is always tired every morning, or she is neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0046",
+    "question": "Rochelle lives in a place namedGalicia.",
+    "context": "If someone lives in a place named Galicia, then they live in either Spain or Poland.\nSpain is in Europe.\nPoland is in Europe.\nRochelle lives in Europe.\nDominique does not live in Europe.\nAlfonso lives in a place named Galicia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0047",
+    "question": "Well Done 3 is worth listening to.",
+    "context": "Tyga is a rapper.\nRappers release rap albums.\nTyga released the Well Done 3 album.\nRappers are not opera singers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0048",
+    "question": "\"Butts Wigglin'\" appeared in a film.",
+    "context": "If an album is written by a rock band, then the genre of the album is rock.\nIf a band writes an album winning an award, then this band wins this award.\nTrouble at the Henhouse is an album by The Tragically Hip.\nThe Tragically Hip is a Canadian rock band.\nThe song \"Butts Wigglin'\" is in Trouble at the Henhouse.\nTrouble at the Henhouse won the Album of the Year award.\nA song in Trouble at the Henhouse appeared in a film.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0049",
+    "question": "Detroit City has been in multiple races.",
+    "context": "Detroit City is a horse.\nSome horses are racehorses.\nIf a horse falls in a race, it poses risks to its rider.\nDetroit City fell in a race.\nA horse is a racehorse if it is in a race.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0050",
+    "question": "Carrozzeria Colli built airplanes during World War II.",
+    "context": "Carrozzeria Colli is a Milanese coachbuilder company established by Giuseppe Colli in 1931.\nCarrozzeria Colli is a company that specializes in using aluminum.\nThe first automobiles built by Carrozzeria Colli were racing cars.\nSome racing cars built by Carrozzeria Colli used Fiat 1100 mechanicals and chassis.\nCarrozzeria Colli worked for airforces.\nCarrozzeria Colli made car bodies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0051",
+    "question": "Jumbo is a living being.",
+    "context": "All mammals are living beings.\nAll elephants are mammals.\nAll baby elephants are elephants.\nSome baby elephants are sleepy.\nIf Jumbo is a living being, then Jumbo is not both an elephant and a mammal.\nIf Jumbo is sleepy, then Jumbo is either a baby elephant or a mammal.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0052",
+    "question": "Some conservatives are not Senate Republicans.",
+    "context": "All Senate Republicans are elected officials.\nSome elected officials are not conservatives.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0053",
+    "question": "Mary meets a traffic jam.",
+    "context": "If you go somewhere by train, you will not lose time.\nIf you go somewhere by car and meet a traffic jam, you will lose time.\nIf you lose time, you will be late for work.\nMary can get from New Haven to New York City either by train or car.\nMary is late for work.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0054",
+    "question": "Erica plans.",
+    "context": "Everyone at 'Board Game night' is interested in puzzles, or they are bad at chess, or both.\nIf a person at 'Board Game night' is bad at chess, then they don't play a lot of chess.\nThere is a person at 'Board Game night' who is either a planner or a creative person.\nErica is at 'Board Game night,' and she is someone who plays a lot of chess.\nIf Erica is neither bad at chess nor creative, then Erica is either someone who plans and is creative, or she is neither of these things.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0055",
+    "question": "John started his current job in 1990.",
+    "context": "The Blake McFall Company Building is a building added to the National Register of Historic Places in 1990.\nThe Emmet Building is a five-story building in Portland, Oregon.\nThe Emmet Building was built in 1915.\nThe Emmet Building is another name for the Blake McFall Company Building.\nJohn works at the Emmet Building.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0056",
+    "question": "A worksheet is not biodegradable.",
+    "context": "All biodegradable things are environment-friendly. \nAll woodware is biodegradable.\nAll paper is woodware. \nNothing is a good thing and also a bad thing.\nAll environment-friendly things are good.\nA worksheet is either paper or environment-friendly.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0057",
+    "question": "Tom wants to study abroad.",
+    "context": "To have the authorization to study in the United States as a foreigner, you must be enrolled in an academic program.\nThose who are enrolled in an academic program can not work full-time.\nEvery who studies in the United States as a foreigner has the authorization to study in the U.S.\nAll PhD graduate can work full-time. \nIf Tom does not study in the United States as a foreigner, he is enrolled in an academic program.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0058",
+    "question": "Sam is a big fan of pop bands and singers.",
+    "context": "If people have a lot of music decorations in their rooms, they cannot pack and move out of their rooms very easily.\nIf people have high ambitions and future career goals, then they can pack and move out of their rooms very easily.\nIf people are big fans of pop bands and singers, then they have a lot of music decorations in their room.\nAll young teenage girls who attend music festival frequently are big fans of pop bands and singers.\nIf Sam has high ambitions and future career goals, then Sam is a big fan of pop bands and singers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0059",
+    "question": "Nadal is a Grand Slam champion.",
+    "context": "No professional tennis umpires are professional tennis players.\nIf you are a World Tour player, then you are a professional tennis player.\nAll Grand Slam champions are World Tour players.\nAll Grand Slam umpires are professional tennis umpires.\nNadal is a World Tour player or a Grand Slam champion",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0060",
+    "question": "The bird is still.",
+    "context": "Everything in Size Town is big or small.\nAll big things in Size Town are heavy.\nAll small things in Size Town are light.\nAll heavy things in Size Town are still.\nAll light things in Size Town are unstable.\nAll unstable things in Size Town are changing.\nAll unstable things in Size Town are unpredictable.\nThe bird is in Size Town and it is not both heavy and still.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0061",
+    "question": "Miroslav Fiedler was a French mathematician.",
+    "context": "Miroslav Fiedler was a Czech mathematician.\nMiroslav Fiedler is known for his contributions to linear algebra and graph theory.\nMiroslav Fiedler is honored by the Fiedler eigenvalue.\nFiedler eigenvalue is the second smallest eigenvalue of the graph Laplacian.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0062",
+    "question": "The weather is good today.",
+    "context": "John will go to the cinema if and only if Jack goes to the cinema today.\nJack will go to the cinema if and only if Iron Man is on and the weather is not bad today.\nSome days in March have bad weather.\nIron Man is on.\nIt's March now.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0063",
+    "question": "Matt reads the Wall Street Journal and other newspapers regularly to keep updated on financial metrics.",
+    "context": "People who like financial risks invest in the public stock market regularly or enjoy gambling regularly.\nIf people invest in the public stock market regularly, then they read the Wall Street Journal and other newspapers regularly to keep updated on financial metrics.\nAll people who enjoy enjoy gambling regularly spend a lot of money at casinos or other betting games.\nPeople who spend a lot of money at casinos and other betting games would enjoy visiting the Las Vegas Strip.\nPeople who spend a lot of money at casinos and other betting games are at risk of gambling addiction.\nMatt does not invest in the public stock market regularly. \nMatt likes financial risks.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0064",
+    "question": "All of Andy Chang's movies are filmed outside of Washington.",
+    "context": "EndGame is a movie released in 2006.\nEndGame was set in Washington.\nEndGame was filmed outside of Washington.\nSome movies are filmed in New York.\nAndy Chang directed EndGame.\nAndy Chang is from Hong Kong.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0065",
+    "question": "Harry is not cool.",
+    "context": "If someone in Potterville yells, then they are not cool.\nIf someone in Potterville is angry, then they yell.\nIf someone in Potterville flies, then they are cool.\nEvery person in Potterville that knows magic flies.\nAll wizards in Potterville know magic.\nHarry, who lives in Potterville either yells or flies. \nPotter, who lives in Potterville, is a wizard and flies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0066",
+    "question": "Fido is a Bengal tiger.",
+    "context": "All tigers are cats.\nNo cats are dogs.\nAll Bengal tigers are tigers.\nAll huskies are dogs.\nFido is either a Bengal tiger or a cat.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0067",
+    "question": "Elephantopus is a traditional medicine.",
+    "context": "Elephantopus is a genus of perennial plants in the daisy family.\nElephantopus is widespread over much of Africa, southern Asia, Australia, and the Americas.\nSeveral species of Elephantopus are native to the southeastern United States.\nElephantopus scaber is a traditional medicine.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0068",
+    "question": "If you step on a stonefish and apply heat to the affected area, it can cause death to you.",
+    "context": "Some fish stings people.\nStonefish is a fish.\nStonefish stings when stepped on. \nIf a stonefish stings someone and they are not treated, it can cause death to them.\nTo treat stonefish stings, apply heat to the affected area or use an antivenom.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0069",
+    "question": "Harry is cool.",
+    "context": "If someone in Potterville yells, then they are not cool.\nIf someone in Potterville is angry, then they yell.\nIf someone in Potterville flies, then they are cool.\nEvery person in Potterville that knows magic flies.\nAll wizards in Potterville know magic.\nHarry, who lives in Potterville either yells or flies. \nPotter, who lives in Potterville, is a wizard and flies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0070",
+    "question": "A museum in NYC includes Greek art.",
+    "context": "The Metropolitan Museum of Art is a museum in NYC.\nWhitney Museum of American Art is a museum in NYC.\nThe Museum of Modern Art (MoMA) is a museum in NYC. \nThe Metropolitan Museum of Art includes Byzantine and Islamic Art. \nWhitney Museum of American Art includes American art.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0071",
+    "question": "The Three-Body Problem was written by Cixin Liu.",
+    "context": "All books written by Cixin Liu have sold more than 1 million copies. \nSome books that have won the Hugo Award were written by Cixin Liu.\nAll books about the future are forward-looking.\nThe book Three-Body Problem has sold more than 1 million copies.\nThe Three-Body Problem is about the future.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0072",
+    "question": "Thomas Gilovich proposed naive cynicism.",
+    "context": "Naive cynicism was proposed by Justin Kruger and a colleague.\nThomas Gilovich is a colleague of Justin Kruger. \nNaive cynicism is a philosophy of mind.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0073",
+    "question": "Ryan is an interesting soloist.",
+    "context": "No touring musicians who perform at the New Haven Symphony Orchestra are permanent members of the orchestra.\nMusicians who perform at the New Haven Symphony Orchestra are permanent members of an orchestra, or they have temporary roles at the orchestra.\nAll touring musicians who perform at the New Haven Symphony Orchestra have temporary roles at the orchestra.\nAll musicians performing at the New Haven Symphony Orchestra who have temporary roles at the orchestra are interesting soloists.\nAll musicians performing at New Haven Symphony Orchestra who are interesting soloists are capable of attracting audiences.\nRyan is performing at New Haven Symphony Orchestra.\nIf Ryan is an interesting soloist and has a temporary role at the orchestra, then he is capable of attracting large audiences if and only if he is a touring soloist musician.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0074",
+    "question": "Ralph Hammerthaler is a writer born in Asia.",
+    "context": "Ralph Hammerthaler was born in Wasserburg am Inn.\nWasserburg am Inn is in Germany.\nGermany is in Europe.\nRalph Hammerthaler is a German writer.\nRalph Hammerthaler was born in 1965.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0075",
+    "question": "2Sum is an easy Leetcode problem.",
+    "context": "None of the easy Leetcode problems have an AC rate lower than 20 percent. \nAll Leetcode problems recommended to novices are easy. \nLeetcode problems either have an AC rate lower than 20 percent or are starred by more than 1 thousand users. \nAll hard Leetcode problems are starred by more than 1,000 users. \nNo Leetcode problems published after 2022 are starred by more than 1,000 users. \n'2Sum' is not both hard and also recommended to novices.\n'4Sum' is either starred by more than 1,000 users and published after 2022, or it is neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0076",
+    "question": "Dune is realistic fiction.",
+    "context": "All imaginative processes that Dan knows are results of creative processes.\nAll science fiction that Dan knows comes from an imaginative process.\nEverthing that Dan knows comes from either science-fiction or realistic fiction.\nNo facts that Dan knows have proven to be false.\nDan knows that Dune is science fiction or has proven to be false.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0077",
+    "question": "Bladder cancer is Leukemia.",
+    "context": "If some diseases require a medical diagnosis, then lab tests or imaging is required. \nAll rare diseases require a medical diagnosis.\nIf a disease is mild, then no lab tests or imaging is required. \nAll blood cancers are rare diseases.\nAll types of leukemia are diseases and blood cancers. \nBladder cancer is a disease and is blood cancer or Leukemia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0078",
+    "question": "Bonnie performs in school talent shows often.",
+    "context": "People in this club who perform in school talent shows often attend and are very engaged with school events.\nPeople in this club either perform in school talent shows often or are inactive and disinterested community members.\nPeople in this club who chaperone high school dances are not students who attend the school.\nAll people in this club who are inactive and disinterested members of their community chaperone high school dances.\nAll young children and teenagers in this club who wish to further their academic careers and educational opportunities are students who attend the school. \nBonnie is in this club and she either both attends and is very engaged with school events and is a student who attends the school or is not someone who both attends and is very engaged with school events and is not a student who attends the school.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0079",
+    "question": "The Mede Empire plans to swallow up Attolia.",
+    "context": "Thick as Thieves is a young adult fantasy novel written by Megan Whalen Turner.\nThick as Thieves was published by Greenwillow Books.\nIf a book was published by a company, then the author of that book worked with the company that published the book.\nThe fictional Mede Empire is where Thick as Thieves is set.\nThe Mede Empire plots to swallow up some nearby countries.\nAttolia and Sounis are countries near the Mede Empire.\nThick as Thieves was sold both as a hardcover and an e-book.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0080",
+    "question": "Piper is a kitten.",
+    "context": "If something is a plant, then it is not a cute animal. Simeng: All plants are not cute animals. \nAll flowers are plants.\nEvery kitten is a cute animal.\nIf something is grown in a garden, then it is a flower.\nPiper is a kitten or a cute animal.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0081",
+    "question": "Viewers send funny videos to the French broadcast channel that are in English.",
+    "context": "Video Gag is a French television series that airs weekly.\nVideo Gag airs on the French broadcast channel TF1. \nIf viewers send funny videos to the French broadcast channel TF1, then Video Gag airs them weekly.\nAll videos aired on Video Gag are in French.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0082",
+    "question": "Leyte is an island in the Philippines.",
+    "context": "Luzon is an island in the Philippines.\nIn December 1999, an earthquake struck Luzon.\nPeople died in the December 1999 earthquake in Luzon.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0083",
+    "question": "Rock is a monkey.",
+    "context": "All of Peter's pets that are mammals are also animals.\nAll monkeys are mammals. \nPeter's pets are all either monkeys or birds. \nPeter's birds can fly.\nAll animals that are Peter's pets can breathe.\nIf Peter's pet can fly, then it has wings.\nRock is Peter's pet.\nRock can fly, or Rock is a bird, or Rock cannot breathe.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0084",
+    "question": "A worksheet is biodegradable.",
+    "context": "All biodegradable things are environment-friendly. \nAll woodware is biodegradable.\nAll paper is woodware. \nNothing is a good thing and also a bad thing.\nAll environment-friendly things are good.\nA worksheet is either paper or environment-friendly.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0085",
+    "question": "Sam is living in this neighborhood and he is addicted to coffee.",
+    "context": "If people in this neighborhood visit a coffee shop regularly, then they are addicted to coffee. \nPeople in this neighborhood visit a coffee shop regularly or order takeout at least once a day.\nIf people in this neighborhood make a lot of their own food at home using recipes and online guides, then they order takeout at least once a day.\nIf people in this neighborhood own at least one coffeemaker and one blender in their home, then they do not order takeout at least once a day.\nAll people in this neighborhood who lead very busy lives that include 12-hour work hours make a lot of their own food at home using recipes and online guides.\nSam is living in this neighborhood, and he is either addicted to coffee or other caffeinated drinks and leads a very busy life that include 12-hour work hours, or is not addicted to coffee and does not lead a very busy life that include 12-hour work hours",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0086",
+    "question": "James has a high income.",
+    "context": "Everyone working at Meta has a high income. \nA person with a high income will not take a bus to their destination.\nPeople will either take a bus or drive to their destination. \nEveryone who has a car will choose to drive to their destination. \nNo students drive to their destination. \nJames has a car or works at Meta.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0087",
+    "question": "James has lunch in the company.",
+    "context": "All employees who schedule a meeting with their customers will go to the company building today. \nEveryone who has lunch in the company building schedules meetings with their customers. \nEmployees have lunch either in the company building or at home.\nIf an employee has lunch at home, they are working remotely from home.\nAll employees who are in other countries work remotely from home. \nNo managers work remotely from home. \nJames will appear in the company today if and only if he is a manager.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0088",
+    "question": "Taylor is Emily's friend and she often holds tenured and high-ranking positions at her workplace.",
+    "context": "If Emily's friends publish journals, then they do not work in the entertainment industry.\nAll of Emily's friends who are award-winning novelists publish journals.\nEmily's friends work in the entertainment industry or are highly acclaimed in their profession.\nIf Emily's friends are highly acclaimed in their profession, then they often hold tenured and high-ranking positions at their workplace.\nIf Emily's friends are highly acclaimed in their profession, then they often receive glowing feedback and recommendations from their colleagues.\nTaylor is Emily's friend.\nIt is not true that Taylor both holds highly acclaimed in her profession and often holds tenured and high-ranking positions at her workplace.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0089",
+    "question": "Frederick Monhoff was good at physical art.",
+    "context": "Frederick Monhoff was an architect, artist, and illustrator.\nFrederick Monhoff was an American.\nAn artist is good at physical or conceptual art.\nAll Americans are American citizens.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0090",
+    "question": "James contributes to the country.",
+    "context": "If a person pays their taxes, then they contribute to the country. \nEveryone who works for a government department pays a tax on their salary. \nEveryone in the army is an employee of a government department.\nEveryone convicted of murder goes to prison. \nEveryone who has been to prison has a criminal record.\nJames was either once convicted of murder, or spent time in prison.\nJames either has a criminal record, or pays his taxes.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0091",
+    "question": "Rangers won the cup in 2015.",
+    "context": "Aberdeen won the cup in the 2013 final.\nRangers won the cup in the 2014 final.\nAberdeen and Rangers are different teams.\nDifferent teams cannot win the cup in the same year's final.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0092",
+    "question": "Arthritis can be treated at home.",
+    "context": "All cancers have mutations.\nNo mutations can be treated at home.\nAll colorectal cancers are cancers.\nA cold can be treated at home.\nArthritis either is a cold and has mutations or neither is a cold nor has mutations.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0093",
+    "question": "Adenocarcinoma is a prostate cancer.",
+    "context": "A diseases affect females or males.\nNo women have prostate cancer.\nA cancer is either prostate cancer or non-prostate cancer. \nNo type of cancer is without mutations.\nAll non-prostate cancers are a type of cancer.\nIf adenocarcinoma is a type of cancer or without mutations or both, then adenocarcinoma is in women or without mutations or both.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0094",
+    "question": "Koei Tecmo holds anime.",
+    "context": "Koei Tecmo is a Japanese video game and anime holding company.\nHolding companies hold several companies.\nTecmo was disbanded in Japan, while Koei survived but was renamed.\nVideo game holding companies are holding companies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0095",
+    "question": "You can not play games on a phone.",
+    "context": "A laptop is a computer.\nYou can play games on a computer.\nA phone is not a computer.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0096",
+    "question": "The Playstation Camera can be used for all Playstation consoles.",
+    "context": "The PlayStation EyeToy is a camera accessory for the PlayStation 2 system. \nThe PlayStation Eye is a camera accessory for the PlayStation 3 system.\nThe PlayStation Camera is a camera accessory for the PlayStation 4 and the PlayStation 5 systems.\nCamera accessories for a system are compatible with that system.\nPlaystation 2, 3,4, and 5 are all different.\nOnly the PlayStation Camera camera system is compatible with different systems.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0097",
+    "question": "To be a volunteer, you must be trained.",
+    "context": "All volunteers receive intangible benefits for their work.\nVolunteers work regularly or on an as-needed basis.\nSome volunteers are trained.\nVolunteers work in groups or individually.\nEnvironmental volunteers contribute toward environmental management or conservation.\nParticipating in natural disaster response is an example of volunteers working in groups on an as-needed basis.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0098",
+    "question": "Hamilton won two awards.",
+    "context": "Daveed Diggs is an actor and film producer.\nDaveed Diggs played two roles in the musical Hamilton on Broadway.\nOne of the actors from Hamilton won the best actor award.\nThe actor playing Thomas Jefferson won the best actor award.\nDaveed Diggs played Thomas Jefferson.\nMusicals on Broadway are not films.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0099",
+    "question": "Daniel is a citizen of Lawton Park.",
+    "context": "Lawton Park is a neighborhood in Seattle. \nAll citizens of Lawton Park use the zip code 98199. \nTom is a citizen of Lawton Park.\nDaniel uses the zip code 98199.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0100",
+    "question": "Some affection is positive.",
+    "context": "Some affection is love.\nSome love is positive.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0101",
+    "question": "Tower A is higher than 400 meters.",
+    "context": "There are no buildings in New Haven higher than 400 meters. \nAll buildings managed by Yale Housing are in New Haven. \nAll Manhattan skyscrapers are higher than 400 meters. \nAll buildings owned by Bloomberg are in Manhattan. \nAll buildings with the Bloomberg logo are buildings owned by Bloomberg. \nTower A is neither a building in New Haven nor a skyscraper in Manhattan.\nTower B is a skyscraper building in Manhattan with a Bloomberg logo.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0102",
+    "question": "Juan de Onate visited a mountain range in Texas.",
+    "context": "The Picuris Mountains are a mountain range in New Mexico or Texas.\nJuan de Onate visited the Picuris Mountains.\nThe Harding Pegmatite Mine, located in the Picuris Mountains, was donated.\nThere are no mountain ranges in texas that have mines that have been donated.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0103",
+    "question": "Emily is in Emma's family and she lives with at least one roommate.",
+    "context": "Everybody in Emma's family who upgrade to the newest iPhone model every year, are not saving money for a down payment on a new house.\nEverybody in Emma's family who enjoy reading about tech specs and keeping up to date on the latest technology upgrade to the newest iPhone model every year.\nEverybody in Emma's family is saving money for a down payment on a new house, or lives in an apartment in a big metropolitan cities.\nEverybody in Emma's family live with at least one roommate, does not own any pets.\nEverybody in Emma's family who owns at least one pet lives with at least one roommate.\nEmily is in Emma's family.\nIf Emily does not both own at least one pet and lives in apartments in big metropolitan cities, then Emily either owns at least one pet and lives in an apartment in big metropolitan cities, or she neither owns a pet nor lives in an apartment in big metropolitan cities.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0104",
+    "question": "Ted is a pet.",
+    "context": "All Brown Swiss cattle are cows.\nSome pets are Brown Swiss Cattle.\nAll cows are domesticated animals.\nAlligators are not domesticated animals.\nTed is an alligator.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0105",
+    "question": "Lithium is a rare earth element.",
+    "context": "There are no elements with atomic number between 61-63 that are not scarce in China.\nNon-rare earth elements are not scarce in China.\nAll elements are either non-rare earth elements or rare earth elements. \nAll rare earth elements can be used for industry.\nAll rare earth elements are essential for exploring future directions of electronics.\nLithium is either a non-rare earth element and essential for exploring future directions of electronics, or is not a non-rare earth element and is not essential for exploring future directions of electronics.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0106",
+    "question": "John will go to the cinema.",
+    "context": "John will go to the cinema if and only if Jack goes to the cinema today.\nJack will go to the cinema if and only if Iron Man is on and the weather is not bad today.\nSome days in March have bad weather.\nIron Man is on.\nIt's March now.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0107",
+    "question": "Daniel and his sister grew up in Minneapolis, Minnesota.",
+    "context": "Daniel is a software engineer, and he works at Palantir Technologies.\nDaniel studied bioengineering during his undergraduate at Rice University.\nDaniel’s older sister works at Meta as a technical sourcer. \nDaniel’s dad and older sister both graduated from Stanford University.\nDaniel’s dad is a doctor practicing internal medicine at a veteran’s hospital in Minneapolis.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0108",
+    "question": "The monitor L-2021 is in the library.",
+    "context": "Some monitors made by LG have a type-c port.\nMonitors that have a type-c port were not made before 2010.\nAll monitors in the library are made before 2010. \nThe L-2021 monitor is either used in the library or has a type-c port.\nThe L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0109",
+    "question": "White Town was a successful band.",
+    "context": "\"Your Woman\" is a song by the British one-person band White Town.\n\"Your Woman\" song peaked at No. 1 on the UK Singles Chart.\nIf a song peaked at No.1 at a particular place, it was extremely popular.\n\"Your Woman\" peaked at No. 1 in Iceland, Israel, and Spain.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0110",
+    "question": "Zaha Hadid did some work in interior design.",
+    "context": "Zaha Hadid is a British-Iraqi architect, artist, and designer.\nZaha Hadid was born on 31 October 1950 in Baghdad, Iraq.\nZaha Hadid was a visiting professor of Architectural Design at the Yale School of Architecture.\nMax is an aspiring architecture student and plans to apply to the Yale School of Architecture.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0111",
+    "question": "When the police complete investigations, the prosecutor will prosecute the offender at an appropriate court.",
+    "context": "Indonesia is a country.\nIn Indonesia, the prosecutor only personally investigates cases of some special crimes.\nCorruption is a type of crime.\nOnce the police complete crime investigations, the evidence is handed to the prosecutor. \nEvidence can be either satisfactory or unsatisfactory.\nIf the evidence is handed to the prosecutor and the evidence is satisfactory, the prosecutor will prosecute the offender in an appropriate court.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0112",
+    "question": "The coke is orange juice.",
+    "context": "All drinks on the counter are edible. \nAll juices on the counter are drinks. \nOrange juice is a type of juice. \nEverything on the counter is either orange juice or apple juice.\nAll apple juices on the counter are sweet.\nThe coke is on the counter and if the coke is apple juice, then the coke is a drink.\nIf the coke is not apple juice, then the coke is not edible.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0113",
+    "question": "Tom is a citizen of Washington.",
+    "context": "Lawton Park is a neighborhood in Seattle. \nAll citizens of Lawton Park use the zip code 98199. \nTom is a citizen of Lawton Park.\nDaniel uses the zip code 98199.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0114",
+    "question": "KiKi is terricolous.",
+    "context": "Jane does not like any animals that bark.\nAll dogs are animals that bark.\nJane likes all animals that jump.\nIf an animal has legs, then it jumps.\nIf an animal is terricolous, then it has legs. \nKiKi is an animal.\nIf KiKi neither jumps nor has legs, then KiKi is terricolous or has legs.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0115",
+    "question": "Noah needs to pay the water bill.",
+    "context": "Common utilities include water, electricity, gas, heating, sewer, trash, and recycling.\nMany apartment rents cover the cost of water and electricity.\nSusan lives in an apartment where the rent covers all utilities.\nThe rent of the apartment where Ava lives does not cover any utility expenses.\nNoah lives in an apartment where the rent does not cover heating.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0116",
+    "question": "Some good teachers are not well-informed people.",
+    "context": "No people who do not admit a mistake are good teachers.\nSome well-informed people are people who do not admit a mistake.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0117",
+    "question": "John can't buy a 1080 monitor.",
+    "context": "If a person doesn't have enough money to buy a product, then that person can't buy it.\nMonitors are products.\n4k monitors are more expensive than 1080 monitors and 2k monitors.\nJohn is a person.\nJohn doesn't have enough money to buy a 2k monitor.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0118",
+    "question": "Peter can block Windy's shooting.",
+    "context": "If a man is taller than another man, the taller one can block the other's shooting.\nMichael is a man who is taller than everyone else in his class.\nIf person x is taller than person y, and person y is taller than person z, then x is taller than z\nPeter is a man who is taller than Michael.\nMichael can block any shooting from a person as long as the person does not jump when shooting.\nMichael cannot block Windy's shooting.\nEvery shooter who can jump when shooting is a great shooter.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0119",
+    "question": "Reformation is an eco-friendly brand.",
+    "context": "No disposable products can help slow down global warming. \nAll eco-friendly brands can help slow down global warming. \nAll sustainable fashion brands are eco-friendly brands.\nAll fast fashion products are disposable products.\nIf Reformation is not helping slow down global warming, then Reformation is an eco-friendly brand or a sustainable fashion brand.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0120",
+    "question": "If a stonefish stings you and you don’t use an antivenom, it can cause death to you.",
+    "context": "Some fish stings people.\nStonefish is a fish.\nStonefish stings when stepped on. \nIf a stonefish stings someone and they are not treated, it can cause death to them.\nTo treat stonefish stings, apply heat to the affected area or use an antivenom.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0121",
+    "question": "John is a PhD student.",
+    "context": "All students are members of the university.\nAll graduate students are students.\nAll PhD students are graduate students.\nSome PhD students are Teaching Fellows.\nIf John is not a PhD student, then he is not a member of the university.\nIf John is a Teaching Fellow, then he is a PhD student or a graduate student.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0122",
+    "question": "Aurochs are extinct.",
+    "context": "Breeding back is a form of artificial selection by the deliberate selective breeding of domestic animals.\nHeck cattle were bred back in the 1920s to resemble the aurochs.\nHeck cattle are animals.\nAurochs are animals.\nSome animals to be bred back resemble extinct animals.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0123",
+    "question": "Thomas Barber played in the Football League for Bolton Wanderers",
+    "context": "Thomas Barber was an English professional footballer.\nThomas Barber played in the Football League for Aston Villa.\nThomas Barber played as a halfback and inside left.\nThomas Barber scored the winning goal in the 1913 FA Cup Final.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0124",
+    "question": "There is a poem written by an ancient Roman writer in iambic trimeter.",
+    "context": "Catullus 4 is a poem written by the ancient Roman writer Catullus.\nCatullus 4 is a story about the retirement of a well-traveled ship.\nThere is a strong analogy of human aging in the poem Catullus 4.\nCatullus 4 is written in an unusual iambic trimeter to convey a sense of speed over the waves.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0125",
+    "question": "Burger is not popular.",
+    "context": "A Unix operating system used in the lab computers is a piece of software.\nAll versions of MacOS used in the lab computer are based on Unix operating systems.\nA lab computer uses either MacOS or Linux. \nAll Linux computers in the lab are convenient.\nAll software used in the lab computers is written with code.\nIf something is convenient in the lab computer, then it is popular.\nBurger is used in the lab computer, and it is written with code and a new version of MacOS.\nPyTorch is used in the lab computer, and PyTorch is neither a Linux system nor a piece of software.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0126",
+    "question": "Ailton Silva was loaned out to a football club.",
+    "context": "Ailton Silva, born in 1995, is commonly known as Ailton.\nAilton is a football player who was loaned out to Braga.\nAilton Silva is a Brazilian footballer who plays for Náutico.\nNáutico is a football club along with Braga.\nFluminense is a football club.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0127",
+    "question": "Yale University has the largest university endowment of any educational institution.",
+    "context": "Yale University is a private Ivy League research university.\nYale University moved to New Haven in 1716.\nYale university's endowment was valued at $42.3 billion.\nA list of residential colleges at Yale: Benjamin Franklin College, Berkeley College, Branford College, Davenport College, Ezra Stiles College, Grace Hopper College, Jonathan Edwards College, Morse College, Pauli Murray College, Pierson College, Saybrook College, Silliman College, Timothy Dwight College, and Trumbull College.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0128",
+    "question": "Symptoms of Monkeypox include coughing.",
+    "context": "When the Monkeypox virus occurs in a being, it may get Monkeypox. \nMonkeypox virus can occur in certain animals.\nHumans are mammals.\nMammals are animals.\nSymptoms of Monkeypox include fever, headache, muscle pains, and tiredness. \nPeople feel tired when they get the flu.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0129",
+    "question": "Tom is a grumpy person.",
+    "context": "No one nice to animals is also mean to animals.\nSome grumpy people are mean to animals.\nAll animal lovers are nice to animals.\nAll pet owners love animals.\nTom is a pet owner.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0130",
+    "question": "The Lord of the Rings is Heptalogy.",
+    "context": "Heptalogyy is a compound literary or narrative work that is made up of seven distinct works.\nThe Harry Potter series consists of 7 distinct works.\nThe Chronicles of Narnia consists of 7 distinct works.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0131",
+    "question": "Breaking Bad is on Monday at 8 pm.",
+    "context": "Some show airing at 8 pm on Monday gives out roses on TV.\nIf a show gives out roses on TV, then the show is an episode of The Bachelor.\nThe Bachelor portrays the lives of real people.\nAll shows portraying the lives of real people are reality TV shows.\nBreaking Bad is a show.\nBreaking Bad is not a reality TV show.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0132",
+    "question": "The first automobiles built by Carrozzeria Colli were built using Fiat 1100 mechanicals and chassis.",
+    "context": "Carrozzeria Colli is a Milanese coachbuilder company established by Giuseppe Colli in 1931.\nCarrozzeria Colli is a company that specializes in using aluminum.\nThe first automobiles built by Carrozzeria Colli were racing cars.\nSome racing cars built by Carrozzeria Colli used Fiat 1100 mechanicals and chassis.\nCarrozzeria Colli worked for airforces.\nCarrozzeria Colli made car bodies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0133",
+    "question": "Andy Winter is a referee.",
+    "context": "Brian Winter is a Scottish football referee.\nAfter being injured, Brian Winter retired in 2012.\nBrian Winter was appointed as a referee observer after his retirement.\nSome football referees become referee observers.\nThe son of Brian Winter, Andy Winter, is a football player who plays for Hamilton Academical.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0134",
+    "question": "Donald Knuth is a well-known figure in the field of artificial intelligence.",
+    "context": "Donald Ervin Knuth is an American computer scientist, mathematician, and Professor Emeritus at Stanford University.\nKnuth has been called the \"father of the analysis of algorithms.\"",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0135",
+    "question": "Adam is scared of animals.",
+    "context": "In Love City, everyone considers physical touch or words of affirmation to be their most important love language.\nIf someone in Love City considers physical touch as their most important love language, then they are good with pets.\nIf someone in Love City is good with pets, then they are not scared of animals.\nIn Love City, everyone is scared of animals, or loves animals, or both.\nAdam, who is in Love City, either values physical touch as his most important love language or loves animals.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0136",
+    "question": "LG34 machine is produced by AOC.",
+    "context": "Some monitors equipped in the lab are produced by the company named AOC. \nAll monitors equipped in the lab are cheaper than their original prices. \nIf a monitor is cheaper than its original price, then its resolution is 1080p. \nIf a monitor has a resolution of 1080p, then it does not support the type-c port. \nLG34 is equipped in the lab.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0137",
+    "question": "ROUGE Dior Colored Lip Balm 999 has a satin finish.",
+    "context": "All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.\nLipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.\nNo satin-finish lipsticks in the set do not have \"rosewood\" in its offical description. \nLipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have \"rosewood\" in its offical description or it has \"rosewood\" in its official description. \nROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has \"rosewood\" in its official description or has a velvet finish.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0138",
+    "question": "Platypuses are reptiles.",
+    "context": "Some mammals have teeth.\nPlatypuses have no teeth.\nPlatypuses are mammals. \nHumans have teeth.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0139",
+    "question": "Garry is sentenced to a punishment.",
+    "context": "Any convicted criminal that is innocent is not truly guilty.\nAll convicted criminals who did not commit a crime are truly innocent.\nAll convicted criminals are truly guilty or found guilty.\nIf a convicted criminal is found guilty, then they are sentenced to a punishment.\nIf a convicted criminal is found guilty, then they can argue against their punishment.\nGarry is a convicted criminal who not found guilty or is sentenced to punishment.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0140",
+    "question": "EndGame was filmed in New York.",
+    "context": "EndGame is a movie released in 2006.\nEndGame was set in Washington.\nEndGame was filmed outside of Washington.\nSome movies are filmed in New York.\nAndy Chang directed EndGame.\nAndy Chang is from Hong Kong.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0141",
+    "question": "If someone is not a cutman, then they cannot handle nosebleeds.",
+    "context": "A cutman is responsible for preventing and treating physical damage to a fighter.\nCutmen appear in boxing matches, kickboxing matches, or mixed martial arts matches bout. \nCutmen handle swelling, nosebleeds and lacerations. \nJack is a cutman.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0142",
+    "question": "James does not contribute to the country.",
+    "context": "If a person pays their taxes, then they contribute to the country. \nEveryone who works for a government department pays a tax on their salary. \nEveryone in the army is an employee of a government department.\nEveryone convicted of murder goes to prison. \nEveryone who has been to prison has a criminal record.\nJames was either once convicted of murder, or spent time in prison.\nJames either has a criminal record, or pays his taxes.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0143",
+    "question": "KO is a stock.",
+    "context": "All growth stocks are bought to earn profits from rapid price appreciation.\nIf the stock price is bought to earn profits from rapid price appreciation, then it is not suitable for a retirement fund.\nSome stocks are growth stocks.\nAll mature stocks are suitable for a retirement fund.\nKO is a mature stock.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0144",
+    "question": "John chooses what he want to do with his time.",
+    "context": "Everyone who chooses what they want to do with their time has flexible schedules.\nEveryone with a lot of free time chooses what they want to do with their time.\nPeople either have a lot of free time or they invest in a career in which they are willing to spend the rest of their lives.\nIf people invest in a career in which they are willing to spend the rest of their lives, then they are hardworking individuals with high ambitions and goals for the future.  \nIf people are hardworking individuals with high ambitions and goals for the future, then they are not short sighted.\nJohn is not either a hardworking individual with high ambitions and goals for the future or has a flexible schedule.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0145",
+    "question": "Multivoxel (pattern) analysis is a brain decoding.",
+    "context": "All mind-reading is either brain reading or brain decoding. \nAll brain decoding that is mind-reading is extracting information from BOLD signals.\nNo studies that are mind-reading and extract information from BOLD signals are without statistical pattern analysis. \nWriting a novel is without statistical pattern analysis.\nIf multivoxel (pattern) analysis is without statistical pattern analysis and a brain reading, then multivoxel (pattern) analysis is without statistical pattern analysis and brain decoding.\nMultivoxel (pattern) analysis is a type of mind-reading.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0146",
+    "question": "If Jack is solid at shooting 2-pointers or successfully shoots a high percentage of 3-pointers, then Jack struggles at half court shots and is bad at mid-range shots.",
+    "context": "No trick-shot artist in Yale's varsity team struggles with half court shots.\nEveryone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  \nEveryone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  \nNo one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  \nJack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0147",
+    "question": "John is a reptile.",
+    "context": "All birds have wings.\nAnimals with wings aren't reptiles.\nSome animals that fly are birds.\nIf something is an iguana, then it is a reptile. Simeng: All iguanas are reptiles. \nJohn is either both an iguana and a bird, or he is neither. \nJohn is an animal.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0148",
+    "question": "John is a Yale graduate.",
+    "context": "To get a job at Google, you need to have a lot of work experience or a good education.\nOne needs to submit their resume to Google to get a job there.\nJohn has a lot of work experience.\nJohn submitted his resume to Google and got a job there.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0149",
+    "question": "ModelXX is controlled by managers.",
+    "context": "All devices belonging to the company are connected to Google Home. \nAll devices belonging to employees are connected to the company's wifi. \nAll devices connected to Google Home are controlled by the managers. \nAll devices that connect to the company's wifi are easy to operate. \nModelXX belongs to employees.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0150",
+    "question": "\"As it was” by Harry Styles is a song from the 12th century.",
+    "context": "If Max listens to music, he either listens to classical music or rap.\nAll the classical songs that Max listens to are from the 12th century. \nIf Max is listening to a rap song, then the song is by Kanye West. \nAll songs by Kanye West are full of lyrics. \nAll songs that are full of lyrics need to be written with words\nIt is not true that “As it was” by Harry Styles is classical music that Max listens to and is from the 12th century.\nMax listens to \"As it was\" by Harry Styles.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0151",
+    "question": "Bernarda Bryson Shahn was born in Greece.",
+    "context": "Bernarda Bryson Shahn was a painter and lithographer.\nBernarda Bryson Shahn was born in Athens, Ohio. \nBernarda Bryson Shahn was married to Ben Shahn.\nPeople born in Athens, Ohio, are Americans.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0152",
+    "question": "Mary is nice.",
+    "context": "Some teachers who work at pools are not nice.\nAll teachers working at pools are pool managers.\nAll pool managers are lifeguards.\nIf someone is a lifeguard, then they work at a pool.\nMary does not work at a pool.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0153",
+    "question": "A watch is wearable.",
+    "context": "Shoes are not food.\nAll slippers are shoes.\nAny object donated to the homeless charity is either clothes or food.\nWearable things are not edible.\nAll clothes are wearable. \nThe watch is donated to the homeless charify.\nIf the watch is not both edible and a piece of clothing, then the watch is either both edible and a piece of clothing or the watch is neither of them.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0154",
+    "question": "Ralph Hammerthaler lives in Germany.",
+    "context": "Ralph Hammerthaler was born in Wasserburg am Inn.\nWasserburg am Inn is in Germany.\nGermany is in Europe.\nRalph Hammerthaler is a German writer.\nRalph Hammerthaler was born in 1965.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0155",
+    "question": "Djokovic is a Grand Slam champion.",
+    "context": "Everyone at the mixer is a Grand Slam champion or an Oscar-nominated actor.\nEvery Grand Slam champion at the mixer is a professional tennis player.\nAll Oscar-nominated actors at the mixer are celebrities.\nAll professional tennis players at the mixer are athletes.\nIf a person at the mixer is a celebrity, then they are well paid.\nIf a person at the mixer is an athlete, then they are famous.\nAll well-paid people at the mixer live in tax havens.\nDjokovic is at the mixer: if Djokovic is a famous athlete, then Djokovic is well-paid.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0156",
+    "question": "One is a real number.",
+    "context": "All prime numbers are natural numbers.\nAll integers are real numbers. \nAll real numbers are complex numbers. \nOne is a prime number or a natural number or both.\nIf one is not a complex number, then one is a prime number and an integer.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0157",
+    "question": "Harkness is a Yale dormitory.",
+    "context": "All Yale dormitories are located on the Yale campus. \nAll Yale buildings managed by Yale Housing are dormitories. \nAll Yale buildings operated by Yale Housing staff are managed by Yale Housing. \nNone of the Yale buildings open to students were built before 1701. \nAll Yale buildings located on the Yale campus are open to students. \nHarkness is either a Yale building operated by Yale Housing staff, or it is located on York Street.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0158",
+    "question": "Kowloon District is in Hong Kong.",
+    "context": "Xiufeng, Xiangshan, Diecai, Qixing are districts in the city of Guilin.\nYangshuo is not a district in Guilin.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0159",
+    "question": "Mike is an old person living in a stable home.",
+    "context": "All people in this tech company who are consistent and enjoy sticking to their regular routines do not like surprises.\nPeople in this tech company who wear the same flannel shirts every day are consistent and enjoy sticking to their regular routines.\nPeople in this tech company who do not like shopping for clothes wear the same flannel shirts every day.\nOld people living in stable homes do not like surprises.\nPeople in this tech company who have very high energy and are impulsive like surprises.\nMike works in this tech company.\nIf Mike is not a person who wears the same flannel shirts every day, has very high energy, and is impulsive, then Mike either is very consistent and enjoys sticking to his regular routines or does not like surprises.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0160",
+    "question": "A-2017 is produced by AOC.",
+    "context": "Some monitors equipped in the library are produced by AOC. \nAll monitors equipped in the library are cheaper than 800 dollars. \nAll monitors cheaper than 800 dollars are with a resolution lower than 1080p. \nIf a monitor has a resolution lower than 1080p, then it does not support the type-c port. \nA-2017 supports the type-c port.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0161",
+    "question": "All enzymes are proteins.",
+    "context": "All proteins are organic compounds.\nAll enzymes are organic compounds.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0162",
+    "question": "Tiffany T. Alston went to prison for stealing government funds.",
+    "context": "If a legislator is found guilty of stealing government funds, they will be suspended from office.\nTiffany T. Alston was a legislator in Maryland's House of Delegates from 2011 to 2013.\nTiffany T. Alston was found guilty of stealing government funds in 2012.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0163",
+    "question": "Diethylcarbamazine was often used to treat river blindness.",
+    "context": "Diethylcarbamazine is a medication discovered in the year 1947.\nDiethylcarbamazine can be used to treat river blindness.\nThe only preferred treatment for river blindness is ivermectin.\nDiethylcarbamazine is not ivermectin.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0164",
+    "question": "All scares are fun.",
+    "context": "Surprises are either fun or dreadful.\nAll scares are surprises.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0165",
+    "question": "Vladimir is not a Russian federation official",
+    "context": "Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.\nIf someone has United States citizenship, then they can register to vote in the United States.\nA person either has United States citizenship or Taiwanese citizenship.\nNo Russian Federation officials hold Taiwanese citizenship. \nVladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. \nEkaterina she can register to vote in the United States, or she is a Russian federation official.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0166",
+    "question": "Nadal is the greatest player of all time.",
+    "context": "Rafa Nadal was born in Mallorca.\nRafa Nadal is a professional tennis player.\nNadal's win ratio is high.\nAll players in the Big 3 are professionals who have a high win ratio.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0167",
+    "question": "Amy is a professional athlete.",
+    "context": "All professional athletes spend most of their time on sports.\nAll Olympic gold medal winners are professional athletes.\nNo full-time scientists spend the majority of their time on sports.\nAll Nobel physics laureates are full-time scientists.\nAmy spends the most time on sports, or Amy is an Olympic gold medal winner.\nIf Amy is not a Nobel physics laureate, then Amy is not an Olympic gold medal winner.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0168",
+    "question": "The sea eel is an eel.",
+    "context": "All eels are fish. \nNo fish are plants. \nEverything displayed in the collection is either a plant or an animal.\nAll multicellular animals are not bacteria.\nAll animals displayed in the collection are multicellular.\nA sea eel is displayed in the collection.\nThe sea eel is an eel or an animal or not a plant.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0169",
+    "question": "Hyunsik is Korean.",
+    "context": "Show Your Love is a song recorded by the South Korean boy band BtoB 4u.\nThe lead single of the extended play Inside is Show Your Love.\nShow Your Love contains a hopeful message.\nBtoB 4u member Hyunsik wrote Show Your Love.\nThere is a music video for Show Your Love.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0170",
+    "question": "Hugh Vanstone attended a school in the United States.",
+    "context": "Hugh Vanstone is one of the world's leading lighting designers. \nHugh Vanstone is from the UK.\nHugh Vanstone has lit more than 160 productions.\nHugh Vanstone attended a school where he is from.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0171",
+    "question": "Mary is a white-collar worker.",
+    "context": "Tipped employees are not entitled to be paid the federal minimum wage by their employees. \nIf a person is a white-collar worker, they are entitled to be paid the federal minimum wage by their employees. \nAll lawyers are white-collar workers.\nEvery advocate is a lawyer.\nMary is not a lawyer or a tipped employee.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0172",
+    "question": "Mike got 180 on the LSAT.",
+    "context": "Everyone who took the bar exam can read. \nAll lawyers took the bar exam. \nEveryone who took the bar exam is knowledgeable about criminal procedures. \nAll people who got a score of 180 on the LSAT can read. \nNo elephants can read. \nIf Mike can not read or is not an elephant, then Mike either took the bar exam or can read.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0173",
+    "question": "Amy Odell is an English toy inventor.",
+    "context": "Odell is an English surname originating in Odell, Bedfordshire.\nIn some families, Odell is spelled O'Dell in a mistaken Irish adaptation.\nNotable people with surnames include Amy Odell, Jack Odell, and Mats Odell.\nAmy Odell is a British singer-songwriter.\nJack Odell is an English toy inventor.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0174",
+    "question": "Asa Hoffmann is a grandmaster.",
+    "context": "Asa Hoffmann was born in New York City.\nAsa Hoffman lives in Manhattan.\nAsa Hoffman is a chess player.\nSome chess players are grandmasters.\nPeople born and living in New York City are New Yorkers.\nPeople living in Manhattan live in New York City.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0175",
+    "question": "\"Hooray! Hooray! It's a Holi-Holiday!\" peaked at #3 on the UK charts.",
+    "context": "Boney M. had several German #1 singles.\n\"Hooray! Hooray! It's a Holi-Holiday!\" was a big hit all over Europe.\n\"Hooray! Hooray! It's a Holi-Holiday!\" was not in German #1 singles.\nA song that peaks below #1 on the german charts is also a song that is not the #1 single in Germany.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0176",
+    "question": "Quincy McDuffie can catch every ball.",
+    "context": "Quincy McDuffie is an American professional wide receiver in Canadian Football.\nPeople who can catch balls are good wide receivers. \nQuincy McDuffie can catch some footballs easily.\nGood wide receivers play professionally.\nGood wide receivers can catch with both their left and right hand.\nAll footballs are balls.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0177",
+    "question": "Space is a vampire.",
+    "context": "Plungers suck.\nVacuums suck.\nVampires suck.\nSpace is a vacuum.\nA duster is a household appliance that doesn't suck.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0178",
+    "question": "Roderick Strong leads the Creed Brothers.",
+    "context": "Diamond Mine is a professional wrestling stable formed in WWE.\nRoderick Strong leads Diamond Mine.\nDiamond Mine includes the Creed Brothers and Ivy Nile.\nImperium has a feud with Diamond Mine.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0179",
+    "question": "Bunny does not have a regular 9-5 job.",
+    "context": "All people who went to Clay's school and who make their own matcha teas every morning with ceremonial-grade matcha powder do not wake up late and start their schedules past noon regularly.\nAll people who went to Clay's school, who live in California, and attend yoga classes regularly, make their own matcha teas every morning with ceremonial-grade matcha powder.\nAll people who went to Clay's school, and work in the entertainment industry as high-profile celebrities, wake up late and start their schedules past noon regularly.\nAll people who went to Clay's school that do not have regular 9-5 jobs, work in the entertainment industry as high-profile celebrities.\nAll people who went to Clay's school and prefer working at home over going to the office daily do not have regular 9-5 jobs.\nBunny went to Clay's school, and she either prefers to work at home over going to the office and makes her own matcha teas every morning with ceremonial-grade matcha powder, or does not prefer to work at home over going to the office every day and does not make her own matcha teas every morning with ceremonial-grade matcha powder.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0180",
+    "question": "Robert Zimmer is German.",
+    "context": "Robert Zimmer was a philosopher born in Germany.\nRobert Zimmer is an essayist.\nRobert Zimmer was born in 1953.\nEvery essayist is a writer.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0181",
+    "question": "Adam owns a Japanese car.",
+    "context": "Adam owns cars.\nAdam has a favorite car.\nAmong the cars he owns, Adam's favorite car is European.\nAdam broke his favorite car.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0182",
+    "question": "The fabric bundle is perfect.",
+    "context": "All clothes are products. \nNo products are perfect. \nAll dresses are clothes.\nAll skirts are dresses. \nIf the fabric bundle is a piece of clothing, then the fabric bundle is a perfect dress.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0183",
+    "question": "James is not provided with souvenirs.",
+    "context": "Researchers present their work at the conference or provide a tutorial session there.\nEveryone who presents their work at the conference will attend in person. \nEveryone providing a tutorial session at the conference will be invited to join the club. \nEveryone who attends the conference in person is provided with souvenirs. \nEveryone invited to join the club is provided with delicious meals. \nEveryone provided with delicious meals is happy to communicate with each other during the dinner. \nEveryone who is provided with delicious meals is invited to take a photo with the audience. \nIt is not true that James both attended the conference in person and was provided with souvenirs.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0184",
+    "question": "Barutin Cove is named after all islands in Antarctica.",
+    "context": "Barutin Cove is a cove named after the Bulgarian settlement of Barutin.\nBarutin Cove is on the southwest coast of Snow Island.\nSnow Island, Greenwich Island, and Deception Island are located in the South Shetland Islands.\nAntarctica is located on the South Shetland Islands. \nIf place A is located in place B and place B is located in place C, then place A is located in place C.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0185",
+    "question": "Joe is a person taking classes.",
+    "context": "No iPhones are standalone desktops. \nAll Apple-made cellphones are iPhones.  \nAll phones with A15 Bionic chips are Apple-made cell phones. \nAll phones equipped with four core-GPU made by Apple are phones with A15 Bionic chips. \nIf an unannounced Huawei phone is either a phone with A15 Bionic chips or equipped with four core-GPU made by Apple, then unannounced Huawei phone is neither a phone with A15 Bionic chips nor a standalone desktop.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0186",
+    "question": "It is possible to complete the game without ever reaching the green stage.",
+    "context": "A game is played with three stages: red stage, yellow stage, and green stage.\nEach player begins at the red stage.\nAll players must reach the yellow stage before they can reach the green stage.\nThe yellow stage comes after the red stage.\nAll players must proceed one stage at a time.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0187",
+    "question": "Hannah needs to earn money to help pay for her college tuition.",
+    "context": "If people at Mary's school work in student jobs on campus, then they need to earn money to help pay for their college tuition.\nIf people at Mary's school order takeout frequently in college, then they work in student jobs on campus.\nPeople at Mary's school order takeout frequently in college or enjoy the dining hall meals and recipes.\nIf people at Mary's school enjoy the dining hall meals and recipes, then they are not picky eaters.\nIf people at Mary's school enjoy the dining hall meals and recipes, then they spend a lot of their time eating and catching up with friends in the campus dining halls.\nHannah is at Mary's school.\nHannah works in student jobs on campus and if she needs to earn money to help pay for her college tuition, then she is neither picky nor needs to earn money to help pay for her college tuition.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0188",
+    "question": "Joe owns a flannel.",
+    "context": "Quiksilver sells sportswear, clothing, footwear, and accessories.\nFlannels are a type of clothing.\nJoe owns an item from Quiksilver.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0189",
+    "question": "Larry is a bear.",
+    "context": "Animals who need large territory travel far.\nEvery animal that eats a lot needs a large territory.\nIf something is a big animal, then it will eat a lot.\nBears are big animals.\nLarry is a big animal.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0190",
+    "question": "German is a Romance language.",
+    "context": "All Romance languages are Indo-European languages.\nRomance languages are a language family.\nAll languages within a language family are related to each other.\nFrench and Spanish are both Romance languages.\nGerman is related to Spanish.\nBasque is not related to any other language.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0191",
+    "question": "James is provided with souvenirs.",
+    "context": "Researchers present their work at the conference or provide a tutorial session there.\nEveryone who presents their work at the conference will attend in person. \nEveryone providing a tutorial session at the conference will be invited to join the club. \nEveryone who attends the conference in person is provided with souvenirs. \nEveryone invited to join the club is provided with delicious meals. \nEveryone provided with delicious meals is happy to communicate with each other during the dinner. \nEveryone who is provided with delicious meals is invited to take a photo with the audience. \nIt is not true that James both attended the conference in person and was provided with souvenirs.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0192",
+    "question": "Peter is notably tidy.",
+    "context": "If people spill a lot of food on their clothing, then they are not notably tidy.\nAll clumsy foodies who go out frequently to find new food restaurants to try are people who spill a lot of food on their clothing.\nIf people are cleanly, then they are notably tidy.\nIf people value order and spotlessness, then they are cleanly.\nAll people whose families prioritize order and spotlessness themselves value order and spotlessness.\nPeter is either a person who spills a lot of food on his clothing and is cleanly, or a person who does not spill a lot of food on his clothing and is not cleanly",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0193",
+    "question": "Hulu is not capable of abstract thoughts.",
+    "context": "All humans are capable of abstract thoughts.\nPlants are not capable of abstract thoughts.\nAll multicellular creatures that are autotrophic or digest food internally are plants and animals.\nAll goats are animals.\nDirt is not an animal.\nHulu is a goat or a human.\nHulu is a multicellular creature that is autotrophic or digests food internally.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0194",
+    "question": "All sandwich cookies are delicious.",
+    "context": "No sandwich cookies are healthy.\nOreos are sandwich cookies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0195",
+    "question": "Coco Gauff has lost to Rafael Nadal.",
+    "context": "If someone is ranked highly by the Women's Tennis Association, then they are one of the most active players in major tennis. \nEveryone who lost to Iga Świątek at Roland Garros 2022 is ranked highly by the Women's Tennis Association.\nAll female tennis players at Roland Garros 2022 lost to Iga Świątek.\nAll tennis players at Roland Garros 2022 are either female or male.\nAll male tennis players at Roland Garros in 2022 lost to Rafael Nadal.\nIf Coco Gauff is ranked highly by the Women's Tennis Association or lost to Rafael Nadal, then Coco Gauff is not a male tennis player at Roland Garros 2022.\nCoco Gauff is at Roland Garros 2022.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0196",
+    "question": "Pokemon Diamond version supports Windows.",
+    "context": "If a game is one of the top-3 best selling video-games, then it is multiplatform.\nIf a game has sold more than 100 million copies, then it is one of the top-3 best-selling video games.\nSome games that support Windows are developed by Nintendo.\nAll multiplatform games can be played on a wide range of devices.\nPokemon Diamond version is neither developed by Nintendo nor can be played on a wide range of devices.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0197",
+    "question": "Camp Davern was established in 1989.",
+    "context": "Camp Davern is a traditional summer camp for boys and girls.\nCamp Davern was established in the year 1946.\nCamp Davern was operated by the YMCA until the year 2015.\nCamp Davern is an old summer camp.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0198",
+    "question": "Pierre de Rigaud de Vaudreuil built a fort in New England.",
+    "context": "Fort Ticonderoga is the current name for Fort Carillon.\nPierre de Rigaud de Vaudreuil built Fort Carillon.\nFort Carillon was located in New France.\nNew France is not in Europe.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0199",
+    "question": "Yuri is an American national.",
+    "context": "Some professional basketball players are not American nationals.\nAll professional basketball players can do jump shots.\nIf someone can jump shots, they leap straight into the air.\nIf someone leaps straight into the air, they activate their leg muscles. \nYuri does not activate his leg muscles.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0200",
+    "question": "The Toyota Prius is a equipped with a Ferrari V12 engine.",
+    "context": "All sports cars are loud.\nNo loud cars are electric.\nIf a car is a Ferrari, then it is a sports car.\nAll cars made in Maranello are Ferraris.\nThe Toyota Prius is made in Maranello or is a loud car, or both.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0201",
+    "question": "The Salmon of Doubt has no innovative Ideas.",
+    "context": "Douglas Adams is an author who created the book collection called The Salmon of Doubt. \nThe Salmon of Doubt is about life experiences and technology.\nAll authors are writers.\nWriters create innovative ideas.\nSome books that contain innovative ideas are about technology.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0202",
+    "question": "System 7 has released several singles.",
+    "context": "System 7 is a UK-based electronic dance music band.\nSteve Hillage and Miquette Giraudy formed System 7.\nSteve Hillage and Miquette Giraudy are former members of the band Gong.\nElectric dance music bands are bands.\nSystem 7 has released several club singles.\nClub singles are not singles.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0203",
+    "question": "Thomas Gilovich worked on philosophies of mind.",
+    "context": "Naive cynicism was proposed by Justin Kruger and a colleague.\nThomas Gilovich is a colleague of Justin Kruger. \nNaive cynicism is a philosophy of mind.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0204",
+    "question": "The Boston Celtics are from San Francisco.",
+    "context": "The Golden State Warriors are a team from San Francisco.\nThe Golden State Warriors won the NBA finals.\nAll teams attending the NBA finals have won many games.\nBoston Celtics are a team that lost the NBA finals.\nIf a team wins the NBA finals, then they will have more income.\nIf a team wins or loses at the NBA finals, then they are attending the finals.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0205",
+    "question": "Beijing is the second largest Chinese city.",
+    "context": "Beijing is the capital of the People's Republic of China. \nBeijing is the capital city of the world's most populous nation.\nBeijing is located in Northern China.\nBeijing hosted the 2008 Summer Olympics and 2008 Summer Paralympics Games.\nBeijing has hosted the Summer and Winter Olympics and the Summer and Winter Paralympics.\nMany of Beijing's 91 universities consistently rank among the best universities in the world.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0206",
+    "question": "Sadollah fought Musoke at UFC Fight Night.",
+    "context": "UFC Fight Night was a mixed martial arts event held in Sweden.\nAt UFC Fight Night, Sadollah was scheduled to fight Musoke.\nSadollah fought Akiyama at UFC Fight Night.\nMusoke fought Yakovlev at UFC Fight Night.\nJung was injured at UFC Fight Night.\nPeople injured at UFC Fight Night did not fight.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0207",
+    "question": "Inside Out was a punk band.",
+    "context": "Vic DiCara plays guitar and bass.\nThe only style of music Vic DiCara plays is punk music.\nVic DiCara played in the band Inside Out.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0208",
+    "question": "Diethylcarbamazine is used in the treatment of filariasis.",
+    "context": "Diethylcarbamazine is a medication discovered in the year 1947.\nDiethylcarbamazine can be used to treat river blindness.\nThe only preferred treatment for river blindness is ivermectin.\nDiethylcarbamazine is not ivermectin.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0209",
+    "question": "There is a son of a general practitioner that is not an author.",
+    "context": "Michael O'Donnell is a British physician, journalist, author, and broadcaster.\nOne of the word-setters of My Word! was Michael O'Donnell.\nThe magazine World Medicine was edited by Michael O'Donnell.\nMichael O'Donnell was born in Yorkshire as the son of a general practitioner.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0210",
+    "question": "Joe Rogan is American.",
+    "context": "Jason Kramer is an American music supervisor.\nSome American radio personalities are also music supervisors. \nAnyone who hosts a show on a public radio station is a radio personality.\nJoe Rogan is a radio personality.\nJason Kramer hosted a show on a public radio station.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0211",
+    "question": "Ho is not an ardent communist.",
+    "context": "Everyone at the business conference is either an investor or an entrepreneur.\nNone of those at the business conference who enjoy the opportunity of starting a business prefer a planned economy. \nAll entrepreneurs at the business conference enjoy the opportunity of starting a business. \nEveryone at the business conference who enjoys state ownership of means of production prefers a planned economy. \nEveryone at the business conference who is an ardent communist prefers state ownership of the means of production.\nHo is at the business conference and prefers state ownership of the means of production.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0212",
+    "question": "James does not have a high income.",
+    "context": "Everyone working at Meta has a high income. \nA person with a high income will not take a bus to their destination.\nPeople will either take a bus or drive to their destination. \nEveryone who has a car will choose to drive to their destination. \nNo students drive to their destination. \nJames has a car or works at Meta.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0213",
+    "question": "Roger Federer is a soccer player.",
+    "context": "No professional basketball players are soccer players.\nAll NBA players are professional basketball players.\nAll soccer defenders are soccer players.\nAll centerbacks are soccer defenders.\nRoger Federer is either both an NBA player and a soccer defender, or neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0214",
+    "question": "Only one person who won the Turing Award made significant contributions to the analysis of algorithms.",
+    "context": "The Turing Award has been awarded to Donald Knuth, Marvin Minsky, Richard Hamming, and John McCarthy. \nDonald Knuth made contributions to the analysis of algorithms.\nMarvin Minsky is recognized for his contributions to the field of artificial intelligence.\nRichard Hamming researched numerical methods.\nJohn McCarthy made contributions to the field of artificial intelligence.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0215",
+    "question": "If a song is titled \"Perfect\", Sam will play it.",
+    "context": "Sam is doing a project.\nA project is written either in C++ or Python.\nIf Sam does a project written in Python, he will not use a Mac.\nSam is using a Mac.\nIf Sam uses a Mac, he will play a song.\nIf a song is not titled \"Perfect,\" Sam will never play it.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0216",
+    "question": "Peter enjoys going out often to restaurants with friends.",
+    "context": "All of Michael's neighbors who grow their own fresh vegetables in their home gardens also have ample space.\nAll of Michael's neighbors who are young working professionals and live in large cities, do not have ample space.\nAll of Michael's neighbors who order takeout from delivery services often grow their own fresh vegetables in their home garden.\nAll of Michael's neighbors who enjoy going out often to restaurants with friends order takeout from delivery services often.\nAll of Michael's neighbors who regularly tout the benefits of homegrown and homecooked meals over fast food enjoy going out often to restaurants with friends. \nPeter, Michael's neighbor, grows his own fresh vegetables in his home garden, or regularly touts the benefits of homegrown and homecooked meals over fast food, or both.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0217",
+    "question": "2Sum is not an easy Leetcode problem.",
+    "context": "None of the easy Leetcode problems have an AC rate lower than 20 percent. \nAll Leetcode problems recommended to novices are easy. \nLeetcode problems either have an AC rate lower than 20 percent or are starred by more than 1 thousand users. \nAll hard Leetcode problems are starred by more than 1,000 users. \nNo Leetcode problems published after 2022 are starred by more than 1,000 users. \n'2Sum' is not both hard and also recommended to novices.\n'4Sum' is either starred by more than 1,000 users and published after 2022, or it is neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0218",
+    "question": "If Thor is not happy, then no bridge will be broken.",
+    "context": "Peter Parker is either a superhero or a civilian.\nThe Hulk is a destroyer.\nThe Hulk wakes up when he is angry.\nIf the Hulk wakes up, then he will break a bridge.\nThor is a god.\nThor will break a bridge when he is happy.\nA god is not a destroyer.\nPeter Parker wears a uniform when he is a superhero.\nPeter Parker is not a civilian if a destroyer is breaking a bridge.\nIf Thor is happy, the Hulk is angry.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0219",
+    "question": "Jack has a tidy house.",
+    "context": "If people don't often clean their homes, then they do not have tidy houses.\nIf people don't prioritize cleaning, then they do not often clean their homes.\nIf people hire a maid or cleaning service, then they have tidy houses.\nIf people don't care about cleanliness, then they do not prioritize cleaning.\nEither Jack does hire a maid or cleaning service and does not often clean his home, or he does not hire a maid or cleaning service nor often clean his home.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0220",
+    "question": "Water from the Croton River flows to the Bronx.",
+    "context": "The Croton River watershed is the drainage basin of the Croton River.\nThe Croton River is in southwestern New York.\nWater from the Croton River watershed flows to the Bronx.\nThe Bronx is in New York.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0221",
+    "question": "Longueau is served by regional TER Hauts-de-France trains.",
+    "context": "Boves is a railway station located in France. \nThe preceding station of Boves is Longueau.\nThe preceding station of Dommartin is Boves.\nFrance is a European country.\nDommartin is situated on the Paris–Lille railway. \nAny two contiguous stations are on the same railway.\nBoves is served by regional TER Hauts-de-France trains.\nIf place A is located in place B and place B is located in place C, then place A is located in place C.\nIf place A precedes place B and place B precedes place C, then place A precedes place C.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0222",
+    "question": "Lily goes to cinemas every week.",
+    "context": "All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. \nSome of the customers in James' family go to the cinema every week.\nCustomers in James' family subscribe to AMC A-List or HBO service. \nCustomers in James' family who prefer TV series will not watch TV series in cinemas.\nAll customers in James' family who subscribe to HBO services prefer TV series to movies. \nLily is in James' family; she watches TV series in cinemas.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0223",
+    "question": "Humans are mammals.",
+    "context": "Some mammals have teeth.\nPlatypuses have no teeth.\nPlatypuses are mammals. \nHumans have teeth.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0224",
+    "question": "Bobby Flynn flew to America in 2007.",
+    "context": "Bobby Flynn is a singer-songwriter. \nBobby Flynn finished 7th while competing on Australian Idol.\nAustralian Idol competitors are Australian citizens.\nThe Omega Three band made a nationwide tour in 2007.\nBobby Flynn is a member of The Omega Three band.\nBobby Flynn was born in Queensland.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0225",
+    "question": "Clyde attends Renaissance fairs regularly.",
+    "context": "All people who attend Renaissance fairs regularly enjoy dressing up in old-fashioned and historical period clothing.\nIf people are fascinated by the history of the Renaissance and other past eras, then they attend Renaissance fairs regularly.\nPeople are fascinated by the history of the Renaissance and other past eras, or they are contemporary academics who enjoy learning.\nPeople who are focused on futuristic and vocational subjects are contemporary academics who enjoy learning.\nIf people are professors who take a historical approach, then they are not contemporary academics who enjoy learning.\nIf Clyde is not focused on futuristic and voctional subjects, then he is neither focused on futuristic and vocational subjects nor enjoys dressing up in old-fashioned and historical period clothing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0226",
+    "question": "Cherries were the most popular fruit at the party.",
+    "context": "The party provides five kinds of fruits: strawberry, orange, blueberry, grape, and cherry.\nIf the fruit had the lowest remaining weight at the end of the party, then it means it was the most popular fruit.\nAt the end of the party, strawberries had the lowest remaining weight.\nAt the end of the party, the number of leftover blueberries was lower than that of cherries.\nBenjamin only ate oranges and grapes at the party.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0227",
+    "question": "A werewolf has scratched someone before.",
+    "context": "A werewolf is a human that can turn into a wolf.\nA werewolf has been scratched or bitten by another werewolf.\nIf someone has been scratched or bitten by some entity, they have been attacked by that entity.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0228",
+    "question": "Europa is a celestial body in the solar system has cleared its orbit of other debris and has a nearly spherical shape due to its own gravity.",
+    "context": "No planet in the solar system relies on nuclear fusion to generate light.\nAll stars in the solar system rely on nuclear fusion to generate light. \nAll celestial bodies in the solar systems that have greater than 0.08 solar masses are stars. \nIf a celestial body in the solar system has cleared its orbit of other debris and has a nearly spherical shape due to its own gravity, then it is a planet.\nIf Europa is a celestial body in the solar system that has cleared its orbit of other debris and has a nearly spherical shape due to its own gravity or relies on nuclear fusion to generate light, then Europa is a celestial body in the solar system.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0229",
+    "question": "Jung fought Sadollah.",
+    "context": "UFC Fight Night was a mixed martial arts event held in Sweden.\nAt UFC Fight Night, Sadollah was scheduled to fight Musoke.\nSadollah fought Akiyama at UFC Fight Night.\nMusoke fought Yakovlev at UFC Fight Night.\nJung was injured at UFC Fight Night.\nPeople injured at UFC Fight Night did not fight.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0230",
+    "question": "Jack is a seasoned software engineer interviewer.",
+    "context": "Everyone that knows about breath-first-search knows how to use a queue. \nIf someone is a seasoned software engineer interviewer at Google, then they know what breath-first-search is. \nSomeone is either a seasoned software engineer interviewer at Google, has human rights, or both. \nEvery person who has human rights is entitled to the right to life and liberty. \nEveryone that knows how to use a queue knows about the first-in-first-out data structure. \nEveryone that is entitled to the right to life and liberty cannot be deprived of their rights without due process of law. \nJack is entitled to the right to life and liberty, has human rights, or knows about the first-in-first-out data structure.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0231",
+    "question": "Burger is popular.",
+    "context": "A Unix operating system used in the lab computers is a piece of software.\nAll versions of MacOS used in the lab computer are based on Unix operating systems.\nA lab computer uses either MacOS or Linux. \nAll Linux computers in the lab are convenient.\nAll software used in the lab computers is written with code.\nIf something is convenient in the lab computer, then it is popular.\nBurger is used in the lab computer, and it is written with code and a new version of MacOS.\nPyTorch is used in the lab computer, and PyTorch is neither a Linux system nor a piece of software.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0232",
+    "question": "Daniel once applied to Stanford University, but he couldn’t get in even though he has family members who are Stanford alumni.",
+    "context": "Daniel is a software engineer, and he works at Palantir Technologies.\nDaniel studied bioengineering during his undergraduate at Rice University.\nDaniel’s older sister works at Meta as a technical sourcer. \nDaniel’s dad and older sister both graduated from Stanford University.\nDaniel’s dad is a doctor practicing internal medicine at a veteran’s hospital in Minneapolis.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0233",
+    "question": "Ron is a cat.",
+    "context": "No birds are ectothermic.\nAll penguins are birds.\nAn animal is ectothermic or endothermic.\nAll endothermic animals produce heat within the body.\nRon and Henry are both animals.\nRon is not a bird and does not produce heat with the body. \nHenry is not a cat and does not produce heat with the body.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0234",
+    "question": "Singh Kaur makes a lot of money.",
+    "context": "Musicians have very busy lives.\nSingh Kaur is a musician and famous.\nIf a musician is not famous, that musician will not make a lot of money.\nA musician can be a singer or a writer.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0235",
+    "question": "Wang got an A+ in English class.",
+    "context": "There are five grades in English class: A+, A, B+, B, and C. \nIf a student gets an A+ in English class, then his score is greater than 95.\nIf a student gets an A in English class, then his score is greater than 90 but lower than 95.\nZhang got an A in English class.\nWang's English class score is better than Zhang's.\nWu's English class score is lower than 90.\nIf a student's English class score is lower than 90, then it is not greater than 95 or 90, and lower than 95.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0236",
+    "question": "A design by Max is a brutalist building.",
+    "context": "All of Zaha Hadid's design styles that Max adores have interesting geometries.\nNo brutalist buildings that Max adores have interesting geometries.\nEvery style that Max adores is either Zaha Hadid's design style or Kelly Wearstler's design style. \nAll of Kelly Wearstler's design styles that Max adores are evocative.\nAll of Kelly Wearstler's design styles that Max adores are dreamy.\nIf a design by Max that he adores has interesting geometries, then the design is a brutalist building and evocative.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0237",
+    "question": "Skateboarding will appear at The 2028 Summer Olympics.",
+    "context": "If a city holds a Summer Olympics, and the city is a US city, then the Summer Olympics will be in the US.\nIf a city is in a state in the US, the city is a US city.\nIf a city is in a state, and a Summer Olympics is in this city, then the Summer Olympics is in this state.\nThe 2028 Summer Olympics is scheduled to take place in Los Angeles.\nLos Angeles is a city in California.\nAtlanta is a US city.\nAtlanta is in Georgia.\nCalifornia is a state in the United States.\nBoxing, modern pentathlon, and weightlifting will be removed from The 2028 Summer Olympics.\nAtlanta in the United States held the 1996 Summer Olympics.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0238",
+    "question": "Fido is a flightless bird",
+    "context": "Those who can fly over a vast distance glide in the air. \nFlightless birds cannot fly over a vast distance. \nPenguins are flightless birds. \nNonflying birds in Antarctica are penguins. \nFido is a penguin, or flies over a vast distance.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0239",
+    "question": "Jack is not a thing.",
+    "context": "All phones are things.\nAll cell phones are phones. \nAll iPhones are cell phones. \nAll employees are wage earners.\nAll wage earners are human. \nJack is either an employee or a wage earner.\nJack is either a human or a phone.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0240",
+    "question": "The Thinkpad X1 is sold in Apple Stores.",
+    "context": "All products designed by Apple are sold at Apple Stores.\nAll products with Apple logos are designed by Apple.\nAll Macbooks have Apple logos.\nAll products with Apple M2 chips are Mackbooks.\nA Thinkpad X1 is not both sold in Apple Stores and is a Macbook.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0241",
+    "question": "James Cocks speaks French.",
+    "context": "James Cocks was a British lawyer.\nJames Cocks was a Whig politician who sat in the House of Commons.\nA British is a European.\nAny lawyer is familiar with laws.\nSome Whigs speak French.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0242",
+    "question": "Jim is an athlete.",
+    "context": "No athletes never exercise.\nAll professional basketball players are athletes. \nAll NBA players are professional basketball players. \nAll Knicks players are NBA players. \nEither John is a professional basketball player and he never exercises, or he is not a professional basketball player and he sometimes exercises.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0243",
+    "question": "Picture memory is preceded by data processing.",
+    "context": "All brain study designs are either block designs or event-related designs. \nAll event-related brain study designs are brain image acquisition.\nAll brain image acquisition in brain study designs is preceded by data processing.\nNothing in brain study designs preceded by data processing analyzes data.\nPicture memory is a type of brain study design that is not either event-related or analyzing data.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0244",
+    "question": "Environmental volunteers work in groups.",
+    "context": "All volunteers receive intangible benefits for their work.\nVolunteers work regularly or on an as-needed basis.\nSome volunteers are trained.\nVolunteers work in groups or individually.\nEnvironmental volunteers contribute toward environmental management or conservation.\nParticipating in natural disaster response is an example of volunteers working in groups on an as-needed basis.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0245",
+    "question": "Mac is a video.",
+    "context": "No songs are visuals. \nAll folk songs are songs. \nAll videos are visuals. \nAll movies are videos.\nAll sci-fi movies are movies.\nInception is a sci-fi movie.\nMac is neither a folk song nor a sci-fi movie.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0246",
+    "question": "Stephen Curry is a professional basketball player.",
+    "context": "All professional soccer defenders are professional soccer players.\nNo professional soccer players are professional basketball players.\nAll professional centerbacks are professional soccer defenders.\nAll NBA players are professional basketball players.\nStephen Curry is an NBA player.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0247",
+    "question": "Philip got a Schengen visa.",
+    "context": "Some of those who apply for a Schengen visa get it.\nTo apply for a Schengen Visa, you need to provide financial guarantees.\nIf you need to provide financial guarantees, you must request documents from the bank.\nDo not close your bank account if you request documents from the bank.\nPhilip closed his bank account.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0248",
+    "question": "G-910 is displayed on the homepage.",
+    "context": "All of this brand's products are either produced in China or in the US. \nAll of this brand's products produced in China are labeled. \nAll of this brand's products produced in the US are sold in the US. \nThe products of this brand that are labeled are cheaper.\nAll of this brand's products sold in the US are sold at Walmart. \nAll products of this brand displayed on the homepage are sold at Walmart. \nNone of this brand's products that are returned by customers are sold at Walmart. \nG-910 is a product of this brand, and it is either displayed on the homepage and is cheaper, or it is neither displayed on the homepage nor is it cheaper.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0249",
+    "question": "Leif is good at math.",
+    "context": "Some employees in James's town who work in business analysis are good at math. \nAll of the employees in James's town who work in business analysis are working for this company. \nNone of the employees in James's town who work for this company are from China. \nAll of the employees in James's town working in software engineering are from China. \nLeif is an employee in James's town, and he is working in software engineering.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0250",
+    "question": "Tecmo holds another company.",
+    "context": "Koei Tecmo is a Japanese video game and anime holding company.\nHolding companies hold several companies.\nTecmo was disbanded in Japan, while Koei survived but was renamed.\nVideo game holding companies are holding companies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0251",
+    "question": "Bank of America payment cards are international.",
+    "context": "No payment cards issued by Russian banks can be used with ApplePay.\nAll MIR payment cards are issued by Russian banks.\nSome international payment cards can be used with ApplePay.\nSocial payments in Russia can only be transferred to MIR payment cards.\nBank of America payment cards can be used with ApplePay.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0252",
+    "question": "All hatcheries are open to visitors.",
+    "context": "The National Lobster Hatchery is a hatchery located in Padstow, England.\nThe National Lobster Hatchery is open to visitors.\nA hatchery is either for profit or for conservation.\nIf a hatchery is for conservation, it might release animals into the wild.\nThe National Lobster Hatchery is not for profit.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0253",
+    "question": "Miroslav Venhoda loved music.",
+    "context": "Miroslav Venhoda was a Czech choral conductor who specialized in the performance of Renaissance and Baroque music.\nAny choral conductor is a musician.\nSome musicians love music.\nMiroslav Venhoda published a book in 1946 called Method of Studying Gregorian Chant.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0254",
+    "question": "James does not have lunch in the company.",
+    "context": "All employees who schedule a meeting with their customers will go to the company building today. \nEveryone who has lunch in the company building schedules meetings with their customers. \nEmployees have lunch either in the company building or at home.\nIf an employee has lunch at home, they are working remotely from home.\nAll employees who are in other countries work remotely from home. \nNo managers work remotely from home. \nJames will appear in the company today if and only if he is a manager.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0255",
+    "question": "Gasteren has a population of 155.",
+    "context": "Gasteren is a village located in the province of Drenthe.\nDrenthe is a Dutch province. \nNo cities are villages.\nThe population of a village in Drenthe was 155 people.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0256",
+    "question": "John Evans Popularized the term paalstab.",
+    "context": "Palstaves are a type of early bronze axe.\nPalstaves are found in northern, western, and southwestern Europe and are cast in molds.\nJohn Evans is an archeologist who popularized the term \"palstave.\"\nPaalstabs are not a type of axe but rather a digging shovel.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0257",
+    "question": "Beijing is located in southern China.",
+    "context": "Beijing is the capital of the People's Republic of China. \nBeijing is the capital city of the world's most populous nation.\nBeijing is located in Northern China.\nBeijing hosted the 2008 Summer Olympics and 2008 Summer Paralympics Games.\nBeijing has hosted the Summer and Winter Olympics and the Summer and Winter Paralympics.\nMany of Beijing's 91 universities consistently rank among the best universities in the world.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0258",
+    "question": "Ailton Silva played for Fluminense.",
+    "context": "Ailton Silva, born in 1995, is commonly known as Ailton.\nAilton is a football player who was loaned out to Braga.\nAilton Silva is a Brazilian footballer who plays for Náutico.\nNáutico is a football club along with Braga.\nFluminense is a football club.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0259",
+    "question": "The Hamden Plaza store does not provide take-out service.",
+    "context": "If a restaurant is listed in Yelp’s recommendations, then the restaurant has not received many negative reviews.\nAll restaurants with a rating greater than four are listed in Yelp’s recommendations.\nSome restaurants that do not provide take-out service receive many negative reviews.\nAll restaurants that are popular among local residents have ratings greater than four.\nThe Hamden Plaza Subway store has a rating greater than four, or it is popular among local residents.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0260",
+    "question": "Paolo is an amateur photographer.",
+    "context": "Roversi is an Italian surname.\nAlba Roversi uses Roversi as a surname.\nPaolo Roversi uses Roversi as a surname.\nRoberto Roversi uses Roversi as a surname.\nPaolo Roversi is a photographer.\nA photographer is a professional or an amateur.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0261",
+    "question": "New York City is located in New York State.",
+    "context": "New York City is Located in the United States of America.\nThe United States of America is part of North America.\nNorth America is in the western hemisphere of the earth.\nNew York City is a highly developed city.\nIf place A is located in place B and place B is located in place C, then place A is located in place C.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0262",
+    "question": "Lily does not go to cinemas every week.",
+    "context": "All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. \nSome of the customers in James' family go to the cinema every week.\nCustomers in James' family subscribe to AMC A-List or HBO service. \nCustomers in James' family who prefer TV series will not watch TV series in cinemas.\nAll customers in James' family who subscribe to HBO services prefer TV series to movies. \nLily is in James' family; she watches TV series in cinemas.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0263",
+    "question": "Some papers are hard.",
+    "context": "Tissues are soft.\nSome papers are tissues.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0264",
+    "question": "Herodicus was tutored by Hippocrates.",
+    "context": "Herodicus was a Greek physician, dietician, sophist, and gymnast.\nHerodicus was born in the city of Selymbria.\nSelymbria is a colony of the city-state Megara.\nOne of the tutors of Hippocrates was Herodicus.\nMassages were recommended by Herodicus.\nSome of the theories of Herodicus are considered to be the foundation of sports medicine.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0265",
+    "question": "Grapes are not a food.",
+    "context": "Grass is not food\nAll meadows are grass.\nAll edible things are food. \nAll fruits are edible.\nAll lemons are fruit.\nGrapes are not both edible and lemons.\nBananas are grasses or fruits.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0266",
+    "question": "Some CD players are suitable toys for children.",
+    "context": "All CD players are delicate mechanisms.\nNo delicate mechanisms are suitable toys for children.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0267",
+    "question": "Oliver plays violin in the concert.",
+    "context": "If a person plays an instrument in a concert, they are good at playing this kind of instrument.\nPeter plays piano, violin, and saxophone.\nPeter plays piano in a concert.\nOliver and Peter both play instruments in a concert.\nOliver plays a different musical instrument from Peter in the concert.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0268",
+    "question": "A smarter person has gained knowledge.",
+    "context": "Books contain tons of knowledge.\nWhen a person reads a book, that person gains knowledge. \nIf a person gains knowledge, they become smarter.\nHarry read the book “Walden” by Henry Thoreau.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0269",
+    "question": "Tom is allowed to move into an apartment in The Olive Garden with Fluffy.",
+    "context": "Pets are allowed in some managed buildings.\nA deposit is required to rent an apartment in a managed building.\nThe security deposit can be either equal to the monthly rent at a managed building or more.\nFluffy is Tom's cat.\nCats are pets.\nThe Olive Garden is a managed building.\nThe monthly rent at the Olive Garden is $2000.\n$2000 is more than $1500.\nTom will rent an apartment in a managed building if he is allowed to move in with Fluffy, and the security deposit is no more than $1500.\nIf a managed building allows pets, then people are allowed to move in with a pet.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0270",
+    "question": "Fabien is a person who likes eating cheese.",
+    "context": "There's a person in Benji's family who likes eating cheese or is a francophile.\nThere is no francophile in Benji's family whose favorite country is Spain.\nThere is a person in Benji's family who likes eating cheese or whose favorite country is Spain.\nFabien is in Benji's family and  does not both study Spanish and also like eating cheese.\nFabien studies Spanish.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0271",
+    "question": "Mark Zuckerberg is an entrepreneur.",
+    "context": "No people who have corporate jobs are taking more than normal financial risks.\nAll entrepreneurs are taking more than normal financial risks.\nAll risk-averse working people are people who have corporate jobs.\nAll working people who hate working for others want to be entrepreneurs.\nIf Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse working person.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0272",
+    "question": "Carol is a preteen or a young child.",
+    "context": "All people who attend weddings are getting married or know the people who are getting married.\nNo preteens or young children are getting married or know the people who are getting married.\nPeople who enjoy celebrating life milestone events with other people attend weddings.\nPeople who are fond of large group functions enjoy celebrating life milestone events with other people.\nAll people who are outgoing and spirited are fond of large group functions.\nIf Carol is not both a pre-teen or young child and attends a wedding, then Carol is not getting married or knows the people who are getting married.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0273",
+    "question": "Reasoning with Modus Ponens is based on facts and rules.",
+    "context": "All inductive reasoning processes derive general principles from a body of observations.\nTwo major types of reasoning rules are inductive reasoning and deductive reasoning. \nAll deductive reasoning processes are only based on facts and rules. \nNothing only based on facts and rules is used for statistical generalization. \nModus Ponens is not both used in inductive reasoning and used for statistical generalization. \nModus Ponens is a component of a major part of reasoning rule.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0274",
+    "question": "Blueberries were the most popular fruit at the party.",
+    "context": "The party provides five kinds of fruits: strawberry, orange, blueberry, grape, and cherry.\nIf the fruit had the lowest remaining weight at the end of the party, then it means it was the most popular fruit.\nAt the end of the party, strawberries had the lowest remaining weight.\nAt the end of the party, the number of leftover blueberries was lower than that of cherries.\nBenjamin only ate oranges and grapes at the party.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0275",
+    "question": "If a person is not hungry, the person is unhappy.",
+    "context": "If a person is hungry, the person is uncomfortable.\nIf a person is uncomfortable, the person is unhappy.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0276",
+    "question": "In Indonesia, the prosecutor personally investigates cases of corruption.",
+    "context": "Indonesia is a country.\nIn Indonesia, the prosecutor only personally investigates cases of some special crimes.\nCorruption is a type of crime.\nOnce the police complete crime investigations, the evidence is handed to the prosecutor. \nEvidence can be either satisfactory or unsatisfactory.\nIf the evidence is handed to the prosecutor and the evidence is satisfactory, the prosecutor will prosecute the offender in an appropriate court.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0277",
+    "question": "The mixture contains carbon.",
+    "context": "All hydrocarbons are organic compounds .\nAll alkanes are hydrocarbons\nAll organic compounds are chemical compounds.\nAll organic compounds contain carbon.\nNo chemical compounds contain only one element.\nThe mixture either both is a chemical compound and contains only one element, or neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0278",
+    "question": "Rockie is a turtle.",
+    "context": "All rabbits that can be spotted near the campus are cute. \nSome turtles can be spotted near the campus. \nThe only animals that can be spotted near the campus are rabbits and squirrels.\nIf something is skittish, then it is not calm.\nAll the squirrels that can be spotted near the campus are skittish.\nRockie can be spotted near the campus, and it is calm.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0279",
+    "question": "Mark is Robin's friend and he is a person who studies hard.",
+    "context": "If Robin's friends practice coding questions, then they are not studying to go to medical school to become a doctor.\nIf Robin's friends want to work in the software engineering industry, then they practice coding questions.\nIf Robin's friends enjoy healthcare fields and want to help people with medical issues, then they are studying to go to medical school to become a doctor.\nIf Robin's friends grew up with parents who worked as doctors, then they enjoy healthcare fields and want to help people with medical issues.\nIf Robin's friends study hard, then they grew up with parents who worked as doctors.\nMark is Robin's friend.\nIf Mark neither enjoys healthcare fields and wants to help people with medical issues nor grew up with parents who worked as doctors, then Mark is either a person who studies hard or grew up with parents who worked as doctors.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0280",
+    "question": "Leonardo da Vinci has artworks in the landscape genre.",
+    "context": "The Mona Lisa is a world's best-known painting.\nThe Mona Lisa is a portrait painted by Leonardo da Vinci.\nLeonardo da Vinci was a scientist and painter.\nPainting genres can be history, portrait, animal, landscape, and still life.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0281",
+    "question": "Tower A is not higher than 400 meters.",
+    "context": "There are no buildings in New Haven higher than 400 meters. \nAll buildings managed by Yale Housing are in New Haven. \nAll Manhattan skyscrapers are higher than 400 meters. \nAll buildings owned by Bloomberg are in Manhattan. \nAll buildings with the Bloomberg logo are buildings owned by Bloomberg. \nTower A is neither a building in New Haven nor a skyscraper in Manhattan.\nTower B is a skyscraper building in Manhattan with a Bloomberg logo.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0282",
+    "question": "The theistic God is a sophist.",
+    "context": "All philosophers reason. \nSome sophists reason. \nAll who can reason can distinguish truth from falsehood.\nNobody who can distinguish truth from falsehood is morally perfect.  \nThe theistic God is morally perfect.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0283",
+    "question": "Manny regularly rides horses for pleasure and sport.",
+    "context": "All people in this midwest town who own horse ranches regularly ride horses for pleasure and sport.\nAll people in this midwest town with a lot of disposable income have a horse ranch.\nIf people in this midwest town compete in horse dressage shows, then they have a lot of disposable income.\nIf people in this midwest town compete in horse dressage shows, then they have invested in high-quality equestrian gear and equipment.\nIf people in this midwest town regularly ride horses for pleasure and sport, then they do not live in cramped residential buildings.\nManny is in this midwest town, and she either has a horse ranch and lives in a cramped residential building, or she does neither.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0284",
+    "question": "The world championships is a sporting event.",
+    "context": "The summer Olympic games is a sporting event. \nThe last summer Olympic games was in Tokyo.\nThe United States won the most medals in Tokyo.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0285",
+    "question": "Mia's favorite season is spring.",
+    "context": "There are four seasons in a year: Spring, Summer, Fall, and Winter.\nAll students who want to have a long vacation have summer as their favorite season.\nEmma's favorite season is summer.\nMia's favorite season is not the same as Emma's. \nJames wants to have a long vacation.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0286",
+    "question": "Viewers send funny videos to the French broadcast channel TF1 that are in French.",
+    "context": "Video Gag is a French television series that airs weekly.\nVideo Gag airs on the French broadcast channel TF1. \nIf viewers send funny videos to the French broadcast channel TF1, then Video Gag airs them weekly.\nAll videos aired on Video Gag are in French.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0287",
+    "question": "The USS Lyon is currently decommissioned.",
+    "context": "The USS Lyon was a US Navy ship involved in WWII.\nAll ships involved in WWII are currently decommissioned or in a museum.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0288",
+    "question": "The maximum of quasiconvex functions is a function that represent straight lines on the coordinate plane.",
+    "context": "All functions that represent straight lines on the coordinate plane are linear functions. \nNo linear functions are non-convex functions.\nA function is either a non-convex fuction or a convex function.\nAll quasi-convex functions are real-valued functions.\nAll convex functions are quasi-convex functions. \nThe maximum of quasiconvex functions is a function.\nThe maximum of quasiconvex functions is a function that represents straight lines on the coordinate plane or it is a convex function or it is not a non-convex function.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0289",
+    "question": "David Ha'ivri has been elected to the Shomron Regional Municipal council.",
+    "context": "David Ha'ivri is a political strategist. \nIf you are born in Israel to at least one Israeli parent, you receive Israeli citizenship at birth. \nDavid Ha'ivri emigrated to the United States from Israel, where he was born to Israeli parents. \nSeveral Zionist leaders have been elected to the Shomron Regional Municipal council. \nDavid Ha'ivri is a Zionist leader.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0290",
+    "question": "Bailey is a plant.",
+    "context": "No animals are plants.\nAll humans are animals.\nAll pupils are humans.\nAll flowers are plants.\nBailey is either both a human and a flower or neither a human nor a flower.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0291",
+    "question": "Hong Kong seized the Britta.",
+    "context": "Brita was a cargo ship built for Norwegians.\nBrita was impressed into service by Germany.\nShips that have been impressed into service were seized by whoever impressed them into service.\nThe Britta was sold to Hong Kong.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0292",
+    "question": "The SAT test assesses students' math skills.",
+    "context": "The SAT test is wholly owned and developed by the College Board.\nThe SAT test is intended to assess students' readiness for college.\nThe SAT was originally designed not to be aligned with high school curricula. \nSeveral adjustments were made to the version of the SAT introduced in 2016 to align with the high school curriculum.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0293",
+    "question": "Mei is not a PRC national.",
+    "context": "Everyone who is entitled to national social insurance coverage can have their medical bills partially covered. \nAll PRC nationals are entitled to national social insurance coverage.\nEveryone in the Franco-China diplomatic conference is either a PRC national or a French national, but not both. \nAll French nationals are citizens of the European Union. \nAll Spanish nationals are citizens of the European Union. \nNo North Korean nationals are citizens of the European Union. \nMei is at the Franco-China diplomatic conference. \nEither Mei is a North Korean and can have medical bills partially covered, or neither is true.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0294",
+    "question": "George has functional leg muscles.",
+    "context": "Functional brainstems are necessary for breath control.\nAll humans that can swim can control their breath. \nHumans can swim or walk. \nHumans who can walk can stand on the ground by themselves. \nHumans whose brainstems are functional can control their balance.\nEvery human who can stand on the ground by themselves has functional leg muscles. \nGeorge and Archie are humans.\nGeorge can control his balance and can swim.\nArchie can walk if and only if he has functional brainstems.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0295",
+    "question": "They have at leat one candidate city in Florida to visit.",
+    "context": "Mr. and Mrs. Smith make a travel plan: they want to go to a city in California or Florida where neither of them has ever been.\nThe cities in California that they are interested in are San Francisco, Los Angeles, and San Diego.\nCities in Florida that they are interested in are Orlando and Miami.\nMr. Smith has been to two cities in California.\nMrs. Smith has been to one city in Florida.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0296",
+    "question": "The single \"1901\" is a certified gold single.",
+    "context": "The indie pop band Phoenix has released six albums. \nPhoenix's album \"Wolfgang Amadeus Phoenix\" sold over 500,000 copies. \nA certified gold album or single is one which sold over half a million copies. \n\"1901\" is a single from Phoenix's album \"Wolfgang Amadeus Phoenix.\"\nOver 400,000 copies of \"1901\" have been sold.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0297",
+    "question": "John Nash designed the Central line in 1900.",
+    "context": "Oxford Circus is a road junction connecting Oxford Street and Regent Street.\nOxford Street and Regent Street are in London.\nJohn Nash designed a construction on Regent Street.\nJohn Nash designed Oxford Circus.\nJohn Nash is a British architect.\nOxford Circus is the entrance to Oxford Circus tube station, a part of the Central line in 1900.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0298",
+    "question": "Harry Potter was published by New Vessel Press.",
+    "context": "New Vessel Press is a publishing house specializing in translating foreign literature into English.\nAll of New Vessel Press's published books are in English.\nNeapolitan Chronicles is a book published by New Vessel Press.\nNeapolitan Chronicles was translated from Italian.\nPalace of Flies is a book published by New Vessel Press.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  },
+  {
+    "id": "FOLIO_unknown_0299",
+    "question": "If John repays his loans on time, he will be approved for a mortgage.",
+    "context": "All people who repay their loans on time have a high credit score.\nSome people with high credit scores and high salaries are approved for mortgages.\nJohn has a high salary.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "Unknown",
+    "answer_idx": -1,
+    "task_type": "tf",
+    "source": "FOLIO_unknown"
+  }
+]

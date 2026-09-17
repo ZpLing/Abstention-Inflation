@@ -1,0 +1,13 @@
+experiment_name: "r1_smoke_local"
+model_name: "deepseek-r1-distill-llama-8b"
+override_model: true
+max_workers: 4
+max_tokens: 4
+
+r1_experiment:
+  datasets:
+    - "FLD"
+  n_samples: 6
+  calib_split: 0.5
+  cot_max_tokens: 1024
+  results_dir: "results/remedy_r1/smoke"

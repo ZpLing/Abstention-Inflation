@@ -1,0 +1,27 @@
+experiment_name: "deepseek_folio_s1_s5"
+model_name: "deepseek-r1-distill-llama-8b"
+dataset_name: "FOLIO"
+max_workers: 50
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FOLIO"
+    - "FEVER"
+  sample_limits:
+    FOLIO:
+      true: 50
+      false: 50
+    FEVER: 250
+  run_s5_rerun: true
+  results_dir: "results/ab_followup"
+  judge:
+    enabled:     true
+    model_name:  "gemini-2.5-flash"
+    api_key:     null
+    base_url:    null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

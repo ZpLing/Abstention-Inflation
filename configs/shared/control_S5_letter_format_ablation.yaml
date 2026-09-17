@@ -1,0 +1,27 @@
+experiment_name: "deepseek_s5_format_ablation"
+model_name: "deepseek-r1-distill-llama-8b"
+dataset_name: "FLD"
+max_workers: 50
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FLD"
+    - "FEVER"
+  sample_limits:
+    FEVER: 100
+    FLD:
+      true: 50
+      false: 50
+  run_s5_rerun: true
+  results_dir: "results/ab_s5"
+  judge:
+    enabled:     true
+    model_name:  "gemini-2.5-flash"
+    api_key:     null
+    base_url:    null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

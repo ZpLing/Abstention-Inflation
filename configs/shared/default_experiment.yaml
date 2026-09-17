@@ -1,0 +1,119 @@
+# Basic experiment settings
+experiment_name: "qwen_on_fld_step1"
+model_name: "gpt-4o"
+dataset_name: "FLD"
+max_workers: 100
+
+# Path settings (using placeholders)
+# {dataset_name} and {model_name} will be dynamically replaced by the program
+run_tasks: ['main_experiment']     # Exp 1: S1–S4 Abstention Inflation pipeline
+
+# Specific parameters for rtg_label tasks (replacing SITUATIONS array in shell scripts)
+rtg_label_settings:
+  # You can specify specific situations to run here
+  situations: ["All_Wrong", "2Over3_Wrong", "Half_Wrong", "All_Right"]
+paths:
+  # --- Common paths ---
+  # Raw dataset path template
+  raw_dataset_template: "dataset/{dataset_name}.json"
+
+  # --- Vanilla Pipeline paths ---
+  # Step1 (preprocessing) output "False UNKNOWN" samples path template
+  # Step2 (preprocessing) output "False UNKNOWN" samples path template (though we merge in memory, keep for debugging)
+  # Stage 1 Stimulation (step4) processed dataset
+  # Stage 2 Reflection (step5) final processed dataset
+
+  # --- RtG Label Conformity paths ---
+  # Save RtG Label test final evaluation results by situation
+
+  # --- RtG Process Conformity paths ---
+  # Step4 (process guidance) output
+  # Step5 (intermediate evaluation) output
+  # Step6 (final evaluation) output
+
+# === Exp 1: Abstention Inflation (paper §3) ================================
+# Activate by adding "main_experiment" to run_tasks above. This block is consumed
+# only by src/ab_runner.py and is independent of the legacy two-stage stimulation+reflection tasks.
+# Datasets are loaded via src/dataset_loaders/ — the on-disk files keep their
+# original 4 options; "E. Unknown" is appended at prompt-build time only (S2/S3).
+main_experiment:
+  datasets:
+    - "ARC-Easy_250"
+    - "ARC-Challenge_250"
+    - "MedQA-Step1"
+    - "MedQA-Step2_3"
+  sample_limits:
+    ARC-Easy_250: 250
+    ARC-Challenge_250: 250
+    MedQA-Step1: 250
+    MedQA-Step2_3: 250
+  run_s5_rerun: true
+  results_dir: "results/ab_mcq_full250"
+  # LLM-as-Judge fallback. Activated whenever extract-match returns UNPARSEABLE.
+  # Default uses Gemini's OpenAI-compatible endpoint; override `base_url` if you
+  # want to route the judge through a different provider. `api_key` falls back
+  # to env var GEMINI_API_KEY (or GOOGLE_API_KEY) when null.
+  judge:
+    enabled:     true
+    model_name:  "gemini-2.5-flash"
+    api_key:     null            # null → read GEMINI_API_KEY / GOOGLE_API_KEY from env
+    base_url:    null            # null → Google's OpenAI-compatible endpoint
+    max_workers: 5
+
+# === Supplementary Experiment: genuinely-Unknown samples (paper §4) =========
+# Activate by adding "s9_truly_unknown" to run_tasks above. Reuses the
+# Judge S1/S2/S3 prompts from main_experiments/prompts.py verbatim — only the
+# input subset changes (filter answer_idx == -1, i.e. ground-truth __UNKNOWN__).
+# Scoped to FLD; uses natural-language fields only (Conclusion / Facts).
+s9_truly_unknown:
+  datasets:
+    - "FLD"
+  results_dir: "results/supplementary"
+
+# === Supplementary: S5 Metacognition (paper §4.S5) =========================
+# Activate by adding "s6_self_diagnosis" to run_tasks. Requires main ab_experiment
+# to have produced ab_summary_<dataset>_<model>.json under s1_s2_results_dir.
+# Reuses S2 prompts + Abstention Inflation samples; queries S5 (A/B self-diagnosis) only.
+# S5 is intentionally NOT part of the unified S1–S4 (Acc, F1)×{label,trace}
+# framework because its "label" is derived from S4 behavior, not the original
+# question, and there is no gold reasoning trace for the meta-question.
+s6_self_diagnosis:
+  datasets:
+    - "ARC-Easy_250"
+    - "ARC-Challenge_250"
+    - "MedQA"
+    - "FLD"
+    - "FEVER"
+  s1_s2_results_dir: "results/ab"
+  results_dir:      "results/supplementary"
+
+# === Exp 4: Post-hoc Mitigation (paper §3 Exp 4) ===========================
+# Activate by adding "appendix_mitigation" to run_tasks. Requires Exp 1 (ab_experiment)
+# to have already produced ab_summary_<dataset>_<model>.json under s1_s2_results_dir.
+# The runner reads Abstention Inflation samples from those summaries, applies a 2-stage two-stage stimulation+reflection-
+# style stimulation+reflection (Stage 1 keeps Unknown allowed but stimulated;
+# Stage 2 reflects on Stage 1's reasoning for samples still UNKNOWN), and computes
+# PMR (Pipeline Mitigation Rate) plus PMR_correct.
+appendix_mitigation:
+  datasets:
+    - "FLD"              # main
+  s1_s2_results_dir: "results/ab"
+  results_dir:      "results/exp4"
+
+# === Exp 2: Model Size × Abs Rate (paper §3 Exp 2) ==============================
+# Activate by adding "s10_model_sweep" to run_tasks. This is a thin wrapper
+# that runs Exp 1 (ABRunner) once per model in the gradient and then aggregates
+# Abs Rate / Acc per (dataset, model) into a single table. No new prompts, parsers,
+# or metrics — same Exp 1 logic, varied model_name + endpoint.
+s10_model_sweep:
+  models:
+    # Each entry overrides model_name (and optionally api_key / base_url so
+    # each gradient point can hit a different endpoint).
+    - {name: "Qwen3.5-0.8B"}
+    - {name: "Qwen3.5-2B"}
+    - {name: "Qwen3.5-4B"}
+    - {name: "Gemma-3-12B"}
+    - {name: "Gemma-3-12B-IT"}
+  datasets: ["MedQA"]    # paper §Exp 2 main set: MedQA (MMLU dropped — no gold reasoning trace)
+  ab_results_dir: "results/ab"
+  results_dir:    "results/exp2"

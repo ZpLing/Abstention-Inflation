@@ -1,0 +1,25 @@
+experiment_name: "car_mirror_gemini_FLD_FOLIO_n200"
+model_name: "gemini-2.5-flash-lite"
+override_model: true
+dataset_name: "FLD"
+max_workers: 20
+
+run_tasks: ['s9_truly_unknown']
+
+s9_truly_unknown:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  sample_limits:
+    FLD: 200
+    FOLIO: 200
+  results_dir: "results/supplementary/car_mirror"
+  judge:
+    enabled: true
+    model_name: "gemini-2.5-flash-lite"
+    api_key: null
+    base_url: null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

@@ -1,0 +1,49 @@
+# §5.1 Qwen size sweep — 0.8B local model run
+# Goal: measure Abs Rate S1/S2 for Qwen3.5-0.8B on FLD + FOLIO
+# Endpoint: vLLM on <HOST> (<VLLM_HOST>:8081)
+#
+# Before running, start vLLM on <HOST>:
+#   vllm serve <HOST_HOME>/<EXPDIR>/models/Qwen3.5-0.8B \
+#     --served-model-name Qwen3.5-0.8B --port 8081 --max-model-len 4096
+#
+# Run:
+#   python main.py --config configs/qwen_local_experiment.yaml
+
+experiment_name: "qwen_local_s51"
+override_model: true
+model_name: "Qwen3.5-0.8B"
+dataset_name: "FLD"
+max_workers: 8
+
+run_tasks: ['s10_model_sweep']
+
+s10_model_sweep:
+  models:
+    - name: "Qwen3.5-0.8B"
+      api_key: "EMPTY"
+      base_url: "http://<VLLM_HOST>:8081/v1"
+  datasets: ["FLD", "FOLIO"]
+  ab_results_dir: "results/qwen_local_s51"
+  results_dir:    "results/qwen_local_s51"
+
+main_experiment:
+  datasets: ["FLD", "FOLIO"]
+  sample_limits:
+    FLD:
+      true:   100
+      false: 100
+    FOLIO:
+      true:   100
+      false: 100
+  settings: ["S1", "S2"]
+  run_s5_rerun: false
+  results_dir: "results/qwen_local_s51"
+  judge:
+    enabled:     true
+    model_name:  "gemini-2.5-flash-lite"
+    api_key:     null
+    base_url:    null
+    max_workers: 4
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

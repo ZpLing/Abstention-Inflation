@@ -1,0 +1,36 @@
+experiment_name: "deepseek_batch2_FLD_FOLIO_disjoint100"
+model_name: "deepseek-r1-distill-llama-8b"
+dataset_name: "FLD"
+max_workers: 50
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  sample_limits:
+    FLD:
+      true: 50
+      false: 50
+    FOLIO:
+      true: 50
+      false: 50
+  sample_offsets:
+    FLD:
+      true: 50
+      false: 50
+    FOLIO:
+      true: 50
+      false: 50
+  run_s5_rerun: true
+  results_dir: "results/ab_deepseek_batch2"
+  judge:
+    enabled: true
+    model_name: "gemini-2.5-flash"
+    api_key: null
+    base_url: null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

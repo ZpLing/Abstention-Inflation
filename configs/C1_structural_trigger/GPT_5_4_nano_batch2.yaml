@@ -1,0 +1,46 @@
+experiment_name: "nano_batch2_disjoint100"
+model_name: "gpt-5.4-nano"
+override_model: true
+dataset_name: "FLD"
+max_workers: 50
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "ARC-Easy_250"
+    - "ARC-Challenge_250"
+    - "MedQA"
+    - "FLD"
+    - "FOLIO"
+  sample_limits:
+    ARC-Easy_250: 100
+    ARC-Challenge_250: 100
+    MedQA: 100
+    FLD:
+      true: 50
+      false: 50
+    FOLIO:
+      true: 50
+      false: 50
+  sample_offsets:
+    ARC-Easy_250: 100
+    ARC-Challenge_250: 100
+    MedQA: 100
+    FLD:
+      true: 50
+      false: 50
+    FOLIO:
+      true: 50
+      false: 50
+  run_s5_rerun: true
+  results_dir: "results/ab_nano_batch2"
+  judge:
+    enabled: true
+    model_name: "gemini-2.5-flash-lite"
+    api_key: null
+    base_url: null
+    max_workers: 5
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

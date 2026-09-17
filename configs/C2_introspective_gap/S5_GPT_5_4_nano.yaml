@@ -1,0 +1,13 @@
+experiment_name: "r1_logit_calibration_gpt5_nano"
+model_name: "gpt-5.4-nano"
+max_workers: 50
+max_tokens: 4
+
+r1_experiment:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+    - "FEVER"
+  n_samples: 100
+  calib_split: 0.5
+  results_dir: "results/remedy_r1"

@@ -1,0 +1,16 @@
+experiment_name: "random_perturbation_control_gemini_flash_lite"
+model_name: "gemini-2.5-flash-lite"
+override_model: true
+max_workers: 20
+
+run_tasks: []
+
+random_perturbation_control:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  n_per_class: 100          # 100 proved + 100 disproved = 200 per dataset
+  results_dir: "results/random_perturbation_control"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

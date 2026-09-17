@@ -1,0 +1,21 @@
+experiment_name: "random_perturbation_control_deepseek"
+model_name: "deepseek-r1-distill-llama-8b"
+override_model: true
+max_workers: 50
+
+run_tasks: []
+
+random_perturbation_control:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  n_per_class: 100          # 100 proved + 100 disproved = 200 per dataset
+  results_dir: "results/random_perturbation_control"
+
+  # Uncomment after first full run to skip S1/C1 and only query C2/C3 (saves 800 calls).
+  # baseline_result_files:
+  #   FLD:   "results/random_perturbation_control/rpc_FLD_deepseek-r1-distill-llama-8b.json"
+  #   FOLIO: "results/random_perturbation_control/rpc_FOLIO_deepseek-r1-distill-llama-8b.json"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"
