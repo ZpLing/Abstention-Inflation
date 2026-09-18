@@ -73,8 +73,6 @@ runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
 
 ## Running the settings
 
-
-
 ```bash
 python main.py S2 --model gemini-3.1-flash-lite --dataset FLD           # one cell
 python main.py S4 --sub-setting random_words --model deepseek-v4-flash  # one sub-setting of S4
@@ -85,14 +83,6 @@ python main.py S2 --model qwen3-max                                     # any mo
 
 ### Settings that load a checkpoint
 
-S7, S8 and the local S10 sub-settings need `torch` and `transformers` and a
-model on disk. `all` prints the command for each and moves on; they run when
-named. S8 is one command: it downloads the Olmo-3-7B checkpoints into
-`models/` (this uses `modelscope`; checkpoints already there are not fetched
-again), runs the instruct checkpoint's S1/S2 inference on FLD, then probes
-base, sft and rl_zero, in that order. A step that fails stops the rest, and
-the inference is skipped when its file is already on disk.
-
 ```bash
 python main.py S7                                        # NLI probe over the stored S1/S2 traces
 python main.py S8                                        # download, inference, then the three probes
@@ -102,8 +92,7 @@ python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-p
 python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
 ```
 
-Each S10 run loads one checkpoint, so `--model` names the tag and
-`--model-path` its checkout.
+Each S10 run loads one checkpoint, so `--model` names the tag and `--model-path` its checkout.
 
 ## Citation
 
