@@ -33,7 +33,7 @@ Everything runs through `main.py`. The first argument is the setting; `all` is
 the only way to run everything.
 
 ```bash
-python main.py --list                 # every setting, its parts, and what --model means there
+python main.py --list                 # overview of every setting
 python main.py all                    # collect every gateway setting on every reported cell
 python main.py all --stage analyze    # print every setting's numbers
 python main.py S2                     # one setting: S2 with its S1 pair, 3 models x 6 datasets
