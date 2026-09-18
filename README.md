@@ -84,14 +84,12 @@ python main.py S2 --model qwen3-max                                     # any mo
 
 ```bash
 python main.py S7                                        # NLI probe over the stored S1/S2 traces
-python main.py S8                                        # download, inference, then the three probes
-python main.py S8 --model sft                            # the same chain, probing one checkpoint
-python main.py S8 --model sft --model-path <checkout>    # probe your own checkout of that checkpoint
-python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path <checkout>
-python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
+python main.py S8                                        # download, inference, then the probes
+python main.py S8 --model sft                            # probe the SFT checkpoint only
+python main.py S8 --model sft --model-path xxxx          # load that checkpoint from your own directory
+python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path xxxx
+python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path xxxx
 ```
-
-Each S10 run loads one checkpoint: `--model` names its tag and `--model-path` names the root directory.
 
 ## Citation
 
