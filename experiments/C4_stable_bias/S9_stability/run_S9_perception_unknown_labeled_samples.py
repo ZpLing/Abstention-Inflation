@@ -195,8 +195,8 @@ class PerceptionUnknownLabeledSamplesRunner:
         raw_s2,
         raw_s3,
     ) -> Dict[str, Any]:
-        car_s2 = metrics.car(preds_s2)
-        car_s3 = metrics.car(preds_s3)
+        car_s2 = metrics.correct_abstention_rate(preds_s2)
+        car_s3 = metrics.correct_abstention_rate(preds_s3)
         forced_commit_s1 = metrics.forced_commitment_rate(preds_s1)
 
         def _tier_breakdown(tiers):

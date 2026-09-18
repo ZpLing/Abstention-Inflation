@@ -180,10 +180,6 @@ def commit_rate(preds: Sequence[str], letter: str) -> float:
     return sum(1 for p in preds if p == letter) / n
 
 
-#: pre-rename alias for :func:`correct_abstention_rate`.
-car = correct_abstention_rate
-
-
 def abs_rate(preds: Sequence[str]) -> float:
     """*Abs Rate* (paper Eq. 2) — fraction of items answered with "Unknown".
 
