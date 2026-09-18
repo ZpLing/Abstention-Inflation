@@ -213,8 +213,7 @@ def main():
 
     ckpt_path = Path(args.model_path) if args.model_path else CHECKPOINTS[args.ckpt]
     if not ckpt_path.exists():
-        print(f"[error] model path not found: {ckpt_path}")
-        return
+        raise SystemExit(f"[error] model path not found: {ckpt_path}")
 
     inference_path = ROOT / s8_inference_path(args.results_root)
     raw = json.loads(inference_path.read_text())

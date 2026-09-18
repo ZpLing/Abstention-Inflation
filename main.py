@@ -6,10 +6,9 @@ the setting; ``all`` is the only way to run everything. Below the setting the
 levels are read top-down -- ``--sub-setting``, ``--model``, ``--dataset`` -- and a
 level left out means every value the paper reports for that setting (``all``
 at any level says the same explicitly). A setting with more than one experiment
-splits into sub-settings; the local settings run in steps, chosen with
-``--step``, the same option under its other name.
+splits into sub-settings; a setting with one experiment runs by its name alone.
 
-    python main.py --list                       every setting, its sub-settings or steps, what --model means there
+    python main.py --list                       every setting, its sub-settings, what --model means there
     python main.py all                          every gateway setting on every reported cell
     python main.py all --stage analyze          print every setting's numbers
     python main.py S2                           one setting (collected with its S1 pair)
@@ -17,8 +16,8 @@ splits into sub-settings; the local settings run in steps, chosen with
     python main.py S4 --sub-setting random_words --model deepseek-v4-flash
     python main.py S9 --sub-setting persistence --model gpt-5.4-nano --dataset FOLIO
     python main.py S2 --model qwen3-max         any model the gateway serves
-    python main.py S8 --step logit_lens --model sft
-    python main.py S10 --step size_alignment --model gemma-4-E4B-it --model-path <checkout>
+    python main.py S8 --model sft               download, inference, then the probe of one checkpoint
+    python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path <checkout>
     python main.py all --limit 4 --results-root /tmp/smoke --dry-run
     python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml
 
@@ -55,10 +54,11 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import (  # noqa: E402
-    S8_CHECKPOINTS,
+    S8_INFERENCE_CKPT,
     cell_path,
     model_slug,
     results_dir,
+    s8_inference_path,
 )
 from loader.config_loader import block_key, load_config  # noqa: E402
 
@@ -161,9 +161,7 @@ SETTINGS: Dict[str, Setting] = {
         Part("reasoning_traces", "NLI probe over the stored S1/S2 traces; loads the DeBERTa NLI encoder", TFQ_DATASETS, local=True),
     )),
     "S8": Setting("S8", "Logit lens", (
-        Part("download", "fetch the Olmo-3-7B checkpoints into models/", ("FLD",), tuple(S8_CHECKPOINTS), "checkpoint key", local=True),
-        Part("inference", "S1/S2 answers of the instruct checkpoint, the partition every probe is scored on", ("FLD",), ("instruct",), "checkpoint key", local=True),
-        Part("logit_lens", "per-layer UNKNOWN logit on that partition, one checkpoint per call", ("FLD",), S8_REPORTED, "checkpoint key", local=True),
+        Part("logit_lens", "one chain: fetch the Olmo-3-7B checkpoints into models/, run the instruct S1/S2 inference on FLD, then probe each checkpoint's per-layer UNKNOWN logit", ("FLD",), S8_REPORTED, "checkpoint key", local=True),
     )),
     "S9": Setting("S9", "Stability", (
         Part("perception", "S1/S2/S3 on the Unknown-labeled items", TFQ_DATASETS),
@@ -208,6 +206,7 @@ class Step:
     pre: Optional[Callable[[], None]] = None  # raises when an input is missing
     skip: Optional[str] = None  # printed instead of running
     note: Optional[str] = None  # informational only
+    chain: Optional[str] = None  # steps sharing an id run in order; one failure skips the rest
 
 
 def _rel(p: Any) -> str:
@@ -222,10 +221,10 @@ def _script_cmd(argv: Sequence[Any]) -> str:
     return "python " + " ".join(shlex.quote(_rel(a)) for a in argv)
 
 
-def _main_cmd(settings, part, models, datasets, o: Options, stage=None, flag="--sub-setting") -> str:
+def _main_cmd(settings, part, models, datasets, o: Options, stage=None) -> str:
     words = ["python main.py", *settings]
     if part:
-        words += [flag, part]
+        words += ["--sub-setting", part]
     if models:
         words += ["--model", *(shlex.quote(m) for m in models)]
     if datasets:
@@ -249,8 +248,8 @@ def _limit_flag(flag: str, o: Options) -> List[str]:
     return [flag, str(o.limit)] if o.limit else []
 
 
-def script_step(label: str, argv: Sequence[Any], pre=None) -> Step:
-    return Step(label, _script_cmd(argv), argv=[str(a) for a in argv], pre=pre)
+def script_step(label: str, argv: Sequence[Any], pre=None, chain=None) -> Step:
+    return Step(label, _script_cmd(argv), argv=[str(a) for a in argv], pre=pre, chain=chain)
 
 
 # ---- configs -----------------------------------------------------------------
@@ -623,26 +622,29 @@ def _s7(part, models, datasets, o: Options) -> List[Step]:
     )]
 
 
-def _s8_download(part, models, datasets, o: Options) -> List[Step]:
-    return [script_step("S8/download · " + ", ".join(models), [SCRIPT["S8/download"], "--models", *models])]
-
-
-def _s8_inference(part, models, datasets, o: Options) -> List[Step]:
-    argv = [SCRIPT["S8/inference"], *(["--model_path", o.model_path] if o.model_path else []), *_root_flag("--results-root", o)]
-    return [script_step("S8/inference · instruct", argv)]
-
-
-def _s8_logit_lens(part, models, datasets, o: Options) -> List[Step]:
-    steps = []
-    for ckpt in models:
-        argv = [SCRIPT["S8/logit_lens"], "--ckpt", ckpt]
-        if o.model_path and len(models) == 1:
-            argv += ["--model_path", o.model_path]
-        argv += _root_flag("--results-root", o)
-        st = script_step(f"S8/logit_lens · {ckpt}", argv)
-        if o.model_path and len(models) != 1:
-            st.skip = "one --model per --model-path; name the checkpoint the path holds"
-        steps.append(st)
+def _s8(part, models, datasets, o: Options) -> List[Step]:
+    """S8 is one chain: fetch the checkpoints, run the instruct S1/S2 inference
+    every probe is scored on, then probe each requested checkpoint. A failed
+    step skips the rest; the download skips checkpoints already under models/
+    and the inference is skipped when its file is already on disk. With
+    --model-path the one probe named by --model reads that checkout instead."""
+    probes = list(models)
+    if o.model_path and len(probes) != 1:
+        return [Step("S8", _main_cmd(["S8"], None, probes, [], o),
+                     skip="one --model per --model-path; name the checkpoint the path holds")]
+    fetch = list(dict.fromkeys([S8_INFERENCE_CKPT, *([] if o.model_path else probes)]))
+    steps = [script_step("S8/download · " + ", ".join(fetch), [SCRIPT["S8/download"], "--models", *fetch], chain="S8")]
+    inference = script_step(f"S8/inference · {S8_INFERENCE_CKPT}",
+                            [SCRIPT["S8/inference"], *_root_flag("--results-root", o)], chain="S8")
+    out = ROOT / s8_inference_path(o.results_root or "results")
+    if out.exists():
+        shown = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
+        inference.skip = f"already on disk: {shown}; delete it to redo"
+    steps.append(inference)
+    for ckpt in probes:
+        argv = [SCRIPT["S8/logit_lens"], "--ckpt", ckpt,
+                *(["--model_path", o.model_path] if o.model_path else []), *_root_flag("--results-root", o)]
+        steps.append(script_step(f"S8/logit_lens · {ckpt}", argv, chain="S8"))
     return steps
 
 
@@ -651,9 +653,7 @@ BUILDERS: Dict[Tuple[str, str], Callable[..., List[Step]]] = {
     ("S4", "random_words"): _s4_random_words,
     ("S6", "self_diagnosis"): _s6,
     ("S7", "reasoning_traces"): _s7,
-    ("S8", "download"): _s8_download,
-    ("S8", "inference"): _s8_inference,
-    ("S8", "logit_lens"): _s8_logit_lens,
+    ("S8", "logit_lens"): _s8,
     ("S9", "perception"): _s9_perception,
     ("S9", "persistence"): _s9_persistence,
     ("S10", "temperature"): _s10_temperature,
@@ -678,7 +678,7 @@ def part_steps(setting: Setting, part: Part, model_req, ds_req, o: Options) -> L
     if not datasets:
         return [Step(tag, "-", note=f"none of the requested datasets belongs to {tag} ({', '.join(part.datasets)})")]
     if part.local and o.everything:
-        return [Step(tag, _main_cmd([key], named, [], [], Options(), flag=_part_flag(part)),
+        return [Step(tag, _main_cmd([key], named, [], [], Options()),
                      skip="loads a checkpoint from disk; `all` leaves it out, run it by name")]
     models = resolve_models(part, model_req, key)
     return BUILDERS[(key, part.name)](part, models, datasets, o)
@@ -741,8 +741,13 @@ def execute(steps: List[Step], o: Options) -> int:
         return 0
     print(f"{len(steps)} step(s){' -- dry run, nothing is called' if o.dry_run else ''}")
     outcome: List[Tuple[Step, str]] = []
+    failed_chains: set = set()
     for i, st in enumerate(steps, 1):
         print(f"\n[{i}/{len(steps)}] {st.label}\n    $ {st.shown}")
+        if st.chain and st.chain in failed_chains:
+            print("    skipped: an earlier step of this chain failed")
+            outcome.append((st, "skipped"))
+            continue
         if st.note:
             print(f"    note: {st.note}")
             outcome.append((st, "info"))
@@ -768,6 +773,8 @@ def execute(steps: List[Step], o: Options) -> int:
             raise
         except Exception as exc:  # noqa: BLE001 -- one failing cell must not stop the rest
             status = f"failed ({type(exc).__name__}: {exc})"
+        if status != "ok" and st.chain:
+            failed_chains.add(st.chain)
         print(f"    -> {status}")
         outcome.append((st, status))
 
@@ -786,25 +793,20 @@ def execute(steps: List[Step], o: Options) -> int:
     return 0
 
 
-def _part_flag(p: Part) -> str:
-    """The local settings run in steps; the gateway ones split into sub-settings."""
-    return "--step" if p.local else "--sub-setting"
-
-
 def _runs(p: Part) -> str:
     return "analysis only" if p.analyze_only else ("local checkpoint" if p.local else "gateway")
 
 
 def print_list() -> None:
-    print("Setting -> --sub-setting (or --step) -> --model -> --dataset. A level left out means")
-    print("every value listed for it; `all` at a level says the same. `python main.py all` runs")
-    print("the gateway rows; local rows run when named. --stage analyze prints the numbers.\n")
+    print("Setting -> --sub-setting -> --model -> --dataset. A level left out means every value")
+    print("listed for it; `all` at a level says the same. `python main.py all` runs the")
+    print("gateway rows; local rows run when named. --stage analyze prints the numbers.\n")
     for s in SETTINGS.values():
         single = len(s.parts) == 1
         print(f"{s.key:<4} {s.title}" + (f"   [{_runs(s.parts[0])}]" if single else ""))
         for p in s.parts:
             if not single:
-                print(f"     {_part_flag(p) + ' ' + p.name:<32} {_runs(p)}")
+                print(f"     --sub-setting {p.name:<18} {_runs(p)}")
             print(f"       {p.doc}")
             print(f"       --model ({p.model_kind}): {' | '.join(p.models)}")
             print(f"       --dataset: {' '.join(p.datasets)}")
@@ -906,14 +908,14 @@ def run_config(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Run the Abstention Inflation settings: a setting (or `all`), then --sub-setting / --step, --model, --dataset.",
+        description="Run the Abstention Inflation settings: a setting (or `all`), then --sub-setting, --model, --dataset.",
         epilog=__doc__.split("\n\n", 1)[1],
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("setting", nargs="*", metavar="SETTING",
                    help="S1 ... S11 (several allowed) or `all`. Required unless --list or --config.")
-    p.add_argument("--sub-setting", "--step", dest="sub_setting", nargs="+", metavar="NAME",
-                   help="which sub-setting(s) of a setting with more than one, or which step(s) of a local setting; default all of them")
+    p.add_argument("--sub-setting", dest="sub_setting", nargs="+", metavar="SUB_SETTING",
+                   help="which sub-setting(s) of a setting with more than one; default every sub-setting")
     p.add_argument("--model", nargs="+", metavar="MODEL",
                    help="gateway model name(s), or for S8 / local S10 the checkpoint key or tag; default every reported one")
     p.add_argument("--dataset", nargs="+", metavar="DATASET",
@@ -922,9 +924,9 @@ def build_parser() -> argparse.ArgumentParser:
                    help="collect the cells (default), print the numbers, or both")
     p.add_argument("--limit", type=int, metavar="N", help="items per cell, for a smoke run")
     p.add_argument("--results-root", metavar="DIR", help="read and write under DIR instead of results/")
-    p.add_argument("--model-path", metavar="PATH", help="local checkout for S8 and the local S10 steps")
+    p.add_argument("--model-path", metavar="PATH", help="local checkout of the checkpoint named by --model (S8, local S10)")
     p.add_argument("--dry-run", action="store_true", help="print every command without calling anything")
-    p.add_argument("--list", action="store_true", help="show every setting, its sub-settings or steps, and their levels")
+    p.add_argument("--list", action="store_true", help="show every setting, its sub-settings and their levels")
     p.add_argument("--config", metavar="YAML", help="run one experiment YAML instead of naming a setting")
     return p
 
@@ -959,7 +961,7 @@ def main() -> int:
         have = {p.name for k in keys for p in SETTINGS[k].parts}
         bad = [p for p in args.sub_setting if p not in have]
         if bad:
-            raise SystemExit(f"{', '.join(bad)}: no such sub-setting or step in {', '.join(keys)}. Choose from: {', '.join(sorted(have))}.")
+            raise SystemExit(f"{', '.join(bad)}: no such sub-setting in {', '.join(keys)}. Sub-settings: {', '.join(sorted(have))}.")
     if not _is_all(args.dataset):
         bad = [d for d in args.dataset if d not in ALL_DATASETS]
         if bad:

@@ -27,15 +27,15 @@ SAVE_DIR = os.path.join(
 
 
 def download_model(name: str, repo_id: str):
-    # Optional dependency: only this download step needs it.
-    from modelscope.hub.snapshot_download import snapshot_download
-
     local_path = s8_model_dir(name, ROOT / "models")
     if os.path.isdir(local_path) and any(
         f.endswith(".safetensors") or f.endswith(".bin") for f in os.listdir(local_path)
     ):
         print(f"[skip] {name} already exists at {local_path}")
         return
+    # Optional dependency: only an actual download needs it.
+    from modelscope.hub.snapshot_download import snapshot_download
+
     print(f"\n[downloading] {repo_id} → {local_path}")
     # ModelScope snapshot_download with local_dir writes files directly (no nesting)
     snapshot_download(
@@ -67,11 +67,11 @@ def _cli():
 
 
 if __name__ == "__main__":
-    _cli()
+    wanted = _cli() or list(MODELS)
     os.makedirs(SAVE_DIR, exist_ok=True)
-    for name, repo_id in MODELS.items():
-        download_model(name, repo_id)
+    for name in wanted:
+        download_model(name, MODELS[name])
     print("\nAll models ready.")
     print("Paths:")
-    for name in MODELS:
+    for name in wanted:
         print(f"  {name}: {os.path.join(SAVE_DIR, name)}")

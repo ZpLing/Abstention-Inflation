@@ -69,7 +69,7 @@ python main.py S2                     # one setting: S2 with its S1 pair, 3 mode
 
 **Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
 runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
-`main.py S8 --step …` pass their arguments on the command line.
+`main.py S8` pass their arguments on the command line.
 
 ## Running the settings
 
@@ -85,21 +85,24 @@ python main.py S2 --model qwen3-max                                     # any mo
 
 ### Settings that load a checkpoint
 
-S7, S8 and the local S10 runs need `torch` and `transformers` and a model on
-disk. `all` prints the command for each and moves on; they run when named.
-These run in steps rather than sub-settings, chosen with `--step`, which is
-the same option under its other name.
+S7, S8 and the local S10 sub-settings need `torch` and `transformers` and a
+model on disk. `all` prints the command for each and moves on; they run when
+named. S8 is one command: it downloads the Olmo-3-7B checkpoints into
+`models/` (this uses `modelscope`; checkpoints already there are not fetched
+again), runs the instruct checkpoint's S1/S2 inference on FLD, then probes
+base, sft and rl_zero, in that order. A step that fails stops the rest, and
+the inference is skipped when its file is already on disk.
 
 ```bash
-python main.py S7                                             # NLI probe over the stored S1/S2 traces
-python main.py S8 --step download                             # Olmo-3-7B checkpoints into models/
-python main.py S8 --step inference                            # S1/S2 answers of the instruct checkpoint on FLD
-python main.py S8 --step logit_lens                           # the base, sft and rl_zero probes the paper reports
-python main.py S10 --step size_alignment --model gemma-4-E4B-it --model-path <checkout>
-python main.py S10 --step temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
+python main.py S7                                        # NLI probe over the stored S1/S2 traces
+python main.py S8                                        # download, inference, then the three probes
+python main.py S8 --model sft                            # the same chain, probing one checkpoint
+python main.py S8 --model sft --model-path <checkout>    # probe your own checkout of that checkpoint
+python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path <checkout>
+python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
 ```
 
-Each run loads one checkpoint, so `--model` names the tag and
+Each S10 run loads one checkpoint, so `--model` names the tag and
 `--model-path` its checkout.
 
 ## Citation
