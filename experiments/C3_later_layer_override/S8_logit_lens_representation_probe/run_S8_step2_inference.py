@@ -1,6 +1,6 @@
 """
 C3 Step 1: Run OLMo-3-Instruct on FLD in S1 and S2 conditions.
-Saves raw outputs + predictions to results/S8_logit_lens/olmo_inference_FLD.json
+Saves raw outputs + predictions to results/S8_logit_lens/FLD_olmo-3-7b_inference.json
 
 Run on the 3090 server after downloading models:
     python scripts/c3_run_olmo_inference.py
@@ -16,12 +16,12 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir  # noqa: E402
+from infra.result_schema import results_dir, s8_inference_path, s8_logit_lens_path  # noqa: E402
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
 MODEL_PATH   = ROOT / "models" / "olmo3-instruct"
 DATA_PATH    = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH     = ROOT / results_dir("S8") / "olmo_inference_FLD.json"
+OUT_PATH     = ROOT / s8_inference_path()
 BATCH_SIZE   = 4    # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
 
 S1_SYSTEM = (

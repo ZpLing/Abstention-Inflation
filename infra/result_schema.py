@@ -295,6 +295,22 @@ def model_slug(model_name: str) -> str:
     return MODEL_SLUG.get(model_name, model_name.replace("/", "_").replace("-", "_"))
 
 
+#: S8 runs one model, Olmo-3-7B, on FLD, in the three variants the paper
+#: reports. checkpoint key as the code passes it -> the variant in the file name.
+S8_MODEL = "olmo-3-7b"
+S8_VARIANT = {"base": "base", "sft": "instruct_sft", "rl_zero": "rl_zero"}
+
+
+def s8_inference_path(root: str | Path = "results") -> Path:
+    """The raw OLMo inference every S8 probe starts from."""
+    return results_dir("S8", root) / f"FLD_{S8_MODEL}_inference.json"
+
+
+def s8_logit_lens_path(ckpt: str, root: str | Path = "results") -> Path:
+    """The logit-lens probe for one checkpoint: FLD_olmo-3-7b_<variant>.json."""
+    return results_dir("S8", root) / f"FLD_{S8_MODEL}_{S8_VARIANT[ckpt]}.json"
+
+
 #: Settings collected for TFQ only; their folders skip the {tfq,mcq} level.
 TFQ_ONLY = {"S3"}
 

@@ -1,5 +1,6 @@
 {
   "setting": "S8",
+  "variant": "instruct_sft",
   "checkpoint": "sft",
   "per_sample": [
     {

@@ -1,5 +1,6 @@
 {
   "setting": "S8",
+  "variant": "base",
   "checkpoint": "base",
   "per_sample": [
     {

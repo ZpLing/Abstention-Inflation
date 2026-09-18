@@ -1,5 +1,6 @@
 {
   "setting": "S8",
+  "variant": "rl_zero",
   "checkpoint": "rl_zero",
   "per_sample": [
     {

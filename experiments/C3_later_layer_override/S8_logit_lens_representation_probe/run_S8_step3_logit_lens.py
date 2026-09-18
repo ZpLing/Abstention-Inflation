@@ -11,8 +11,8 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/S8_logit_lens/olmo_inference_FLD.json
-Output: results/S8_logit_lens/logit_lens_{ckpt}.json
+Input:  results/S8_logit_lens/FLD_olmo-3-7b_inference.json
+Output: results/S8_logit_lens/FLD_olmo-3-7b_{base,instruct_sft,rl_zero}.json
         (each sample has layers_s1 and layers_s2)
 
 Run one checkpoint per GPU in parallel:
@@ -32,9 +32,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir, stamp  # noqa: E402
+from infra.result_schema import results_dir, stamp, s8_inference_path, s8_logit_lens_path  # noqa: E402
 
-INFERENCE_PATH = ROOT / results_dir("S8") / "olmo_inference_FLD.json"
+INFERENCE_PATH = ROOT / s8_inference_path()
 OUT_DIR        = ROOT / results_dir("S8")
 
 CHECKPOINTS = {
@@ -217,7 +217,7 @@ def main():
     print("  type counts:", dict(Counter(s["sample_type"] for s in samples)))
 
     result   = process_checkpoint(args.ckpt, ckpt_path, samples, device)
-    out_path = OUT_DIR / f"logit_lens_{args.ckpt}.json"
+    out_path = ROOT / s8_logit_lens_path(args.ckpt)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     result = {**stamp("S8"), **result}
     out_path.write_text(json.dumps(result, indent=2))

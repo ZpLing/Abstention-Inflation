@@ -136,17 +136,14 @@ python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7
 
 ### 5. S8 — logit lens
 
-Six numbered steps on a local OLMo-3-7B checkout.
+Three steps on a local Olmo-3-7B checkout; the probe runs on the three
+variants the paper reports (base, instruct_sft, rl_zero).
 
 ```bash
 S8=experiments/C3_later_layer_override/S8_logit_lens_representation_probe
-python $S8/run_S8_step1_download.py                 # or bring your own checkout
-python $S8/run_S8_step2_collect_samples.py
-python $S8/run_S8_step3a_inference.py           --model_path <checkpoint>
-python $S8/run_S8_step3b_base_baseline.py      --model_path <checkpoint>
-python $S8/run_S8_step4_logit_lens.py
-python $S8/run_S8_step5_wrong_prediction_baseline.py --model_path <checkpoint>
-python $S8/run_S8_step6_suppression_detect.py
+python $S8/run_S8_step1_download.py                 # or bring your own checkpoint
+python $S8/run_S8_step2_inference.py   --model_path <checkpoint>
+for c in base sft rl_zero; do python $S8/run_S8_step3_logit_lens.py --ckpt $c; done
 ```
 
 ### 6. S9 — stability
