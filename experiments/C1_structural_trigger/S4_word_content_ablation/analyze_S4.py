@@ -2,7 +2,7 @@
 
 Two halves, both reported in the paper:
 
-  synonyms      W2-W5 replace "Unknown" with "I don't know", "Indeterminate",
+  synonyms      replace "Unknown" with "I don't know" or "Indeterminate"
                 "Cannot be determined from the facts", "Insufficient
                 information". If abstention tracked the word's meaning, a
                 near-synonym would move it; it does not.
@@ -24,21 +24,17 @@ from statistics import NormalDist
 ROOT = Path(__file__).resolve().parents[3]
 MODEL = "deepseek-v4-flash"
 
-WORDINGS = ["W1", "W2", "W3", "W4", "W5"]
+WORDINGS = ["unknown", "i_dont_know", "indeterminate"]
 WORDING_TEXTS = {
-    "W1": "Unknown / Uncertain (baseline)",
-    "W2": "I don't know",
-    "W3": "Indeterminate",
-    "W4": "Cannot be determined from the facts",
-    "W5": "Insufficient information",
+    "unknown": "Unknown / Uncertain (baseline)",
+    "i_dont_know": "I don't know",
+    "indeterminate": "Indeterminate",
 }
-WORDING_CLASS = {"W1": "synonym", "W2": "synonym", "W3": "synonym",
-                 "W4": "cause", "W5": "cause"}
 DATASETS = ["FLD", "FOLIO"]
 
 
 def load_w1_per_sample(ds):
-    """W1 is the S2 cell of the main table -- id -> pred_s2.
+    """The baseline is the S2 cell of the main table -- id -> pred_s2.
 
     Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
@@ -138,21 +134,21 @@ def main():
         # W1 from main exp
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
-        w2_path = ROOT / f"results/S4_synonyms/{ds}_{MODEL}_W2.json"
+        w2_path = ROOT / f"results/S4_synonyms/{ds}_{MODEL}_i_dont_know.json"
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
         # W1 restricted to these IDs
         w1_pred_aligned = {sid: w1_pred[sid] for sid in sample_ids if sid in w1_pred}
         n_w1 = len(w1_pred_aligned)
         n_ai_w1 = sum(1 for v in w1_pred_aligned.values() if v == "UNKNOWN")
-        cells[(ds, "W1")] = {
+        cells[(ds, "unknown")] = {
             "n": n_w1,
             "n_abstention_inflation": n_ai_w1,
             "abs_rate": n_ai_w1 / n_w1 if n_w1 else 0,
             "pred_by_id": w1_pred_aligned,
         }
-        # W2-W5
-        for w in ["W2", "W3", "W4", "W5"]:
+        # the two synonyms
+        for w in ["i_dont_know", "indeterminate"]:
             pred = load_wording_per_sample(w, ds)
             pred_aligned = {sid: pred[sid] for sid in sample_ids if sid in pred}
             n = len(pred_aligned)
@@ -165,88 +161,42 @@ def main():
             }
 
     # Print Abs Rate table
-    print(f"{'Dataset':8s} {'Wording':5s} {'n':>4s} {'n_ai':>6s} {'Abs Rate':>7s}  {'Wording text'}")
+    print(f"{'Dataset':8s} {'Wording':15s} {'n':>4s} {'n_ai':>6s} {'Abs Rate':>8s}  {'Wording text'}")
     print("-" * 90)
     for ds in DATASETS:
         for w in WORDINGS:
             c = cells[(ds, w)]
-            print(f"{ds:8s} {w:5s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>7.1%}  {WORDING_TEXTS[w]}")
+            print(f"{ds:8s} {w:15s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>8.1%}  {WORDING_TEXTS[w]}")
         print()
 
     # Paired McNemar W1 vs each Wi
-    print("=== Paired McNemar (W1 vs Wi, same items) ===\n")
-    print(f"{'Dataset':8s} {'W1':>4s} {'vs':>3s} {'Wi':>4s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
+    print("=== Paired McNemar (baseline vs each synonym, same items) ===\n")
+    print(f"{'Dataset':8s} {'baseline':>9s} {'':>3s} {'synonym':<15s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
     print("-" * 60)
     mcnemar_table = []
     for ds in DATASETS:
-        w1 = cells[(ds, "W1")]
+        w1 = cells[(ds, "unknown")]
         sample_ids = list(w1["pred_by_id"].keys())
-        for w in ["W2", "W3", "W4", "W5"]:
+        for w in ["i_dont_know", "indeterminate"]:
             wi = cells[(ds, w)]
             b, c = mcnemar_b_c(w1["pred_by_id"], wi["pred_by_id"], sample_ids)
             p, z = mcnemar_exact_p(b, c)
             delta = wi["abs_rate"] - w1["abs_rate"]
             sig = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else ""
-            print(f"{ds:8s} {'W1':>4s} {'vs':>3s} {w:>4s} {b:>4} {c:>4} {delta:>+6.1%} {p:>10.4f} {sig}")
+            print(f"{ds:8s} {'unknown':>9s} {'vs':>3s} {w:<15s} {b:>4} {c:>4} {delta:>+7.1%} {p:>10.4f} {sig}")
             mcnemar_table.append({
                 "ds": ds, "wi": w, "b": b, "c": c,
                 "delta_abs_rate": delta, "p": p, "z": z, "sig": sig,
             })
         print()
 
-    # Variance partition: σ²(synonym) vs σ²(cause)
-    print("=== Variance partition (per dataset) ===\n")
-    var_partition = {}
-    for ds in DATASETS:
-        abs_rates = {w: cells[(ds, w)]["abs_rate"] for w in WORDINGS}
-        synonyms = [abs_rates["W1"], abs_rates["W2"], abs_rates["W3"]]
-        causes = [abs_rates["W4"], abs_rates["W5"]]
-        all_w = list(abs_rates.values())
-
-        def var(xs):
-            if len(xs) < 2:
-                return 0.0
-            m = sum(xs) / len(xs)
-            return sum((x - m) ** 2 for x in xs) / (len(xs) - 1)
-
-        v_all = var(all_w)
-        v_syn = var(synonyms)
-        v_cau = var(causes)
-        # σ²(group) = mean of group variances
-        # σ²(between groups) = variance of group means × n_per_group
-        v_within = ((len(synonyms) - 1) * v_syn + (len(causes) - 1) * v_cau) / (len(synonyms) + len(causes) - 2)
-        m_syn = sum(synonyms) / len(synonyms)
-        m_cau = sum(causes) / len(causes)
-        # cluster shift in pp
-        cluster_shift = m_cau - m_syn
-
-        print(f"{ds}:")
-        print(f"  Abs Rate all 5 wordings:   {[round(a*100, 1) for a in all_w]}")
-        print(f"  σ(synonyms W1/W2/W3): {sqrt(v_syn)*100:.2f} pp  (range {min(synonyms)*100:.1f}-{max(synonyms)*100:.1f})")
-        print(f"  σ(cause W4/W5):       {sqrt(v_cau)*100:.2f} pp  (range {min(causes)*100:.1f}-{max(causes)*100:.1f})")
-        print(f"  σ(all 5):             {sqrt(v_all)*100:.2f} pp")
-        print(f"  Δ(cause - synonym):   {cluster_shift*100:+.1f} pp  ← cause-attribution effect")
-        print()
-
-        var_partition[ds] = {
-            "abs_rates": abs_rates,
-            "sigma_synonyms": sqrt(v_syn),
-            "sigma_cause": sqrt(v_cau),
-            "sigma_all5": sqrt(v_all),
-            "cluster_shift": cluster_shift,
-            "synonym_mean": m_syn,
-            "cause_mean": m_cau,
-        }
-
     # Save
     out = {
         "model": MODEL,
         "wordings": WORDING_TEXTS,
-        "wording_class": WORDING_CLASS,
         "cells": {f"{ds}_{w}": {k: v for k, v in cells[(ds, w)].items() if k != "pred_by_id"}
                    for ds in DATASETS for w in WORDINGS},
-        "mcnemar_W1_vs_Wi": mcnemar_table,
-        "variance_partition": var_partition,
+        "mcnemar_baseline_vs_synonym": mcnemar_table,
     }
     out_path = ROOT / "results/analysis/wording_sweep_summary.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)

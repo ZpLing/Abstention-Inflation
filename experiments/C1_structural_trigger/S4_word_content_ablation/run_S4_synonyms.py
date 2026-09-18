@@ -1,6 +1,6 @@
 """S4 Word Content Ablation — the four wording variants of the S2 option.
 
-Runs W2-W5 × {FLD, FOLIO} × the full 500 samples for each model.
+Runs the two synonyms × {FLD, FOLIO} × the full 500 samples for each model.
 
 Output: results/S4_synonyms/{DS}_{MODEL}_{W}.json
 """
@@ -20,10 +20,8 @@ from infra.label_scheme import get_scheme
 from loader.dataset_loader import load_judge
 
 WORDINGS = [
-    ("W2", "I don't know"),
-    ("W3", "Indeterminate"),
-    ("W4", "Cannot be determined from the facts"),
-    ("W5", "Insufficient information"),
+    ("i_dont_know", "I don't know"),
+    ("indeterminate", "Indeterminate"),
 ]
 DATASETS = ["FLD", "FOLIO"]
 
