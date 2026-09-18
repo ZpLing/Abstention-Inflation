@@ -74,13 +74,9 @@ def take_tail(text: str, max_chars: int = 1500) -> str:
 
 GOLD_OF_IDX = {0: "entailment", 1: "contradiction"}
 
-CELLS = [
-    ("gpt_5.4_nano", "gpt-5.4-nano"),
-    ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite"),
-    ("deepseek_v4_flash", "deepseek-v4-flash"),
-]
+#: The gateway models whose traces the paper scores; --models overrides.
+MODELS = ("gpt-5.4-nano", "gemini-3.1-flash-lite", "deepseek-v4-flash")
 DATASETS = ("FLD", "FOLIO")
-OUT_DIR = ROOT / results_dir("S7")
 
 
 _SENT = re.compile(r"(?<=[.!?])\s+|\n+")
@@ -133,6 +129,18 @@ def main():
         default="windows",
         help="how much of the trace the probe reads",
     )
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=list(MODELS),
+        help="Gateway model names whose S1/S2 traces to score.",
+    )
+    ap.add_argument("--datasets", nargs="+", default=list(DATASETS))
+    ap.add_argument(
+        "--results-root",
+        default="results",
+        help="Root the S1/S2 cells are read from and the S7 cells are written under.",
+    )
     args = ap.parse_args()
 
     import torch
@@ -147,11 +155,13 @@ def main():
         nli = nli.to("mps")
     print(f"Device: {next(nli.parameters()).device}")
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for ds in DATASETS:
+    out_dir = ROOT / results_dir("S7", args.results_root)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for ds in args.datasets:
         by_id = {s.id: s for s in load_judge(ds)}
-        for slug, model in CELLS:
-            summary = load_cell(ds, model, slug, "tf")
+        for model in args.models:
+            slug = model_slug(model)
+            summary = load_cell(ds, model, slug, "tf", args.results_root)
             items = [
                 s
                 for s in summary["per_sample"]
@@ -226,7 +236,7 @@ def main():
                     [r for r in rs if r["abstention_inflation"]]
                 )
 
-            out = OUT_DIR / model_slug(model) / f"{ds}_{model}.json"
+            out = out_dir / slug / f"{ds}_{model}.json"
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(
                 json.dumps(

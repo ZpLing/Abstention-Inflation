@@ -34,19 +34,22 @@ in the experiment YAML.
 
 ## Quick start
 
-```bash
-# S1 + S2 + S3 and the S5 rerun, DeepSeek-V4-Flash on FLD and FOLIO
-python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml
+Everything runs through `main.py`. The first argument is the setting; `all` is
+the only way to run everything.
 
-# Every setting's analysis prints its own numbers
-python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
+```bash
+python main.py --list                 # every setting, its parts, and what --model means there
+python main.py all                    # collect every gateway setting on every reported cell
+python main.py all --stage analyze    # print every setting's numbers
+python main.py S2                     # one setting: S2 with its S1 pair, 3 models x 6 datasets
 ```
 
 ## Repository layout
 
 ```
 .
-├── main.py                       dispatcher; --config selects the runner
+├── main.py                       dispatcher: the setting comes first, then
+│                                 --part, --model, --dataset
 ├── infra/                        the method: prompts, parser, metrics, the
 │                                 keep-set rule, and paired_pass, which runs
 │                                 S1/S2/S3/S5 over one sample list
@@ -85,117 +88,85 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ```
 
 **Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
-runs a local checkpoint, so neither reaches the gateway. Both take their
-arguments on the command line.
+runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
+`main.py S8 --part …` pass their arguments on the command line.
 
-## Running everything
+## Running the settings
 
-The API settings come out of `main.py`; the rest own their runner. Every
-command is run from the repo root and writes under `results/`.
-
-### 1. Main experiments — S1, S2, S3 and the S5 rerun
-
-One pass per (model, dataset) cell. S1/S2/S3 and S5 share it because the paper
-compares them per sample, and scoring them from separate runs would compare
-two different subsets of the dataset.
+Arguments are read top-down: **setting → `--part` → `--model` → `--dataset`**.
+The setting is required, and `all` at that level is the only way to run
+everything. Below it, a level left out means every value the paper reports for
+that setting; `all` at any level says the same explicitly.
 
 ```bash
-for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_$m.yaml
-  for ds in ARC MedQA MMLU LogiQA; do
-    python main.py --config configs/C1_structural_trigger/S1_S2_${ds}_$m.yaml
-  done
-done
+python main.py S2 --model gemini-3.1-flash-lite --dataset FLD    # one cell
+python main.py S4 --part random_words --model deepseek-v4-flash  # one half of a two-part setting
+python main.py S9 --part persistence --model gpt-5.4-nano --dataset FOLIO
+python main.py S3 --stage analyze                                # numbers only, nothing collected
+python main.py S2 --model qwen3-max                              # any model the gateway serves
 ```
 
-### 2. S4 — word content ablation
+Any model the gateway serves works. A model outside the three the paper reports
+borrows `gpt-5.4-nano`'s YAML for its credentials, keeps its own name and writes
+under its own slug (`results/<setting>/…/<model_slug>/`). S1, S2, S3 and S5 come
+out of one paired pass per cell; asking for one of them collects what it needs,
+and S1 is always collected with S2.
+
+| Setting | `--part` | `--model` ranges over | `--dataset` |
+| --- | --- | --- | --- |
+| S1 Baseline | — | gateway model | FLD FOLIO ARC MedQA MMLU LogiQA |
+| S2 Unknown option added | — | gateway model | FLD FOLIO ARC MedQA MMLU LogiQA |
+| S3 Question format ablation | — | gateway model | FLD FOLIO |
+| S4 Word content ablation | `synonyms` `random_words` | gateway model | FLD FOLIO |
+| S5 Without-Unknown rerun | — | gateway model | FLD FOLIO ARC MedQA MMLU LogiQA |
+| S6 Self-diagnosis | — | gateway model | FLD FOLIO |
+| S7 Reasoning traces | — | gateway model whose traces are scored | FLD FOLIO |
+| S8 Logit lens | `download` `inference` `logit_lens` | Olmo-3-7B checkpoint key: `base` `sft` `instruct` `rl_zero` | FLD |
+| S9 Stability | `perception` `persistence` | gateway model | FLD FOLIO |
+| S10 Factor analysis | `temperature` `temperature_local` `size_alignment` `difficulty` | gateway model, or a checkpoint tag for the local parts | FLD FOLIO |
+| S11 Positional biases | — | gateway model | FLD FOLIO |
+
+`python main.py --list` prints the same table with each part's default models.
+Follow-up settings read cells of earlier ones (S4, S6, S7 and S9 persistence
+read the S1/S2/S5 cells); `main.py` checks they are on disk and names the
+command that collects them if not.
+
+### Settings that load a checkpoint
+
+S7, S8 and the local S10 parts need `torch` and `transformers` and a model on
+disk. `all` prints the command for each and moves on; they run when named.
 
 ```bash
-python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_synonyms.py
-for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \
-      --config configs/C1_structural_trigger/S4_random_words_$m.yaml
-done
+python main.py S7                                             # NLI probe over the stored S1/S2 traces
+python main.py S8 --part download                             # Olmo-3-7B checkpoints into models/
+python main.py S8 --part inference                            # S1/S2 answers of the instruct checkpoint on FLD
+python main.py S8 --part logit_lens                           # the base, sft and rl_zero probes the paper reports
+python main.py S10 --part size_alignment --model gemma-4-E4B-it --model-path <checkout>
+python main.py S10 --part temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
 ```
 
-### 3. S6 — self-diagnosis
+The local sweeps load one checkpoint per call, so `--model` names the tag and
+`--model-path` its checkout; without a path the command is printed and skipped.
+
+### Smoke run
+
+`--limit` caps the items per cell, `--results-root` keeps the output away from
+`results/`, and `--dry-run` prints every command without calling anything.
 
 ```bash
-for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C2_deny_yet_capable/S6_$m.yaml
-done
+python main.py all --dry-run
+python main.py all --model gpt-5.4-nano --limit 4 --results-root /tmp/ai_smoke
+python main.py all --model gpt-5.4-nano --stage analyze --results-root /tmp/ai_smoke
 ```
 
-### 4. S7 — reasoning traces
+### One YAML at a time
 
-Reads the traces step 1 stored; needs a GPU but no API key.
-
-```bash
-python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
-```
-
-### 5. S8 — logit lens
-
-Three steps on a local Olmo-3-7B checkout; the probe runs on the three
-variants the paper reports (base, instruct_sft, rl_zero).
+`--config` runs a single experiment YAML, the way `main.py` always has. The
+YAML's `run_tasks` picks the runner; `--model`, `--dataset`, `--limit` and
+`--results-root` still apply on top.
 
 ```bash
-S8=experiments/C3_later_layer_override/S8_logit_lens_representation_probe
-python $S8/run_S8_step1_download.py                 # or bring your own checkpoint
-python $S8/run_S8_step2_inference.py   --model_path <checkpoint>
-for c in base sft rl_zero; do python $S8/run_S8_step3_logit_lens.py --ckpt $c; done
-```
-
-### 6. S9 — stability
-
-```bash
-for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C4_stable_bias/S9_Perception_Unknown_labeled_Samples_$m.yaml
-done
-
-# the three re-draws, per (model, dataset)
-python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-    --summary results/S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json \
-    --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/S9_stability/Persistence_Across_Repeats/gpt_5.4_nano/FLD_gpt-5.4-nano.json
-```
-
-### 7. S10 — factor analysis
-
-Temperature, on the two checkpoints whose temperature the endpoint actually
-applies. The local sweep takes one temperature per call, and the flags below
-are the ones the reported cells were produced with -- the defaults would give
-n=200 and truncate at 1024 tokens.
-
-```bash
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
-    --model gemini-3.1-flash-lite
-
-for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
-  python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
-      --model_path <Olmo-3-7B-Instruct checkout> --model_tag Olmo-3-7B-Instruct \
-      --use_chat_template --settings S2 --n_per_class 250 \
-      --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
-      --out_dir results/S10_factor_analysis/temperature/olmo_3_7b_instruct
-done
-```
-
-Size and alignment: four Gemma sizes × {base, it}, at T=0. Pass
-`--use_chat_template` for the `-it` checkpoints and leave it off for the base
-ones -- that is the only difference between the two arms.
-
-```bash
-python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
-    --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
-    --n_per_class 250 --max_new_tokens 3072 --batch_size 8 \
-    --out_dir results/S10_factor_analysis/size_alignment
-```
-
-### 8. S11 — positional biases
-
-```bash
-python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
-    --model all --positions A B C --unified-labels
+python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml
 ```
 
 ## Citation

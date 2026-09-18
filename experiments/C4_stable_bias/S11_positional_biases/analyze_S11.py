@@ -150,7 +150,16 @@ def main():
         help="Permit non-unified (native Proved/Disproved/Uncertain) label "
         "summaries. By default the gate requires unified_labels=True.",
     )
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=None,
+        help="Gateway model names (default: the three the paper reports).",
+    )
     args = ap.parse_args()
+    global MODELS
+    if args.models:
+        MODELS = [(model_slug(m), m) for m in args.models]
     result_dir = Path(args.result_dir)
     if not result_dir.is_absolute():
         result_dir = ROOT / result_dir

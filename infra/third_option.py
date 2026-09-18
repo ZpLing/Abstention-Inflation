@@ -29,11 +29,11 @@ SYNONYMS = ("I don't know", "Indeterminate")
 #: rather than the *word* is what triggers abstention.
 RANDOM_WORDS = ("Triangular", "Cerulean")
 
-#: class -> the directory that class's results live in. The main experiment is
-#: split by task type and further by model slug, so it is named by family here
-#: and completed from the config.
-_DIRS = {"synonym": _rd("S4/synonyms"), "random_word": _rd("S4/random_words")}
-_MAIN = {"tf": _rd("S2") / "tfq", "mcq": _rd("S2") / "mcq"}
+#: class -> the registry key of the directory that class's results live in.
+#: The main experiment is split by task type and further by model slug, so it
+#: is named by family here and completed from the config.
+_DIRS = {"synonym": "S4/synonyms", "random_word": "S4/random_words"}
+_MAIN = {"tf": "tfq", "mcq": "mcq"}
 
 
 def slug(word: str) -> str:
@@ -65,8 +65,10 @@ def setting(word: str) -> str:
     return "S2" if classify(word) == "unknown" else "S4"
 
 
-def results_dir(word: str, task_type: str = "tf") -> Path:
-    """Where a run with this third option writes.
+def results_dir(
+    word: str, task_type: str = "tf", root: str | Path = "results"
+) -> Path:
+    """Where a run with this third option writes, under ``root``.
 
     ``Unknown`` resolves to the S2 directory for the task type; the model
     slug under it comes from the config, because that is where the main runs
@@ -75,13 +77,19 @@ def results_dir(word: str, task_type: str = "tf") -> Path:
     kind = classify(word)
     if kind == "unknown":
         try:
-            return _MAIN[task_type]
+            return _rd("S2", root) / _MAIN[task_type]
         except KeyError:
             raise ValueError(f"task_type must be 'tf' or 'mcq', got {task_type!r}")
-    return _DIRS[kind]
+    return _rd(_DIRS[kind], root)
 
 
-def result_path(word: str, dataset: str, model: str, task_type: str = "tf") -> Path:
+def result_path(
+    word: str,
+    dataset: str,
+    model: str,
+    task_type: str = "tf",
+    root: str | Path = "results",
+) -> Path:
     """Full path for one cell. Refuses to name an S4 path for ``Unknown``.
 
     The baseline every S4 shift is measured against is the S2 cell of the main
@@ -95,7 +103,7 @@ def result_path(word: str, dataset: str, model: str, task_type: str = "tf") -> P
         )
     safe_model = model.replace("/", "_")
     return (
-        results_dir(word, task_type)
+        results_dir(word, task_type, root)
         / model_slug(model)
         / f"{dataset}_{safe_model}_{slug(word)}.json"
     )

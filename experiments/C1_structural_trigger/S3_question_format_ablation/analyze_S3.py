@@ -12,6 +12,7 @@ same keep-set, so these numbers and the main table's are the same numbers.
     python experiments/C1_structural_trigger/S3_question_format_ablation/analyze_S3.py
 """
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -23,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 from infra.evaluator import Evaluator  # noqa: E402
 from infra.result_schema import (
     load_cell,  # noqa: E402
+    model_slug,  # noqa: E402
     paired_keep_ids,  # noqa: E402
 )
 
@@ -36,8 +38,8 @@ MODELS = [
 DATASETS = ("FLD", "FOLIO")
 
 
-def cell(slug: str, model: str, dataset: str) -> dict:
-    summary = load_cell(dataset, model, slug, "tf")
+def cell(slug: str, model: str, dataset: str, results_root="results") -> dict:
+    summary = load_cell(dataset, model, slug, "tf", results_root)
     # The S1/S2 keep-set, minus whatever S3 itself failed to answer -- the same
     # rule the runner applies when it writes metrics.S3.n_scored. Counting an
     # exhausted retry as "did not abstain" would understate S3's Abs Rate.
@@ -76,15 +78,27 @@ def cell(slug: str, model: str, dataset: str) -> dict:
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--results-root", default="results")
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=[m for _, m, _ in MODELS],
+        help="Gateway model names (default: the three the paper reports).",
+    )
+    args = ap.parse_args()
+    labels = {m: label for _, m, label in MODELS}
+
     print(
         f"{'Model':<24} {'Dataset':<7} {'n':>4} {'S2 Abs':>7} {'S3 Abs':>7} "
         f"{'Delta':>7} {'McNemar p':>10}"
     )
     print("-" * 72)
     deltas = []
-    for slug, model, label in MODELS:
+    for model in args.models:
+        slug, label = model_slug(model), labels.get(model, model)
         for ds in DATASETS:
-            r = cell(slug, model, ds)
+            r = cell(slug, model, ds, args.results_root)
             deltas.append(abs(r["delta"]))
             flag = " *" if r["p"] < 0.05 else ""
             print(

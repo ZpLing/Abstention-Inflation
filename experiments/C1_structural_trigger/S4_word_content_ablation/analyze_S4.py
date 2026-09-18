@@ -25,9 +25,16 @@ ROOT = Path(__file__).resolve().parents[3]
 import sys as _sys
 
 _sys.path.insert(0, str(ROOT))  # noqa: E402
-from infra.result_schema import load_cell, model_slug  # noqa: E402
+from infra.result_schema import load_cell, model_slug, results_dir  # noqa: E402
 
+#: The model the synonym half reports; --models sets it (one pass per model).
 MODEL = "deepseek-v4-flash"
+#: Where every cell is read from; --results-root sets it.
+RESULTS_ROOT = Path("results")
+
+
+def _root() -> Path:
+    return ROOT / RESULTS_ROOT
 
 WORDINGS = ["unknown", "i_dont_know", "indeterminate"]
 WORDING_TEXTS = {
@@ -44,15 +51,16 @@ def load_w1_per_sample(ds):
     Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
-    ab = load_cell(ds, MODEL, "deepseek_v4_flash", "tf")
+    ab = load_cell(ds, MODEL, model_slug(MODEL), "tf", _root())
     return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 
 
+def _synonym_path(w, ds):
+    return results_dir("S4/synonyms", _root()) / model_slug(MODEL) / f"{ds}_{MODEL}_{w}.json"
+
+
 def load_wording_per_sample(w, ds):
-    p = (
-        ROOT
-        / f"results/S4_word_content/synonyms/{model_slug(MODEL)}/{ds}_{MODEL}_{w}.json"
-    )
+    p = _synonym_path(w, ds)
     s = json.loads(p.read_text())
     return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
 
@@ -94,7 +102,6 @@ def mcnemar_exact_p(b, c):
     return p, z
 
 
-RPC = ROOT / "results/S4_word_content/random_words"
 RPC_MODELS = [
     ("deepseek-v4-flash", "DeepSeek-V4-Flash"),
     ("gpt-5.4-nano", "GPT-5.4-nano"),
@@ -104,17 +111,14 @@ RPC_MODELS = [
 
 def _s2_abs_rate(ds, model):
     """Abs Rate of the S2 cell in the main table -- the baseline both halves use."""
-    slug = {
-        "deepseek-v4-flash": "deepseek_v4_flash",
-        "gpt-5.4-nano": "gpt_5.4_nano",
-        "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
-    }[model]
-    rows = load_cell(ds, model, slug, "tf")["per_sample"]
+    rows = load_cell(ds, model, model_slug(model), "tf", _root())["per_sample"]
     return sum(r["pred_s2"] == "UNKNOWN" for r in rows) / len(rows)
 
 
-def random_word_half():
+def random_word_half(models=None):
     """The Triangular / Cerulean control, against the same S2 baseline."""
+    labels = dict(RPC_MODELS)
+    rpc = results_dir("S4/random_words", _root())
     print("\n" + "=" * 78)
     print("Random words — rate at which the third slot is selected")
     print("=" * 78)
@@ -123,10 +127,11 @@ def random_word_half():
         f"{'max |d|':>8}"
     )
     worst, every = [], []
-    for model, label in RPC_MODELS:
+    for model in models or list(labels):
+        label = labels.get(model, model)
         for ds in DATASETS:
             paths = {
-                w: RPC / model_slug(model) / f"{ds}_{model}_{w}.json"
+                w: rpc / model_slug(model) / f"{ds}_{model}_{w}.json"
                 for w in ("triangular", "cerulean")
             }
             if not all(q.exists() for q in paths.values()):
@@ -165,11 +170,7 @@ def main(out_path=None):
         # baseline (S2 of the main table)
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
-        w2_path = (
-            ROOT
-            / f"results/S4_word_content/synonyms/{model_slug(MODEL)}/{ds}_{MODEL}_i_dont_know.json"
-        )
-        w2_summary = json.loads(w2_path.read_text())
+        w2_summary = json.loads(_synonym_path("i_dont_know", ds).read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
         # baseline restricted to these IDs
         w1_pred_aligned = {sid: w1_pred[sid] for sid in sample_ids if sid in w1_pred}
@@ -261,5 +262,20 @@ def main(out_path=None):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
-    main(ap.parse_args().out)
-    random_word_half()
+    ap.add_argument("--results-root", default="results")
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=None,
+        help="Gateway model names. The synonym half runs once per model "
+        "(default: deepseek-v4-flash); the random-word half reports each "
+        "(default: the three the paper reports).",
+    )
+    args = ap.parse_args()
+    RESULTS_ROOT = Path(args.results_root)
+    for MODEL in args.models or [MODEL]:
+        out = args.out
+        if out and args.models and len(args.models) > 1:
+            out = str(Path(out).with_name(f"{Path(out).stem}_{model_slug(MODEL)}{Path(out).suffix}"))
+        main(out)
+    random_word_half(args.models)

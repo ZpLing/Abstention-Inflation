@@ -44,8 +44,9 @@ MODELS = [
     },
 ]
 
-OUT_DIR = ROOT / third_option.results_dir(third_option.SYNONYMS[0])
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+#: A model outside MODELS borrows this config for its credentials and keeps
+#: its own name; its cells land under its own slug.
+TEMPLATE_CONFIG = MODELS[0]["config"]
 
 
 # ── Prompt builder ────────────────────────────────────────────────────────────
@@ -106,9 +107,13 @@ def parse_output(text: str, scheme, abstain_text: str) -> Tuple[str, str]:
 
 
 # ── Sample loader ─────────────────────────────────────────────────────────────
-def load_sample_ids(dataset: str, model_name: str) -> List[str]:
+def load_sample_ids(
+    dataset: str, model_name: str, results_root: str = "results"
+) -> List[str]:
     """Ids of the S2 cell this ablation re-words, in the order it stored them."""
-    path = ROOT / cell_path("S2", dataset, model_name, model_slug(model_name), "tf")
+    path = ROOT / cell_path(
+        "S2", dataset, model_name, model_slug(model_name), "tf", results_root
+    )
     if not path.exists():
         print(f"  [warn] missing {path} -- run the main experiment first")
         return []
@@ -173,12 +178,11 @@ async def run_one_cell(
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-async def main(models=None, datasets=None):
-    wanted = set(models or [m["name"] for m in MODELS])
-    for model_cfg in [m for m in MODELS if m["name"] in wanted]:
-        model_name = model_cfg["name"]
+async def main(models=None, datasets=None, results_root="results", limit=None):
+    known = {m["name"]: m["config"] for m in MODELS}
+    for model_name in models or list(known):
         print(f"\n{'=' * 60}\nModel: {model_name}\n{'=' * 60}")
-        config = load_config(str(ROOT / model_cfg["config"]))
+        config = load_config(str(ROOT / known.get(model_name, TEMPLATE_CONFIG)))
         config["max_workers"] = 100
         config["model_name"] = model_name
         handler = LLMHandler(config)
@@ -187,12 +191,16 @@ async def main(models=None, datasets=None):
             scheme = get_scheme(ds)
             all_samples = load_judge(ds)
             by_id = {s.id: s for s in all_samples}
-            ids = load_sample_ids(ds, model_name)
+            ids = load_sample_ids(ds, model_name, results_root)
             samples = [by_id[i] for i in ids if i in by_id]
+            if limit:
+                samples = samples[:limit]
             print(f"\n[{ds}] {len(samples)} samples loaded")
 
             for wording_id, abstain_text in WORDINGS:
-                out_path = ROOT / third_option.result_path(abstain_text, ds, model_name)
+                out_path = ROOT / third_option.result_path(
+                    abstain_text, ds, model_name, root=results_root
+                )
                 out_path.parent.mkdir(parents=True, exist_ok=True)
                 summary = await run_one_cell(
                     handler, scheme, samples, abstain_text, wording_id, ds, model_name
@@ -211,8 +219,16 @@ if __name__ == "__main__":
         "--models",
         nargs="+",
         default=None,
-        choices=[m["name"] for m in MODELS],
-        help="Restrict to these models (default: all three).",
+        help="Gateway model names (default: the three the paper reports). A "
+        "name outside MODELS borrows gpt-5.4-nano's config for its credentials.",
+    )
+    ap.add_argument(
+        "--results-root",
+        default="results",
+        help="Root the S2 cells are read from and the S4 cells are written under.",
+    )
+    ap.add_argument(
+        "--limit", type=int, default=None, help="Items per cell, for a smoke run."
     )
     ap.add_argument(
         "--datasets",
@@ -222,4 +238,4 @@ if __name__ == "__main__":
         help="Restrict to these datasets (default: both).",
     )
     _args = ap.parse_args()
-    asyncio.run(main(_args.models, _args.datasets))
+    asyncio.run(main(_args.models, _args.datasets, _args.results_root, _args.limit))

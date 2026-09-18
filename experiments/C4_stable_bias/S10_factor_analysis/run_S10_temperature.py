@@ -59,7 +59,7 @@ sys.path.insert(0, str(ROOT))
 from infra.label_scheme import get_scheme  # noqa: E402
 from infra.llm_handler import LLMHandler  # noqa: E402
 from infra.prompts import build_judge_s2_prompt  # noqa: E402
-from infra.result_schema import results_dir, stamp
+from infra.result_schema import model_slug, results_dir, stamp
 from loader.config_loader import load_config  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
@@ -72,9 +72,8 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-SLUG_OF = {
-    "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
-}
+#: Credentials come from this file; the model is whatever --model names, and
+#: its cells land under that model's slug.
 CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
 
 
@@ -120,7 +119,18 @@ async def query_at_temp(
 
 async def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="gemini-3.1-flash-lite", choices=sorted(SLUG_OF))
+    ap.add_argument(
+        "--model",
+        default="gemini-3.1-flash-lite",
+        help="Gateway model to sweep. The paper reports gemini-3.1-flash-lite, "
+        "the one model whose endpoint applies the temperature; any name the "
+        "gateway serves is accepted.",
+    )
+    ap.add_argument(
+        "--results-root",
+        default="results",
+        help="Write the sweep under this root instead of results/.",
+    )
     ap.add_argument(
         "--limit", type=int, default=None, help="Items per cell, for a smoke run."
     )
@@ -138,7 +148,7 @@ async def main() -> None:
 
     global MODEL, OUT_DIR
     MODEL = args.model
-    OUT_DIR = ROOT / results_dir("S10/temperature") / SLUG_OF[MODEL]
+    OUT_DIR = ROOT / results_dir("S10/temperature", args.results_root) / model_slug(MODEL)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     cfg = load_config(str(CFG))
     cfg["model_name"] = MODEL

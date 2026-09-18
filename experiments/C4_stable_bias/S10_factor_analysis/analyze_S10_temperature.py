@@ -14,23 +14,30 @@ from math import comb, sqrt
 from pathlib import Path
 from statistics import NormalDist
 
-ROOT = Path(".")
+ROOT = Path(__file__).resolve().parents[3]
 import sys as _sys
 
 _sys.path.insert(0, str(ROOT))  # noqa: E402
-from infra.result_schema import model_slug  # noqa: E402
+from infra.result_schema import model_slug, results_dir  # noqa: E402
 
 #: Set from --model. The sweep is reported on the two checkpoints whose
-#: sampling temperature the endpoint actually applies; the gateway ignored
-#: it for the other models, which is itself an S10 finding.
+#: sampling temperature the endpoint actually applies (gemini-3.1-flash-lite
+#: and Olmo-3-7B-Instruct); the gateway ignored it for the other models,
+#: which is itself an S10 finding. Any swept model's cells are read the same way.
 MODEL = "gemini-3.1-flash-lite"
+#: Where the sweep's cells are read from; --results-root sets it.
+RESULTS_ROOT = Path("results")
 
-#: The directories the reported sweep actually wrote to. The older
-#: results/temperature_sweep/ tree was a 200-item pass and is gone.
-SLUG_OF = {
-    "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
-    "Olmo-3-7B-Instruct": model_slug("Olmo-3-7B-Instruct"),
-}
+
+def _cell_path(ds, t_tag):
+    return (
+        ROOT
+        / results_dir("S10/temperature", RESULTS_ROOT)
+        / model_slug(MODEL)
+        / f"{ds}_{MODEL}_{t_tag}.json"
+    )
+
+
 TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 
@@ -42,21 +49,13 @@ def load_w0_per_sample(ds):
     contrast below is per item. An earlier version pooled two deepseek batches
     from a different collection round, which is a different sample.
     """
-    path = (
-        ROOT
-        / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_T0p0.json"
-    )
-    rows = json.loads(path.read_text()).get("per_sample", [])
+    rows = json.loads(_cell_path(ds, "T0p0").read_text()).get("per_sample", [])
     return {r["id"]: r["pred_s2"] for r in rows}
 
 
 def load_temp_per_sample(t, ds):
     t_tag = f"T{t:.1f}".replace(".", "p")
-    p = (
-        ROOT
-        / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json"
-    )
-    s = json.loads(p.read_text())
+    s = json.loads(_cell_path(ds, t_tag).read_text())
     return {ps["id"]: ps.get("pred_s2", ps.get("pred")) for ps in s["per_sample"]}
 
 
@@ -110,12 +109,7 @@ def main(out_path=None):
     for ds in DATASETS:
         # Get sample IDs from any T>0 cell (they share IDs)
         t_tag = f"T{0.3:.1f}".replace(".", "p")
-        ref = json.loads(
-            (
-                ROOT
-                / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json"
-            ).read_text()
-        )
+        ref = json.loads(_cell_path(ds, t_tag).read_text())
         sample_ids = [ps["id"] for ps in ref["per_sample"]]
         # answer_idx map
         ans_by_id = {ps["id"]: ps["answer_idx"] for ps in ref["per_sample"]}
@@ -229,17 +223,19 @@ def main(out_path=None):
 def _cli():
     import argparse
 
-    global MODEL
+    global MODEL, RESULTS_ROOT
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--model",
         default=MODEL,
-        choices=sorted(SLUG_OF),
-        help="Which swept checkpoint to analyse.",
+        help="Which swept model to analyse (gemini-3.1-flash-lite or "
+        "Olmo-3-7B-Instruct are the reported ones).",
     )
+    ap.add_argument("--results-root", default="results")
     ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
     args = ap.parse_args()
     MODEL = args.model
+    RESULTS_ROOT = Path(args.results_root)
     return args
 
 

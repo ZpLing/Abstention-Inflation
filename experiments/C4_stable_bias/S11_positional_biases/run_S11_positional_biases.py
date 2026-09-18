@@ -61,6 +61,22 @@ MODELS = {
 
 DATASETS = ("FLD", "FOLIO")
 POSITIONS = ("A", "B", "C")
+
+
+def resolve_model(key_or_name: str) -> dict:
+    """A MODELS key, a model name, or a new gateway model.
+
+    A model outside MODELS borrows gpt-5.4-nano's config for its credentials
+    and keeps its own name; its cells land under its own slug.
+    """
+    if key_or_name in MODELS:
+        return MODELS[key_or_name]
+    for spec in MODELS.values():
+        if spec["model_name"] == key_or_name:
+            return spec
+    return {"model_name": key_or_name, "config": MODELS["gpt_5.4_nano"]["config"]}
+
+
 #: Position identifiers. They index the slot the abstain verb occupies and
 #: are used in file names and the CLI; the prompt shows verbs, not letters.
 LETTERS = ("A", "B", "C")
@@ -382,8 +398,9 @@ async def run_model(
     unified_labels: bool = False,
     max_retries: int = 3,
 ):
-    spec = MODELS[model_key]
+    spec = resolve_model(model_key)
     model_name = spec["model_name"]
+    model_key = model_slug(model_name)
     print(f"\n{'=' * 72}\nModel: {model_key} ({model_name})\n{'=' * 72}")
     config = load_config(str(ROOT / spec["config"]))
     config["model_name"] = model_name
@@ -409,9 +426,15 @@ def _parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--model",
-        choices=["all", *MODELS.keys()],
         default="all",
-        help="Model key to run.",
+        help="'all' for the three models the paper reports, one of "
+        + ", ".join(MODELS)
+        + ", or any other gateway model name (it borrows gpt-5.4-nano's config).",
+    )
+    parser.add_argument(
+        "--results-root",
+        default=None,
+        help="Write under this root instead of results/.",
     )
     parser.add_argument(
         "--dataset",
@@ -465,7 +488,10 @@ def _parse_args():
 
 
 async def main():
+    global OUT_DIR_500
     args = _parse_args()
+    if args.results_root:
+        OUT_DIR_500 = ROOT / results_dir("S11", args.results_root)
     model_keys = list(MODELS) if args.model == "all" else [args.model]
     datasets = list(DATASETS) if args.dataset == "all" else [args.dataset]
     positions = args.positions

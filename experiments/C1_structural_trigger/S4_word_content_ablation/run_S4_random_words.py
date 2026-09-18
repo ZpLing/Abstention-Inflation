@@ -219,7 +219,7 @@ def load_balanced_samples(data_handler: DataHandler, ds_name: str, n_per_class: 
 
 
 def load_baseline_from_main(
-    ds_name: str, model_name: str, model_slug: str, data_handler
+    ds_name: str, model_name: str, model_slug: str, data_handler, results_root="results"
 ):
     """S1 and the Unknown condition for this cell, read from the main table.
 
@@ -231,7 +231,9 @@ def load_baseline_from_main(
     Returns (samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
     in the main table's per_sample order.
     """
-    cell = load_cell(ds_name, model_name.replace("/", "_"), model_slug, "tf")
+    cell = load_cell(
+        ds_name, model_name.replace("/", "_"), model_slug, "tf", results_root
+    )
     all_samples = data_handler.load_dataset(ds_name)
     id_to_sample = {s.id: s for s in all_samples}
 
@@ -420,7 +422,13 @@ async def run_experiment(config: Dict):
     rpc_cfg = get_block(config, "s4_random_words")
     datasets = rpc_cfg.get("datasets", ["FLD", "FOLIO"])
     n_per_class = rpc_cfg.get("n_per_class", 100)
-    results_dir = Path(rpc_cfg.get("results_dir", results_path_dir(RANDOM_WORD_1)))
+    # results_root places both what this run reads (the S1/S2 cells of the
+    # main table) and what it writes; results_dir overrides only the latter.
+    results_root = Path(rpc_cfg.get("results_root", "results"))
+    results_dir = Path(
+        rpc_cfg.get("results_dir")
+        or results_path_dir(RANDOM_WORD_1, root=results_root)
+    )
     results_dir.mkdir(parents=True, exist_ok=True)
     # With model_slug set, S1 and the Unknown condition are read from the main
     # table for the same items and only the two random words are queried.
@@ -446,7 +454,9 @@ async def run_experiment(config: Dict):
         print(f"\n===== {ds_name} =====")
         if model_slug:
             samples, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = (
-                load_baseline_from_main(ds_name, model_name, model_slug, data_handler)
+                load_baseline_from_main(
+                    ds_name, model_name, model_slug, data_handler, results_root
+                )
             )
             baseline = (answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
         else:
@@ -480,6 +490,10 @@ async def run_experiment(config: Dict):
         print(
             f"  {label:<20} {pooled_rate:>12.1%} {pooled_acc:>8.1%} {pooled_delta:>+8.1%}"
         )
+    # Close the HTTP client while the event loop is still open; main.py runs
+    # several cells in one process and a client collected after the loop has
+    # closed prints a traceback.
+    await llm_handler.client.close()
 
 
 def main():

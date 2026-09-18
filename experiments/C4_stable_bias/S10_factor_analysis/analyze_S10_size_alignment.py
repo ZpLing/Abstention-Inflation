@@ -200,15 +200,22 @@ def check_claims(cells, metric: str = "abs_rate_strict"):
 
 
 if __name__ == "__main__":
-    cells, missing = load_cells()
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--results-root", default="results")
+    args = ap.parse_args()
+    sweep_dir = ROOT / results_dir("S10/size_alignment", args.results_root)
+
+    cells, missing = load_cells(sweep_dir)
     if missing:
         print(f"MISSING {len(missing)} cell(s): {', '.join(missing)}\n")
     if not cells:
-        print(f"No results under {RESULTS_DIR} -- run the sweep first.")
+        print(f"No results under {sweep_dir} -- run the sweep first.")
         sys.exit(0)
 
     ns = {c["n"] for c in cells}
-    print(f"reading {RESULTS_DIR.relative_to(ROOT)}   [{len(cells)} cells]")
+    print(f"reading {sweep_dir}   [{len(cells)} cells]")
     if len(ns) > 1:
         print(
             f"  [warn] cells disagree on sample size: {sorted(ns)} — "

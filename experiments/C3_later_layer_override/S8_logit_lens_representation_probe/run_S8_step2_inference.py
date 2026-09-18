@@ -162,14 +162,21 @@ def main():
 def _cli():
     import argparse
 
-    global MODEL_PATH
+    global MODEL_PATH, OUT_PATH
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--model_path",
         default=str(MODEL_PATH),
         help="Local checkout of the checkpoint to run.",
     )
-    MODEL_PATH = Path(ap.parse_args().model_path)
+    ap.add_argument(
+        "--results-root",
+        default="results",
+        help="Write the S1/S2 inference under this root instead of results/.",
+    )
+    a = ap.parse_args()
+    MODEL_PATH = Path(a.model_path)
+    OUT_PATH = ROOT / s8_inference_path(a.results_root)
 
 
 if __name__ == "__main__":

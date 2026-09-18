@@ -50,6 +50,7 @@ sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import (
     load_cell,  # noqa: E402
+    model_slug,
     paired_keep_ids,
 )
 
@@ -95,7 +96,9 @@ def load_source_steps() -> Dict[int, int]:
     return out
 
 
-def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
+def collect_per_sample(
+    steps_map: Dict[int, int], cells=None, results_root="results"
+) -> List[dict]:
     """One row per (model, sample) of the S2 cell, stratified by proof depth.
 
     Read from the same paired summaries the main table is built from, on the
@@ -104,8 +107,8 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
     which reproduces the S2 prompt byte for byte but is a separate run.
     """
     rows: List[dict] = []
-    for slug, model in TFQ_CELLS:
-        summary = load_cell("FLD", model, slug, "tf")
+    for slug, model in cells or TFQ_CELLS:
+        summary = load_cell("FLD", model, slug, "tf", results_root)
         if not summary["per_sample"]:
             continue
         keep = paired_keep_ids(summary)
@@ -241,15 +244,25 @@ def print_table(title: str, summary: dict) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
+    ap.add_argument("--results-root", default="results")
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=[m for _, m in TFQ_CELLS],
+        help="Gateway model names (default: the three the paper reports).",
+    )
     args = ap.parse_args()
     if not FLD_SOURCE.exists():
         sys.exit(f"FLD source not found at {FLD_SOURCE}")
     steps_map = load_source_steps()
     print(f"Loaded {len(steps_map)} FLD items with a `depth` annotation.")
 
-    rows = collect_per_sample(steps_map)
+    rows = collect_per_sample(
+        steps_map, [(model_slug(m), m) for m in args.models], args.results_root
+    )
     print(
-        f"Collected {len(rows)} (model, sample) cells from results/S11_positional_bias/."
+        f"Collected {len(rows)} (model, sample) rows from the S2 cells under "
+        f"{args.results_root}/."
     )
     if not rows:
         sys.exit("No FLD ab_summary data found.")

@@ -34,15 +34,11 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from infra.result_schema import (  # noqa: E402
     S8_CHECKPOINTS,
-    results_dir,
     s8_inference_path,
     s8_logit_lens_path,
     s8_model_dir,
     stamp,
 )
-
-INFERENCE_PATH = ROOT / s8_inference_path()
-OUT_DIR = ROOT / results_dir("S8")
 
 CHECKPOINTS = {k: ROOT / s8_model_dir(k) for k in S8_CHECKPOINTS}
 
@@ -202,15 +198,26 @@ def process_checkpoint(
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ckpt", required=True, choices=["base", "instruct", "rl_zero"])
+    ap.add_argument("--ckpt", required=True, choices=sorted(S8_CHECKPOINTS))
+    ap.add_argument(
+        "--model_path",
+        default=None,
+        help="Local checkout of --ckpt; default is where step 1 downloads it.",
+    )
+    ap.add_argument(
+        "--results-root",
+        default="results",
+        help="Root step 2's inference is read from and the probe is written under.",
+    )
     args = ap.parse_args()
 
-    ckpt_path = CHECKPOINTS[args.ckpt]
+    ckpt_path = Path(args.model_path) if args.model_path else CHECKPOINTS[args.ckpt]
     if not ckpt_path.exists():
         print(f"[error] model path not found: {ckpt_path}")
         return
 
-    raw = json.loads(INFERENCE_PATH.read_text())
+    inference_path = ROOT / s8_inference_path(args.results_root)
+    raw = json.loads(inference_path.read_text())
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     samples = []
@@ -240,8 +247,7 @@ def main():
     print("  type counts:", dict(Counter(s["sample_type"] for s in samples)))
 
     result = process_checkpoint(args.ckpt, ckpt_path, samples, device)
-    out_path = ROOT / s8_logit_lens_path(args.ckpt)
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = ROOT / s8_logit_lens_path(args.ckpt, args.results_root)
     result = {**stamp("S8"), **result}
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2))
