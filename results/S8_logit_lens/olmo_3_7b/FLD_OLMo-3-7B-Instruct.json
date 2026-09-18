@@ -7,6 +7,8 @@
       "id": "FLD_0000",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -478,6 +480,8 @@
       "id": "FLD_0001",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -949,6 +953,8 @@
       "id": "FLD_0002",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -1420,6 +1426,8 @@
       "id": "FLD_0003",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -1891,6 +1899,8 @@
       "id": "FLD_0004",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -2362,6 +2372,8 @@
       "id": "FLD_0005",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -2833,6 +2845,8 @@
       "id": "FLD_0006",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -3304,6 +3318,8 @@
       "id": "FLD_0007",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -3775,6 +3791,8 @@
       "id": "FLD_0008",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -4246,6 +4264,8 @@
       "id": "FLD_0009",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -4717,6 +4737,8 @@
       "id": "FLD_0010",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -5188,6 +5210,8 @@
       "id": "FLD_0011",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -5659,6 +5683,8 @@
       "id": "FLD_0012",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -6130,6 +6156,8 @@
       "id": "FLD_0013",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -6601,6 +6629,8 @@
       "id": "FLD_0014",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -7072,6 +7102,8 @@
       "id": "FLD_0015",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -7543,6 +7575,8 @@
       "id": "FLD_0016",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -8014,6 +8048,8 @@
       "id": "FLD_0017",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -8485,6 +8521,8 @@
       "id": "FLD_0018",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -8956,6 +8994,8 @@
       "id": "FLD_0019",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -9427,6 +9467,8 @@
       "id": "FLD_0020",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -9898,6 +9940,8 @@
       "id": "FLD_0021",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -10369,6 +10413,8 @@
       "id": "FLD_0022",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -10840,6 +10886,8 @@
       "id": "FLD_0023",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -11311,6 +11359,8 @@
       "id": "FLD_0024",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -11782,6 +11832,8 @@
       "id": "FLD_0025",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -12253,6 +12305,8 @@
       "id": "FLD_0026",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -12724,6 +12778,8 @@
       "id": "FLD_0027",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -13195,6 +13251,8 @@
       "id": "FLD_0028",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -13666,6 +13724,8 @@
       "id": "FLD_0029",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -14137,6 +14197,8 @@
       "id": "FLD_0030",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -14608,6 +14670,8 @@
       "id": "FLD_0031",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -15079,6 +15143,8 @@
       "id": "FLD_0032",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -15550,6 +15616,8 @@
       "id": "FLD_0033",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -16021,6 +16089,8 @@
       "id": "FLD_0034",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -16492,6 +16562,8 @@
       "id": "FLD_0035",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -16963,6 +17035,8 @@
       "id": "FLD_0036",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -17434,6 +17508,8 @@
       "id": "FLD_0037",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -17905,6 +17981,8 @@
       "id": "FLD_0038",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -18376,6 +18454,8 @@
       "id": "FLD_0039",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -18847,6 +18927,8 @@
       "id": "FLD_0040",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -19318,6 +19400,8 @@
       "id": "FLD_0041",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -19789,6 +19873,8 @@
       "id": "FLD_0042",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -20260,6 +20346,8 @@
       "id": "FLD_0043",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -20731,6 +20819,8 @@
       "id": "FLD_0044",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -21202,6 +21292,8 @@
       "id": "FLD_0045",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -21673,6 +21765,8 @@
       "id": "FLD_0046",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -22144,6 +22238,8 @@
       "id": "FLD_0047",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -22615,6 +22711,8 @@
       "id": "FLD_0048",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -23086,6 +23184,8 @@
       "id": "FLD_0049",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -23557,6 +23657,8 @@
       "id": "FLD_0050",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -24028,6 +24130,8 @@
       "id": "FLD_0051",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -24499,6 +24603,8 @@
       "id": "FLD_0052",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -24970,6 +25076,8 @@
       "id": "FLD_0053",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -25441,6 +25549,8 @@
       "id": "FLD_0054",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -25912,6 +26022,8 @@
       "id": "FLD_0055",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -26383,6 +26495,8 @@
       "id": "FLD_0056",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -26854,6 +26968,8 @@
       "id": "FLD_0057",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -27325,6 +27441,8 @@
       "id": "FLD_0058",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -27796,6 +27914,8 @@
       "id": "FLD_0059",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -28267,6 +28387,8 @@
       "id": "FLD_0060",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -28738,6 +28860,8 @@
       "id": "FLD_0061",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -29209,6 +29333,8 @@
       "id": "FLD_0062",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -29680,6 +29806,8 @@
       "id": "FLD_0063",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -30151,6 +30279,8 @@
       "id": "FLD_0064",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -30622,6 +30752,8 @@
       "id": "FLD_0065",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -31093,6 +31225,8 @@
       "id": "FLD_0066",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -31564,6 +31698,8 @@
       "id": "FLD_0067",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -32035,6 +32171,8 @@
       "id": "FLD_0068",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -32506,6 +32644,8 @@
       "id": "FLD_0069",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -32977,6 +33117,8 @@
       "id": "FLD_0070",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -33448,6 +33590,8 @@
       "id": "FLD_0071",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -33919,6 +34063,8 @@
       "id": "FLD_0072",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -34390,6 +34536,8 @@
       "id": "FLD_0073",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -34861,6 +35009,8 @@
       "id": "FLD_0074",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -35332,6 +35482,8 @@
       "id": "FLD_0075",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -35803,6 +35955,8 @@
       "id": "FLD_0076",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -36274,6 +36428,8 @@
       "id": "FLD_0077",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -36745,6 +36901,8 @@
       "id": "FLD_0078",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -37216,6 +37374,8 @@
       "id": "FLD_0079",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -37687,6 +37847,8 @@
       "id": "FLD_0080",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -38158,6 +38320,8 @@
       "id": "FLD_0081",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -38629,6 +38793,8 @@
       "id": "FLD_0082",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -39100,6 +39266,8 @@
       "id": "FLD_0083",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -39571,6 +39739,8 @@
       "id": "FLD_0084",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -40042,6 +40212,8 @@
       "id": "FLD_0085",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -40513,6 +40685,8 @@
       "id": "FLD_0086",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -40984,6 +41158,8 @@
       "id": "FLD_0087",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -41455,6 +41631,8 @@
       "id": "FLD_0088",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -41926,6 +42104,8 @@
       "id": "FLD_0089",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -42397,6 +42577,8 @@
       "id": "FLD_0090",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -42868,6 +43050,8 @@
       "id": "FLD_0091",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -43339,6 +43523,8 @@
       "id": "FLD_0092",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -43810,6 +43996,8 @@
       "id": "FLD_0093",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -44281,6 +44469,8 @@
       "id": "FLD_0094",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -44752,6 +44942,8 @@
       "id": "FLD_0095",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -45223,6 +45415,8 @@
       "id": "FLD_0096",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -45694,6 +45888,8 @@
       "id": "FLD_0097",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -46165,6 +46361,8 @@
       "id": "FLD_0098",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -46636,6 +46834,8 @@
       "id": "FLD_0099",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -47107,6 +47307,8 @@
       "id": "FLD_0100",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -47578,6 +47780,8 @@
       "id": "FLD_0101",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -48049,6 +48253,8 @@
       "id": "FLD_0102",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -48520,6 +48726,8 @@
       "id": "FLD_0103",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -48991,6 +49199,8 @@
       "id": "FLD_0104",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -49462,6 +49672,8 @@
       "id": "FLD_0105",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -49933,6 +50145,8 @@
       "id": "FLD_0106",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -50404,6 +50618,8 @@
       "id": "FLD_0107",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -50875,6 +51091,8 @@
       "id": "FLD_0108",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -51346,6 +51564,8 @@
       "id": "FLD_0109",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -51817,6 +52037,8 @@
       "id": "FLD_0110",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -52288,6 +52510,8 @@
       "id": "FLD_0111",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -52759,6 +52983,8 @@
       "id": "FLD_0112",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -53230,6 +53456,8 @@
       "id": "FLD_0113",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -53701,6 +53929,8 @@
       "id": "FLD_0114",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -54172,6 +54402,8 @@
       "id": "FLD_0115",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -54643,6 +54875,8 @@
       "id": "FLD_0116",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -55114,6 +55348,8 @@
       "id": "FLD_0117",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -55585,6 +55821,8 @@
       "id": "FLD_0118",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -56056,6 +56294,8 @@
       "id": "FLD_0119",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -56527,6 +56767,8 @@
       "id": "FLD_0120",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -56998,6 +57240,8 @@
       "id": "FLD_0121",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -57469,6 +57713,8 @@
       "id": "FLD_0122",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -57940,6 +58186,8 @@
       "id": "FLD_0123",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -58411,6 +58659,8 @@
       "id": "FLD_0124",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -58882,6 +59132,8 @@
       "id": "FLD_0125",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -59353,6 +59605,8 @@
       "id": "FLD_0126",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -59824,6 +60078,8 @@
       "id": "FLD_0127",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -60295,6 +60551,8 @@
       "id": "FLD_0128",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -60766,6 +61024,8 @@
       "id": "FLD_0129",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -61237,6 +61497,8 @@
       "id": "FLD_0130",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -61708,6 +61970,8 @@
       "id": "FLD_0131",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -62179,6 +62443,8 @@
       "id": "FLD_0132",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -62650,6 +62916,8 @@
       "id": "FLD_0133",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -63121,6 +63389,8 @@
       "id": "FLD_0134",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -63592,6 +63862,8 @@
       "id": "FLD_0135",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -64063,6 +64335,8 @@
       "id": "FLD_0136",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -64534,6 +64808,8 @@
       "id": "FLD_0137",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -65005,6 +65281,8 @@
       "id": "FLD_0138",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -65476,6 +65754,8 @@
       "id": "FLD_0139",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -65947,6 +66227,8 @@
       "id": "FLD_0140",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -66418,6 +66700,8 @@
       "id": "FLD_0141",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -66889,6 +67173,8 @@
       "id": "FLD_0142",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -67360,6 +67646,8 @@
       "id": "FLD_0143",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -67831,6 +68119,8 @@
       "id": "FLD_0144",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -68302,6 +68592,8 @@
       "id": "FLD_0145",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -68773,6 +69065,8 @@
       "id": "FLD_0146",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -69244,6 +69538,8 @@
       "id": "FLD_0147",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -69715,6 +70011,8 @@
       "id": "FLD_0148",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -70186,6 +70484,8 @@
       "id": "FLD_0149",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -70657,6 +70957,8 @@
       "id": "FLD_0150",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -71128,6 +71430,8 @@
       "id": "FLD_0151",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -71599,6 +71903,8 @@
       "id": "FLD_0152",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -72070,6 +72376,8 @@
       "id": "FLD_0153",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -72541,6 +72849,8 @@
       "id": "FLD_0154",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -73012,6 +73322,8 @@
       "id": "FLD_0155",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -73483,6 +73795,8 @@
       "id": "FLD_0156",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -73954,6 +74268,8 @@
       "id": "FLD_0157",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -74425,6 +74741,8 @@
       "id": "FLD_0158",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -74896,6 +75214,8 @@
       "id": "FLD_0159",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -75367,6 +75687,8 @@
       "id": "FLD_0160",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -75838,6 +76160,8 @@
       "id": "FLD_0161",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -76309,6 +76633,8 @@
       "id": "FLD_0162",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -76780,6 +77106,8 @@
       "id": "FLD_0163",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -77251,6 +77579,8 @@
       "id": "FLD_0164",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -77722,6 +78052,8 @@
       "id": "FLD_0165",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -78193,6 +78525,8 @@
       "id": "FLD_0166",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -78664,6 +78998,8 @@
       "id": "FLD_0167",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -79135,6 +79471,8 @@
       "id": "FLD_0168",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -79606,6 +79944,8 @@
       "id": "FLD_0169",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -80077,6 +80417,8 @@
       "id": "FLD_0170",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -80548,6 +80890,8 @@
       "id": "FLD_0171",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -81019,6 +81363,8 @@
       "id": "FLD_0172",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -81490,6 +81836,8 @@
       "id": "FLD_0173",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -81961,6 +82309,8 @@
       "id": "FLD_0174",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -82432,6 +82782,8 @@
       "id": "FLD_0175",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -82903,6 +83255,8 @@
       "id": "FLD_0176",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -83374,6 +83728,8 @@
       "id": "FLD_0177",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -83845,6 +84201,8 @@
       "id": "FLD_0178",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -84316,6 +84674,8 @@
       "id": "FLD_0179",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -84787,6 +85147,8 @@
       "id": "FLD_0180",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -85258,6 +85620,8 @@
       "id": "FLD_0181",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -85729,6 +86093,8 @@
       "id": "FLD_0182",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -86200,6 +86566,8 @@
       "id": "FLD_0183",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -86671,6 +87039,8 @@
       "id": "FLD_0184",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -87142,6 +87512,8 @@
       "id": "FLD_0185",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -87613,6 +87985,8 @@
       "id": "FLD_0186",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -88084,6 +88458,8 @@
       "id": "FLD_0187",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -88555,6 +88931,8 @@
       "id": "FLD_0188",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -89026,6 +89404,8 @@
       "id": "FLD_0189",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -89497,6 +89877,8 @@
       "id": "FLD_0190",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -89968,6 +90350,8 @@
       "id": "FLD_0191",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -90439,6 +90823,8 @@
       "id": "FLD_0192",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -90910,6 +91296,8 @@
       "id": "FLD_0193",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -91381,6 +91769,8 @@
       "id": "FLD_0194",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -91852,6 +92242,8 @@
       "id": "FLD_0195",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -92323,6 +92715,8 @@
       "id": "FLD_0196",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -92794,6 +93188,8 @@
       "id": "FLD_0197",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -93265,6 +93661,8 @@
       "id": "FLD_0198",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -93736,6 +94134,8 @@
       "id": "FLD_0199",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -94207,6 +94607,8 @@
       "id": "FLD_0200",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -94678,6 +95080,8 @@
       "id": "FLD_0201",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -95149,6 +95553,8 @@
       "id": "FLD_0202",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -95620,6 +96026,8 @@
       "id": "FLD_0203",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -96091,6 +96499,8 @@
       "id": "FLD_0204",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -96562,6 +96972,8 @@
       "id": "FLD_0205",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -97033,6 +97445,8 @@
       "id": "FLD_0206",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -97504,6 +97918,8 @@
       "id": "FLD_0207",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -97975,6 +98391,8 @@
       "id": "FLD_0208",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -98446,6 +98864,8 @@
       "id": "FLD_0209",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -98917,6 +99337,8 @@
       "id": "FLD_0210",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -99388,6 +99810,8 @@
       "id": "FLD_0211",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -99859,6 +100283,8 @@
       "id": "FLD_0212",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -100330,6 +100756,8 @@
       "id": "FLD_0213",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -100801,6 +101229,8 @@
       "id": "FLD_0214",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -101272,6 +101702,8 @@
       "id": "FLD_0215",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -101743,6 +102175,8 @@
       "id": "FLD_0216",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -102214,6 +102648,8 @@
       "id": "FLD_0217",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -102685,6 +103121,8 @@
       "id": "FLD_0218",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -103156,6 +103594,8 @@
       "id": "FLD_0219",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -103627,6 +104067,8 @@
       "id": "FLD_0220",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -104098,6 +104540,8 @@
       "id": "FLD_0221",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -104569,6 +105013,8 @@
       "id": "FLD_0222",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -105040,6 +105486,8 @@
       "id": "FLD_0223",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -105511,6 +105959,8 @@
       "id": "FLD_0224",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -105982,6 +106432,8 @@
       "id": "FLD_0225",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -106453,6 +106905,8 @@
       "id": "FLD_0226",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -106924,6 +107378,8 @@
       "id": "FLD_0227",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -107395,6 +107851,8 @@
       "id": "FLD_0228",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -107866,6 +108324,8 @@
       "id": "FLD_0229",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -108337,6 +108797,8 @@
       "id": "FLD_0230",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -108808,6 +109270,8 @@
       "id": "FLD_0231",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -109279,6 +109743,8 @@
       "id": "FLD_0232",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -109750,6 +110216,8 @@
       "id": "FLD_0233",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -110221,6 +110689,8 @@
       "id": "FLD_0234",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -110692,6 +111162,8 @@
       "id": "FLD_0235",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -111163,6 +111635,8 @@
       "id": "FLD_0236",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -111634,6 +112108,8 @@
       "id": "FLD_0237",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -112105,6 +112581,8 @@
       "id": "FLD_0238",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -112576,6 +113054,8 @@
       "id": "FLD_0239",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -113047,6 +113527,8 @@
       "id": "FLD_0240",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -113518,6 +114000,8 @@
       "id": "FLD_0241",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -113989,6 +114473,8 @@
       "id": "FLD_0242",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -114460,6 +114946,8 @@
       "id": "FLD_0243",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -114931,6 +115419,8 @@
       "id": "FLD_0244",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -115402,6 +115892,8 @@
       "id": "FLD_0245",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -115873,6 +116365,8 @@
       "id": "FLD_0246",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -116344,6 +116838,8 @@
       "id": "FLD_0247",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -116815,6 +117311,8 @@
       "id": "FLD_0248",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -117286,6 +117784,8 @@
       "id": "FLD_0249",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -117757,6 +118257,8 @@
       "id": "FLD_0250",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -118228,6 +118730,8 @@
       "id": "FLD_0251",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -118699,6 +119203,8 @@
       "id": "FLD_0252",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -119170,6 +119676,8 @@
       "id": "FLD_0253",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -119641,6 +120149,8 @@
       "id": "FLD_0254",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -120112,6 +120622,8 @@
       "id": "FLD_0255",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -120583,6 +121095,8 @@
       "id": "FLD_0256",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -121054,6 +121568,8 @@
       "id": "FLD_0257",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -121525,6 +122041,8 @@
       "id": "FLD_0258",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -121996,6 +122514,8 @@
       "id": "FLD_0259",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -122467,6 +122987,8 @@
       "id": "FLD_0260",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -122938,6 +123460,8 @@
       "id": "FLD_0261",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -123409,6 +123933,8 @@
       "id": "FLD_0262",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -123880,6 +124406,8 @@
       "id": "FLD_0263",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -124351,6 +124879,8 @@
       "id": "FLD_0264",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -124822,6 +125352,8 @@
       "id": "FLD_0265",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -125293,6 +125825,8 @@
       "id": "FLD_0266",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -125764,6 +126298,8 @@
       "id": "FLD_0267",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -126235,6 +126771,8 @@
       "id": "FLD_0268",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -126706,6 +127244,8 @@
       "id": "FLD_0269",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -127177,6 +127717,8 @@
       "id": "FLD_0270",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -127648,6 +128190,8 @@
       "id": "FLD_0271",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -128119,6 +128663,8 @@
       "id": "FLD_0272",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -128590,6 +129136,8 @@
       "id": "FLD_0273",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -129061,6 +129609,8 @@
       "id": "FLD_0274",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -129532,6 +130082,8 @@
       "id": "FLD_0275",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -130003,6 +130555,8 @@
       "id": "FLD_0276",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -130474,6 +131028,8 @@
       "id": "FLD_0277",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -130945,6 +131501,8 @@
       "id": "FLD_0278",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -131416,6 +131974,8 @@
       "id": "FLD_0279",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -131887,6 +132447,8 @@
       "id": "FLD_0280",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -132358,6 +132920,8 @@
       "id": "FLD_0281",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -132829,6 +133393,8 @@
       "id": "FLD_0282",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -133300,6 +133866,8 @@
       "id": "FLD_0283",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -133771,6 +134339,8 @@
       "id": "FLD_0284",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -134242,6 +134812,8 @@
       "id": "FLD_0285",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -134713,6 +135285,8 @@
       "id": "FLD_0286",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -135184,6 +135758,8 @@
       "id": "FLD_0287",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -135655,6 +136231,8 @@
       "id": "FLD_0288",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -136126,6 +136704,8 @@
       "id": "FLD_0289",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -136597,6 +137177,8 @@
       "id": "FLD_0290",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -137068,6 +137650,8 @@
       "id": "FLD_0291",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -137539,6 +138123,8 @@
       "id": "FLD_0292",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -138010,6 +138596,8 @@
       "id": "FLD_0293",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -138481,6 +139069,8 @@
       "id": "FLD_0294",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -138952,6 +139542,8 @@
       "id": "FLD_0295",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -139423,6 +140015,8 @@
       "id": "FLD_0296",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -139894,6 +140488,8 @@
       "id": "FLD_0297",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -140365,6 +140961,8 @@
       "id": "FLD_0298",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -140836,6 +141434,8 @@
       "id": "FLD_0299",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -141307,6 +141907,8 @@
       "id": "FLD_0300",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -141778,6 +142380,8 @@
       "id": "FLD_0301",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -142249,6 +142853,8 @@
       "id": "FLD_0302",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -142720,6 +143326,8 @@
       "id": "FLD_0303",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -143191,6 +143799,8 @@
       "id": "FLD_0304",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -143662,6 +144272,8 @@
       "id": "FLD_0305",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -144133,6 +144745,8 @@
       "id": "FLD_0306",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -144604,6 +145218,8 @@
       "id": "FLD_0307",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -145075,6 +145691,8 @@
       "id": "FLD_0308",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -145546,6 +146164,8 @@
       "id": "FLD_0309",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -146017,6 +146637,8 @@
       "id": "FLD_0310",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -146488,6 +147110,8 @@
       "id": "FLD_0311",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -146959,6 +147583,8 @@
       "id": "FLD_0312",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -147430,6 +148056,8 @@
       "id": "FLD_0313",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -147901,6 +148529,8 @@
       "id": "FLD_0314",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -148372,6 +149002,8 @@
       "id": "FLD_0315",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -148843,6 +149475,8 @@
       "id": "FLD_0316",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -149314,6 +149948,8 @@
       "id": "FLD_0317",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -149785,6 +150421,8 @@
       "id": "FLD_0318",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -150256,6 +150894,8 @@
       "id": "FLD_0319",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -150727,6 +151367,8 @@
       "id": "FLD_0320",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -151198,6 +151840,8 @@
       "id": "FLD_0321",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -151669,6 +152313,8 @@
       "id": "FLD_0322",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -152140,6 +152786,8 @@
       "id": "FLD_0323",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -152611,6 +153259,8 @@
       "id": "FLD_0324",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -153082,6 +153732,8 @@
       "id": "FLD_0325",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -153553,6 +154205,8 @@
       "id": "FLD_0326",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -154024,6 +154678,8 @@
       "id": "FLD_0327",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -154495,6 +155151,8 @@
       "id": "FLD_0328",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -154966,6 +155624,8 @@
       "id": "FLD_0329",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -155437,6 +156097,8 @@
       "id": "FLD_0330",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -155908,6 +156570,8 @@
       "id": "FLD_0331",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -156379,6 +157043,8 @@
       "id": "FLD_0332",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -156850,6 +157516,8 @@
       "id": "FLD_0333",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -157321,6 +157989,8 @@
       "id": "FLD_0334",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -157792,6 +158462,8 @@
       "id": "FLD_0335",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -158263,6 +158935,8 @@
       "id": "FLD_0336",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -158734,6 +159408,8 @@
       "id": "FLD_0337",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -159205,6 +159881,8 @@
       "id": "FLD_0338",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -159676,6 +160354,8 @@
       "id": "FLD_0339",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -160147,6 +160827,8 @@
       "id": "FLD_0340",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -160618,6 +161300,8 @@
       "id": "FLD_0341",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -161089,6 +161773,8 @@
       "id": "FLD_0342",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -161560,6 +162246,8 @@
       "id": "FLD_0343",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -162031,6 +162719,8 @@
       "id": "FLD_0344",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -162502,6 +163192,8 @@
       "id": "FLD_0345",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -162973,6 +163665,8 @@
       "id": "FLD_0346",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -163444,6 +164138,8 @@
       "id": "FLD_0347",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -163915,6 +164611,8 @@
       "id": "FLD_0348",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -164386,6 +165084,8 @@
       "id": "FLD_0349",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -164857,6 +165557,8 @@
       "id": "FLD_0350",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -165328,6 +166030,8 @@
       "id": "FLD_0351",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -165799,6 +166503,8 @@
       "id": "FLD_0352",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -166270,6 +166976,8 @@
       "id": "FLD_0353",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -166741,6 +167449,8 @@
       "id": "FLD_0354",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -167212,6 +167922,8 @@
       "id": "FLD_0355",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -167683,6 +168395,8 @@
       "id": "FLD_0356",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -168154,6 +168868,8 @@
       "id": "FLD_0357",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -168625,6 +169341,8 @@
       "id": "FLD_0358",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -169096,6 +169814,8 @@
       "id": "FLD_0359",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -169567,6 +170287,8 @@
       "id": "FLD_0360",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -170038,6 +170760,8 @@
       "id": "FLD_0361",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -170509,6 +171233,8 @@
       "id": "FLD_0362",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -170980,6 +171706,8 @@
       "id": "FLD_0363",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -171451,6 +172179,8 @@
       "id": "FLD_0364",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -171922,6 +172652,8 @@
       "id": "FLD_0365",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -172393,6 +173125,8 @@
       "id": "FLD_0366",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -172864,6 +173598,8 @@
       "id": "FLD_0367",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -173335,6 +174071,8 @@
       "id": "FLD_0368",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -173806,6 +174544,8 @@
       "id": "FLD_0369",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -174277,6 +175017,8 @@
       "id": "FLD_0370",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -174748,6 +175490,8 @@
       "id": "FLD_0371",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -175219,6 +175963,8 @@
       "id": "FLD_0372",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -175690,6 +176436,8 @@
       "id": "FLD_0373",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -176161,6 +176909,8 @@
       "id": "FLD_0374",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -176632,6 +177382,8 @@
       "id": "FLD_0375",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -177103,6 +177855,8 @@
       "id": "FLD_0376",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -177574,6 +178328,8 @@
       "id": "FLD_0377",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -178045,6 +178801,8 @@
       "id": "FLD_0378",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -178516,6 +179274,8 @@
       "id": "FLD_0379",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -178987,6 +179747,8 @@
       "id": "FLD_0380",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -179458,6 +180220,8 @@
       "id": "FLD_0381",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -179929,6 +180693,8 @@
       "id": "FLD_0382",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -180400,6 +181166,8 @@
       "id": "FLD_0383",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -180871,6 +181639,8 @@
       "id": "FLD_0384",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -181342,6 +182112,8 @@
       "id": "FLD_0385",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -181813,6 +182585,8 @@
       "id": "FLD_0386",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -182284,6 +183058,8 @@
       "id": "FLD_0387",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -182755,6 +183531,8 @@
       "id": "FLD_0388",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -183226,6 +184004,8 @@
       "id": "FLD_0389",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -183697,6 +184477,8 @@
       "id": "FLD_0390",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -184168,6 +184950,8 @@
       "id": "FLD_0391",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -184639,6 +185423,8 @@
       "id": "FLD_0392",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -185110,6 +185896,8 @@
       "id": "FLD_0393",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -185581,6 +186369,8 @@
       "id": "FLD_0394",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -186052,6 +186842,8 @@
       "id": "FLD_0395",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -186523,6 +187315,8 @@
       "id": "FLD_0396",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -186994,6 +187788,8 @@
       "id": "FLD_0397",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -187465,6 +188261,8 @@
       "id": "FLD_0398",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -187936,6 +188734,8 @@
       "id": "FLD_0399",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -188407,6 +189207,8 @@
       "id": "FLD_0400",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -188878,6 +189680,8 @@
       "id": "FLD_0401",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -189349,6 +190153,8 @@
       "id": "FLD_0402",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -189820,6 +190626,8 @@
       "id": "FLD_0403",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -190291,6 +191099,8 @@
       "id": "FLD_0404",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -190762,6 +191572,8 @@
       "id": "FLD_0405",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -191233,6 +192045,8 @@
       "id": "FLD_0406",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -191704,6 +192518,8 @@
       "id": "FLD_0407",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -192175,6 +192991,8 @@
       "id": "FLD_0408",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -192646,6 +193464,8 @@
       "id": "FLD_0409",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -193117,6 +193937,8 @@
       "id": "FLD_0410",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -193588,6 +194410,8 @@
       "id": "FLD_0411",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -194059,6 +194883,8 @@
       "id": "FLD_0412",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -194530,6 +195356,8 @@
       "id": "FLD_0413",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -195001,6 +195829,8 @@
       "id": "FLD_0414",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -195472,6 +196302,8 @@
       "id": "FLD_0415",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -195943,6 +196775,8 @@
       "id": "FLD_0416",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -196414,6 +197248,8 @@
       "id": "FLD_0417",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -196885,6 +197721,8 @@
       "id": "FLD_0418",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -197356,6 +198194,8 @@
       "id": "FLD_0419",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -197827,6 +198667,8 @@
       "id": "FLD_0420",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -198298,6 +199140,8 @@
       "id": "FLD_0421",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -198769,6 +199613,8 @@
       "id": "FLD_0422",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -199240,6 +200086,8 @@
       "id": "FLD_0423",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -199711,6 +200559,8 @@
       "id": "FLD_0424",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -200182,6 +201032,8 @@
       "id": "FLD_0425",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -200653,6 +201505,8 @@
       "id": "FLD_0426",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -201124,6 +201978,8 @@
       "id": "FLD_0427",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -201595,6 +202451,8 @@
       "id": "FLD_0428",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -202066,6 +202924,8 @@
       "id": "FLD_0429",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -202537,6 +203397,8 @@
       "id": "FLD_0430",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -203008,6 +203870,8 @@
       "id": "FLD_0431",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -203479,6 +204343,8 @@
       "id": "FLD_0432",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -203950,6 +204816,8 @@
       "id": "FLD_0433",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -204421,6 +205289,8 @@
       "id": "FLD_0434",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -204892,6 +205762,8 @@
       "id": "FLD_0435",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -205363,6 +206235,8 @@
       "id": "FLD_0436",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -205834,6 +206708,8 @@
       "id": "FLD_0437",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -206305,6 +207181,8 @@
       "id": "FLD_0438",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -206776,6 +207654,8 @@
       "id": "FLD_0439",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -207247,6 +208127,8 @@
       "id": "FLD_0440",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -207718,6 +208600,8 @@
       "id": "FLD_0441",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -208189,6 +209073,8 @@
       "id": "FLD_0442",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -208660,6 +209546,8 @@
       "id": "FLD_0443",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -209131,6 +210019,8 @@
       "id": "FLD_0444",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -209602,6 +210492,8 @@
       "id": "FLD_0445",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -210073,6 +210965,8 @@
       "id": "FLD_0446",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -210544,6 +211438,8 @@
       "id": "FLD_0447",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -211015,6 +211911,8 @@
       "id": "FLD_0448",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -211486,6 +212384,8 @@
       "id": "FLD_0449",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -211957,6 +212857,8 @@
       "id": "FLD_0450",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -212428,6 +213330,8 @@
       "id": "FLD_0451",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -212899,6 +213803,8 @@
       "id": "FLD_0452",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -213370,6 +214276,8 @@
       "id": "FLD_0453",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -213841,6 +214749,8 @@
       "id": "FLD_0454",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -214312,6 +215222,8 @@
       "id": "FLD_0455",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -214783,6 +215695,8 @@
       "id": "FLD_0456",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -215254,6 +216168,8 @@
       "id": "FLD_0457",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -215725,6 +216641,8 @@
       "id": "FLD_0458",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -216196,6 +217114,8 @@
       "id": "FLD_0459",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -216667,6 +217587,8 @@
       "id": "FLD_0460",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -217138,6 +218060,8 @@
       "id": "FLD_0461",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -217609,6 +218533,8 @@
       "id": "FLD_0462",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -218080,6 +219006,8 @@
       "id": "FLD_0463",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -218551,6 +219479,8 @@
       "id": "FLD_0464",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -219022,6 +219952,8 @@
       "id": "FLD_0465",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -219493,6 +220425,8 @@
       "id": "FLD_0466",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -219964,6 +220898,8 @@
       "id": "FLD_0467",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -220435,6 +221371,8 @@
       "id": "FLD_0468",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -220906,6 +221844,8 @@
       "id": "FLD_0469",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -221377,6 +222317,8 @@
       "id": "FLD_0470",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -221848,6 +222790,8 @@
       "id": "FLD_0471",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -222319,6 +223263,8 @@
       "id": "FLD_0472",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -222790,6 +223736,8 @@
       "id": "FLD_0473",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -223261,6 +224209,8 @@
       "id": "FLD_0474",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -223732,6 +224682,8 @@
       "id": "FLD_0475",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -224203,6 +225155,8 @@
       "id": "FLD_0476",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -224674,6 +225628,8 @@
       "id": "FLD_0477",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -225145,6 +226101,8 @@
       "id": "FLD_0478",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -225616,6 +226574,8 @@
       "id": "FLD_0479",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -226087,6 +227047,8 @@
       "id": "FLD_0480",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -226558,6 +227520,8 @@
       "id": "FLD_0481",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -227029,6 +227993,8 @@
       "id": "FLD_0482",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -227500,6 +228466,8 @@
       "id": "FLD_0483",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -227971,6 +228939,8 @@
       "id": "FLD_0484",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -228442,6 +229412,8 @@
       "id": "FLD_0485",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -228913,6 +229885,8 @@
       "id": "FLD_0486",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -229384,6 +230358,8 @@
       "id": "FLD_0487",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -229855,6 +230831,8 @@
       "id": "FLD_0488",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -230326,6 +231304,8 @@
       "id": "FLD_0489",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -230797,6 +231777,8 @@
       "id": "FLD_0490",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -231268,6 +232250,8 @@
       "id": "FLD_0491",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -231739,6 +232723,8 @@
       "id": "FLD_0492",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -232210,6 +233196,8 @@
       "id": "FLD_0493",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -232681,6 +233669,8 @@
       "id": "FLD_0494",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -233152,6 +234142,8 @@
       "id": "FLD_0495",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -233623,6 +234615,8 @@
       "id": "FLD_0496",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -234094,6 +235088,8 @@
       "id": "FLD_0497",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -234565,6 +235561,8 @@
       "id": "FLD_0498",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -235036,6 +236034,8 @@
       "id": "FLD_0499",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -235507,6 +236507,8 @@
       "id": "FLD_0500",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -235978,6 +236980,8 @@
       "id": "FLD_0501",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -236449,6 +237453,8 @@
       "id": "FLD_0502",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -236920,6 +237926,8 @@
       "id": "FLD_0503",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -237391,6 +238399,8 @@
       "id": "FLD_0504",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -237862,6 +238872,8 @@
       "id": "FLD_0505",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -238333,6 +239345,8 @@
       "id": "FLD_0506",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -238804,6 +239818,8 @@
       "id": "FLD_0507",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -239275,6 +240291,8 @@
       "id": "FLD_0508",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -239746,6 +240764,8 @@
       "id": "FLD_0509",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -240217,6 +241237,8 @@
       "id": "FLD_0510",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -240688,6 +241710,8 @@
       "id": "FLD_0511",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -241159,6 +242183,8 @@
       "id": "FLD_0512",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -241630,6 +242656,8 @@
       "id": "FLD_0513",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -242101,6 +243129,8 @@
       "id": "FLD_0514",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -242572,6 +243602,8 @@
       "id": "FLD_0515",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -243043,6 +244075,8 @@
       "id": "FLD_0516",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -243514,6 +244548,8 @@
       "id": "FLD_0517",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -243985,6 +245021,8 @@
       "id": "FLD_0518",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -244456,6 +245494,8 @@
       "id": "FLD_0519",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -244927,6 +245967,8 @@
       "id": "FLD_0520",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -245398,6 +246440,8 @@
       "id": "FLD_0521",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -245869,6 +246913,8 @@
       "id": "FLD_0522",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -246340,6 +247386,8 @@
       "id": "FLD_0523",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -246811,6 +247859,8 @@
       "id": "FLD_0524",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -247282,6 +248332,8 @@
       "id": "FLD_0525",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -247753,6 +248805,8 @@
       "id": "FLD_0526",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -248224,6 +249278,8 @@
       "id": "FLD_0527",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -248695,6 +249751,8 @@
       "id": "FLD_0528",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -249166,6 +250224,8 @@
       "id": "FLD_0529",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -249637,6 +250697,8 @@
       "id": "FLD_0530",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -250108,6 +251170,8 @@
       "id": "FLD_0531",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -250579,6 +251643,8 @@
       "id": "FLD_0532",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -251050,6 +252116,8 @@
       "id": "FLD_0533",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -251521,6 +252589,8 @@
       "id": "FLD_0534",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -251992,6 +253062,8 @@
       "id": "FLD_0535",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -252463,6 +253535,8 @@
       "id": "FLD_0536",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -252934,6 +254008,8 @@
       "id": "FLD_0537",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -253405,6 +254481,8 @@
       "id": "FLD_0538",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -253876,6 +254954,8 @@
       "id": "FLD_0539",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -254347,6 +255427,8 @@
       "id": "FLD_0540",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -254818,6 +255900,8 @@
       "id": "FLD_0541",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -255289,6 +256373,8 @@
       "id": "FLD_0542",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -255760,6 +256846,8 @@
       "id": "FLD_0543",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -256231,6 +257319,8 @@
       "id": "FLD_0544",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -256702,6 +257792,8 @@
       "id": "FLD_0545",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -257173,6 +258265,8 @@
       "id": "FLD_0546",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -257644,6 +258738,8 @@
       "id": "FLD_0547",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -258115,6 +259211,8 @@
       "id": "FLD_0548",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -258586,6 +259684,8 @@
       "id": "FLD_0549",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -259057,6 +260157,8 @@
       "id": "FLD_0550",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -259528,6 +260630,8 @@
       "id": "FLD_0551",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -259999,6 +261103,8 @@
       "id": "FLD_0552",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -260470,6 +261576,8 @@
       "id": "FLD_0553",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -260941,6 +262049,8 @@
       "id": "FLD_0554",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -261412,6 +262522,8 @@
       "id": "FLD_0555",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -261883,6 +262995,8 @@
       "id": "FLD_0556",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -262354,6 +263468,8 @@
       "id": "FLD_0557",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -262825,6 +263941,8 @@
       "id": "FLD_0558",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -263296,6 +264414,8 @@
       "id": "FLD_0559",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -263767,6 +264887,8 @@
       "id": "FLD_0560",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -264238,6 +265360,8 @@
       "id": "FLD_0561",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -264709,6 +265833,8 @@
       "id": "FLD_0562",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -265180,6 +266306,8 @@
       "id": "FLD_0563",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -265651,6 +266779,8 @@
       "id": "FLD_0564",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -266122,6 +267252,8 @@
       "id": "FLD_0565",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -266593,6 +267725,8 @@
       "id": "FLD_0566",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -267064,6 +268198,8 @@
       "id": "FLD_0567",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -267535,6 +268671,8 @@
       "id": "FLD_0568",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -268006,6 +269144,8 @@
       "id": "FLD_0569",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -268477,6 +269617,8 @@
       "id": "FLD_0570",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -268948,6 +270090,8 @@
       "id": "FLD_0571",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -269419,6 +270563,8 @@
       "id": "FLD_0572",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -269890,6 +271036,8 @@
       "id": "FLD_0573",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -270361,6 +271509,8 @@
       "id": "FLD_0574",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -270832,6 +271982,8 @@
       "id": "FLD_0575",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -271303,6 +272455,8 @@
       "id": "FLD_0576",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -271774,6 +272928,8 @@
       "id": "FLD_0577",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -272245,6 +273401,8 @@
       "id": "FLD_0578",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -272716,6 +273874,8 @@
       "id": "FLD_0579",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -273187,6 +274347,8 @@
       "id": "FLD_0580",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -273658,6 +274820,8 @@
       "id": "FLD_0581",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -274129,6 +275293,8 @@
       "id": "FLD_0582",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "DISPROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -274600,6 +275766,8 @@
       "id": "FLD_0583",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -275071,6 +276239,8 @@
       "id": "FLD_0584",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -275542,6 +276712,8 @@
       "id": "FLD_0585",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -276013,6 +277185,8 @@
       "id": "FLD_0586",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -276484,6 +277658,8 @@
       "id": "FLD_0587",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -276955,6 +278131,8 @@
       "id": "FLD_0588",
       "sample_type": "non_AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -277426,6 +278604,8 @@
       "id": "FLD_0589",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -277897,6 +279077,8 @@
       "id": "FLD_0590",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -278368,6 +279550,8 @@
       "id": "FLD_0591",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -278839,6 +280023,8 @@
       "id": "FLD_0592",
       "sample_type": "non_AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -279310,6 +280496,8 @@
       "id": "FLD_0593",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "PROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,
@@ -279781,6 +280969,8 @@
       "id": "FLD_0594",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -280252,6 +281442,8 @@
       "id": "FLD_0595",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -280723,6 +281915,8 @@
       "id": "FLD_0596",
       "sample_type": "CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -281194,6 +282388,8 @@
       "id": "FLD_0597",
       "sample_type": "AIR",
       "gold_short": "DISPROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -281665,6 +282861,8 @@
       "id": "FLD_0598",
       "sample_type": "AIR",
       "gold_short": "PROVED",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "UNKNOWN",
       "layers_s1": [
         {
           "layer": 0,
@@ -282136,6 +283334,8 @@
       "id": "FLD_0599",
       "sample_type": "non_CAR",
       "gold_short": "UNKNOWN",
+      "pred_s1": "DISPROVED",
+      "pred_s2": "PROVED",
       "layers_s1": [
         {
           "layer": 0,

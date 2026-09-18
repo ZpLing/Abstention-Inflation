@@ -180,6 +180,8 @@ def process_checkpoint(
                     "id": s["id"],
                     "sample_type": s["sample_type"],
                     "gold_short": s["gold_short"],
+                    "pred_s1": s.get("pred_s1"),
+                    "pred_s2": s.get("pred_s2"),
                     "layers_s1": layers_s1,
                     "layers_s2": layers_s2,
                 }
@@ -224,6 +226,8 @@ def main():
                 "id": s["id"],
                 "proof_label": s["proof_label"],
                 "gold_short": gold_short,
+                "pred_s1": s.get("pred_s1"),
+                "pred_s2": s.get("pred_s2"),
                 "Conclusion": s["Conclusion"],
                 "Facts": s["Facts"],
                 "sample_type": sample_type,

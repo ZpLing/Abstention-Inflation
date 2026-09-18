@@ -232,6 +232,10 @@ env/
 /tools/
 
 # Run outputs and everything retired during the refactor.
+# S8's step-2 inference is an intermediate the probes are built from; the
+# probes carry what they need from it, so it stays local.
+results/**/*_inference.json
+
 # results/ is published with the paper (scanned: no credentials, no PII;
 # per-sample rows carry only ids, gold indices and model outputs)
 /archive/

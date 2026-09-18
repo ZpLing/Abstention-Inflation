@@ -335,7 +335,10 @@ def s8_model_dir(ckpt: str, models_root: str | Path = "models") -> Path:
 
 
 def s8_inference_path(root: str | Path = "results") -> Path:
-    """The S1/S2 inference the probes start from, named for the checkpoint that produced it."""
+    """Step 2's S1/S2 inference, the intermediate the probes are built from.
+
+    Named for the checkpoint that produced it. Not published: each probe row
+    carries the pred_s1 / pred_s2 it needs, so results/ holds only the probes."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
