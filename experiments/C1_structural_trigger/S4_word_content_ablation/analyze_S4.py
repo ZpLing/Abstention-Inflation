@@ -2,10 +2,9 @@
 
 Two halves, both reported in the paper:
 
-  synonyms      replace "Unknown" with "I don't know" or "Indeterminate"
-                "Cannot be determined from the facts", "Insufficient
-                information". If abstention tracked the word's meaning, a
-                near-synonym would move it; it does not.
+  synonyms      replace "Unknown" with "I don't know" or "Indeterminate".
+                If abstention tracked the word's meaning, a near-synonym
+                would move it; it does not.
   random words  the third option becomes "Triangular" or "Cerulean", words with
                 no bearing on the task. Models still select that slot at close
                 to the Unknown rate, which is what makes the trigger structural.
@@ -16,6 +15,7 @@ built from, so these numbers and the main table's are the same numbers.
     python experiments/C1_structural_trigger/S4_word_content_ablation/analyze_S4.py
 """
 
+import argparse
 import json
 from math import sqrt
 from pathlib import Path
@@ -156,7 +156,7 @@ def random_word_half():
         )
 
 
-def main():
+def main(out_path=None):
     print(f"=== S4 wording sweep aggregation ({MODEL}) ===\n")
 
     cells = {}  # (ds, w) -> {n, n_ai, abs_rate, pred_by_id}
@@ -251,12 +251,15 @@ def main():
         },
         "mcnemar_baseline_vs_synonym": mcnemar_table,
     }
-    out_path = ROOT / "results/analysis/wording_sweep_summary.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(out, indent=2))
-    print(f"Wrote {out_path}")
+    if out_path:
+        out_path = Path(out_path)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out, indent=2))
+        print(f"Wrote {out_path}")
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
+    main(ap.parse_args().out)
     random_word_half()

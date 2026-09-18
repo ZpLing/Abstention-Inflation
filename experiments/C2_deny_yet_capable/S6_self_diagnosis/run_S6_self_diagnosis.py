@@ -1,24 +1,22 @@
 """S6 Self-Diagnosis — the model attributes its own abstention.
 
-S5 was deliberately moved OUT of the main S1–S4 framework because it is not a
-label-prediction task on the original question — it is a meta-question
-("is your abstention objectively necessary?") with A/B options, whose gold
-label is derived from S4 behavior. So it doesn't fit the unified
-(Label-Acc, Label-F1, Trace-Acc, Trace-F1) reporting that S1–S4 share.
+S6 sits outside the label-prediction settings: it is a meta-question ("why
+did you abstain?") with two options, read against what the S5 rerun then did
+on the same item. It has no label accuracy of its own.
 
 What this runner does:
     1. For each (dataset, model) tuple, read the ABRunner summary JSON
        under results/S{1,2,5}_*/<family>/<slug>/<dataset>_<model>.json, joined by load_cell.
     2. Identify Abstention Inflation samples (S2 == UNKNOWN) and the corresponding raw_s2 +
        prior S2 prompt history (re-built from sample data).
-    3. Build S5 self-diagnosis prompts (verb-coded for Judge, letter-coded
+    3. Build the S6 self-diagnosis prompts (verb-coded for Judge, letter-coded
        for MCQ) and query the model.
-    4. Parse A/B responses; cross with S4 correctness flags from the same
-       summary; compute SelfDiagnosisAcc + 4-bucket cross-tab.
+    4. Parse the A/B replies; cross them with whether the S5 rerun recovered
+       the gold label; report the two attribution shares + the 4-bucket table.
     5. Write `results/S6_self_diagnosis/<model>/<dataset>_<model>.json`.
 
 Key design: this runner does NOT re-query S1/S2/S3 — it consumes existing
-ABRunner output. So running S5 is cheap (~|Abs Rate| extra calls per dataset).
+ABRunner output. So running S6 is cheap (~|Abs Rate| extra calls per dataset).
 
 Parsing parity with ABRunner
 ----------------------------
@@ -42,7 +40,6 @@ import asyncio
 from pathlib import Path
 from typing import Any, Dict, List
 
-from infra import metrics as main_metrics
 from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
@@ -59,7 +56,7 @@ from loader.config_loader import get_block
 from loader.data_handler import DataHandler
 
 # =================================================================
-# S5 prompt builders (kept here, not in main prompts.py)
+# S6 A/B option texts
 # =================================================================
 
 # A/B option texts surfaced to the model. Reused as the option list when the
@@ -71,34 +68,24 @@ from loader.data_handler import DataHandler
 #: builder define A as the model's own inability and B as the item being
 #: unanswerable. Two definitions of the same two letters is how a self-report
 #: gets read as its own opposite, so there is now one.
-S5_AB_OPTIONS: List[str] = [S6_OPTION_A, S6_OPTION_B]
+S6_AB_OPTIONS: List[str] = [S6_OPTION_A, S6_OPTION_B]
 
 
 # =================================================================
-# S5 metrics (A/B specific — not part of the unified main framework)
+# S6 metrics (A/B specific — not part of the unified main framework)
 # =================================================================
 
 
-def self_diagnosis_acc(s5_preds: List[str], s4_correct_flags: List[bool]) -> float:
-    """Agreement between S5 self-report and S4 behavior.
-
-    S5='A' (claims objective unanswerability) ↔ S4 wrong (genuine inability)
-    S5='B' (admits subjective uncertainty)    ↔ S4 correct (over-caution, recoverable)
-    """
-    n = len(s5_preds)
-    if n == 0:
-        return 0.0
-    agree = 0
-    for s5, s4c in zip(s5_preds, s4_correct_flags):
-        if s5 == "A" and not s4c:
-            agree += 1
-        elif s5 == "B" and s4c:
-            agree += 1
-    return agree / n
+def attribution_share(preds: List[str], letter: str) -> float:
+    """Share of the abstaining subset that attributed its abstention to
+    ``letter`` -- A, the model's own inability; B, the item being
+    unanswerable. Unparseable replies stay in the denominator. The paper's S6
+    number is the B share."""
+    return sum(p == letter for p in preds) / len(preds) if preds else 0.0
 
 
-def s4_s5_cross_buckets(
-    s5_preds: List[str], s4_correct_flags: List[bool]
+def self_diagnosis_x_rerun_buckets(
+    preds: List[str], rerun_correct: List[bool]
 ) -> Dict[str, int]:
     # A = "I could not work it out" (own inability); B = "the question is
     # objectively unanswerable". Paired with whether the S5 rerun then got the
@@ -113,14 +100,14 @@ def s4_s5_cross_buckets(
         # but blamed itself
         "unparseable": 0,
     }
-    for s5, s4c in zip(s5_preds, s4_correct_flags):
-        if s5 not in ("A", "B"):
+    for pred, ok in zip(preds, rerun_correct):
+        if pred not in ("A", "B"):
             buckets["unparseable"] += 1
-        elif s5 == "B" and s4c:
+        elif pred == "B" and ok:
             buckets["overcaution_misdiagnosed"] += 1
-        elif s5 == "B" and not s4c:
+        elif pred == "B" and not ok:
             buckets["genuine_unknown"] += 1
-        elif s5 == "A" and not s4c:
+        elif pred == "A" and not ok:
             buckets["inability_selfaware"] += 1
         else:
             buckets["inability_misdiagnosed"] += 1
@@ -172,7 +159,7 @@ class S6SelfDiagnosisRunner:
             print("[S6SelfDiagnosisRunner] No datasets configured — nothing to do.")
             return
         for ds_name in self.dataset_names:
-            print(f"\n===== S5 Supplementary :: {ds_name} =====")
+            print(f"\n===== S6 self-diagnosis :: {ds_name} =====")
             await self._run_one_dataset(ds_name)
 
     async def _run_one_dataset(self, ds_name: str):
@@ -226,8 +213,8 @@ class S6SelfDiagnosisRunner:
                     "sample": sample,
                     "s2_messages": s2_msgs,
                     "raw_s2": ps["raw_s2"],
-                    # S4 correctness comes from the followup record.
-                    "s4_correct": _is_correct_letter(
+                    # Whether the S5 rerun recovered the gold label.
+                    "s5_rerun_correct": _is_correct_letter(
                         fu.get("pred_s5_rerun") or fu.get("pred_s4"), fu["answer_idx"]
                     ),
                 }
@@ -239,36 +226,29 @@ class S6SelfDiagnosisRunner:
             )
             return
 
-        # Build S5 prompts.
-        s5_prompts = []
+        # Build the S6 prompts.
+        s6_prompts = []
         for rec in ai_records:
             sample = rec["sample"]
             if task_type == "mcq":
-                s5_prompts.append(
+                s6_prompts.append(
                     build_mcq_s6_selfdiag_prompt(rec["s2_messages"], rec["raw_s2"])
                 )
             else:
-                s5_prompts.append(
+                s6_prompts.append(
                     build_judge_s6_selfdiag_prompt(
                         rec["s2_messages"], rec["raw_s2"], get_scheme(sample.source)
                     )
                 )
 
-        print(f"  Querying S5 on {len(s5_prompts)} Abstention Inflation samples ...")
-        raw_s5 = await self.llm_handler.batch_query(s5_prompts)
+        print(f"  Querying S6 on {len(s6_prompts)} Abstention Inflation samples ...")
+        raw_s6 = await self.llm_handler.batch_query(s6_prompts)
 
         # Parse A/B (tiered + optional LLM-as-Judge fallback).
-        preds_s5, tiers_s5 = await self._parse_ab_batch(raw_s5, label="S5")
+        preds_s6, tiers_s6 = await self._parse_ab_batch(raw_s6, label="S6")
 
-        s4_correct_flags = [r["s4_correct"] for r in ai_records]
-        sd_acc = self_diagnosis_acc(preds_s5, s4_correct_flags)
-        sd_f1 = main_metrics.label_macro_f1(
-            preds_s5,
-            # Synthetic gold: A if S4 wrong (objective), B if S4 correct (subjective).
-            answer_idxs=[(0 if not c else 1) for c in s4_correct_flags],
-            classes=["A", "B"],
-        )
-        buckets = s4_s5_cross_buckets(preds_s5, s4_correct_flags)
+        rerun_correct = [r["s5_rerun_correct"] for r in ai_records]
+        buckets = self_diagnosis_x_rerun_buckets(preds_s6, rerun_correct)
 
         out = {
             **stamp("S6"),
@@ -276,19 +256,19 @@ class S6SelfDiagnosisRunner:
             "task_type": task_type,
             "model": self.config.get("model_name"),
             "n_abstention_inflation_evaluated": len(ai_records),
-            "tier_counts": _tier_breakdown(tiers_s5),
+            "tier_counts": _tier_breakdown(tiers_s6),
             "metrics": {
-                "self_diagnosis_acc": sd_acc,
-                "self_diagnosis_f1": sd_f1,
+                "attributed_to_own_inability": attribution_share(preds_s6, "A"),
+                "attributed_to_unanswerable": attribution_share(preds_s6, "B"),
             },
-            "s4_s5_buckets": buckets,
+            "self_diagnosis_x_s5_rerun": buckets,
             "per_sample": [
                 {
                     "sample_id": rec["sample"].id,
                     "answer_idx": rec["sample"].answer_idx,
-                    "s4_correct": rec["s4_correct"],
-                    "pred_s5": preds_s5[k],
-                    "raw_s5": raw_s5[k],
+                    "s5_rerun_correct": rec["s5_rerun_correct"],
+                    "pred": preds_s6[k],
+                    "raw": raw_s6[k],
                 }
                 for k, rec in enumerate(ai_records)
             ],
@@ -298,7 +278,11 @@ class S6SelfDiagnosisRunner:
             / f"{ds_name}_{self.config.get('model_name', 'unknown').replace('/', '_')}.json"
         )
         self.data_handler.save_json(out, out_path)
-        print(f"  [Result] SelfDiagAcc={sd_acc:.2%}  SelfDiagF1={sd_f1:.2%}")
+        m = out["metrics"]
+        print(
+            f"  [Result] attributed to unanswerable (B)={m['attributed_to_unanswerable']:.2%}  "
+            f"own inability (A)={m['attributed_to_own_inability']:.2%}"
+        )
         print(f"  [Buckets] {buckets}")
 
     # =================================================================
@@ -320,7 +304,7 @@ def _tier_breakdown(tiers: List[str]) -> Dict[str, int]:
 
 
 def _is_correct_letter(letter, answer_idx) -> bool:
-    """Boolean: did S4 (which never offers Unknown) recover the gold letter?"""
+    """Boolean: did the S5 rerun (which never offers Unknown) recover the gold letter?"""
     if letter in (None, "UNKNOWN", "UNPARSEABLE"):
         return False
     return ord(letter) - ord("A") == answer_idx

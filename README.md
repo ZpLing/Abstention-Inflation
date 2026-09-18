@@ -55,7 +55,7 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ├── experiments/                  run_S<n>_<setting>.py collects a setting,
 │                                 analyze_S<n>.py reports it
 │   ├── C1_structural_trigger/
-│   │   ├── S1_baseline/          run_S1_baseline.py + run.py
+│   │   ├── S1_baseline/
 │   │   ├── S2_unknown_option_added/
 │   │   ├── S3_question_format_ablation/
 │   │   └── S4_word_content_ablation/

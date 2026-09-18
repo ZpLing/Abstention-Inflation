@@ -6,8 +6,8 @@ Inputs:
   T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_factor_analysis/temperature/<model-slug>/<DS>_<model>_T<t>.json
 
 Outputs:
-  results/analysis/temperature_sweep_summary.json
-  Console: Abs Rate table, paired McNemar T=0 vs each T, Spearman ρ(T, Abs Rate)"""
+  Console (and, with --out PATH, the same summary as JSON):
+  Abs Rate table, paired McNemar T=0 vs each T, Spearman ρ(T, Abs Rate)"""
 
 import json
 from math import comb, sqrt
@@ -102,7 +102,7 @@ def spearman_rho(xs, ys):
     return rho
 
 
-def main():
+def main(out_path=None):
     print(f"=== S10 temperature sweep analysis ({MODEL}) ===\n")
 
     cells = {}  # (ds, t) -> {n, n_ai, abs_rate, acc, pred_by_id}
@@ -219,10 +219,11 @@ def main():
         "mcnemar_T0_vs_Tt": mcn_records,
         "spearman_per_ds": sp_records,
     }
-    out_path = ROOT / "results/analysis/temperature_sweep_summary.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(out, indent=2))
-    print(f"\nWrote {out_path}")
+    if out_path:
+        out_path = Path(out_path)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out, indent=2))
+        print(f"\nWrote {out_path}")
 
 
 def _cli():
@@ -236,9 +237,11 @@ def _cli():
         choices=sorted(SLUG_OF),
         help="Which swept checkpoint to analyse.",
     )
-    MODEL = ap.parse_args().model
+    ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
+    args = ap.parse_args()
+    MODEL = args.model
+    return args
 
 
 if __name__ == "__main__":
-    _cli()
-    main()
+    main(_cli().out)

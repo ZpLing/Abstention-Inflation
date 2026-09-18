@@ -10,10 +10,10 @@
     "unparseable": 0
   },
   "metrics": {
-    "self_diagnosis_acc": 0.6396396396396397,
-    "self_diagnosis_f1": 0.41269841269841273
+    "attributed_to_own_inability": 0.05405405405405406,
+    "attributed_to_unanswerable": 0.9459459459459459
   },
-  "s4_s5_buckets": {
+  "self_diagnosis_x_s5_rerun": {
     "overcaution_misdiagnosed": 70,
     "genuine_unknown": 35,
     "inability_selfaware": 1,
@@ -24,779 +24,779 @@
     {
       "sample_id": "FOLIO_0005",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0010",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \n- I was able to apply the premises logically, but key links are missing (e.g., no explicit connection for the “leaves out cookies” and “thinks Santa is made up” for the same named individual).  \n- Therefore, the hypothesis cannot be determined as true or false from the premises alone; the information is insufficient rather than just too hard.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \n- I was able to apply the premises logically, but key links are missing (e.g., no explicit connection for the “leaves out cookies” and “thinks Santa is made up” for the same named individual).  \n- Therefore, the hypothesis cannot be determined as true or false from the premises alone; the information is insufficient rather than just too hard.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0011",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "A",
-      "raw_s5": "Answer: A"
+      "s5_rerun_correct": true,
+      "pred": "A",
+      "raw": "Answer: A"
     },
     {
       "sample_id": "FOLIO_0017",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises imply the design is evocative in all cases, but do not imply it is dreamy when the design is Zaha Hadid’s style. Since the hypothesis requires both evocative and dreamy for “a design by Max,” the information is insufficient to determine truth or falsity. This makes the best description that the question is objectively unanswerable from the premises.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises imply the design is evocative in all cases, but do not imply it is dreamy when the design is Zaha Hadid’s style. Since the hypothesis requires both evocative and dreamy for “a design by Max,” the information is insufficient to determine truth or falsity. This makes the best description that the question is objectively unanswerable from the premises.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0025",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not provide enough logical information to determine whether ModelXX has the company logo or is controlled by managers; the only related CTO premise (“ModelXX was not produced after a new CTO was appointed”) cannot be converted into the needed conclusions about logo control/Google Home. Therefore the question is objectively unanswerable from the given information.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not provide enough logical information to determine whether ModelXX has the company logo or is controlled by managers; the only related CTO premise (“ModelXX was not produced after a new CTO was appointed”) cannot be converted into the needed conclusions about logo control/Google Home. Therefore the question is objectively unanswerable from the given information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0035",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:\n1) The premises allow deriving that if Peter spills a lot of food and is cleanly, that would create a contradiction (since cleanly implies notably tidy, while spilling implies not notably tidy).\n2) This forces the second part of Peter’s condition: Peter does not spill a lot of food and is not cleanly.\n3) From “family prioritizes order and spotlessness → cleanly,” and knowing Peter is not cleanly, we can infer Peter’s family does not prioritize order and spotlessness.\n4) However, nothing in the premises lets us infer whether Peter is (or is not) a clumsy foodie who goes out frequently to try new restaurants. We only have “clumsy foodie who goes out frequently → spills a lot,” but not the converse.\n5) Therefore the hypothesis cannot be determined as true or false—this is due to genuine insufficiency, not inability.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning:\n1) The premises allow deriving that if Peter spills a lot of food and is cleanly, that would create a contradiction (since cleanly implies notably tidy, while spilling implies not notably tidy).\n2) This forces the second part of Peter’s condition: Peter does not spill a lot of food and is not cleanly.\n3) From “family prioritizes order and spotlessness → cleanly,” and knowing Peter is not cleanly, we can infer Peter’s family does not prioritize order and spotlessness.\n4) However, nothing in the premises lets us infer whether Peter is (or is not) a clumsy foodie who goes out frequently to try new restaurants. We only have “clumsy foodie who goes out frequently → spills a lot,” but not the converse.\n5) Therefore the hypothesis cannot be determined as true or false—this is due to genuine insufficiency, not inability.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0038",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis outcome depends on whether Jack is specifically entitled to life and liberty (which would entail the due-process constraint). Because the premises only give a disjunction for Jack (“entitled to life and liberty, has human rights, or knows FIFO”), one consistent case is that Jack only “knows FIFO” and is not entitled to life and liberty. In that case, the due-process prohibition does not apply, so the hypothesis is not determined as either true or false. Therefore, the information is genuinely insufficient to determine a unique correct label.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis outcome depends on whether Jack is specifically entitled to life and liberty (which would entail the due-process constraint). Because the premises only give a disjunction for Jack (“entitled to life and liberty, has human rights, or knows FIFO”), one consistent case is that Jack only “knows FIFO” and is not entitled to life and liberty. In that case, the due-process prohibition does not apply, so the hypothesis is not determined as either true or false. Therefore, the information is genuinely insufficient to determine a unique correct label.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0040",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis cannot be determined from the premises because they do not specify whether ROUGE Dior Colored Lip Balm 999 is satin-finish or velvet-finish. The premises give a disjunction (“either rosewood or velvet finish”) but not enough to choose between the cases, so multiple outcomes are compatible with the premises. That makes the question objectively unanswerable from the provided information.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis cannot be determined from the premises because they do not specify whether ROUGE Dior Colored Lip Balm 999 is satin-finish or velvet-finish. The premises give a disjunction (“either rosewood or velvet finish”) but not enough to choose between the cases, so multiple outcomes are compatible with the premises. That makes the question objectively unanswerable from the provided information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0041",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I did work through the premises and derived that the hypothesis can’t be concluded as true or false: the premises give implications (e.g., functional brainstems → balance; walking → standing → leg muscles), but they never establish whether Archie has functional brainstems or can walk. So the situation is objectively unanswerable from the provided information.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I did work through the premises and derived that the hypothesis can’t be concluded as true or false: the premises give implications (e.g., functional brainstems → balance; walking → standing → leg muscles), but they never establish whether Archie has functional brainstems or can walk. So the situation is objectively unanswerable from the provided information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0044",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises never mention anything about the Celtics’ age or years of experience, and no rule connects “attending/winning/loss in the NBA finals” to years of experience. Therefore the hypothesis cannot be determined as true or false from the given information; it is genuinely insufficient.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises never mention anything about the Celtics’ age or years of experience, and no rule connects “attending/winning/loss in the NBA finals” to years of experience. Therefore the hypothesis cannot be determined as true or false from the given information; it is genuinely insufficient.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0046",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I can work through the premises, but they don’t logically force the hypothesis’s conclusion in all cases (there’s no premise linking “refillable” to having “rosewood”), so the task becomes underdetermined rather than too hard for me to compute. That matches “objectively unanswerable/genuinely insufficient information.”\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I can work through the premises, but they don’t logically force the hypothesis’s conclusion in all cases (there’s no premise linking “refillable” to having “rosewood”), so the task becomes underdetermined rather than too hard for me to compute. That matches “objectively unanswerable/genuinely insufficient information.”\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0051",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises don’t force whether G-910 is returned or sold at Walmart: if it’s displayed on the homepage then it’s sold at Walmart (supporting the hypothesis), but if it’s neither displayed nor cheaper, nothing in the premises determines its return status or whether it’s sold at Walmart. So the task is objectively unanswerable from the given information rather than due to my inability to compute.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises don’t force whether G-910 is returned or sold at Walmart: if it’s displayed on the homepage then it’s sold at Walmart (supporting the hypothesis), but if it’s neither displayed nor cheaper, nothing in the premises determines its return status or whether it’s sold at Walmart. So the task is objectively unanswerable from the given information rather than due to my inability to compute.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0059",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0060",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:\nThe premises allow us to infer only that TikTok has chat features or video features. The link from “video features” to “upload videos” does not connect to being software/computer program, and the rule “All social media applications containing chat features are software” requires chat features specifically. Since we cannot determine whether TikTok has chat features, we cannot determine whether TikTok is software/computer program. Hence the hypothesis is not objectively answerable as true or false from the provided premises.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:\nThe premises allow us to infer only that TikTok has chat features or video features. The link from “video features” to “upload videos” does not connect to being software/computer program, and the rule “All social media applications containing chat features are software” requires chat features specifically. Since we cannot determine whether TikTok has chat features, we cannot determine whether TikTok is software/computer program. Hence the hypothesis is not objectively answerable as true or false from the provided premises.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0064",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The conclusion depends on which disjunct in “Amy spends the most time on sports OR Amy is an Olympic gold medal winner” actually holds. The premises imply that Nobel physics laureates are full-time scientists and therefore cannot spend the majority of their time on sports, but they do not force Amy’s status under the disjunction in a way that determines the hypothesis “not Olympic gold medal winner → Nobel physics laureate.” Hence the problem is solvable and leads to “uncertain,” not a situation where I got stuck.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The conclusion depends on which disjunct in “Amy spends the most time on sports OR Amy is an Olympic gold medal winner” actually holds. The premises imply that Nobel physics laureates are full-time scientists and therefore cannot spend the majority of their time on sports, but they do not force Amy’s status under the disjunction in a way that determines the hypothesis “not Olympic gold medal winner → Nobel physics laureate.” Hence the problem is solvable and leads to “uncertain,” not a situation where I got stuck.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0066",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0074",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises provide enough to infer Bunny attended Clay’s school (directly stated), but they never mention that Bunny lives in California or attends yoga classes regularly. The other premises relate those traits to other behaviors for people who went to Clay’s school, yet the disjunction given for Bunny only concerns preference for working at home and whether she makes matcha, not her location or yoga attendance. Therefore the hypothesis cannot be determined as true or false from the available information; it is genuinely insufficient.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises provide enough to infer Bunny attended Clay’s school (directly stated), but they never mention that Bunny lives in California or attends yoga classes regularly. The other premises relate those traits to other behaviors for people who went to Clay’s school, yet the disjunction given for Bunny only concerns preference for working at home and whether she makes matcha, not her location or yoga attendance. Therefore the hypothesis cannot be determined as true or false from the available information; it is genuinely insufficient.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0078",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises let us infer that Erica is not bad at chess (since she plays a lot of chess and bad chess implies not playing a lot). From that, we infer she is interested in puzzles. However, the premises do not allow us to conclude that she is creative whenever she is interested in puzzles (the conditional about “neither bad at chess nor creative” doesn’t force creativity in the cases we need). So the hypothesis is not derivable as definitely true or false—making the correct classification “uncertain.” This is not a case where the question is objectively unanswerable due to inability to determine; rather, the information is insufficient to determine truth or falsity, leading to an “uncertain” outcome.  \n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises let us infer that Erica is not bad at chess (since she plays a lot of chess and bad chess implies not playing a lot). From that, we infer she is interested in puzzles. However, the premises do not allow us to conclude that she is creative whenever she is interested in puzzles (the conditional about “neither bad at chess nor creative” doesn’t force creativity in the cases we need). So the hypothesis is not derivable as definitely true or false—making the correct classification “uncertain.” This is not a case where the question is objectively unanswerable due to inability to determine; rather, the information is insufficient to determine truth or falsity, leading to an “uncertain” outcome.  \n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0082",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I was able to work through the logic, but the premises did not uniquely determine whether the hypothesis holds (there’s an ambiguity about Garry’s “not found guilty” vs. “sentenced to punishment” and whether we can infer “did not commit a crime”). So the best match is that the information is genuinely insufficient, not that I gave up due to difficulty.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I was able to work through the logic, but the premises did not uniquely determine whether the hypothesis holds (there’s an ambiguity about Garry’s “not found guilty” vs. “sentenced to punishment” and whether we can infer “did not commit a crime”). So the best match is that the information is genuinely insufficient, not that I gave up due to difficulty.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0090",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The conclusion about whether Luke complains often about annoying siblings cannot be derived from the premises: the rules only give one direction from “complains” to “siblings born together,” but nothing lets us infer Luke complains from the provided disjunction about being a multiple-birth baby and/or living with strangers. While other rules imply Luke cannot be in the “multiple birth and lives with strangers” case, that still doesn’t let us conclude the hypothesis is true or false. Therefore the problem is answerable only as “uncertain” due to genuinely insufficient information to determine the hypothesis’s truth value.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The conclusion about whether Luke complains often about annoying siblings cannot be derived from the premises: the rules only give one direction from “complains” to “siblings born together,” but nothing lets us infer Luke complains from the provided disjunction about being a multiple-birth baby and/or living with strangers. While other rules imply Luke cannot be in the “multiple birth and lives with strangers” case, that still doesn’t let us conclude the hypothesis is true or false. Therefore the problem is answerable only as “uncertain” due to genuinely insufficient information to determine the hypothesis’s truth value.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0093",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I did not give up due to difficulty; instead I concluded the premises genuinely did not provide enough information to determine whether Europa’s system-mass condition (> 0.08 solar masses) holds. Therefore the problem is objectively unanswerable from the given premises.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I did not give up due to difficulty; instead I concluded the premises genuinely did not provide enough information to determine whether Europa’s system-mass condition (> 0.08 solar masses) holds. Therefore the problem is objectively unanswerable from the given premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0101",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I was able to analyze the logical implications of the premises and reach a valid “Uncertain” conclusion by considering multiple consistent cases (one where the hypothesis holds and one where it doesn’t). So it wasn’t that I gave up due to difficulty, and the question is answerable in the ternary sense (true/false/uncertain) though not deterministically true or false.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I was able to analyze the logical implications of the premises and reach a valid “Uncertain” conclusion by considering multiple consistent cases (one where the hypothesis holds and one where it doesn’t). So it wasn’t that I gave up due to difficulty, and the question is answerable in the ternary sense (true/false/uncertain) though not deterministically true or false.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0103",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not logically entail whether Jack doesn’t care about cleanliness: they only give one-way implications from not caring → not prioritizing → not often cleaning, and from hiring → tidy. While we can infer Jack doesn’t hire and doesn’t often clean, we cannot derive (or refute) Jack’s lack of concern for cleanliness. That makes the problem objectively answerable only as “Uncertain,” not because I couldn’t work it out, but because the information is genuinely insufficient to determine a definitive truth value.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not logically entail whether Jack doesn’t care about cleanliness: they only give one-way implications from not caring → not prioritizing → not often cleaning, and from hiring → tidy. While we can infer Jack doesn’t hire and doesn’t often clean, we cannot derive (or refute) Jack’s lack of concern for cleanliness. That makes the problem objectively answerable only as “Uncertain,” not because I couldn’t work it out, but because the information is genuinely insufficient to determine a definitive truth value.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0104",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises imply only that “One” is at least one of: prime or natural (or both), and do not force it to be both. Because nothing guarantees the conjunction “prime AND natural,” the hypothesis cannot be determined as definitely true or false; hence the correct labeling is “Uncertain” rather than a definitive value. That corresponds best to the idea that the information is genuinely insufficient to determine a correct answer.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises imply only that “One” is at least one of: prime or natural (or both), and do not force it to be both. Because nothing guarantees the conjunction “prime AND natural,” the hypothesis cannot be determined as definitely true or false; hence the correct labeling is “Uncertain” rather than a definitive value. That corresponds best to the idea that the information is genuinely insufficient to determine a correct answer.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0105",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "I did not give up due to difficulty; I could logically derive that the premises determine only that Jack does not often clean (and thus he does not have tidy houses), but they do not provide any information about whether Jack lives in the suburbs or is too busy to clean. Therefore, the hypothesis is not objectively determinable from the premises.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "I did not give up due to difficulty; I could logically derive that the premises determine only that Jack does not often clean (and thus he does not have tidy houses), but they do not provide any information about whether Jack lives in the suburbs or is too busy to clean. Therefore, the hypothesis is not objectively determinable from the premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0107",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not establish whether ModelXX is controlled by managers, nor do they imply any property linking ModelXX to managers; they only rule out that it was produced after the CTO appointment. Since the second disjunct (“controlled by managers”) remains unsupported, the hypothesis cannot be conclusively judged as true or false.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not establish whether ModelXX is controlled by managers, nor do they imply any property linking ModelXX to managers; they only rule out that it was produced after the CTO appointment. Since the second disjunct (“controlled by managers”) remains unsupported, the hypothesis cannot be conclusively judged as true or false.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0109",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis being “Sam has high ambitions and future career goals and is a young teenage girl attending music festival frequently” is only partially supported by the premises: we can infer the “big fan” part from high ambitions/career goals, but we cannot infer that Sam is a young teenage girl attending music festivals frequently. Since this missing link makes the overall hypothesis not determinable as true or false, the correct response is “Uncertain.” Therefore, the question is objectively unanswerable from the given information (not merely personally difficult).\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis being “Sam has high ambitions and future career goals and is a young teenage girl attending music festival frequently” is only partially supported by the premises: we can infer the “big fan” part from high ambitions/career goals, but we cannot infer that Sam is a young teenage girl attending music festivals frequently. Since this missing link makes the overall hypothesis not determinable as true or false, the correct response is “Uncertain.” Therefore, the question is objectively unanswerable from the given information (not merely personally difficult).\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0122",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I did not give up; I worked through the logical implications from the premises and reached that the hypothesis could not be determined uniquely due to contradictions/inability to conclude John’s short-sightedness. This reflects that the information is genuinely insufficient to determine a single correct classification.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I did not give up; I worked through the logical implications from the premises and reached that the hypothesis could not be determined uniquely due to contradictions/inability to conclude John’s short-sightedness. This reflects that the information is genuinely insufficient to determine a single correct classification.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0124",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I was able to determine that the premises do not force the hypothesis one way or the other: the conditional about cherries doesn’t establish that cherries are not apples and not healthy, and the “apples → red fruits” rule doesn’t give a converse. So the correct label can’t be concluded as True or False from the premises alone. That matches “objectively unanswerable / genuinely insufficient information,” not an inability to compute.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: I was able to determine that the premises do not force the hypothesis one way or the other: the conditional about cherries doesn’t establish that cherries are not apples and not healthy, and the “apples → red fruits” rule doesn’t give a converse. So the correct label can’t be concluded as True or False from the premises alone. That matches “objectively unanswerable / genuinely insufficient information,” not an inability to compute.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0125",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not fully determine whether cherries contain vitamin C or are on a warning list in every consistent model. While we can rule out the case where cherries are both not apples and not healthy, we cannot conclude they must contain vitamin C or must be on the warning list when the cherries are healthy (health does not imply vitamin C in the premises). Therefore the correct classification is **uncertain** due to genuinely insufficient information, not because I couldn’t compute it.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not fully determine whether cherries contain vitamin C or are on a warning list in every consistent model. While we can rule out the case where cherries are both not apples and not healthy, we cannot conclude they must contain vitamin C or must be on the warning list when the cherries are healthy (health does not imply vitamin C in the premises). Therefore the correct classification is **uncertain** due to genuinely insufficient information, not because I couldn’t compute it.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0128",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises only establish that Phoenix is indie pop and that they have no French-language songs; they do not state Phoenix’s music is pop rock, nor do they rule it out. Therefore the hypothesis can’t be determined as true or false from the provided information.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises only establish that Phoenix is indie pop and that they have no French-language songs; they do not state Phoenix’s music is pop rock, nor do they rule it out. Therefore the hypothesis can’t be determined as true or false from the provided information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0132",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not establish that Camp Davern is located in Ontario or that it is among Ontario’s oldest camps. So the hypothesis cannot be determined as true or false from the given information; it is genuinely insufficient to conclude the claim.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not establish that Camp Davern is located in Ontario or that it is among Ontario’s oldest camps. So the hypothesis cannot be determined as true or false from the given information; it is genuinely insufficient to conclude the claim.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0133",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not include the reverse implication needed to conclude that the song peaked below #1 in Germany. While we know it was not a German #1 single, there could be multiple reasons it’s not #1, and none of the premises force “not #1” to imply “peaked below #1.” Therefore, the correct label cannot be determined from the given information.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not include the reverse implication needed to conclude that the song peaked below #1 in Germany. While we know it was not a German #1 single, there could be multiple reasons it’s not #1, and none of the premises force “not #1” to imply “peaked below #1.” Therefore, the correct label cannot be determined from the given information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0136",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "A",
-      "raw_s5": "Reasoning: I was able to reason through the premises and determine which parts of the hypothesis could or could not be concluded. I concluded the outcome was “Uncertain” because the premises didn’t allow proving both “contributes to the country” and “serves in the army,” but it wasn’t because I got stuck or gave up.  \nAnswer: A"
+      "s5_rerun_correct": true,
+      "pred": "A",
+      "raw": "Reasoning: I was able to reason through the premises and determine which parts of the hypothesis could or could not be concluded. I concluded the outcome was “Uncertain” because the premises didn’t allow proving both “contributes to the country” and “serves in the army,” but it wasn’t because I got stuck or gave up.  \nAnswer: A"
     },
     {
       "sample_id": "FOLIO_0139",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The conclusion is labeled “Uncertain” because the premises do not determine whether “As it was” is by Kanye West; the only relevant negation rules out it being classical from the 12th century, but nothing connects Harry Styles being Kanye West or not. Therefore the hypothesis’s truth value cannot be determined from the provided information.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The conclusion is labeled “Uncertain” because the premises do not determine whether “As it was” is by Kanye West; the only relevant negation rules out it being classical from the 12th century, but nothing connects Harry Styles being Kanye West or not. Therefore the hypothesis’s truth value cannot be determined from the provided information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0151",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises don’t force the construction/establishment date of Harkness because one disjunct (“Harkness is located on York Street”) provides no information connecting it to Yale campus/build dates. Although the other disjunct would imply Harkness is not before 1701, the premises allow the York Street case, so the hypothesis cannot be determined as true or false. This is best described as the information being genuinely insufficient to determine the correct ternary label.  \n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises don’t force the construction/establishment date of Harkness because one disjunct (“Harkness is located on York Street”) provides no information connecting it to Yale campus/build dates. Although the other disjunct would imply Harkness is not before 1701, the premises allow the York Street case, so the hypothesis cannot be determined as true or false. This is best described as the information being genuinely insufficient to determine the correct ternary label.  \n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0152",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow multiple consistent interpretations (e.g., about whether Mike took the bar exam and about LSAT score/knowledge), so the hypothesis cannot be conclusively determined as true or false from the provided information. That matches an objectively unanswerable setup due to insufficient information.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow multiple consistent interpretations (e.g., about whether Mike took the bar exam and about LSAT score/knowledge), so the hypothesis cannot be conclusively determined as true or false from the provided information. That matches an objectively unanswerable setup due to insufficient information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0156",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0160",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "A",
-      "raw_s5": "Answer: A"
+      "s5_rerun_correct": true,
+      "pred": "A",
+      "raw": "Answer: A"
     },
     {
       "sample_id": "FOLIO_0163",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis “John has a larger family” follows only from a conditional statement (“If John has a larger family, then …”), but there is no premise asserting that John is engaged, well-attended, invites friends, nor that John has a larger family. Thus the problem is genuinely insufficient to decide truth or falsity of the hypothesis from the premises.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis “John has a larger family” follows only from a conditional statement (“If John has a larger family, then …”), but there is no premise asserting that John is engaged, well-attended, invites friends, nor that John has a larger family. Thus the problem is genuinely insufficient to decide truth or falsity of the hypothesis from the premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0168",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis about Joe being “not a PhD student” is not connected in the premises to any entity or condition involving Joe or PhD students. The premises only discuss properties of certain phone categories (iPhones, Apple-made cellphones, A15 Bionic, Apple-made four core-GPU) and a rule about unannounced Huawei phones. Since there is no information linking Joe to these phone categories or to being a PhD student, the correct truth value of the hypothesis cannot be determined from the premises.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis about Joe being “not a PhD student” is not connected in the premises to any entity or condition involving Joe or PhD students. The premises only discuss properties of certain phone categories (iPhones, Apple-made cellphones, A15 Bionic, Apple-made four core-GPU) and a rule about unannounced Huawei phones. Since there is no information linking Joe to these phone categories or to being a PhD student, the correct truth value of the hypothesis cannot be determined from the premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0171",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I did not get stuck unable to compute; rather, I determined that the premises do not logically entail the hypothesis (and also don’t entail its negation). That makes the correct label “Uncertain” because the information is insufficient to determine truth or falsity. This corresponds best to the choice about objective unanswerability due to genuine insufficiency.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I did not get stuck unable to compute; rather, I determined that the premises do not logically entail the hypothesis (and also don’t entail its negation). That makes the correct label “Uncertain” because the information is insufficient to determine truth or falsity. This corresponds best to the choice about objective unanswerability due to genuine insufficiency.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0174",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises do not determine whether Jumbo is sleepy or a baby elephant: the conditional constraints only apply if Jumbo is a living being (and the “sleepy → baby elephant or mammal” rule applies if Jumbo is sleepy), but the premises never assert Jumbo is living or sleepy. Therefore, the hypothesis cannot be concluded as true or false; it is genuinely underdetermined by the information given.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises do not determine whether Jumbo is sleepy or a baby elephant: the conditional constraints only apply if Jumbo is a living being (and the “sleepy → baby elephant or mammal” rule applies if Jumbo is sleepy), but the premises never assert Jumbo is living or sleepy. Therefore, the hypothesis cannot be concluded as true or false; it is genuinely underdetermined by the information given.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0177",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \n1) The premises let us infer Luke is a baker (cookies + muffins ⇒ baker).  \n2) They also let us infer Luke makes a good breakfast (baker + scrambled eggs ⇒ good breakfast).  \n3) But there is no rule linking bakers (or making food) to being a chef, nor a rule that anyone who can cook must be a chef.  \n4) Therefore we cannot logically conclude “Luke is a chef,” nor logically refute it; the hypothesis is indeterminate.  \n5) This means the question is objectively unanswerable given the premises, i.e., genuinely insufficient to decide True vs False.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \n1) The premises let us infer Luke is a baker (cookies + muffins ⇒ baker).  \n2) They also let us infer Luke makes a good breakfast (baker + scrambled eggs ⇒ good breakfast).  \n3) But there is no rule linking bakers (or making food) to being a chef, nor a rule that anyone who can cook must be a chef.  \n4) Therefore we cannot logically conclude “Luke is a chef,” nor logically refute it; the hypothesis is indeterminate.  \n5) This means the question is objectively unanswerable given the premises, i.e., genuinely insufficient to decide True vs False.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0183",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \n- The premises do allow deriving only that Mike either took the bar exam or can read (from the given conditional), but they do not establish that “Mike took the bar exam” specifically.  \n- Therefore, the hypothesis is not determinable as true or false from the premises alone; it is genuinely underconstrained.  \n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \n- The premises do allow deriving only that Mike either took the bar exam or can read (from the given conditional), but they do not establish that “Mike took the bar exam” specifically.  \n- Therefore, the hypothesis is not determinable as true or false from the premises alone; it is genuinely underconstrained.  \n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0187",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not provide enough information to determine that Mike is not an old person in stable homes, nor enough to ensure the “nor does he like shopping for clothes” part under the condition in the hypothesis. Thus the hypothesis’s truth cannot be concluded from the premises, making the question best described as objectively unanswerable given the information (i.e., insufficient).  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not provide enough information to determine that Mike is not an old person in stable homes, nor enough to ensure the “nor does he like shopping for clothes” part under the condition in the hypothesis. Thus the hypothesis’s truth cannot be concluded from the premises, making the question best described as objectively unanswerable given the information (i.e., insufficient).  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0189",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nI did not give up due to difficulty; I derived a conclusion. The premises do not force whether Jack is bad at mid-range shots because Jack could satisfy the “trick-shot artist” disjunct, and the rules provided only connect “solid at shooting 2-pointers” to being not bad at mid-range shots (which would apply if Jack is the high-3-point type, but not necessarily if he is only the trick-shot type). Thus, the information is insufficient to determine a definite truth value for the hypothesis.  \n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \nI did not give up due to difficulty; I derived a conclusion. The premises do not force whether Jack is bad at mid-range shots because Jack could satisfy the “trick-shot artist” disjunct, and the rules provided only connect “solid at shooting 2-pointers” to being not bad at mid-range shots (which would apply if Jack is the high-3-point type, but not necessarily if he is only the trick-shot type). Thus, the information is insufficient to determine a definite truth value for the hypothesis.  \n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0190",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:\n1) The premises never explicitly connect Rhos Aelwyd F.C. to being the June 2005/October 2009 Premier Division winner.  \n2) While one premise says the June 2005 and October 2009 winners were “from Ponciau,” and another says Rhos Aelwyd F.C. is the only football club located in Ponciau, it still doesn’t explicitly state that the club that won the Premier Division is Rhos Aelwyd F.C.  \n3) Therefore, promotion of Rhos Aelwyd F.C. cannot be concluded from the premises, making the answer best described as objectively unanswerable from the given information.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:\n1) The premises never explicitly connect Rhos Aelwyd F.C. to being the June 2005/October 2009 Premier Division winner.  \n2) While one premise says the June 2005 and October 2009 winners were “from Ponciau,” and another says Rhos Aelwyd F.C. is the only football club located in Ponciau, it still doesn’t explicitly state that the club that won the Premier Division is Rhos Aelwyd F.C.  \n3) Therefore, promotion of Rhos Aelwyd F.C. cannot be concluded from the premises, making the answer best described as objectively unanswerable from the given information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0194",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow us to infer Luke is not living with strangers only under the “not multiple birth” option, but they do not provide any rule connecting Luke to whether he complains often about annoying siblings in that option. Since the truth of the “nor complains often about annoying siblings” part cannot be determined, the correct ternary label is Uncertain due to insufficient information, not because I couldn’t compute it.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow us to infer Luke is not living with strangers only under the “not multiple birth” option, but they do not provide any rule connecting Luke to whether he complains often about annoying siblings in that option. Since the truth of the “nor complains often about annoying siblings” part cannot be determined, the correct ternary label is Uncertain due to insufficient information, not because I couldn’t compute it.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0198",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow deriving consequences for hypothetical dressage competitors, but they do not provide any fact connecting Manny to competing in horse dressage shows. Manny’s only described condition is a disjunction about having a horse ranch and living in cramped residential buildings, with no mention of dressage competition or high-quality equestrian gear. Therefore the hypothesis cannot be determined as true or false from the given information; the information is genuinely insufficient.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow deriving consequences for hypothetical dressage competitors, but they do not provide any fact connecting Manny to competing in horse dressage shows. Manny’s only described condition is a disjunction about having a horse ranch and living in cramped residential buildings, with no mention of dressage competition or high-quality equestrian gear. Therefore the hypothesis cannot be determined as true or false from the given information; the information is genuinely insufficient.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0204",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis depends on whether James has the properties leading to (a) being invited to take a photo and (b) being happy to communicate. From the premises we can infer those properties follow from being invited to join the club, which would require providing a tutorial session, but we are never told that James provided a tutorial session. Separately, we only learn that James did not both attend in person and receive souvenirs, which (together with “in-person attendance implies souvenirs”) implies he did not attend in person—but this still doesn’t tell us whether he was invited to join the club (or got delicious meals) via any other route. Therefore the information is insufficient to determine the hypothesis as true or false.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis depends on whether James has the properties leading to (a) being invited to take a photo and (b) being happy to communicate. From the premises we can infer those properties follow from being invited to join the club, which would require providing a tutorial session, but we are never told that James provided a tutorial session. Separately, we only learn that James did not both attend in person and receive souvenirs, which (together with “in-person attendance implies souvenirs”) implies he did not attend in person—but this still doesn’t tell us whether he was invited to join the club (or got delicious meals) via any other route. Therefore the information is insufficient to determine the hypothesis as true or false.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0206",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe hypothesis “Billy is a student and a scientist” cannot be determined from the premises: we only know Billy is a kid, and while “scientist → adult” is given, there is no premise linking kids to students/scientists. Thus the information is genuinely insufficient to decide truth or falsity.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe hypothesis “Billy is a student and a scientist” cannot be determined from the premises: we only know Billy is a kid, and while “scientist → adult” is given, there is no premise linking kids to students/scientists. Thus the information is genuinely insufficient to decide truth or falsity.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0211",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises only imply that if Sam has high ambitions and future career goals then he is a big fan of pop bands, and that young teenage girls who attend music festivals frequently are big fans. But the hypothesis is about whether Sam is a young teenage girl who attends music festivals frequently, and there is no premise that links being a big fan back to being such a festival-goer or young teenage girl. Therefore the information provided is genuinely insufficient to determine the hypothesis as true or false.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises only imply that if Sam has high ambitions and future career goals then he is a big fan of pop bands, and that young teenage girls who attend music festivals frequently are big fans. But the hypothesis is about whether Sam is a young teenage girl who attends music festivals frequently, and there is no premise that links being a big fan back to being such a festival-goer or young teenage girl. Therefore the information provided is genuinely insufficient to determine the hypothesis as true or false.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0214",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis cannot be determined as true or false from the premises because they don’t establish whether Reformation produces fast fashion products. The information is genuinely insufficient to derive either outcome.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis cannot be determined as true or false from the premises because they don’t establish whether Reformation produces fast fashion products. The information is genuinely insufficient to derive either outcome.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0224",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The task can be evaluated as “uncertain” because the premises do not determine Nancy’s pirate or toddler status, so the hypothesis cannot be proven true or false from the given information. This is not a case of inability to compute; it is a case where the information is genuinely insufficient to determine a unique truth value.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The task can be evaluated as “uncertain” because the premises do not determine Nancy’s pirate or toddler status, so the hypothesis cannot be proven true or false from the given information. This is not a case of inability to compute; it is a case where the information is genuinely insufficient to determine a unique truth value.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0225",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I determined the conclusion was Uncertain because the premises do not let us derive either that Thomas enjoys materialistic shopping in his free time, nor that he goes to the spa frequently when he doesn’t. This isn’t a failure to compute; it’s that the information provided is insufficient to force a definite True or False outcome. That best matches the “objectively unanswerable / genuinely insufficient information” description.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I determined the conclusion was Uncertain because the premises do not let us derive either that Thomas enjoys materialistic shopping in his free time, nor that he goes to the spa frequently when he doesn’t. This isn’t a failure to compute; it’s that the information provided is insufficient to force a definite True or False outcome. That best matches the “objectively unanswerable / genuinely insufficient information” description.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0229",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0232",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises only state that the only major manufacturers are Boeing and Airbus, that American Airlines uses planes from those manufacturers, and that Airbus had higher revenue than Boeing. None of this provides any information about whether any specific plane is jointly made by both companies. Therefore the hypothesis cannot be determined as true or false from the provided information alone; it is genuinely insufficient to conclude either way.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises only state that the only major manufacturers are Boeing and Airbus, that American Airlines uses planes from those manufacturers, and that Airbus had higher revenue than Boeing. None of this provides any information about whether any specific plane is jointly made by both companies. Therefore the hypothesis cannot be determined as true or false from the provided information alone; it is genuinely insufficient to conclude either way.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0233",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises don’t determine whether “Be Lionel” is in the Pokemon series or in the FIFA series, because the disjunction in Premise 5 (“in the Pokemon series, or it allows…”), combined with how FIFA inclusion follows only from the soccer-simulation condition, leaves both possibilities consistent with the premises. Thus the correct label is “Uncertain,” meaning the question is objectively unanswerable from the given information, rather than being merely too hard.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises don’t determine whether “Be Lionel” is in the Pokemon series or in the FIFA series, because the disjunction in Premise 5 (“in the Pokemon series, or it allows…”), combined with how FIFA inclusion follows only from the soccer-simulation condition, leaves both possibilities consistent with the premises. Thus the correct label is “Uncertain,” meaning the question is objectively unanswerable from the given information, rather than being merely too hard.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0236",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I determined the “not both go to cinemas every week and subscribe to HBO” condition is effectively satisfied only because Lily can’t subscribe to HBO (given she watches TV series in cinemas). However, the conclusion requires that either (1) Lily is eligible for 3 movies every week without fees (which depends on AMC A-List subscription) or (2) Lily prefers TV more, and the premises don’t state Lily’s AMC A-List subscription status and also imply she does not prefer TV series. Since it’s unclear whether she is an AMC A-List subscriber, the hypothesis can’t be conclusively labeled True or False.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I determined the “not both go to cinemas every week and subscribe to HBO” condition is effectively satisfied only because Lily can’t subscribe to HBO (given she watches TV series in cinemas). However, the conclusion requires that either (1) Lily is eligible for 3 movies every week without fees (which depends on AMC A-List subscription) or (2) Lily prefers TV more, and the premises don’t state Lily’s AMC A-List subscription status and also imply she does not prefer TV series. Since it’s unclear whether she is an AMC A-List subscriber, the hypothesis can’t be conclusively labeled True or False.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0237",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0239",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I could derive that James has a criminal record, but the premises never let me conclude whether James pays taxes (which is needed to infer whether he contributes) or whether he serves in the army. Therefore the correct ternary choice is genuinely undetermined from the given information, making the question objectively unanswerable with respect to the hypothesis.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: I could derive that James has a criminal record, but the premises never let me conclude whether James pays taxes (which is needed to infer whether he contributes) or whether he serves in the army. Therefore the correct ternary choice is genuinely undetermined from the given information, making the question objectively unanswerable with respect to the hypothesis.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0247",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not let us conclude that Adam values words of affirmation when he values physical touch or is good with pets. While the premises can imply consequences from physical touch, they never state that words of affirmation must also be an especially important love language under the hypothesis condition. Therefore the task is not logically determinable from the given information; the correct classification is not forced.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not let us conclude that Adam values words of affirmation when he values physical touch or is good with pets. While the premises can imply consequences from physical touch, they never state that words of affirmation must also be an especially important love language under the hypothesis condition. Therefore the task is not logically determinable from the given information; the correct classification is not forced.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0251",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis can’t be determined as definitively true or false because the premises allow Jack to be either a trick-shot artist or not, while still implying he’s not bad at mid-range shots in the non-trick-shot case. Therefore, the situation is objectively insufficient to conclude the disjunction’s truth value with certainty.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis can’t be determined as definitively true or false because the premises allow Jack to be either a trick-shot artist or not, while still implying he’s not bad at mid-range shots in the non-trick-shot case. Therefore, the situation is objectively insufficient to conclude the disjunction’s truth value with certainty.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0252",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I concluded the hypothesis could not be derived from the premises. The premises only give a conditional about what happens if Djokovic is a famous athlete, but they never establish that Djokovic is at the mixer as a famous athlete (or otherwise as a Grand Slam champion / pro tennis player). So I had enough to decide the question is not determined, but I did work through the logic; it’s not that I couldn’t solve it.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I concluded the hypothesis could not be derived from the premises. The premises only give a conditional about what happens if Djokovic is a famous athlete, but they never establish that Djokovic is at the mixer as a famous athlete (or otherwise as a Grand Slam champion / pro tennis player). So I had enough to decide the question is not determined, but I did work through the logic; it’s not that I couldn’t solve it.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0256",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The problem is actually answerable as **Uncertain** by showing that the premises entail the hypothesis when the bird is *small*, but do not entail it when the bird is *still* (since still does not imply heavy/light/unstable/changing/unpredictable from the given rules). That means I didn’t get stuck; rather, the information is sufficient to reach an “uncertain” conclusion, not insufficient to determine any label.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The problem is actually answerable as **Uncertain** by showing that the premises entail the hypothesis when the bird is *small*, but do not entail it when the bird is *still* (since still does not imply heavy/light/unstable/changing/unpredictable from the given rules). That means I didn’t get stuck; rather, the information is sufficient to reach an “uncertain” conclusion, not insufficient to determine any label.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0265",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not let us deduce that Carol is outgoing and very spirited, nor can we deduce that she is not. The hypothesis depends on facts about Carol that are not provided, so the task cannot be concluded as definitively True or False from the given information alone. Therefore it is objectively unanswerable given the premises.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not let us deduce that Carol is outgoing and very spirited, nor can we deduce that she is not. The hypothesis depends on facts about Carol that are not provided, so the task cannot be concluded as definitively True or False from the given information alone. Therefore it is objectively unanswerable given the premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0266",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow us to infer that Larry travels far and needs a large territory, but they never provide any rule connecting those properties to being a bear (we only have bears ⇒ big animals). So the hypothesis cannot be determined as true or false from the information given; it’s not something I failed to compute, but rather genuinely underdetermined.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow us to infer that Larry travels far and needs a large territory, but they never provide any rule connecting those properties to being a bear (we only have bears ⇒ big animals). So the hypothesis cannot be determined as true or false from the information given; it’s not something I failed to compute, but rather genuinely underdetermined.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0273",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The conclusion depends on whether we know if Reformation is helping slow down global warming; the premises don’t provide that fact, so both supporting and contradicting cases remain possible. That means the information is genuinely insufficient to determine a definite true/false value for the hypothesis.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The conclusion depends on whether we know if Reformation is helping slow down global warming; the premises don’t provide that fact, so both supporting and contradicting cases remain possible. That means the information is genuinely insufficient to determine a definite true/false value for the hypothesis.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0276",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0277",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \n1) The hypothesis involves negative statements about Sam (she neither has certain ambitions/career goals nor is she a young teenage girl attending music festivals frequently).  \n2) The premises provide only forward implications that, if certain conditions hold, lead to other conclusions (e.g., ambitions → pop band fan → music decorations → can’t easily pack/move).  \n3) There is no premise stating Sam does not have those ambitions/career goals, and no premise stating she is not a festival attendee.  \n4) Because the required negations are not supported by the premises, the hypothesis can’t be determined as true or false—so the outcome is genuinely indeterminate from the given information.  \n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning:  \n1) The hypothesis involves negative statements about Sam (she neither has certain ambitions/career goals nor is she a young teenage girl attending music festivals frequently).  \n2) The premises provide only forward implications that, if certain conditions hold, lead to other conclusions (e.g., ambitions → pop band fan → music decorations → can’t easily pack/move).  \n3) There is no premise stating Sam does not have those ambitions/career goals, and no premise stating she is not a festival attendee.  \n4) Because the required negations are not supported by the premises, the hypothesis can’t be determined as true or false—so the outcome is genuinely indeterminate from the given information.  \n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0281",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not provide enough information to determine whether Tom is a PhD graduate. While we can infer that being enrolled in an academic program conflicts with being able to work full-time (and PhD graduates can work full-time), we still don’t know whether Tom studies in the U.S. as a foreigner or whether that implies he is not enrolled; thus we can’t conclusively conclude the hypothesis is true or false. Therefore the question is objectively unanswerable given the premises.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not provide enough information to determine whether Tom is a PhD graduate. While we can infer that being enrolled in an academic program conflicts with being able to work full-time (and PhD graduates can work full-time), we still don’t know whether Tom studies in the U.S. as a foreigner or whether that implies he is not enrolled; thus we can’t conclusively conclude the hypothesis is true or false. Therefore the question is objectively unanswerable given the premises.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0285",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "A",
-      "raw_s5": "Reasoning: The premises allow the first disjunct (“owns at least one coffeemaker and one blender”) to be neither confirmed nor refuted under all possible interpretations, and while we can infer takeout at least once a day only in the branch where Sam is very busy (12-hour work) and addicted, the other branch does not determine takeout or appliance ownership. Thus the hypothesis is not objectively determined to be always true or always false; the most accurate result is “Uncertain.” This indicates I was able to compute the answer but not reach a definite truth value, rather than being unable to work it out.  \nAnswer: A"
+      "s5_rerun_correct": false,
+      "pred": "A",
+      "raw": "Reasoning: The premises allow the first disjunct (“owns at least one coffeemaker and one blender”) to be neither confirmed nor refuted under all possible interpretations, and while we can infer takeout at least once a day only in the branch where Sam is very busy (12-hour work) and addicted, the other branch does not determine takeout or appliance ownership. Thus the hypothesis is not objectively determined to be always true or always false; the most accurate result is “Uncertain.” This indicates I was able to compute the answer but not reach a definite truth value, rather than being unable to work it out.  \nAnswer: A"
     },
     {
       "sample_id": "FOLIO_0288",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I can derive that “Jumbo not sleepy” is not forced by the premises: assuming Jumbo sleepy leads to a consistent possibility where Jumbo is sleepy and a mammal but not an elephant, which avoids the “not both elephant and mammal” constraint. Since neither “Jumbo not sleepy” nor its negation is entailed, the outcome is uncertain, not a genuine inability to compute.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: I can derive that “Jumbo not sleepy” is not forced by the premises: assuming Jumbo sleepy leads to a consistent possibility where Jumbo is sleepy and a mammal but not an elephant, which avoids the “not both elephant and mammal” constraint. Since neither “Jumbo not sleepy” nor its negation is entailed, the outcome is uncertain, not a genuine inability to compute.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0291",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow us to infer that James does **not** attend in person (due to the explicit negation about attending in person and receiving souvenirs). However, the hypothesis is about whether James is either invited to take a photo or happy to communicate during dinner, and the premises only connect those outcomes to being invited/receiving delicious meals—connections we cannot derive from “not attending in person.” So we cannot determine the hypothesis as true or false with certainty; the best label is **Uncertain** because the information is insufficient to decide.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow us to infer that James does **not** attend in person (due to the explicit negation about attending in person and receiving souvenirs). However, the hypothesis is about whether James is either invited to take a photo or happy to communicate during dinner, and the premises only connect those outcomes to being invited/receiving delicious meals—connections we cannot derive from “not attending in person.” So we cannot determine the hypothesis as true or false with certainty; the best label is **Uncertain** because the information is insufficient to decide.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0293",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0295",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not let us infer that “contains carbon ⇒ neither a chemical compound nor an alkane.” We can infer chemical compounds have at least two elements, so “only one element ⇒ not a chemical compound,” but nothing links “contains carbon” to “not a chemical compound” or “not an alkane” in a definitive way. The last premise about the mixture doesn’t resolve that gap either. Therefore, the hypothesis cannot be determined as true or false from the given premises alone.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not let us infer that “contains carbon ⇒ neither a chemical compound nor an alkane.” We can infer chemical compounds have at least two elements, so “only one element ⇒ not a chemical compound,” but nothing links “contains carbon” to “not a chemical compound” or “not an alkane” in a definitive way. The last premise about the mixture doesn’t resolve that gap either. Therefore, the hypothesis cannot be determined as true or false from the given premises alone.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0302",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0306",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The correct classification is **Uncertain** because the premises don’t provide any rule or fact that links John’s car specifically to being a **Solo EV** (they only constrain what can be inferred from “John’s car is not a Tesla Model 3”). Therefore the hypothesis cannot be determined to be true or false from the given information.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The correct classification is **Uncertain** because the premises don’t provide any rule or fact that links John’s car specifically to being a **Solo EV** (they only constrain what can be inferred from “John’s car is not a Tesla Model 3”). Therefore the hypothesis cannot be determined to be true or false from the given information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0307",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "I did work out the logical consequences of the premises, and I determined that the hypothesis about Harry (neither a wizard nor angry) cannot be fully derived from the given facts. That corresponds to the information being insufficient to decide truth vs. falsehood, rather than me being unable to compute.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "I did work out the logical consequences of the premises, and I determined that the hypothesis about Harry (neither a wizard nor angry) cannot be fully derived from the given facts. That corresponds to the information being insufficient to decide truth vs. falsehood, rather than me being unable to compute.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0319",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow us to infer that any alkane contains carbon, but they never establish that the mixture is an alkane (or even that it is a chemical compound). Since the hypothesis’s “mixture is an alkane” part is not determined by the premises, the overall truth value cannot be concluded as true or false. Thus the situation is objectively unanswerable from the given information rather than being merely too difficult to compute.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow us to infer that any alkane contains carbon, but they never establish that the mixture is an alkane (or even that it is a chemical compound). Since the hypothesis’s “mixture is an alkane” part is not determined by the premises, the overall truth value cannot be concluded as true or false. Thus the situation is objectively unanswerable from the given information rather than being merely too difficult to compute.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0322",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "A",
-      "raw_s5": "Reasoning: The hypothesis depends on whether we can definitively connect the Olive Garden to the rule about pets being allowed in managed buildings and how the security deposit is determined for that specific building. While the premises give the Olive Garden’s monthly rent ($2000) and a general deposit rule for managed buildings, they do not explicitly establish that the Olive Garden is among the managed buildings that allow pets or that the deposit rule applies specifically to the Olive Garden in a way that forces the deposit to be $2000 or more. This leaves the conclusion not fully determined from the provided information, but it is still possible to reason toward uncertainty; however, it is not objectively “genuinely insufficient” in the sense of having no determinate direction—rather, the missing explicit linkage makes it hard to reach a definite truth value.  \n\nAnswer: A"
+      "s5_rerun_correct": true,
+      "pred": "A",
+      "raw": "Reasoning: The hypothesis depends on whether we can definitively connect the Olive Garden to the rule about pets being allowed in managed buildings and how the security deposit is determined for that specific building. While the premises give the Olive Garden’s monthly rent ($2000) and a general deposit rule for managed buildings, they do not explicitly establish that the Olive Garden is among the managed buildings that allow pets or that the deposit rule applies specifically to the Olive Garden in a way that forces the deposit to be $2000 or more. This leaves the conclusion not fully determined from the provided information, but it is still possible to reason toward uncertainty; however, it is not objectively “genuinely insufficient” in the sense of having no determinate direction—rather, the missing explicit linkage makes it hard to reach a definite truth value.  \n\nAnswer: A"
     },
     {
       "sample_id": "FOLIO_0327",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I was able to derive that the antecedent of the hypothesis is satisfied, but I could not determine whether Robert’s consequent holds in all cases because the premises only guarantee a vacation to Italy for hodophiles who enjoy gelato; in the alternative case for Robert, the premises don’t let me conclude the vacation would happen. Therefore I didn’t fully resolve the hypothesis as true or false from the given information, making it insufficient rather than a pure inability to compute.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I was able to derive that the antecedent of the hypothesis is satisfied, but I could not determine whether Robert’s consequent holds in all cases because the premises only guarantee a vacation to Italy for hodophiles who enjoy gelato; in the alternative case for Robert, the premises don’t let me conclude the vacation would happen. Therefore I didn’t fully resolve the hypothesis as true or false from the given information, making it insufficient rather than a pure inability to compute.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0335",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I could work out that the conclusion “TikTok is a computer program” is not forced by the premises, because the premises don’t guarantee TikTok has chat features (only “chat features or video features”), and software → computer program is only usable if we know TikTok is software. Thus the best classification is “Uncertain,” which reflects that the information is genuinely insufficient to determine true or false.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: I could work out that the conclusion “TikTok is a computer program” is not forced by the premises, because the premises don’t guarantee TikTok has chat features (only “chat features or video features”), and software → computer program is only usable if we know TikTok is software. Thus the best classification is “Uncertain,” which reflects that the information is genuinely insufficient to determine true or false.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0340",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I can derive that the premises make statements about phones (e.g., A15 Bionic → Apple-made → iPhone, and iPhones are not standalone desktops). However, none of the premises mention Joe or the fact that Joe is a PhD student (nor any rule that could connect Joe to those phone properties). Therefore the hypothesis “Joe is a PhD student” is not determined by the premises, making the task objectively unanswerable with respect to the hypothesis.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I can derive that the premises make statements about phones (e.g., A15 Bionic → Apple-made → iPhone, and iPhones are not standalone desktops). However, none of the premises mention Joe or the fact that Joe is a PhD student (nor any rule that could connect Joe to those phone properties). Therefore the hypothesis “Joe is a PhD student” is not determined by the premises, making the task objectively unanswerable with respect to the hypothesis.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0343",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0357",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises provide no information about whether Neofonie speaks English or German. The hypothesis is therefore not determined by the facts given; it cannot be concluded as true or false from the premises. So the best description is that the question is objectively unanswerable from the provided information.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises provide no information about whether Neofonie speaks English or German. The hypothesis is therefore not determined by the facts given; it cannot be concluded as true or false from the premises. So the best description is that the question is objectively unanswerable from the provided information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0358",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises never mention Jim, nor do they imply any relationship that would let us infer whether Jim is a Knicks player. However, the hypothesis is about Jim specifically, so the correct status cannot be derived from the given facts. This matches objectively unanswerable due to insufficient information, not personal inability.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises never mention Jim, nor do they imply any relationship that would let us infer whether Jim is a Knicks player. However, the hypothesis is about Jim specifically, so the correct status cannot be derived from the given facts. This matches objectively unanswerable due to insufficient information, not personal inability.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0373",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises don’t determine whether FMRI is invasive or noninvasive. While the premises do entail that FMRI is used by neuroscience researchers, the hypothesis additionally requires FMRI to be invasive. Since neither invasiveness nor its negation is fixed by the premises, the overall truth value can’t be concluded definitively.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises don’t determine whether FMRI is invasive or noninvasive. While the premises do entail that FMRI is used by neuroscience researchers, the hypothesis additionally requires FMRI to be invasive. Since neither invasiveness nor its negation is fixed by the premises, the overall truth value can’t be concluded definitively.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0384",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I did determine the logical consequences of the premises, but they did not allow a definitive conclusion about whether Tom is a PhD graduate in all possible cases. That corresponds to the task being objectively unanswerable from the provided information (not a matter of difficulty).  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I did determine the logical consequences of the premises, but they did not allow a definitive conclusion about whether Tom is a PhD graduate in all possible cases. That corresponds to the task being objectively unanswerable from the provided information (not a matter of difficulty).  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0394",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not fully fix the relationship needed to confirm that the hypothesis must be true; however, the question is still answerable in the sense that it can be determined as not provable as true/false and thus uncertain. This is not the same as being unable to compute the answer, but it is a case where the information is insufficient to determine a definitive truth value.\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not fully fix the relationship needed to confirm that the hypothesis must be true; however, the question is still answerable in the sense that it can be determined as not provable as true/false and thus uncertain. This is not the same as being unable to compute the answer, but it is a case where the information is insufficient to determine a definitive truth value.\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0396",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "A",
-      "raw_s5": "Reasoning: I was able to determine that the hypothesis is not logically forced by the premises (it depends on a case where Marvin is not from Mars but neither human nor extraterrestrial can be concluded). So this isn’t “objectively unanswerable,” and I did not give up due to difficulty.  \nAnswer: A"
+      "s5_rerun_correct": true,
+      "pred": "A",
+      "raw": "Reasoning: I was able to determine that the hypothesis is not logically forced by the premises (it depends on a case where Marvin is not from Mars but neither human nor extraterrestrial can be concluded). So this isn’t “objectively unanswerable,” and I did not give up due to difficulty.  \nAnswer: A"
     },
     {
       "sample_id": "FOLIO_0398",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not let us decide the hypothesis in all possible cases (specifically, when “Dan knows Dune is … has proven to be false,” we can’t infer whether Dune is science fiction or from an imaginative process, nor whether it is/ isn’t a result of creative processes). Thus the correct ternary label is not fixed by the information, making the question objectively unanswerable.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not let us decide the hypothesis in all possible cases (specifically, when “Dan knows Dune is … has proven to be false,” we can’t infer whether Dune is science fiction or from an imaginative process, nor whether it is/ isn’t a result of creative processes). Thus the correct ternary label is not fixed by the information, making the question objectively unanswerable.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0399",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not logically entail either that PyTorch is popular or that it is written with code, nor do they entail the negations. In particular, we know PyTorch is used, but it is explicitly stated to be neither a Linux system nor a piece of software, which conflicts with the general rule about software being written with code but does not establish what PyTorch itself is like regarding “written with code” or “popular.” Also, the popularity rule depends on being “convenient,” and we are not given any connection between PyTorch and convenience. Therefore the hypothesis’s truth value cannot be determined from the premises, making the question objectively unanswerable given the provided information.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not logically entail either that PyTorch is popular or that it is written with code, nor do they entail the negations. In particular, we know PyTorch is used, but it is explicitly stated to be neither a Linux system nor a piece of software, which conflicts with the general rule about software being written with code but does not establish what PyTorch itself is like regarding “written with code” or “popular.” Also, the popularity rule depends on being “convenient,” and we are not given any connection between PyTorch and convenience. Therefore the hypothesis’s truth value cannot be determined from the premises, making the question objectively unanswerable given the provided information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0400",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The conclusion about whether Clyde is specifically a professor who takes a historical approach is not derivable from the premises: the only Clyde-related information is conditional and does not establish (or rule out) the professor/historical-approach characterization. Therefore the task is objectively unanswerable from the given premises.\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The conclusion about whether Clyde is specifically a professor who takes a historical approach is not derivable from the premises: the only Clyde-related information is conditional and does not establish (or rule out) the professor/historical-approach characterization. Therefore the task is objectively unanswerable from the given premises.\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0407",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises let us infer Jack does not often clean his home (from the disjunction), but they do not logically entail whether Jack cares about cleanliness. Since we can’t conclude either “cares” or “does not care,” the hypothesis is not determined from the information provided; thus the situation is genuinely insufficient to decide truth vs. falsity. This matches an objectively unanswerable case.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises let us infer Jack does not often clean his home (from the disjunction), but they do not logically entail whether Jack cares about cleanliness. Since we can’t conclude either “cares” or “does not care,” the hypothesis is not determined from the information provided; thus the situation is genuinely insufficient to decide truth vs. falsity. This matches an objectively unanswerable case.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0411",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0423",
       "answer_idx": 1,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow ruling out that G-910 is returned only if it is displayed on the homepage (since homepage items are sold at Walmart, but returned items are not sold at Walmart). However, the premises also include the disjunct where G-910 is neither displayed nor cheaper; in that situation, nothing tells us whether it is sold at Walmart or whether it is returned. Thus the hypothesis cannot be determined as true or false from the given information, making the question best classified as objectively unanswerable due to insufficient information.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow ruling out that G-910 is returned only if it is displayed on the homepage (since homepage items are sold at Walmart, but returned items are not sold at Walmart). However, the premises also include the disjunct where G-910 is neither displayed nor cheaper; in that situation, nothing tells us whether it is sold at Walmart or whether it is returned. Thus the hypothesis cannot be determined as true or false from the given information, making the question best classified as objectively unanswerable due to insufficient information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0432",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises never state lithium’s atomic number (whether it is between 61–63) and never state that lithium is used for batteries. Since these key parts of the hypothesis are not entailed or contradicted by the given information, the hypothesis can’t be determined as true or false from the premises alone.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises never state lithium’s atomic number (whether it is between 61–63) and never state that lithium is used for batteries. Since these key parts of the hypothesis are not entailed or contradicted by the given information, the hypothesis can’t be determined as true or false from the premises alone.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0435",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not allow us to determine whether Taylor is an award-winning novelist or whether she publishes journals. While the premises constrain relationships in general (e.g., award-winning novelists publish journals), they do not assert that Taylor is an award-winning novelist, nor do they assert whether Taylor publishes journals. Since these key facts needed to evaluate the hypothesis are missing, the problem is objectively unanswerable from the given information.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not allow us to determine whether Taylor is an award-winning novelist or whether she publishes journals. While the premises constrain relationships in general (e.g., award-winning novelists publish journals), they do not assert that Taylor is an award-winning novelist, nor do they assert whether Taylor publishes journals. Since these key facts needed to evaluate the hypothesis are missing, the problem is objectively unanswerable from the given information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0446",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The hypothesis about Emily enjoying reading tech specs and keeping up with technology is not directly implied by any of the premises, and the premises do not provide enough information to derive it either true or false for Emily. Hence, the question is objectively unanswerable from the given information.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The hypothesis about Emily enjoying reading tech specs and keeping up with technology is not directly implied by any of the premises, and the premises do not provide enough information to derive it either true or false for Emily. Hence, the question is objectively unanswerable from the given information.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0448",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: I was able to determine that the hypothesis cannot be proven either true or false from the given premises because key facts about John (e.g., whether John is engaged, whether he has a larger family) are not established. So the task is not something I failed to compute; rather, the information is genuinely insufficient to decide definitively.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: I was able to determine that the hypothesis cannot be proven either true or false from the given premises because key facts about John (e.g., whether John is engaged, whether he has a larger family) are not established. So the task is not something I failed to compute; rather, the information is genuinely insufficient to decide definitively.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0463",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not provide enough information to determine whether the cherries are red or on the warning list; however, this is due to insufficient specific facts (e.g., whether the cherries are healthy or apples), not because I was unable to compute the answer.  \nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not provide enough information to determine whether the cherries are red or on the warning list; however, this is due to insufficient specific facts (e.g., whether the cherries are healthy or apples), not because I was unable to compute the answer.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0470",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises allow Bunny to be either in the “prefers working at home and makes matcha” case or in the opposite “does not prefer working at home and does not make matcha” case. The hypothesis asserts Bunny neither prefers working at home nor is in a specific California+yoga-regular situation, but we cannot force which branch Bunny takes from the premises. Since at least one branch is compatible with the premises while making the hypothesis false (the home-preferring/matcha-making branch), and the other branch does not let us fully determine the California+yoga part, the truth value is genuinely underdetermined. Therefore it matches objectively unanswerable due to insufficient information.\n\nAnswer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Reasoning: The premises allow Bunny to be either in the “prefers working at home and makes matcha” case or in the opposite “does not prefer working at home and does not make matcha” case. The hypothesis asserts Bunny neither prefers working at home nor is in a specific California+yoga-regular situation, but we cannot force which branch Bunny takes from the premises. Since at least one branch is compatible with the premises while making the hypothesis false (the home-preferring/matcha-making branch), and the other branch does not let us fully determine the California+yoga part, the truth value is genuinely underdetermined. Therefore it matches objectively unanswerable due to insufficient information.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0479",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0484",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0490",
       "answer_idx": 0,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises let us deduce that Pokemon Diamond cannot be multiplatform (since it cannot be played on a wide range of devices and all multiplatform games can be played on a wide range). However, the hypothesis’s conditional has a disjunct requiring whether it is “one of the top-3 best-selling video games,” and the premises provide no information about Pokemon Diamond’s sales/top-3 status. Thus the hypothesis cannot be conclusively evaluated as true or false; the best we can do is label it uncertain due to insufficient information. This corresponds to the question being objectively unanswerable from the given premises.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises let us deduce that Pokemon Diamond cannot be multiplatform (since it cannot be played on a wide range of devices and all multiplatform games can be played on a wide range). However, the hypothesis’s conditional has a disjunct requiring whether it is “one of the top-3 best-selling video games,” and the premises provide no information about Pokemon Diamond’s sales/top-3 status. Thus the hypothesis cannot be conclusively evaluated as true or false; the best we can do is label it uncertain due to insufficient information. This corresponds to the question being objectively unanswerable from the given premises.  \nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0491",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning:  \nThe premises do not force the hypothesis’s conjunction (“Garry did not commit a crime” and “can argue against his punishment”). In particular, the ability to argue against punishment is only given for those who are **found guilty**, but the statement about Garry only says he is **not found guilty or sentenced**, which does not entail “found guilty,” nor does it strictly entail “did not commit a crime” in a way that connects to arguing. Thus the correct label is not determinately true or false from the premises; the information is insufficient, making the question unanswerable in an objective sense.\n\nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning:  \nThe premises do not force the hypothesis’s conjunction (“Garry did not commit a crime” and “can argue against his punishment”). In particular, the ability to argue against punishment is only given for those who are **found guilty**, but the statement about Garry only says he is **not found guilty or sentenced**, which does not entail “found guilty,” nor does it strictly entail “did not commit a crime” in a way that connects to arguing. Thus the correct label is not determinately true or false from the premises; the information is insufficient, making the question unanswerable in an objective sense.\n\nAnswer: B"
     },
     {
       "sample_id": "FOLIO_0492",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0494",
       "answer_idx": 0,
-      "s4_correct": false,
-      "pred_s5": "B",
-      "raw_s5": "Answer: B"
+      "s5_rerun_correct": false,
+      "pred": "B",
+      "raw": "Answer: B"
     },
     {
       "sample_id": "FOLIO_0497",
       "answer_idx": 1,
-      "s4_correct": true,
-      "pred_s5": "B",
-      "raw_s5": "Reasoning: The premises do not establish that Hamlet is written by Tolkien nor that it has won a Hugo Award. While we can infer that Hamlet is either sold over 1000 copies or written by Neil Gaiman, and we have no other link to Tolkien or Hugo status, the hypothesis can’t be resolved as true or false from the given information. This makes the question objectively unanswerable from the premises.  \nAnswer: B"
+      "s5_rerun_correct": true,
+      "pred": "B",
+      "raw": "Reasoning: The premises do not establish that Hamlet is written by Tolkien nor that it has won a Hugo Award. While we can infer that Hamlet is either sold over 1000 copies or written by Neil Gaiman, and we have no other link to Tolkien or Hugo status, the hypothesis can’t be resolved as true or false from the given information. This makes the question objectively unanswerable from the premises.  \nAnswer: B"
     }
   ]
 }

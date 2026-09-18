@@ -21,20 +21,15 @@ The scheme owns the surface forms that vary across datasets:
 * task instruction text         — binary form (S1) vs. ternary form (S2/S3)
 * output parser                 — verb regex with abstain priority + negation guard
 
-The paper reports both datasets uniformly as True/False questions, so FLD's
-*prompt* verbs are now ``True`` / ``False``. The on-disk dataset already stores
-answers as ``True`` / ``False``, so no on-disk migration is needed.
+The paper reports both datasets uniformly as True/False questions, and FLD's
+*prompt* verbs are ``True`` / ``False``: every reported n=500 FLD run was
+prompted with them and its stored ``raw_*`` outputs end in ``Final answer:
+True`` / ``False``. The on-disk dataset stores answers the same way.
 
-The FLD *parser*, however, still accepts ``Proved`` / ``Disproved``, and must:
-every reported FLD run was executed before the verb change and its stored
-``raw_*`` outputs end in ``Final answer: Proved`` / ``Disproved``. Parsing them
-with a True/False-only scheme reproduced 52-75% of the stored predictions —
-i.e. it silently relabelled a quarter to a half of every FLD result file. See
-``neg_patterns`` / ``pos_patterns`` on the FLD scheme below.
-
-Note this also means an FLD *re-run* today does not use the prompt that
-produced the reported numbers: the option verbs in the prompt come from
-``pos_verb`` / ``neg_verb``, so changing them changed the prompt.
+The FLD *parser* additionally accepts ``Proved`` / ``Disproved`` -- the verbs
+of FLD's own annotation, which earlier runs used before the prompt was
+changed -- so those outputs are read correctly too. See ``neg_patterns`` /
+``pos_patterns`` on the FLD scheme below.
 
 Why ABSTAIN is checked first in :py:meth:`LabelScheme.parse`:
 phrases like ``cannot be determined`` or ``insufficient evidence`` must not

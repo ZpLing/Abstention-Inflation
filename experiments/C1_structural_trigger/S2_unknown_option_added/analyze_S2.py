@@ -113,6 +113,9 @@ def main():
         nargs="*",
         help="results root to scan (default: results/).",
     )
+    parser.add_argument(
+        "--out", default=None, help="Also write the summary as JSON here."
+    )
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parents[3]
@@ -264,9 +267,6 @@ def main():
     # ----------------------------------------------------------------
     # 5. Save results
     # ----------------------------------------------------------------
-    out_dir = root / "results" / "analysis"
-    out_dir.mkdir(parents=True, exist_ok=True)
-
     output = {
         "rows": rows,
         "mcq_mcnemar": None,
@@ -285,10 +285,12 @@ def main():
                 "mcnemar_p": mcnemar_p(n10, n01),
             }
 
-    out_path = out_dir / "acc_effect_by_type.json"
-    with open(out_path, "w") as f:
-        json.dump(output, f, indent=2)
-    print(f"\nResults saved → {out_path}")
+    if args.out:
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_path, "w") as f:
+            json.dump(output, f, indent=2)
+        print(f"\nResults saved → {out_path}")
 
 
 if __name__ == "__main__":

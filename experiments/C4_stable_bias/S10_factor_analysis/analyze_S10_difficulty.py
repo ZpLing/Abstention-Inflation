@@ -29,14 +29,15 @@ Reports:
 
 Output:
   - stdout table
-  - results/analysis/fld_steps_abstention.json
+  - with --out PATH, the same summary as JSON
 
 Usage:
-    python -m scripts.analyze_fld_steps_abstention
+    python experiments/C4_stable_bias/S10_factor_analysis/analyze_S10_difficulty.py
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -238,6 +239,9 @@ def print_table(title: str, summary: dict) -> None:
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--out", default=None, help="Also write the summary as JSON here.")
+    args = ap.parse_args()
     if not FLD_SOURCE.exists():
         sys.exit(f"FLD source not found at {FLD_SOURCE}")
     steps_map = load_source_steps()
@@ -280,10 +284,11 @@ def main() -> None:
     print_table("[POOLED] answerable (Abs Rate)", pooled_ans)
     print_table("[POOLED] all samples (raw abstain rate)", pooled_all)
 
-    out_path = ROOT / "results" / "analysis" / "fld_steps_abstention.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(output, indent=2))
-    print(f"\nResults saved → {out_path}")
+    if args.out:
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(output, indent=2))
+        print(f"\nResults saved → {out_path}")
 
 
 if __name__ == "__main__":
