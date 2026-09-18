@@ -190,6 +190,7 @@ class Options:
     model_path: Optional[str] = None
     dry_run: bool = False
     everything: bool = False  # `all` was given
+    variant: Optional[str] = None  # one of a cell's several result files (an S11 slot), from --config
 
     @property
     def root(self) -> Path:
@@ -254,17 +255,18 @@ def script_step(label: str, argv: Sequence[Any], pre=None, chain=None) -> Step:
 # ---- configs -----------------------------------------------------------------
 
 
-def yaml_for(key: str, model: str, dataset: str) -> Path:
+def yaml_for(key: str, model: str, dataset: str, variant: Optional[str] = None) -> Path:
     """The YAML for one cell: configs/<setting folder>/<model slug>/<dataset>.yaml,
     the setting folder being the one results/ uses (``"S2"``, ``"S4/random_words"``,
-    ...). A model with no folder under that setting borrows the template model's,
+    ...), and <dataset>_<variant>.yaml where the cell is several result files (S11's
+    slots). A model with no folder under that setting borrows the template model's,
     or failing that the first folder there, and overrides the name."""
     base = CONFIGS / SETTING_DIRS[key]
     folder = base / model_slug(model)
     if not folder.is_dir():
         others = sorted(p for p in base.iterdir() if p.is_dir()) if base.is_dir() else []
         folder = next((p for p in [base / model_slug(TEMPLATE_MODEL), *others] if p.is_dir()), folder)
-    return folder / f"{dataset}.yaml"
+    return folder / (f"{dataset}_{variant}.yaml" if variant else f"{dataset}.yaml")
 
 
 def _block(path: Path, name: str) -> dict:
@@ -612,25 +614,33 @@ def _s10_size_alignment(part, models, datasets, o: Options) -> List[Step]:
     return steps
 
 
+#: S11 writes one file per slot the abstain verb occupies; the slot names the
+#: result file and the config file, the letter is what the script takes.
+S11_SLOTS = {"first": "A", "second": "B", "last": "C"}
+
+
 def _s11(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for m in models:
         for ds in datasets:
-            cfg = yaml_for("S11", m, ds)
-            b = _block(cfg, "s11_positional_biases")
-            steps.append(script_step(
-                f"S11 · {m} · {ds}",
-                [
-                    SCRIPT["S11/run"],
-                    "--config", cfg,
-                    "--model", m,
-                    "--dataset", ds,
-                    "--positions", *(b.get("positions") or ["A", "B", "C"]),
-                    *(["--unified-labels"] if b.get("unified_labels", True) else []),
-                    *_limit_flag("--sample-limit", o),
-                    *_root_flag("--results-root", o),
-                ],
-            ))
+            for slot, letter in S11_SLOTS.items():
+                if o.variant and slot != o.variant:
+                    continue
+                cfg = yaml_for("S11", m, ds, slot)
+                b = _block(cfg, "s11_positional_biases")
+                steps.append(script_step(
+                    f"S11 · {m} · {ds} · {slot}",
+                    [
+                        SCRIPT["S11/run"],
+                        "--config", cfg,
+                        "--model", m,
+                        "--dataset", ds,
+                        "--positions", *(b.get("positions") or [letter]),
+                        *(["--unified-labels"] if b.get("unified_labels", True) else []),
+                        *_limit_flag("--sample-limit", o),
+                        *_root_flag("--results-root", o),
+                    ],
+                ))
     return steps
 
 
@@ -889,11 +899,14 @@ SCRIPT_BLOCKS: Dict[str, Tuple[str, str]] = {
 }
 
 
-def run_script_blocks(config: dict, dry_run: bool = False) -> int:
+def run_script_blocks(config: dict, dry_run: bool = False, path: Optional[str] = None) -> int:
     """Every SCRIPT_BLOCKS task in the YAML's run_tasks: build its steps from the
     block (datasets; checkpoints for S8, else the file's model; results_root;
-    model_path for a local checkpoint) and run them."""
+    model_path for a local checkpoint) and run them. A file named
+    <dataset>_<variant>.yaml runs that one variant (an S11 slot)."""
     rc = 0
+    stem = Path(path).stem if path else ""
+    variant = stem.split("_", 1)[1] if "_" in stem else None
     for name in _resolve_tasks(config):
         if name not in SCRIPT_BLOCKS:
             continue
@@ -908,7 +921,7 @@ def run_script_blocks(config: dict, dry_run: bool = False) -> int:
         models = resolve_models(part, models, skey)
         root = block.get("results_root")
         o = Options(results_root=Path(root).resolve() if root and root != "results" else None,
-                    model_path=block.get("model_path"), dry_run=dry_run)
+                    model_path=block.get("model_path"), dry_run=dry_run, variant=variant)
         print(f"\n===== {skey}/{pname} from {name} =====")
         rc = execute(BUILDERS[(skey, pname)](part, models, datasets, o), o) or rc
     return rc
@@ -956,11 +969,12 @@ async def _dispatch(config: dict) -> None:
         print("\n===== S4 random words =====")
         await run_s4_random_words(config)
 
-    run_script_blocks(config)
+    run_script_blocks(config, path=config.get("_path"))
 
 
 def run_config(args: argparse.Namespace) -> int:
     config = load_config(args.config)
+    config["_path"] = args.config
     model = None if _is_all(args.model) else args.model
     if model and len(model) != 1:
         raise SystemExit("--config runs one YAML on one model; give a single --model.")
@@ -983,7 +997,7 @@ def run_config(args: argparse.Namespace) -> int:
         if args.limit:
             block["sample_limits"] = {ds: args.limit for ds in block.get("datasets", [])}
     if args.dry_run:
-        run_script_blocks(config, dry_run=True)
+        run_script_blocks(config, dry_run=True, path=args.config)
         print(f"would run run_tasks={_resolve_tasks(config)} from {args.config} "
               f"on model={config.get('model_name')!r}")
         return 0

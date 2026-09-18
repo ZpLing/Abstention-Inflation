@@ -1,0 +1,22 @@
+# S11 Positional biases on FOLIO for gpt-5.4-nano, abstain verb in the first slot
+# (position A: the options read "Unknown | True | False"), on the full 500 items
+# with the labels unified to True / False / Unknown; writes
+# results/S11_positional_bias/gpt_5.4_nano/FOLIO_gpt-5.4-nano_first.json.
+experiment_name: "S11_positional_bias_FOLIO_first_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['s11_positional_biases']
+
+s11_positional_biases:
+  datasets:
+    - "FOLIO"
+  positions: ["A"]     # first slot
+  unified_labels: true
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

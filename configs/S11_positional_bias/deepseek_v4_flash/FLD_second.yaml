@@ -1,0 +1,22 @@
+# S11 Positional biases on FLD for deepseek-v4-flash, abstain verb in the second slot
+# (position B: the options read "True | Unknown | False"), on the full 500 items
+# with the labels unified to True / False / Unknown; writes
+# results/S11_positional_bias/deepseek_v4_flash/FLD_deepseek-v4-flash_second.json.
+experiment_name: "S11_positional_bias_FLD_second_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['s11_positional_biases']
+
+s11_positional_biases:
+  datasets:
+    - "FLD"
+  positions: ["B"]     # second slot
+  unified_labels: true
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

@@ -1,0 +1,22 @@
+# S11 Positional biases on FOLIO for deepseek-v4-flash, abstain verb in the first slot
+# (position A: the options read "Unknown | True | False"), on the full 500 items
+# with the labels unified to True / False / Unknown; writes
+# results/S11_positional_bias/deepseek_v4_flash/FOLIO_deepseek-v4-flash_first.json.
+experiment_name: "S11_positional_bias_FOLIO_first_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['s11_positional_biases']
+
+s11_positional_biases:
+  datasets:
+    - "FOLIO"
+  positions: ["A"]     # first slot
+  unified_labels: true
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"
