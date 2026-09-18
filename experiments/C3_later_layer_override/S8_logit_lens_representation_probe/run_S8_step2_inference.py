@@ -7,7 +7,6 @@ Run on the 3090 server after downloading models:
 """
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -16,13 +15,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir, s8_inference_path, s8_logit_lens_path  # noqa: E402
+from infra.result_schema import s8_inference_path  # noqa: E402
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
-MODEL_PATH   = ROOT / "models" / "olmo3-instruct"
-DATA_PATH    = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH     = ROOT / s8_inference_path()
-BATCH_SIZE   = 4    # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
+MODEL_PATH = ROOT / "models" / "olmo3-instruct"
+DATA_PATH = ROOT / "data" / "Judge" / "FLD.json"
+OUT_PATH = ROOT / s8_inference_path()
+BATCH_SIZE = 4  # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
 
 S1_SYSTEM = (
     "You are a logical reasoning assistant. Given the following facts and a "
@@ -80,20 +79,22 @@ def run_inference(model, tokenizer, samples, setting, device, max_new_tokens=512
                 pad_token_id=tokenizer.eos_token_id,
             )
         # decode only the newly generated tokens
-        new_ids = output_ids[0, inputs["input_ids"].shape[1]:]
+        new_ids = output_ids[0, inputs["input_ids"].shape[1] :]
         raw = tokenizer.decode(new_ids, skip_special_tokens=True)
         pred = parse_pred(raw, setting)
 
-        results.append({
-            "id":         f"FLD_{i:04d}",
-            "proof_label": sample["proof_label"],
-            "Conclusion":  sample["Conclusion"],
-            f"raw_{setting}":  raw,
-            f"pred_{setting}": pred,
-        })
+        results.append(
+            {
+                "id": f"FLD_{i:04d}",
+                "proof_label": sample["proof_label"],
+                "Conclusion": sample["Conclusion"],
+                f"raw_{setting}": raw,
+                f"pred_{setting}": pred,
+            }
+        )
 
         if (i + 1) % 20 == 0:
-            print(f"  [{setting}] {i+1}/{len(samples)} done")
+            print(f"  [{setting}] {i + 1}/{len(samples)} done")
 
     return results
 
@@ -121,25 +122,33 @@ def main():
     # merge by index
     merged = []
     for s1, s2, raw in zip(s1_results, s2_results, samples):
-        merged.append({
-            "id":           s1["id"],
-            "proof_label":  s1["proof_label"],
-            "Conclusion":   s1["Conclusion"],
-            "Facts":        raw["Facts"],
-            "raw_s1":       s1["raw_s1"],
-            "pred_s1":      s1["pred_s1"],
-            "raw_s2":       s2["raw_s2"],
-            "pred_s2":      s2["pred_s2"],
-        })
+        merged.append(
+            {
+                "id": s1["id"],
+                "proof_label": s1["proof_label"],
+                "Conclusion": s1["Conclusion"],
+                "Facts": raw["Facts"],
+                "raw_s1": s1["raw_s1"],
+                "pred_s1": s1["pred_s1"],
+                "raw_s2": s2["raw_s2"],
+                "pred_s2": s2["pred_s2"],
+            }
+        )
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(merged, indent=2, ensure_ascii=False))
 
     # quick stats
-    ai = [s for s in merged if s["pred_s2"] == "UNKNOWN"
-           and s["proof_label"] != "__UNKNOWN__"]
-    car = [s for s in merged if s["pred_s2"] == "UNKNOWN"
-           and s["proof_label"] == "__UNKNOWN__"]
+    ai = [
+        s
+        for s in merged
+        if s["pred_s2"] == "UNKNOWN" and s["proof_label"] != "__UNKNOWN__"
+    ]
+    car = [
+        s
+        for s in merged
+        if s["pred_s2"] == "UNKNOWN" and s["proof_label"] == "__UNKNOWN__"
+    ]
     print(f"\nDone. Saved to {OUT_PATH}")
     print(f"  Abstention Inflation candidates (answerable → UNKNOWN): {len(ai)}")
     print(f"  CAR candidates (Unknown-labeled → UNKNOWN): {len(car)}")
@@ -147,10 +156,14 @@ def main():
 
 def _cli():
     import argparse
+
     global MODEL_PATH
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--model_path", default=str(MODEL_PATH),
-                    help="Local checkout of the checkpoint to run.")
+    ap.add_argument(
+        "--model_path",
+        default=str(MODEL_PATH),
+        help="Local checkout of the checkpoint to run.",
+    )
     MODEL_PATH = Path(ap.parse_args().model_path)
 
 

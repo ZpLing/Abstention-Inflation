@@ -1,4 +1,5 @@
 """Aggregate the S11 option-position cells written by run_S11_positional_biases.py."""
+
 import argparse
 import json
 import sys
@@ -6,10 +7,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir, stamp, position_name  # noqa: E402
-
 from scipy.stats import binomtest
-from infra.metrics import label_acc, label_macro_f1, judge_classes
+
+from infra.result_schema import position_name, results_dir, stamp  # noqa: E402
 
 #: The reported cells are the n=500 runs; `--result-dir` still reaches the
 #: earlier 200-sample sweep.
@@ -22,6 +22,7 @@ MODELS = [
 ]
 DATASETS = ["FLD", "FOLIO"]
 POSITIONS = ["A", "B", "C"]
+
 
 def load_summary(model_name: str, dataset: str, position: str, result_dir: Path = None):
     result_dir = result_dir or RESULT_DIR
@@ -53,8 +54,12 @@ def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=N
     partial = len(table_rows) < EXPECTED_CELLS
     # Title's label claim is data-driven: only assert "unified" if every
     # tabulated row actually ran with unified labels.
-    all_unified = bool(table_rows) and all(r.get("unified_labels") is True for r in table_rows)
-    label_note = "unified True/False/Unknown" if all_unified else "mixed/native labels — verify"
+    all_unified = bool(table_rows) and all(
+        r.get("unified_labels") is True for r in table_rows
+    )
+    label_note = (
+        "unified True/False/Unknown" if all_unified else "mixed/native labels — verify"
+    )
     lines = [
         f"# Positional Bias Control: Unknown Option Position (n=500, {label_note})",
         "",
@@ -94,20 +99,22 @@ def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=N
                 pos_means[p].append(r[p])
             mnv = r.get("min_n_valid")
             if mnv is not None:
-                min_nvalid_overall = mnv if min_nvalid_overall is None else min(min_nvalid_overall, mnv)
+                min_nvalid_overall = (
+                    mnv if min_nvalid_overall is None else min(min_nvalid_overall, mnv)
+                )
     if min_nvalid_overall is not None and min_nvalid_overall < 500:
         lines += [
             "",
             f"*Abs Rate is computed over the valid subset (n_valid ≥ "
             f"{min_nvalid_overall}/500). A small number of FLD prompts are "
-            f"deterministically refused by the API content filter (\"Sensitive "
-            f"word detected\") and are excluded from the denominator.*",
+            f'deterministically refused by the API content filter ("Sensitive '
+            f'word detected") and are excluded from the denominator.*',
         ]
     lines += [
         "",
         "*Model ids are the exact strings sent to the API. If the paper uses "
-        "different display names (e.g. \"DeepSeek-V4-Flash\", \"Gemini-3.1-Flash-"
-        "Lite\"), map them deliberately — do not assume `deepseek-r1-distill-"
+        'different display names (e.g. "DeepSeek-V4-Flash", "Gemini-3.1-Flash-'
+        'Lite"), map them deliberately — do not assume `deepseek-r1-distill-'
         "llama-8b` or `gemini-3.1-flash-lite` equal those names.*",
     ]
     if any(pos_means[p] for p in POSITIONS):
@@ -214,19 +221,23 @@ def mcnemar_on_abstain(a_rows, b_rows):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
-        "--result-dir", default=str(RESULT_DIR),
+        "--result-dir",
+        default=str(RESULT_DIR),
         help="Directory of *_{first,second,last}.json files "
-             "(e.g. results/S11_positional_bias for the 500-sample run).",
+        "(e.g. results/S11_positional_bias for the 500-sample run).",
     )
     ap.add_argument(
-        "--expect-n", type=int, default=500,
+        "--expect-n",
+        type=int,
+        default=500,
         help="Absolute per-cell sample count required to certify a row "
-             "(guards against stale runs of a different size). Default 500.",
+        "(guards against stale runs of a different size). Default 500.",
     )
     ap.add_argument(
-        "--allow-native-labels", action="store_true",
+        "--allow-native-labels",
+        action="store_true",
         help="Permit non-unified (native Proved/Disproved/Uncertain) label "
-             "summaries. By default the gate requires unified_labels=True.",
+        "summaries. By default the gate requires unified_labels=True.",
     )
     args = ap.parse_args()
     result_dir = Path(args.result_dir)
@@ -272,8 +283,9 @@ def main():
                 m = summary["metrics"]
                 # Summaries written before the slot rename carry the same
                 # counts under the old key.
-                raw_counts = (summary.get("raw_slot_counts")
-                              or summary.get("raw_letter_counts", {}))
+                raw_counts = summary.get("raw_slot_counts") or summary.get(
+                    "raw_letter_counts", {}
+                )
                 counts = m["counts"]
                 print(
                     f"{model_key:<10} {ds:<6} {pos:<3} {summary['n']:>4d} "
@@ -281,20 +293,22 @@ def main():
                     f"{raw_counts.get('A', 0):>4}/{raw_counts.get('B', 0):<4}/{raw_counts.get('C', 0):<4} "
                     f"{counts['A']:>4}/{counts['B']:<4}/{counts['UNKNOWN']:<4}/{counts['UNPARSEABLE']:<4}"
                 )
-                rows.append({
-                    "model": model_key,
-                    "model_name": model_name,
-                    "dataset": ds,
-                    "position": pos,
-                    "n": summary["n"],
-                    "n_valid": summary.get("n_valid", summary["n"]),
-                    "excluded": summary.get("excluded", 0),
-                    "abstain_rate": m["abstain_rate"],
-                    "label_acc": m["label_acc"],
-                    "label_f1": m["label_f1"],
-                    "counts": counts,
-                    "raw_slot_counts": raw_counts,
-                })
+                rows.append(
+                    {
+                        "model": model_key,
+                        "model_name": model_name,
+                        "dataset": ds,
+                        "position": pos,
+                        "n": summary["n"],
+                        "n_valid": summary.get("n_valid", summary["n"]),
+                        "excluded": summary.get("excluded", 0),
+                        "abstain_rate": m["abstain_rate"],
+                        "label_acc": m["label_acc"],
+                        "label_f1": m["label_f1"],
+                        "counts": counts,
+                        "raw_slot_counts": raw_counts,
+                    }
+                )
 
             if len(loaded) >= 2:
                 print(f"  paired abstain McNemar ({model_key}/{ds}):")
@@ -315,9 +329,14 @@ def main():
     print("=" * 60)
     print(f"{'Model':<28}{'Bench':<7}{'A':>7}{'B':>7}{'C':>7}{'Max-Min':>9}")
     print("-" * 65)
-    abs_rate = {(r["model"], r["dataset"], r["position"]): r["abstain_rate"] for r in rows}
+    abs_rate = {
+        (r["model"], r["dataset"], r["position"]): r["abstain_rate"] for r in rows
+    }
     n_by = {(r["model"], r["dataset"], r["position"]): r["n"] for r in rows}
-    nvalid_by = {(r["model"], r["dataset"], r["position"]): r.get("n_valid", r["n"]) for r in rows}
+    nvalid_by = {
+        (r["model"], r["dataset"], r["position"]): r.get("n_valid", r["n"])
+        for r in rows
+    }
     table_rows = []
     for model_key, model_name in MODELS:
         for ds in DATASETS:
@@ -328,17 +347,21 @@ def main():
             # missing or did not finish cleanly — that is exactly the invalid
             # result the completion gate exists to suppress.
             if missing or incs:
-                print(f"{model_name:<28}{ds:<7}  INCOMPLETE — rerun "
-                      f"(missing={missing}, incomplete={incs})")
+                print(
+                    f"{model_name:<28}{ds:<7}  INCOMPLETE — rerun "
+                    f"(missing={missing}, incomplete={incs})"
+                )
                 continue
             # Even when all three cells are individually complete, refuse to
             # certify the row unless they are mutually compatible (same model,
             # label scheme, n, and sample set). Blocks stale/mixed data.
             group = {p: summaries.get((model_key, ds, p)) for p in POSITIONS}
             ok, reasons, shared = validate_group(
-                model_name, group,
+                model_name,
+                group,
                 expected_n=args.expect_n,
-                require_unified=not args.allow_native_labels)
+                require_unified=not args.allow_native_labels,
+            )
             if not ok:
                 print(f"{model_name:<28}{ds:<7}  INCOMPATIBLE — {'; '.join(reasons)}")
                 incompatible.append(f"{model_key}/{ds}: {'; '.join(reasons)}")
@@ -348,17 +371,26 @@ def main():
             ns = {p: n_by.get((model_key, ds, p)) for p in POSITIONS}
             nvs = {p: nvalid_by.get((model_key, ds, p)) for p in POSITIONS}
             min_nvalid = min(v for v in nvs.values() if v is not None)
-            print(f"{model_name:<28}{ds:<7}"
-                  f"{pcts['A']:>6.1f}%{pcts['B']:>6.1f}%{pcts['C']:>6.1f}%"
-                  f"{span:>7.1f}pp   (n_valid≥{min_nvalid})")
-            table_rows.append({
-                "model_key": model_key, "model": model_name, "dataset": ds,
-                "A": round(pcts["A"], 1), "B": round(pcts["B"], 1),
-                "C": round(pcts["C"], 1), "max_minus_min_pp": round(span, 1),
-                "n_per_position": ns, "n_valid_per_position": nvs,
-                "min_n_valid": min_nvalid,
-                "unified_labels": shared.get("unified_labels"),
-            })
+            print(
+                f"{model_name:<28}{ds:<7}"
+                f"{pcts['A']:>6.1f}%{pcts['B']:>6.1f}%{pcts['C']:>6.1f}%"
+                f"{span:>7.1f}pp   (n_valid≥{min_nvalid})"
+            )
+            table_rows.append(
+                {
+                    "model_key": model_key,
+                    "model": model_name,
+                    "dataset": ds,
+                    "A": round(pcts["A"], 1),
+                    "B": round(pcts["B"], 1),
+                    "C": round(pcts["C"], 1),
+                    "max_minus_min_pp": round(span, 1),
+                    "n_per_position": ns,
+                    "n_valid_per_position": nvs,
+                    "min_n_valid": min_nvalid,
+                    "unified_labels": shared.get("unified_labels"),
+                }
+            )
 
     if incomplete:
         print("\n*** WARNING: incomplete/errored cells (rerun before trusting): ***")
@@ -370,15 +402,24 @@ def main():
             print(f"    - {c}")
 
     out_path = result_dir / "summary.json"
-    out_path.write_text(json.dumps(
-        {**stamp("S11"), "rows": rows, "rebuttal_table": table_rows,
-         "incomplete": incomplete, "incompatible": incompatible},
-        indent=2, ensure_ascii=False))
+    out_path.write_text(
+        json.dumps(
+            {
+                **stamp("S11"),
+                "rows": rows,
+                "rebuttal_table": table_rows,
+                "incomplete": incomplete,
+                "incompatible": incompatible,
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+    )
     print(f"\nSaved -> {out_path}")
 
     md_path = write_markdown_report(
-        table_rows, incomplete, result_dir / "report.md",
-        incompatible=incompatible)
+        table_rows, incomplete, result_dir / "report.md", incompatible=incompatible
+    )
     print(f"Saved -> {md_path}")
 
 

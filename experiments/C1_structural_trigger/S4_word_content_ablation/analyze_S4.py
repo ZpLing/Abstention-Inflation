@@ -15,15 +15,18 @@ built from, so these numbers and the main table's are the same numbers.
 
     python experiments/C1_structural_trigger/S4_word_content_ablation/analyze_S4.py
 """
+
 import json
-from glob import glob
 from math import sqrt
 from pathlib import Path
 from statistics import NormalDist
 
 ROOT = Path(__file__).resolve().parents[3]
-import sys as _sys; _sys.path.insert(0, str(ROOT))  # noqa: E402
+import sys as _sys
+
+_sys.path.insert(0, str(ROOT))  # noqa: E402
 from infra.result_schema import load_cell  # noqa: E402
+
 MODEL = "deepseek-v4-flash"
 
 WORDINGS = ["unknown", "i_dont_know", "indeterminate"]
@@ -75,7 +78,8 @@ def mcnemar_exact_p(b, c):
     if n <= 25:
         # Exact two-sided binomial(n, 0.5)
         from math import comb
-        p_two_tail = 2 * sum(comb(n, i) * 0.5 ** n for i in range(k + 1))
+
+        p_two_tail = 2 * sum(comb(n, i) * 0.5**n for i in range(k + 1))
         p_two_tail = min(p_two_tail, 1.0)
         z = (b - c) / sqrt(b + c) if (b + c) > 0 else 0
         return p_two_tail, z
@@ -88,15 +92,20 @@ def mcnemar_exact_p(b, c):
 
 
 RPC = ROOT / "results/S4_word_content/random_words"
-RPC_MODELS = [("deepseek-v4-flash", "DeepSeek-V4-Flash"),
-              ("gpt-5.4-nano", "GPT-5.4-nano"),
-              ("gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+RPC_MODELS = [
+    ("deepseek-v4-flash", "DeepSeek-V4-Flash"),
+    ("gpt-5.4-nano", "GPT-5.4-nano"),
+    ("gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite"),
+]
 
 
 def _s2_abs_rate(ds, model):
     """Abs Rate of the S2 cell in the main table -- the baseline both halves use."""
-    slug = {"deepseek-v4-flash": "deepseek_v4_flash", "gpt-5.4-nano": "gpt_5.4_nano",
-            "gemini-3.1-flash-lite": "gemini_3.1_flash_lite"}[model]
+    slug = {
+        "deepseek-v4-flash": "deepseek_v4_flash",
+        "gpt-5.4-nano": "gpt_5.4_nano",
+        "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
+    }[model]
     rows = load_cell(ds, model, slug, "tf")["per_sample"]
     return sum(r["pred_s2"] == "UNKNOWN" for r in rows) / len(rows)
 
@@ -106,13 +115,16 @@ def random_word_half():
     print("\n" + "=" * 78)
     print("Random words — rate at which the third slot is selected")
     print("=" * 78)
-    print(f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Triangular':>11} {'Cerulean':>9} "
-          f"{'max |d|':>8}")
+    print(
+        f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Triangular':>11} {'Cerulean':>9} "
+        f"{'max |d|':>8}"
+    )
     worst, every = [], []
     for model, label in RPC_MODELS:
         for ds in DATASETS:
-            paths = {w: RPC / f"{ds}_{model}_{w}.json"
-                     for w in ("triangular", "cerulean")}
+            paths = {
+                w: RPC / f"{ds}_{model}_{w}.json" for w in ("triangular", "cerulean")
+            }
             if not all(q.exists() for q in paths.values()):
                 print(f"{label:<24} {ds:<7} (missing)")
                 continue
@@ -125,15 +137,19 @@ def random_word_half():
             every += shifts
             delta = max(shifts)
             worst.append(delta)
-            print(f"{label:<24} {ds:<7} {base:>7.1%} {r1:>10.1%} {r2:>8.1%} "
-                  f"{delta:>7.1f}pp")
+            print(
+                f"{label:<24} {ds:<7} {base:>7.1%} {r1:>10.1%} {r2:>8.1%} "
+                f"{delta:>7.1f}pp"
+            )
     if worst:
         print("-" * 78)
         print(f"Largest shift from the Unknown baseline : {max(worst):.1f} points")
         # Averaged over every word x cell comparison, which is what the paper
         # quotes; averaging the per-cell maxima instead would read 2.9.
-        print(f"Mean shift over all {len(every)} comparisons      : "
-              f"{sum(every)/len(every):.1f} points")
+        print(
+            f"Mean shift over all {len(every)} comparisons      : "
+            f"{sum(every) / len(every):.1f} points"
+        )
 
 
 def main():
@@ -145,7 +161,9 @@ def main():
         # baseline (S2 of the main table)
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
-        w2_path = ROOT / f"results/S4_word_content/synonyms/{ds}_{MODEL}_i_dont_know.json"
+        w2_path = (
+            ROOT / f"results/S4_word_content/synonyms/{ds}_{MODEL}_i_dont_know.json"
+        )
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
         # baseline restricted to these IDs
@@ -172,17 +190,23 @@ def main():
             }
 
     # Print Abs Rate table
-    print(f"{'Dataset':8s} {'Wording':15s} {'n':>4s} {'n_ai':>6s} {'Abs Rate':>8s}  {'Wording text'}")
+    print(
+        f"{'Dataset':8s} {'Wording':15s} {'n':>4s} {'n_ai':>6s} {'Abs Rate':>8s}  {'Wording text'}"
+    )
     print("-" * 90)
     for ds in DATASETS:
         for w in WORDINGS:
             c = cells[(ds, w)]
-            print(f"{ds:8s} {w:15s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>8.1%}  {WORDING_TEXTS[w]}")
+            print(
+                f"{ds:8s} {w:15s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>8.1%}  {WORDING_TEXTS[w]}"
+            )
         print()
 
     # Paired McNemar: baseline vs each synonym
     print("=== Paired McNemar (baseline vs each synonym, same items) ===\n")
-    print(f"{'Dataset':8s} {'baseline':>9s} {'':>3s} {'synonym':<15s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
+    print(
+        f"{'Dataset':8s} {'baseline':>9s} {'':>3s} {'synonym':<15s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}"
+    )
     print("-" * 60)
     mcnemar_table = []
     for ds in DATASETS:
@@ -194,26 +218,38 @@ def main():
             p, z = mcnemar_exact_p(b, c)
             delta = wi["abs_rate"] - w1["abs_rate"]
             sig = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else ""
-            print(f"{ds:8s} {'unknown':>9s} {'vs':>3s} {w:<15s} {b:>4} {c:>4} {delta:>+7.1%} {p:>10.4f} {sig}")
-            mcnemar_table.append({
-                "ds": ds, "wi": w, "b": b, "c": c,
-                "delta_abs_rate": delta, "p": p, "z": z, "sig": sig,
-            })
+            print(
+                f"{ds:8s} {'unknown':>9s} {'vs':>3s} {w:<15s} {b:>4} {c:>4} {delta:>+7.1%} {p:>10.4f} {sig}"
+            )
+            mcnemar_table.append(
+                {
+                    "ds": ds,
+                    "wi": w,
+                    "b": b,
+                    "c": c,
+                    "delta_abs_rate": delta,
+                    "p": p,
+                    "z": z,
+                    "sig": sig,
+                }
+            )
         print()
 
     # Save
     out = {
         "model": MODEL,
         "wordings": WORDING_TEXTS,
-        "cells": {f"{ds}_{w}": {k: v for k, v in cells[(ds, w)].items() if k != "pred_by_id"}
-                   for ds in DATASETS for w in WORDINGS},
+        "cells": {
+            f"{ds}_{w}": {k: v for k, v in cells[(ds, w)].items() if k != "pred_by_id"}
+            for ds in DATASETS
+            for w in WORDINGS
+        },
         "mcnemar_baseline_vs_synonym": mcnemar_table,
     }
     out_path = ROOT / "results/analysis/wording_sweep_summary.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2))
     print(f"Wrote {out_path}")
-
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ Usage::
     python experiments/C2_deny_yet_capable/S5_without_unknown_option_rerun/analyze_S5.py
     python .../analyze_S5.py --results_root results --datasets FLD FOLIO
 """
+
 from __future__ import annotations
 
 import argparse
@@ -25,8 +26,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
-from infra.result_schema import load_summary, find_paired_summaries
-from infra.result_schema import load_cell, iter_cells  # noqa: E402
+from infra.result_schema import iter_cells, load_cell  # noqa: E402
 
 RANDOM_BASELINE_TFQ = 0.50
 
@@ -75,15 +75,22 @@ def collect(results_root: Path, datasets: set[str] | None):
 def main() -> None:
     ap = argparse.ArgumentParser(description="Aggregate the S5 rerun accuracy.")
     ap.add_argument("--results_root", default="results")
-    ap.add_argument("--datasets", nargs="*", default=None,
-                    help="Restrict to these dataset names (default: all).")
+    ap.add_argument(
+        "--datasets",
+        nargs="*",
+        default=None,
+        help="Restrict to these dataset names (default: all).",
+    )
     args = ap.parse_args()
 
-    cells, files = collect(Path(args.results_root),
-                           set(args.datasets) if args.datasets else None)
+    cells, files = collect(
+        Path(args.results_root), set(args.datasets) if args.datasets else None
+    )
     if not cells:
-        print(f"No S5 rerun rows found under {args.results_root}/ "
-              f"({len(files)} summary files scanned).")
+        print(
+            f"No S5 rerun rows found under {args.results_root}/ "
+            f"({len(files)} summary files scanned)."
+        )
         return
 
     header = f"{'Model':<34} {'Dataset':<16} {'n':>6} {'Acc(S5)':>9} {'Δ vs 50%':>10} {'p':>10}"
@@ -95,8 +102,10 @@ def main() -> None:
             continue
         acc = correct / total
         p = _binom_p(correct, total, RANDOM_BASELINE_TFQ)
-        print(f"{model[:34]:<34} {ds[:16]:<16} {total:>6} {acc:>8.1%} "
-              f"{acc - RANDOM_BASELINE_TFQ:>+9.1%} {p:>10.3g}")
+        print(
+            f"{model[:34]:<34} {ds[:16]:<16} {total:>6} {acc:>8.1%} "
+            f"{acc - RANDOM_BASELINE_TFQ:>+9.1%} {p:>10.3g}"
+        )
         pooled_correct += correct
         pooled_total += total
 
@@ -104,8 +113,10 @@ def main() -> None:
         acc = pooled_correct / pooled_total
         p = _binom_p(pooled_correct, pooled_total, RANDOM_BASELINE_TFQ)
         print("-" * len(header))
-        print(f"{'POOLED':<34} {'':<16} {pooled_total:>6} {acc:>8.1%} "
-              f"{acc - RANDOM_BASELINE_TFQ:>+9.1%} {p:>10.3g}")
+        print(
+            f"{'POOLED':<34} {'':<16} {pooled_total:>6} {acc:>8.1%} "
+            f"{acc - RANDOM_BASELINE_TFQ:>+9.1%} {p:>10.3g}"
+        )
 
 
 if __name__ == "__main__":

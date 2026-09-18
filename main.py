@@ -20,6 +20,7 @@ README with the exact command.
 Task names used before the paper's S1–S10 numbering are still accepted; they
 print a notice pointing at the new name.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -30,10 +31,10 @@ from pathlib import Path
 # Ensure ``infra`` is importable when invoked as ``python main.py``.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from loader.config_loader import load_config
-from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
+from loader.config_loader import load_config
+from loader.data_handler import DataHandler
 
 #: pre-rename run_tasks name -> current name.
 LEGACY_TASK_ALIASES = {
@@ -70,21 +71,33 @@ async def _dispatch(config: dict) -> None:
     if "main_experiment" in tasks:
         print("\n===== S1 / S2 / S3 + S5 rerun =====")
         from infra.paired_pass import ABRunner
+
         await ABRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s9_perception_unknown_labeled_samples" in tasks:
         print("\n===== S9 Perception of Unknown-labeled Samples =====")
-        from experiments.C4_stable_bias.S9_stability.run_S9_perception_unknown_labeled_samples import PerceptionUnknownLabeledSamplesRunner
-        await PerceptionUnknownLabeledSamplesRunner(config, data_handler, llm_handler, evaluator).run()
+        from experiments.C4_stable_bias.S9_stability.run_S9_perception_unknown_labeled_samples import (
+            PerceptionUnknownLabeledSamplesRunner,
+        )
+
+        await PerceptionUnknownLabeledSamplesRunner(
+            config, data_handler, llm_handler, evaluator
+        ).run()
 
     if "s6_self_diagnosis" in tasks:
         print("\n===== S6 self-diagnosis =====")
-        from experiments.C2_deny_yet_capable.S6_self_diagnosis.run_S6_self_diagnosis import S6SelfDiagnosisRunner
+        from experiments.C2_deny_yet_capable.S6_self_diagnosis.run_S6_self_diagnosis import (
+            S6SelfDiagnosisRunner,
+        )
+
         await S6SelfDiagnosisRunner(config, data_handler, llm_handler, evaluator).run()
 
     if "s10_model_sweep" in tasks:
         print("\n===== S10 alignment & model-size sweep =====")
-        from experiments.C4_stable_bias.S10_factor_analysis.run_S10_size_alignment import ModelSweepRunner
+        from experiments.C4_stable_bias.S10_factor_analysis.run_S10_size_alignment import (
+            ModelSweepRunner,
+        )
+
         await ModelSweepRunner(config, data_handler, llm_handler, evaluator).run()
 
 

@@ -11,23 +11,24 @@ Usage:
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
         --out results/S9_stability/Persistence_Across_Repeats/FLD_gpt-5.4-nano.json
 """
+
 import argparse
 import asyncio
 import json
 import sys
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from loader.config_loader import load_config
-from infra.llm_handler import LLMHandler
 from infra.evaluator import Evaluator
-from loader.dataset_loader import load_judge
 from infra.label_scheme import get_scheme
+from infra.llm_handler import LLMHandler
 from infra.prompts import build_judge_s2_prompt
 from infra.result_schema import results_dir, stamp
+from loader.config_loader import load_config
+from loader.dataset_loader import load_judge
 
 
 def _is_ai(s):
@@ -49,10 +50,14 @@ async def rerun_one(handler, prompts, n_repeats, temperature):
 async def batch_query_temp(self, messages, temperature):
     """Same as batch_query, with the temperature set or left to the endpoint."""
     sem = self.semaphore
+
     async def one(msg):
         async with sem:
-            kwargs = {"model": self.model_name, "messages": msg,
-                      "max_tokens": self.max_tokens}
+            kwargs = {
+                "model": self.model_name,
+                "messages": msg,
+                "max_tokens": self.max_tokens,
+            }
             if temperature is not None:
                 kwargs["temperature"] = temperature
             try:
@@ -60,8 +65,11 @@ async def batch_query_temp(self, messages, temperature):
                 return resp.choices[0].message.content or ""
             except Exception as e:
                 return f"__API_ERROR__: {e}"
+
     tasks = [one(m) for m in messages]
     return await asyncio.gather(*tasks)
+
+
 LLMHandler.batch_query_temp = batch_query_temp
 
 
@@ -79,7 +87,9 @@ async def main():
     ap.add_argument("--n_repeats", type=int, default=3)
     # Default: the endpoint's own temperature, the one S2 ran under.
     ap.add_argument("--temperature", type=float, default=None)
-    ap.add_argument("--config", default="configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml")
+    ap.add_argument(
+        "--config", default="configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml"
+    )
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -104,10 +114,13 @@ async def main():
                 sid = ps["id"]
                 if sid in id_to_sample:
                     ai.append((sid, id_to_sample[sid], ps))
-    print(f"Loaded {len(ai)} Abstention Inflation samples for {args.model}/{args.dataset}")
+    print(
+        f"Loaded {len(ai)} Abstention Inflation samples for {args.model}/{args.dataset}"
+    )
 
     if not ai:
-        print("No Abstention Inflation samples"); return
+        print("No Abstention Inflation samples")
+        return
 
     # Build prompts
     prompts = [build_judge_s2_prompt(scheme, s.question, s.context) for _, s, _ in ai]
@@ -122,41 +135,60 @@ async def main():
         for rep_outs in rerun_outputs:
             preds.append(parse_pred(rep_outs[i], evaluator, scheme))
         n_unk = sum(1 for p in preds if p == "UNKNOWN")
-        rows.append({
-            "id": sid, "n_repeats": args.n_repeats,
-            "preds": preds, "n_unknown": n_unk,
-            "persistence": n_unk / args.n_repeats,
-        })
+        rows.append(
+            {
+                "id": sid,
+                "n_repeats": args.n_repeats,
+                "preds": preds,
+                "n_unknown": n_unk,
+                "persistence": n_unk / args.n_repeats,
+            }
+        )
 
     # Aggregate
     n = len(rows)
     full_persist = sum(1 for r in rows if r["n_unknown"] == args.n_repeats)
-    any_flip    = sum(1 for r in rows if r["n_unknown"] < args.n_repeats)
+    any_flip = sum(1 for r in rows if r["n_unknown"] < args.n_repeats)
     avg_persist = sum(r["persistence"] for r in rows) / max(n, 1)
 
     print()
-    print(f"Persistence summary (n={n} Abstention Inflation samples × {args.n_repeats} reruns @ T={args.temperature}):")
-    print(f"  All {args.n_repeats} draws returned Unknown: {full_persist}/{n} = {full_persist/n:.1%}")
-    print(f"  At least 1 flip (≠ Unknown):       {any_flip}/{n} = {any_flip/n:.1%}")
+    print(
+        f"Persistence summary (n={n} Abstention Inflation samples × {args.n_repeats} reruns @ T={args.temperature}):"
+    )
+    print(
+        f"  All {args.n_repeats} draws returned Unknown: {full_persist}/{n} = {full_persist / n:.1%}"
+    )
+    print(f"  At least 1 flip (≠ Unknown):       {any_flip}/{n} = {any_flip / n:.1%}")
     print(f"  Mean persistence rate:           {avg_persist:.1%}")
     print()
     # Distribution of n_unknown
     dist = Counter(r["n_unknown"] for r in rows)
     print("n_unknown distribution (higher = more stable):")
     for k in sorted(dist.keys(), reverse=True):
-        print(f"  {k}/{args.n_repeats}: {dist[k]} ({dist[k]/n:.1%})")
+        print(f"  {k}/{args.n_repeats}: {dist[k]} ({dist[k] / n:.1%})")
 
-    out = args.out or str(results_dir("S9/Persistence_Across_Repeats") / f"{args.dataset}_{args.model}.json")
+    out = args.out or str(
+        results_dir("S9/Persistence_Across_Repeats")
+        / f"{args.dataset}_{args.model}.json"
+    )
     Path(out).parent.mkdir(parents=True, exist_ok=True)
-    Path(out).write_text(json.dumps({
-        **stamp("S9/Persistence_Across_Repeats"),
-        "model": args.model, "dataset": args.dataset,
-        "n_abstention_inflation": n, "n_repeats": args.n_repeats, "temperature": args.temperature,
-        "full_persistence": full_persist / n,
-        "avg_persistence": avg_persist,
-        "n_unknown_distribution": {str(k): v for k, v in dist.items()},
-        "rows": rows,
-    }, indent=2))
+    Path(out).write_text(
+        json.dumps(
+            {
+                **stamp("S9/Persistence_Across_Repeats"),
+                "model": args.model,
+                "dataset": args.dataset,
+                "n_abstention_inflation": n,
+                "n_repeats": args.n_repeats,
+                "temperature": args.temperature,
+                "full_persistence": full_persist / n,
+                "avg_persistence": avg_persist,
+                "n_unknown_distribution": {str(k): v for k, v in dist.items()},
+                "rows": rows,
+            },
+            indent=2,
+        )
+    )
     print(f"\nSaved → {out}")
 
 

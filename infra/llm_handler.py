@@ -1,7 +1,8 @@
 import asyncio
+from typing import Any, Dict, List
+
 import openai
-from tqdm.asyncio import tqdm_asyncio # Progress bar for async tasks
-from typing import List, Dict, Any
+from tqdm.asyncio import tqdm_asyncio  # Progress bar for async tasks
 
 
 class LLMHandler:
@@ -9,14 +10,15 @@ class LLMHandler:
     Dedicated diplomat responsible for interacting with all large language model APIs.
     It encapsulates client initialization, concurrency control, API calls, and error handling.
     """
+
     def __init__(self, config: Dict[str, Any]):
         """
         Initialize with configuration and set up API client and concurrency controller.
         """
         self.config = config
-        self.api_key = config.get('api_key')
-        self.base_url = config.get('base_url')
-        self.model_name = config.get('model_name')
+        self.api_key = config.get("api_key")
+        self.base_url = config.get("base_url")
+        self.model_name = config.get("model_name")
 
         if not self.api_key:
             raise ValueError("API key not set in configuration file or secrets.yaml.")
@@ -25,12 +27,12 @@ class LLMHandler:
         self.client = openai.AsyncOpenAI(api_key=self.api_key, base_url=self.base_url)
 
         # Get concurrency count from configuration and create semaphore
-        max_workers = self.config.get('max_workers', 5)
+        max_workers = self.config.get("max_workers", 5)
         self.semaphore = asyncio.Semaphore(max_workers)
-        self.max_tokens = self.config.get('max_tokens', 4096)
+        self.max_tokens = self.config.get("max_tokens", 4096)
         # Provider-specific JSON body extensions (e.g. DashScope requires
         # `enable_thinking: false` for non-streaming Qwen3 calls).
-        self.extra_body = self.config.get('extra_body') or {}
+        self.extra_body = self.config.get("extra_body") or {}
 
     async def _query_single(self, message: List[Dict[str, str]]) -> str:
         """
@@ -129,17 +131,23 @@ class LLMHandler:
                     seq = lp.content
                     if seq:
                         for entry in getattr(seq[0], "top_logprobs", []) or []:
-                            top_first.append({"token": entry.token, "logprob": entry.logprob})
+                            top_first.append(
+                                {"token": entry.token, "logprob": entry.logprob}
+                            )
                     if return_all_positions:
                         for pos in seq:
                             tlp = []
                             for entry in getattr(pos, "top_logprobs", []) or []:
-                                tlp.append({"token": entry.token, "logprob": entry.logprob})
-                            tokens.append({
-                                "token": pos.token,
-                                "logprob": pos.logprob,
-                                "top_logprobs": tlp,
-                            })
+                                tlp.append(
+                                    {"token": entry.token, "logprob": entry.logprob}
+                                )
+                            tokens.append(
+                                {
+                                    "token": pos.token,
+                                    "logprob": pos.logprob,
+                                    "top_logprobs": tlp,
+                                }
+                            )
                 return {
                     "content": content,
                     "top_logprobs_first_token": top_first,
@@ -164,9 +172,13 @@ class LLMHandler:
             return []
         tasks = [
             self._query_single_with_logprobs(
-                m, top_logprobs=top_logprobs, max_tokens=max_tokens,
+                m,
+                top_logprobs=top_logprobs,
+                max_tokens=max_tokens,
                 return_all_positions=return_all_positions,
             )
             for m in messages
         ]
-        return await tqdm_asyncio.gather(*tasks, desc=f"Logprob query {self.model_name}")
+        return await tqdm_asyncio.gather(
+            *tasks, desc=f"Logprob query {self.model_name}"
+        )

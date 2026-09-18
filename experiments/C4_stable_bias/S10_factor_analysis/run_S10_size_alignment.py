@@ -28,6 +28,7 @@ Per model, this runner:
     3. Awaits ABRunner.run() — produces the standard per-model summaries.
 
 Then it reads back each summary and writes `exp2_model_sweep_<dataset>.json`."""
+
 import sys
 from pathlib import Path
 
@@ -40,18 +41,22 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from infra.paired_pass import ABRunner
-from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
-
-from loader.config_loader import get_block
+from infra.paired_pass import ABRunner
 from infra.result_schema import results_dir
+from loader.config_loader import get_block
+from loader.data_handler import DataHandler
 
 
 class ModelSweepRunner:
-    def __init__(self, config: Dict[str, Any], data_handler: DataHandler,
-                 llm_handler: LLMHandler, evaluator: Evaluator):
+    def __init__(
+        self,
+        config: Dict[str, Any],
+        data_handler: DataHandler,
+        llm_handler: LLMHandler,
+        evaluator: Evaluator,
+    ):
         self.config = config
         self.data_handler = data_handler
         self.evaluator = evaluator
@@ -62,8 +67,12 @@ class ModelSweepRunner:
         cfg = get_block(config, "s10_model_sweep")
         self.models: List[Dict[str, Any]] = cfg.get("models", [])
         self.datasets: List[str] = cfg.get("datasets", ["MedQA"])
-        self.ab_results_dir = Path(cfg.get("ab_results_dir", results_dir("S10/size_alignment")))
-        self.results_dir = Path(cfg.get("results_dir", results_dir("S10/size_alignment")))
+        self.ab_results_dir = Path(
+            cfg.get("ab_results_dir", results_dir("S10/size_alignment"))
+        )
+        self.results_dir = Path(
+            cfg.get("results_dir", results_dir("S10/size_alignment"))
+        )
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
     # =================================================================
@@ -71,7 +80,9 @@ class ModelSweepRunner:
     # =================================================================
     async def run(self):
         if not self.models:
-            print("[S10] No models configured under exp2_model_sweep.models — nothing to do.")
+            print(
+                "[S10] No models configured under exp2_model_sweep.models — nothing to do."
+            )
             return
         for entry in self.models:
             model_name = entry["name"] if isinstance(entry, dict) else str(entry)
@@ -131,21 +142,29 @@ class ModelSweepRunner:
             n_total = s.get("n_total") or 0
             n_abstention_inflation = s.get("n_abstention_inflation") or 0
             n_ai_s3 = s.get("n_ai_s3")  # may be absent
-            rows.append({
-                "model":     model_name,
-                "n_total":   n_total,
-                "n_abstention_inflation":  n_abstention_inflation,
-                "abs_rate_s2":    (n_abstention_inflation / n_total) if n_total else None,
-                "abs_rate_s3":    (n_ai_s3 / n_total) if (n_total and n_ai_s3 is not None) else None,
-                "Acc_S1":    (m.get("S1") or {}).get("label_acc"),
-                "Acc_S2":    (m.get("S2") or {}).get("label_acc"),
-                "Acc_S3":    (m.get("S3") or {}).get("label_acc"),
-                "F1_S1":     (m.get("S1") or {}).get("label_f1"),
-                "F1_S2":     (m.get("S2") or {}).get("label_f1"),
-                "F1_S3":     (m.get("S3") or {}).get("label_f1"),
-            })
+            rows.append(
+                {
+                    "model": model_name,
+                    "n_total": n_total,
+                    "n_abstention_inflation": n_abstention_inflation,
+                    "abs_rate_s2": (n_abstention_inflation / n_total)
+                    if n_total
+                    else None,
+                    "abs_rate_s3": (n_ai_s3 / n_total)
+                    if (n_total and n_ai_s3 is not None)
+                    else None,
+                    "Acc_S1": (m.get("S1") or {}).get("label_acc"),
+                    "Acc_S2": (m.get("S2") or {}).get("label_acc"),
+                    "Acc_S3": (m.get("S3") or {}).get("label_acc"),
+                    "F1_S1": (m.get("S1") or {}).get("label_f1"),
+                    "F1_S2": (m.get("S2") or {}).get("label_f1"),
+                    "F1_S3": (m.get("S3") or {}).get("label_f1"),
+                }
+            )
         if not rows:
-            print(f"[S10] no per-model summaries found for dataset={dataset} — skip aggregate.")
+            print(
+                f"[S10] no per-model summaries found for dataset={dataset} — skip aggregate."
+            )
             return
 
         report = {"dataset": dataset, "rows": rows}
@@ -158,7 +177,10 @@ class ModelSweepRunner:
     def _print_table(dataset: str, rows: list):
         print(f"\n=== S10(c) :: model size × Abs Rate ({dataset}) ===")
         cols = ["model", "abs_rate_s2", "abs_rate_s3", "Acc_S1", "Acc_S2", "Acc_S3"]
-        widths = [max(len(c), max((len(str(r.get(c, ""))) for r in rows), default=4)) for c in cols]
+        widths = [
+            max(len(c), max((len(str(r.get(c, ""))) for r in rows), default=4))
+            for c in cols
+        ]
         header = "  " + "  ".join(c.ljust(widths[i]) for i, c in enumerate(cols))
         print(header)
         print("  " + "  ".join("-" * w for w in widths))
@@ -176,20 +198,22 @@ class ModelSweepRunner:
 def main() -> None:
     """Run this setting from a config."""
     import argparse
-    import asyncio
 
-    from loader.config_loader import load_config
-    from loader.data_handler import DataHandler
     from infra.evaluator import Evaluator
     from infra.llm_handler import LLMHandler
+    from loader.config_loader import load_config
+    from loader.data_handler import DataHandler
 
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--config", required=True, help="Experiment YAML.")
     args = ap.parse_args()
 
     config = load_config(args.config)
-    asyncio.run(ModelSweepRunner(config, DataHandler(config), LLMHandler(config),
-                      Evaluator()).run())
+    asyncio.run(
+        ModelSweepRunner(
+            config, DataHandler(config), LLMHandler(config), Evaluator()
+        ).run()
+    )
 
 
 if __name__ == "__main__":

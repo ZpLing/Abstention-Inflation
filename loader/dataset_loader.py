@@ -31,6 +31,7 @@ or per-dataset label remapping is needed — everything else (prompt verbs,
 context labels, task instructions, output parser) is owned by
 :py:class:`infra.label_scheme.LabelScheme`.
 """
+
 from __future__ import annotations
 
 import json
@@ -38,16 +39,20 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-
 # Canonical dataset directory bundled with this software package.
 DEFAULT_DATASET_ROOT = Path(__file__).resolve().parents[1] / "dataset"
 
 # Datasets enumerated in the paper (Section "Datasets"). Unknown-labeled subsets
 # carry the ``_unknown`` suffix and supply gold answer_idx = -1.
 PAPER_DATASETS = (
-    "FLD", "FLD_unknown",
-    "FOLIO", "FOLIO_unknown",
-    "ARC", "MedQA", "MMLU", "LogiQA",
+    "FLD",
+    "FLD_unknown",
+    "FOLIO",
+    "FOLIO_unknown",
+    "ARC",
+    "MedQA",
+    "MMLU",
+    "LogiQA",
 )
 
 
@@ -62,8 +67,8 @@ class Sample:
 
     id: str
     question: str
-    options: List[str]      # ["True","False"] for TFQ; 4 strings for MCQ
-    answer_idx: int         # 0..N-1; -1 = Unknown-labeled gold label
+    options: List[str]  # ["True","False"] for TFQ; 4 strings for MCQ
+    answer_idx: int  # 0..N-1; -1 = Unknown-labeled gold label
     task_type: str = "mcq"  # "tf" | "mcq"
     source: str = ""
     context: str = ""
@@ -76,8 +81,16 @@ class Sample:
 
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> "Sample":
-        known = {"id", "question", "options", "answer_idx",
-                 "task_type", "source", "context", "answer"}
+        known = {
+            "id",
+            "question",
+            "options",
+            "answer_idx",
+            "task_type",
+            "source",
+            "context",
+            "answer",
+        }
         return cls(
             id=str(d["id"]),
             question=d["question"],
@@ -96,8 +109,7 @@ class Sample:
 # ----------------------------------------------------------------------
 
 
-def load_dataset(name: str,
-                 root: Optional[Path] = None) -> List[Sample]:
+def load_dataset(name: str, root: Optional[Path] = None) -> List[Sample]:
     """Return every item in ``<root>/<name>.json`` as a ``Sample`` list.
 
     The package ships with all eight paper datasets under ``software/dataset/``
@@ -168,8 +180,16 @@ def apply_sample_limit(samples: List[Sample], spec) -> List[Sample]:
     if isinstance(spec, dict):
         # Normalise key aliases: True ↔ 0, False ↔ 1.
         key_to_idx = {
-            "true": 0, "True": 0, "TRUE": 0, "proved": 0, "PROVED": 0,
-            "false": 1, "False": 1, "FALSE": 1, "disproved": 1, "DISPROVED": 1,
+            "true": 0,
+            "True": 0,
+            "TRUE": 0,
+            "proved": 0,
+            "PROVED": 0,
+            "false": 1,
+            "False": 1,
+            "FALSE": 1,
+            "disproved": 1,
+            "DISPROVED": 1,
         }
         out: List[Sample] = []
         for raw_key, n in spec.items():

@@ -32,15 +32,20 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir, stamp, s8_inference_path, s8_logit_lens_path  # noqa: E402
+from infra.result_schema import (  # noqa: E402
+    results_dir,
+    s8_inference_path,
+    s8_logit_lens_path,
+    stamp,
+)
 
 INFERENCE_PATH = ROOT / s8_inference_path()
-OUT_DIR        = ROOT / results_dir("S8")
+OUT_DIR = ROOT / results_dir("S8")
 
 CHECKPOINTS = {
-    "base":     ROOT / "models" / "olmo3-base",
+    "base": ROOT / "models" / "olmo3-base",
     "instruct": ROOT / "models" / "olmo3-instruct",
-    "rl_zero":  ROOT / "models" / "olmo3-rl-zero",
+    "rl_zero": ROOT / "models" / "olmo3-rl-zero",
 }
 
 # S1: no UNKNOWN option (forces definitive answer)
@@ -65,15 +70,15 @@ S2_PROMPT = (
 )
 
 GOLD_MAP = {
-    "__PROVED__":    "PROVED",
+    "__PROVED__": "PROVED",
     "__DISPROVED__": "DISPROVED",
-    "__UNKNOWN__":   "UNKNOWN",
+    "__UNKNOWN__": "UNKNOWN",
 }
 
 # Surface-form variants for each label (BPE encodes " PROVED" differently from "PROVED")
 LABEL_VARIANTS = {
-    "UNKNOWN":   ["UNKNOWN",   " UNKNOWN",   "\nUNKNOWN"],
-    "PROVED":    ["PROVED",    " PROVED",    "\nPROVED"],
+    "UNKNOWN": ["UNKNOWN", " UNKNOWN", "\nUNKNOWN"],
+    "PROVED": ["PROVED", " PROVED", "\nPROVED"],
     "DISPROVED": ["DISPROVED", " DISPROVED", "\nDISPROVED"],
 }
 
@@ -104,9 +109,14 @@ def build_prompt(template: str, sample: dict, tokenizer, is_base: bool) -> str:
     )
 
 
-def run_logit_lens_single(model, tokenizer, prompt: str,
-                          unknown_ids: list[int], definitive_ids: list[int],
-                          device: str) -> list[dict]:
+def run_logit_lens_single(
+    model,
+    tokenizer,
+    prompt: str,
+    unknown_ids: list[int],
+    definitive_ids: list[int],
+    device: str,
+) -> list[dict]:
     """
     For one prompt, return per-layer:
       logit_gap  = log P(UNKNOWN) - log[P(PROVED) + P(DISPROVED)]
@@ -116,37 +126,42 @@ def run_logit_lens_single(model, tokenizer, prompt: str,
     with torch.no_grad():
         outputs = model(**inputs, output_hidden_states=True)
 
-    norm    = model.model.norm
+    norm = model.model.norm
     lm_head = model.lm_head
     rows = []
     for layer_idx, hs in enumerate(outputs.hidden_states):
-        h      = hs[0, -1, :]
+        h = hs[0, -1, :]
         logits = lm_head(norm(h))
 
         lse_unk = log_sum_exp_ids(logits, unknown_ids)
         lse_def = log_sum_exp_ids(logits, definitive_ids)
         rank_unk = min((logits > logits[i]).sum().item() for i in unknown_ids)
 
-        rows.append({
-            "layer":        layer_idx,
-            "logit_gap":    lse_unk - lse_def,   # >0: UNKNOWN preferred
-            "rank_unknown": rank_unk,
-            "lse_unk":      lse_unk,
-            "lse_def":      lse_def,
-        })
+        rows.append(
+            {
+                "layer": layer_idx,
+                "logit_gap": lse_unk - lse_def,  # >0: UNKNOWN preferred
+                "rank_unknown": rank_unk,
+                "lse_unk": lse_unk,
+                "lse_def": lse_def,
+            }
+        )
     return rows
 
 
-def process_checkpoint(ckpt_name: str, ckpt_path: Path,
-                        samples: list[dict], device: str) -> dict:
-    is_base = (ckpt_name == "base")
+def process_checkpoint(
+    ckpt_name: str, ckpt_path: Path, samples: list[dict], device: str
+) -> dict:
+    is_base = ckpt_name == "base"
     print(f"\n--- Checkpoint: {ckpt_name} ---")
     tokenizer = AutoTokenizer.from_pretrained(str(ckpt_path))
     model = AutoModelForCausalLM.from_pretrained(
-        str(ckpt_path), torch_dtype=torch.bfloat16, device_map=device,
+        str(ckpt_path),
+        torch_dtype=torch.bfloat16,
+        device_map=device,
     ).eval()
 
-    unknown_ids    = collect_token_ids(tokenizer, ["UNKNOWN"])
+    unknown_ids = collect_token_ids(tokenizer, ["UNKNOWN"])
     definitive_ids = collect_token_ids(tokenizer, ["PROVED", "DISPROVED"])
     print(f"  UNKNOWN token ids:    {unknown_ids}")
     print(f"  Definitive token ids: {definitive_ids}")
@@ -157,21 +172,25 @@ def process_checkpoint(ckpt_name: str, ckpt_path: Path,
         prompt_s2 = build_prompt(S2_PROMPT, s, tokenizer, is_base)
         try:
             layers_s1 = run_logit_lens_single(
-                model, tokenizer, prompt_s1, unknown_ids, definitive_ids, device)
+                model, tokenizer, prompt_s1, unknown_ids, definitive_ids, device
+            )
             layers_s2 = run_logit_lens_single(
-                model, tokenizer, prompt_s2, unknown_ids, definitive_ids, device)
-            per_sample.append({
-                "id":          s["id"],
-                "sample_type": s["sample_type"],
-                "gold_short":  s["gold_short"],
-                "layers_s1":   layers_s1,
-                "layers_s2":   layers_s2,
-            })
+                model, tokenizer, prompt_s2, unknown_ids, definitive_ids, device
+            )
+            per_sample.append(
+                {
+                    "id": s["id"],
+                    "sample_type": s["sample_type"],
+                    "gold_short": s["gold_short"],
+                    "layers_s1": layers_s1,
+                    "layers_s2": layers_s2,
+                }
+            )
         except Exception as e:
             print(f"  [warn] sample {s['id']}: {e}")
 
         if (i + 1) % 10 == 0:
-            print(f"  {i+1}/{len(samples)} done")
+            print(f"  {i + 1}/{len(samples)} done")
 
     del model
     gc.collect()
@@ -183,8 +202,7 @@ def process_checkpoint(ckpt_name: str, ckpt_path: Path,
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ckpt", required=True,
-                    choices=["base", "instruct", "rl_zero"])
+    ap.add_argument("--ckpt", required=True, choices=["base", "instruct", "rl_zero"])
     args = ap.parse_args()
 
     ckpt_path = CHECKPOINTS[args.ckpt]
@@ -203,20 +221,23 @@ def main():
             sample_type = "CAR" if pred2 == "UNKNOWN" else "non_CAR"
         else:
             sample_type = "ai" if pred2 == "UNKNOWN" else "non_ai"
-        samples.append({
-            "id":          s["id"],
-            "proof_label": s["proof_label"],
-            "gold_short":  gold_short,
-            "Conclusion":  s["Conclusion"],
-            "Facts":       s["Facts"],
-            "sample_type": sample_type,
-        })
+        samples.append(
+            {
+                "id": s["id"],
+                "proof_label": s["proof_label"],
+                "gold_short": gold_short,
+                "Conclusion": s["Conclusion"],
+                "Facts": s["Facts"],
+                "sample_type": sample_type,
+            }
+        )
 
     from collections import Counter
+
     print(f"Checkpoint: {args.ckpt}  |  total: {len(samples)}")
     print("  type counts:", dict(Counter(s["sample_type"] for s in samples)))
 
-    result   = process_checkpoint(args.ckpt, ckpt_path, samples, device)
+    result = process_checkpoint(args.ckpt, ckpt_path, samples, device)
     out_path = ROOT / s8_logit_lens_path(args.ckpt)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     result = {**stamp("S8"), **result}

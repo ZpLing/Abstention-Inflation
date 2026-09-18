@@ -42,12 +42,12 @@ be greedily consumed by NEG/POS regexes. The negation guard further protects
 against ``not True`` / ``is not false`` being routed to the wrong canonical
 class.
 """
+
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
 from typing import Dict, Tuple
-
 
 CANONICAL_LABELS: Tuple[str, ...] = ("POS", "NEG", "ABSTAIN")
 
@@ -71,7 +71,7 @@ def _negated(text: str, verb_pattern: str) -> bool:
     if not m:
         return False
     start = max(0, m.start() - _NEG_LOOKBACK)
-    window = text[start:m.start()]
+    window = text[start : m.start()]
     return bool(_NEG_CUE_RE.search(window))
 
 
@@ -97,8 +97,7 @@ class LabelScheme:
     # * Ternary — used in S2 (Unknown Option Added) and S3 (Question Format
     #             Ablation, MCQ rendering).
     task_instruction_binary: str = (
-        "Determine whether the following hypothesis is true or false "
-        "given the context."
+        "Determine whether the following hypothesis is true or false given the context."
     )
     task_instruction_ternary: str = (
         "Determine whether the following hypothesis is true, false, "
@@ -224,7 +223,7 @@ SCHEMES: Dict[str, LabelScheme] = {
 
 # Unknown-labeled subsets reuse the parent dataset's verb scheme.
 _SCHEME_ALIASES = {
-    "FLD_unknown":   "FLD",
+    "FLD_unknown": "FLD",
     "FOLIO_unknown": "FOLIO",
 }
 

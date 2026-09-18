@@ -22,6 +22,7 @@ Usage::
     python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \\
         --config configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml
 """
+
 import argparse
 import asyncio
 import json
@@ -32,19 +33,20 @@ from typing import Dict, List, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from loader.config_loader import load_config
-from loader.data_handler import DataHandler
-from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
-# imported by name: a parameter in this module is also called third_option
-from infra.third_option import RANDOM_WORDS, result_path, results_dir as results_path_dir
-from infra.result_schema import stamp, load_cell
-from loader.config_loader import get_block
+from infra.llm_handler import LLMHandler
 from infra.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
     build_judge_s4_word_prompt,
 )
+from infra.result_schema import load_cell, stamp
+
+# imported by name: a parameter in this module is also called third_option
+from infra.third_option import RANDOM_WORDS, result_path
+from infra.third_option import results_dir as results_path_dir
+from loader.config_loader import get_block, load_config
+from loader.data_handler import DataHandler
 
 #: Both words, and the fact that they route to S4 rather than S2, come
 #: from third_option so the two halves of S4 cannot drift apart again.
@@ -54,6 +56,7 @@ RANDOM_WORD_1, RANDOM_WORD_2 = RANDOM_WORDS
 # =============================================================================
 # Parser
 # =============================================================================
+
 
 def _extract_final_answer_line(text: str) -> str:
     m = re.search(r"Final answer:\s*(.+?)(?:\n|$)", text, re.IGNORECASE)
@@ -158,6 +161,7 @@ def parse_control_output(text: str, scheme, third_option: str) -> Tuple[str, str
 # Metrics
 # =============================================================================
 
+
 def compute_acc(preds: List[str], answer_idxs: List[int]) -> float:
     """Accuracy: 'A' correct iff answer_idx==0, 'B' correct iff answer_idx==1."""
     n = len(preds)
@@ -170,8 +174,9 @@ def compute_acc(preds: List[str], answer_idxs: List[int]) -> float:
     return correct / n
 
 
-def condition_metrics(preds: List[str], answer_idxs: List[int],
-                      categories: List[str] = None) -> Dict:
+def condition_metrics(
+    preds: List[str], answer_idxs: List[int], categories: List[str] = None
+) -> Dict:
     n = len(preds)
     acc = compute_acc(preds, answer_idxs)
     opt_x_rate = sum(1 for p in preds if p == "OPT_X") / n
@@ -192,6 +197,7 @@ def condition_metrics(preds: List[str], answer_idxs: List[int],
 # Sample loading
 # =============================================================================
 
+
 def load_balanced_samples(data_handler: DataHandler, ds_name: str, n_per_class: int):
     """Load n_per_class True + n_per_class False answerable samples.
 
@@ -211,7 +217,10 @@ def load_balanced_samples(data_handler: DataHandler, ds_name: str, n_per_class: 
 # Main experiment
 # =============================================================================
 
-def load_baseline_from_main(ds_name: str, model_name: str, model_slug: str, data_handler):
+
+def load_baseline_from_main(
+    ds_name: str, model_name: str, model_slug: str, data_handler
+):
     """S1 and the Unknown condition for this cell, read from the main table.
 
     The Unknown condition of this control *is* S2 -- c1_prompts is
@@ -226,7 +235,14 @@ def load_baseline_from_main(ds_name: str, model_name: str, model_slug: str, data
     all_samples = data_handler.load_dataset(ds_name)
     id_to_sample = {s.id: s for s in all_samples}
 
-    samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = [], [], [], [], [], []
+    samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = (
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+    )
     missing = []
     for row in cell["per_sample"]:
         sid = row["id"]
@@ -240,14 +256,23 @@ def load_baseline_from_main(ds_name: str, model_name: str, model_slug: str, data
         raw_s1.append(row.get("raw_s1") or "")
         raw_c1.append(row.get("raw_s2") or "")
     if missing:
-        print(f"  [warn] {len(missing)} ids from the main table not found in the data file.")
-    print(f"  Loaded {len(samples_ordered)} samples from the main table ({model_slug}/{ds_name}).")
+        print(
+            f"  [warn] {len(missing)} ids from the main table not found in the data file."
+        )
+    print(
+        f"  Loaded {len(samples_ordered)} samples from the main table ({model_slug}/{ds_name})."
+    )
     return samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1
 
 
-async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
-                          results_dir: Path, model_name: str,
-                          baseline: tuple = None) -> Dict:
+async def run_one_dataset(
+    ds_name: str,
+    samples,
+    llm_handler: LLMHandler,
+    results_dir: Path,
+    model_name: str,
+    baseline: tuple = None,
+) -> Dict:
     """Run one dataset.
 
     baseline: if provided, tuple of (answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
@@ -258,11 +283,17 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
 
     if baseline is not None:
         answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = baseline
-        c2_prompts = [build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
-                      for s in samples]
-        c3_prompts = [build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
-                      for s in samples]
-        print(f"  Querying C2 / C3 only ({n} samples each, S1/C1 loaded from baseline) ...")
+        c2_prompts = [
+            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
+            for s in samples
+        ]
+        c3_prompts = [
+            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
+            for s in samples
+        ]
+        print(
+            f"  Querying C2 / C3 only ({n} samples each, S1/C1 loaded from baseline) ..."
+        )
         raw_c2, raw_c3 = await asyncio.gather(
             llm_handler.batch_query(c2_prompts),
             llm_handler.batch_query(c3_prompts),
@@ -270,12 +301,20 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
     else:
         answer_idxs = [s.answer_idx for s in samples]
         # Build prompts — same infrastructure, only third-option label differs
-        s1_prompts = [build_judge_s1_prompt(scheme, s.question, s.context) for s in samples]
-        c1_prompts = [build_judge_s2_prompt(scheme, s.question, s.context) for s in samples]
-        c2_prompts = [build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
-                      for s in samples]
-        c3_prompts = [build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
-                      for s in samples]
+        s1_prompts = [
+            build_judge_s1_prompt(scheme, s.question, s.context) for s in samples
+        ]
+        c1_prompts = [
+            build_judge_s2_prompt(scheme, s.question, s.context) for s in samples
+        ]
+        c2_prompts = [
+            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
+            for s in samples
+        ]
+        c3_prompts = [
+            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
+            for s in samples
+        ]
         print(f"  Querying S1 / C1 / C2 / C3 in parallel ({n} samples each) ...")
         raw_s1, raw_c1, raw_c2, raw_c3 = await asyncio.gather(
             llm_handler.batch_query(s1_prompts),
@@ -299,15 +338,17 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
     # Print table
     print(f"\n  {ds_name} results (S1_Acc={s1_acc:.1%}):")
     print(f"  {'Condition':<26} {'OPT_X Rate':>12} {'Acc':>8} {'ΔAcc':>8}")
-    print(f"  {'-'*58}")
+    print(f"  {'-' * 58}")
     print(f"  {'S1 (binary)':<26} {'—':>12} {s1_acc:>8.1%} {'—':>8}")
     for label, m in [
-        (f"C1 Unknown",          m_c1),
+        (f"C1 Unknown", m_c1),
         (f"C2 Random ({RANDOM_WORD_1})", m_c2),
-        (f"C3 Random ({RANDOM_WORD_2})",  m_c3),
+        (f"C3 Random ({RANDOM_WORD_2})", m_c3),
     ]:
         delta = m["label_acc"] - s1_acc
-        print(f"  {label:<26} {m['opt_x_rate']:>12.1%} {m['label_acc']:>8.1%} {delta:>+8.1%}")
+        print(
+            f"  {label:<26} {m['opt_x_rate']:>12.1%} {m['label_acc']:>8.1%} {delta:>+8.1%}"
+        )
 
     # One file per substituted word, the same shape the synonym sweep writes,
     # so the two halves of S4 are read by one code path.
@@ -325,30 +366,33 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
         rows = []
         for i in range(n):
             row = {
-                "id":         samples[i].id,
+                "id": samples[i].id,
                 "answer_idx": answer_idxs[i],
-                "pred":       preds[i],
-                "raw":        raws[i],
-                "pred_s1":    preds_s1[i],
-                "raw_s1":     raw_s1[i],
+                "pred": preds[i],
+                "raw": raws[i],
+                "pred_s1": preds_s1[i],
+                "raw_s1": raw_s1[i],
             }
             if cats is not None:
                 row["cat"] = cats[i]
             rows.append(row)
         out = {
             **stamp("S4/random_words"),
-            "wording_id":   word,
+            "wording_id": word,
             "abstain_text": text,
-            "dataset":      ds_name,
-            "model":        model_name,
-            "n":            m["n"],
-            "abs_rate":     m["opt_x_rate"],
-            "label_acc":    m["label_acc"],
-            "delta_acc":    round(m["label_acc"] - s1_acc, 4),
-            "s1_acc":       round(s1_acc, 4),
-            **{k: v for k, v in m.items()
-               if k not in ("n", "opt_x_rate", "label_acc", "delta_acc")},
-            "per_sample":   rows,
+            "dataset": ds_name,
+            "model": model_name,
+            "n": m["n"],
+            "abs_rate": m["opt_x_rate"],
+            "label_acc": m["label_acc"],
+            "delta_acc": round(m["label_acc"] - s1_acc, 4),
+            "s1_acc": round(s1_acc, 4),
+            **{
+                k: v
+                for k, v in m.items()
+                if k not in ("n", "opt_x_rate", "label_acc", "delta_acc")
+            },
+            "per_sample": rows,
         }
         out_path = results_dir / result_path(text, ds_name, model_name).name
         with open(out_path, "w", encoding="utf-8") as f:
@@ -376,16 +420,20 @@ async def run_experiment(config: Dict):
     print(f"Model: {model_name}")
     print(f"Third options: C2={RANDOM_WORD_1!r}  C3={RANDOM_WORD_2!r}")
     if model_slug:
-        print("Baseline mode: S1/Unknown taken from the main table, only the random words are queried.")
+        print(
+            "Baseline mode: S1/Unknown taken from the main table, only the random words are queried."
+        )
     else:
-        print(f"Samples per class per dataset: {n_per_class} (total: {n_per_class*2})")
+        print(
+            f"Samples per class per dataset: {n_per_class} (total: {n_per_class * 2})"
+        )
 
     all_results = {}
     for ds_name in datasets:
         print(f"\n===== {ds_name} =====")
         if model_slug:
-            samples, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = load_baseline_from_main(
-                ds_name, model_name, model_slug, data_handler
+            samples, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = (
+                load_baseline_from_main(ds_name, model_name, model_slug, data_handler)
             )
             baseline = (answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
         else:
@@ -413,18 +461,23 @@ async def run_experiment(config: Dict):
             deltas.append(m["delta_acc"] * m["n"])
             ns.append(m["n"])
         total_n = sum(ns)
-        pooled_rate  = sum(rates) / total_n
-        pooled_acc   = sum(accs) / total_n
+        pooled_rate = sum(rates) / total_n
+        pooled_acc = sum(accs) / total_n
         pooled_delta = sum(deltas) / total_n
-        print(f"  {label:<20} {pooled_rate:>12.1%} {pooled_acc:>8.1%} {pooled_delta:>+8.1%}")
+        print(
+            f"  {label:<20} {pooled_rate:>12.1%} {pooled_acc:>8.1%} {pooled_delta:>+8.1%}"
+        )
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="S4 Word Content Ablation — random-word control"
     )
-    parser.add_argument("--config", default="configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml",
-                        help="Path to config YAML")
+    parser.add_argument(
+        "--config",
+        default="configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml",
+        help="Path to config YAML",
+    )
     args = parser.parse_args()
     config = load_config(args.config)
     asyncio.run(run_experiment(config))

@@ -18,26 +18,26 @@ Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
         --model all --positions A B C --unified-labels
 """
+
 import argparse
 import asyncio
 import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from loader.config_loader import load_config
-from infra.llm_handler import LLMHandler
-from infra.label_scheme import get_scheme
-from loader.dataset_loader import load_judge, Sample
 from infra.evaluator import Evaluator
+from infra.label_scheme import get_scheme
+from infra.llm_handler import LLMHandler
+from infra.metrics import judge_classes, label_acc, label_macro_f1
 from infra.prompts import build_judge_s11_position_prompt, judge_verb_order
-from infra.metrics import label_acc, label_macro_f1, judge_classes
-from infra.result_schema import results_dir, stamp, position_name  # noqa: E402
-
+from infra.result_schema import position_name, results_dir, stamp  # noqa: E402
+from loader.config_loader import load_config
+from loader.dataset_loader import Sample
 
 MODELS = {
     "gpt_5.4_nano": {
@@ -93,6 +93,7 @@ def unified_scheme(dataset: str):
     full-dataset mode answer_idx is read directly, not via to_canonical.
     """
     from dataclasses import replace
+
     base = get_scheme(dataset)
     ctx = base.context_label.lower()
     return replace(
@@ -125,7 +126,8 @@ EDGE_RE = re.compile(r"^[\s\*\(\[\"']+|[\s\*\.\)\]\:;,—–\-\"']+$")
 def build_position_prompt(scheme, claim: str, context: str, unknown_position: str):
     """The S2 TFQ prompt with the abstain verb moved to the requested slot."""
     return build_judge_s11_position_prompt(
-        scheme, claim, context, abstain_slot=SLOT_OF[unknown_position])
+        scheme, claim, context, abstain_slot=SLOT_OF[unknown_position]
+    )
 
 
 def verb_order_for(scheme, unknown_position: str) -> List[str]:
@@ -135,15 +137,20 @@ def verb_order_for(scheme, unknown_position: str) -> List[str]:
 
 def slot_of_prediction(scheme, unknown_position: str, pred: str):
     """Which slot (A/B/C) the predicted verb occupied, or None."""
-    target = {"A": scheme.pos_verb, "B": scheme.neg_verb,
-              "UNKNOWN": scheme.abstain_verb}.get(pred)
+    target = {
+        "A": scheme.pos_verb,
+        "B": scheme.neg_verb,
+        "UNKNOWN": scheme.abstain_verb,
+    }.get(pred)
     if target is None:
         return None
     order = verb_order_for(scheme, unknown_position)
     return LETTERS[order.index(target)]
 
 
-def parse_position_output(text: str, scheme, unknown_position: str) -> Tuple[str, str, str]:
+def parse_position_output(
+    text: str, scheme, unknown_position: str
+) -> Tuple[str, str, str]:
     """Parse to (canonical_pred, slot, tier) with the same parser as S1/S2.
 
     canonical_pred is in {"A", "B", "UNKNOWN", "UNPARSEABLE"} where A/B mean
@@ -153,7 +160,6 @@ def parse_position_output(text: str, scheme, unknown_position: str) -> Tuple[str
     """
     pred, tier = _EVALUATOR.parse_judge_tiered(text, scheme, with_unknown=True)
     return pred, slot_of_prediction(scheme, unknown_position, pred), tier
-
 
 
 def _is_invalid(r) -> bool:
@@ -166,7 +172,9 @@ def condition_metrics(preds: List[str], answer_idxs: List[int]):
     return {
         "n": n,
         "label_acc": label_acc(preds, answer_idxs),
-        "label_f1": label_macro_f1(preds, answer_idxs, judge_classes(with_unknown=True)),
+        "label_f1": label_macro_f1(
+            preds, answer_idxs, judge_classes(with_unknown=True)
+        ),
         "abstain_rate": (sum(p == "UNKNOWN" for p in preds) / n) if n else 0.0,
         "counts": {
             "A": preds.count("A"),
@@ -177,12 +185,20 @@ def condition_metrics(preds: List[str], answer_idxs: List[int]):
     }
 
 
-async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
-                   dataset: str, unknown_position: str, sample_limit: int,
-                   unified_labels: bool = False,
-                   max_retries: int = 3):
+async def run_cell(
+    handler: LLMHandler,
+    model_key: str,
+    model_name: str,
+    dataset: str,
+    unknown_position: str,
+    sample_limit: int,
+    unified_labels: bool = False,
+    max_retries: int = 3,
+):
     out_dir = OUT_DIR_500
-    out_path = out_dir / f"{dataset}_{model_name}_{position_name(unknown_position)}.json"
+    out_path = (
+        out_dir / f"{dataset}_{model_name}_{position_name(unknown_position)}.json"
+    )
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.
@@ -200,7 +216,9 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         build_position_prompt(scheme, s.question, s.context, unknown_position)
         for s in samples
     ]
-    print(f"  [{model_key}/{dataset}/U={unknown_position}] querying {len(prompts)} prompts ...")
+    print(
+        f"  [{model_key}/{dataset}/U={unknown_position}] querying {len(prompts)} prompts ..."
+    )
     raw = list(await handler.batch_query(prompts))
 
     # Retry transient failures (API error / empty content) on just the failed
@@ -212,8 +230,10 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
         bad = [i for i, r in enumerate(raw) if _is_invalid(r)]
         if not bad:
             break
-        print(f"  [{model_key}/{dataset}/U={unknown_position}] retry {attempt + 1}/"
-              f"{max_retries}: {len(bad)} failed call(s)")
+        print(
+            f"  [{model_key}/{dataset}/U={unknown_position}] retry {attempt + 1}/"
+            f"{max_retries}: {len(bad)} failed call(s)"
+        )
         retry_raw = await handler.batch_query([prompts[i] for i in bad])
         for j, i in enumerate(bad):
             if j < len(retry_raw):
@@ -261,7 +281,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     answer_idxs = [samples[i].answer_idx for i, ok in enumerate(valid_mask) if ok]
     metrics = condition_metrics(preds, answer_idxs)  # n == n_valid
 
-    unparseable = preds.count("UNPARSEABLE")            # genuine, among valid
+    unparseable = preds.count("UNPARSEABLE")  # genuine, among valid
     unparse_rate = (unparseable / n_valid) if n_valid else 0.0
     excluded_rate = ((n - n_valid) / n) if n else 0.0
     # A cell is complete when it is safe to PUBLISH: no length mismatch, the
@@ -273,21 +293,28 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     complete = length_ok and not high_excluded and not high_unparse
 
     if not length_ok:
-        print(f"  [WARN] {model_key}/{dataset}/U={unknown_position}: response count "
-              f"{response_count} != {n} samples — marking INCOMPLETE.")
+        print(
+            f"  [WARN] {model_key}/{dataset}/U={unknown_position}: response count "
+            f"{response_count} != {n} samples — marking INCOMPLETE."
+        )
     if invalid_responses:
-        tag = "INCOMPLETE (systemic — check endpoint)" if high_excluded else \
-              "excluded from denominator (content-filter/API refusals)"
-        print(f"  [info] {model_key}/{dataset}/U={unknown_position}: "
-              f"{invalid_responses}/{n} refused "
-              f"(api_errors={api_errors}, empty={empty_responses}) — {tag}; "
-              f"Abs Rate over n_valid={n_valid}.")
+        tag = (
+            "INCOMPLETE (systemic — check endpoint)"
+            if high_excluded
+            else "excluded from denominator (content-filter/API refusals)"
+        )
+        print(
+            f"  [info] {model_key}/{dataset}/U={unknown_position}: "
+            f"{invalid_responses}/{n} refused "
+            f"(api_errors={api_errors}, empty={empty_responses}) — {tag}; "
+            f"Abs Rate over n_valid={n_valid}."
+        )
     if high_unparse:
-        print(f"  [WARN] {model_key}/{dataset}/U={unknown_position}: high UNPARSEABLE "
-              f"rate {unparseable}/{n_valid} ({unparse_rate:.1%}) — check label/parser sync; INCOMPLETE.")
-    raw_slot_counts = {
-        slot: raw_slots.count(slot) for slot in ("A", "B", "C", None)
-    }
+        print(
+            f"  [WARN] {model_key}/{dataset}/U={unknown_position}: high UNPARSEABLE "
+            f"rate {unparseable}/{n_valid} ({unparse_rate:.1%}) — check label/parser sync; INCOMPLETE."
+        )
+    raw_slot_counts = {slot: raw_slots.count(slot) for slot in ("A", "B", "C", None)}
     tier_counts = {tier: tiers.count(tier) for tier in sorted(set(tiers))}
 
     summary = {
@@ -341,10 +368,15 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     return out_path
 
 
-async def run_model(model_key: str, datasets: List[str], positions: List[str],
-                    sample_limit: int, max_workers: Optional[int],
-                    unified_labels: bool = False,
-                    max_retries: int = 3):
+async def run_model(
+    model_key: str,
+    datasets: List[str],
+    positions: List[str],
+    sample_limit: int,
+    max_workers: Optional[int],
+    unified_labels: bool = False,
+    max_retries: int = 3,
+):
     spec = MODELS[model_key]
     model_name = spec["model_name"]
     print(f"\n{'=' * 72}\nModel: {model_key} ({model_name})\n{'=' * 72}")
@@ -356,8 +388,16 @@ async def run_model(model_key: str, datasets: List[str], positions: List[str],
 
     for dataset in datasets:
         for position in positions:
-            await run_cell(handler, model_key, model_name, dataset, position,
-                           sample_limit, unified_labels, max_retries)
+            await run_cell(
+                handler,
+                model_key,
+                model_name,
+                dataset,
+                position,
+                sample_limit,
+                unified_labels,
+                max_retries,
+            )
 
 
 def _parse_args():
@@ -386,22 +426,22 @@ def _parse_args():
         type=int,
         default=500,
         help="Maximum number of samples per dataset. The reported cells are "
-             "the full 500; the 200 of the earlier paired sweep is reachable "
-             "by passing it explicitly.",
+        "the full 500; the 200 of the earlier paired sweep is reachable "
+        "by passing it explicitly.",
     )
     parser.add_argument(
         "--full-dataset",
         action="store_true",
         help="Load the canonical 500-sample dataset/{DS}.json (250 True + 250 "
-             "False) directly instead of the 200-sample id union from prior AB "
-             "summaries. Writes to results/S11_positional_bias/.",
+        "False) directly instead of the 200-sample id union from prior AB "
+        "summaries. Writes to results/S11_positional_bias/.",
     )
     parser.add_argument(
         "--unified-labels",
         action="store_true",
         help="Unify surface labels to True/False/Unknown across FLD and FOLIO "
-             "(instead of FLD's Proved/Disproved and FOLIO's Uncertain), and "
-             "parse model output against that unified vocabulary.",
+        "(instead of FLD's Proved/Disproved and FOLIO's Uncertain), and "
+        "parse model output against that unified vocabulary.",
     )
     parser.add_argument(
         "--max-workers",
@@ -414,7 +454,7 @@ def _parse_args():
         type=int,
         default=3,
         help="Retry rounds for transient API-error/empty responses on the "
-             "failed indices before marking a cell incomplete.",
+        "failed indices before marking a cell incomplete.",
     )
     return parser.parse_args()
 
@@ -425,9 +465,15 @@ async def main():
     datasets = list(DATASETS) if args.dataset == "all" else [args.dataset]
     positions = args.positions
     for model_key in model_keys:
-        await run_model(model_key, datasets, positions, args.sample_limit,
-                        args.max_workers, args.unified_labels,
-                        args.max_retries)
+        await run_model(
+            model_key,
+            datasets,
+            positions,
+            args.sample_limit,
+            args.max_workers,
+            args.unified_labels,
+            args.max_retries,
+        )
     print("\nDone.")
 
 

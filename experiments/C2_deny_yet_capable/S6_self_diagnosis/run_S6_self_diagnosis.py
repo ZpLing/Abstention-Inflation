@@ -30,6 +30,7 @@ Mirrors `core.paired_pass.ABRunner`:
       replies with a single letter, which `parse_ab_tiered` handles).
     * Summary records `tier_counts`.
 """
+
 import sys
 from pathlib import Path
 
@@ -38,29 +39,24 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 import asyncio
-import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
+from infra import metrics as main_metrics
+from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
+from infra.llm_handler import LLMHandler
 from infra.prompts import (
     S6_OPTION_A,
     S6_OPTION_B,
-    build_judge_s6_selfdiag_prompt,
-    build_mcq_s6_selfdiag_prompt,
-    build_mcq_s2_prompt,
     build_judge_s2_prompt,
+    build_judge_s6_selfdiag_prompt,
+    build_mcq_s2_prompt,
+    build_mcq_s6_selfdiag_prompt,
 )
-from infra import metrics as main_metrics
-
-from loader.data_handler import DataHandler
-from infra.evaluator import Evaluator
-from infra.llm_handler import LLMHandler
-
+from infra.result_schema import get_field, load_cell, results_dir, stamp
 from loader.config_loader import get_block
-from infra.result_schema import load_cell, results_dir, stamp
-from infra.result_schema import get_field
-
+from loader.data_handler import DataHandler
 
 # =================================================================
 # S5 prompt builders (kept here, not in main prompts.py)
@@ -82,6 +78,7 @@ S5_AB_OPTIONS: List[str] = [S6_OPTION_A, S6_OPTION_B]
 # S5 metrics (A/B specific — not part of the unified main framework)
 # =================================================================
 
+
 def self_diagnosis_acc(s5_preds: List[str], s4_correct_flags: List[bool]) -> float:
     """Agreement between S5 self-report and S4 behavior.
 
@@ -100,19 +97,21 @@ def self_diagnosis_acc(s5_preds: List[str], s4_correct_flags: List[bool]) -> flo
     return agree / n
 
 
-def s4_s5_cross_buckets(s5_preds: List[str], s4_correct_flags: List[bool]) -> Dict[str, int]:
+def s4_s5_cross_buckets(
+    s5_preds: List[str], s4_correct_flags: List[bool]
+) -> Dict[str, int]:
     # A = "I could not work it out" (own inability); B = "the question is
     # objectively unanswerable". Paired with whether the S5 rerun then got the
     # item right, that gives four cases.
     buckets = {
         "overcaution_misdiagnosed": 0,  # B & rerun correct: called it
-                                        # unanswerable, then answered it
-        "genuine_unknown":          0,  # B & rerun wrong
-        "inability_selfaware":      0,  # A & rerun wrong: could not do it,
-                                        # and said so
-        "inability_misdiagnosed":   0,  # A & rerun correct: could do it,
-                                        # but blamed itself
-        "unparseable":              0,
+        # unanswerable, then answered it
+        "genuine_unknown": 0,  # B & rerun wrong
+        "inability_selfaware": 0,  # A & rerun wrong: could not do it,
+        # and said so
+        "inability_misdiagnosed": 0,  # A & rerun correct: could do it,
+        # but blamed itself
+        "unparseable": 0,
     }
     for s5, s4c in zip(s5_preds, s4_correct_flags):
         if s5 not in ("A", "B"):
@@ -132,9 +131,15 @@ def s4_s5_cross_buckets(s5_preds: List[str], s4_correct_flags: List[bool]) -> Di
 # Runner
 # =================================================================
 
+
 class S6SelfDiagnosisRunner:
-    def __init__(self, config: Dict[str, Any], data_handler: DataHandler,
-                 llm_handler: LLMHandler, evaluator: Evaluator):
+    def __init__(
+        self,
+        config: Dict[str, Any],
+        data_handler: DataHandler,
+        llm_handler: LLMHandler,
+        evaluator: Evaluator,
+    ):
         self.config = config
         self.data_handler = data_handler
         self.llm_handler = llm_handler
@@ -145,14 +150,22 @@ class S6SelfDiagnosisRunner:
         # The main experiment is one folder per setting; the slug and task type
         # locate this model's cells. ``s1_s2_results_dir`` is the pre-split key.
         self.results_root = Path(cfg.get("results_root", "results"))
-        self.model_slug = cfg.get("model_slug") or (Path(cfg["s1_s2_results_dir"]).name if cfg.get("s1_s2_results_dir") else None)
+        self.model_slug = cfg.get("model_slug") or (
+            Path(cfg["s1_s2_results_dir"]).name
+            if cfg.get("s1_s2_results_dir")
+            else None
+        )
         if not self.model_slug:
-            raise ValueError("config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells")
+            raise ValueError(
+                "config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells"
+            )
         self.task_type = cfg.get("task_type", "tf")
-        self.results_dir = Path(cfg["results_dir"]) if cfg.get("results_dir") \
+        self.results_dir = (
+            Path(cfg["results_dir"])
+            if cfg.get("results_dir")
             else results_dir("S6", self.results_root) / self.model_slug
+        )
         self.results_dir.mkdir(parents=True, exist_ok=True)
-
 
     async def run(self):
         if not self.dataset_names:
@@ -164,9 +177,13 @@ class S6SelfDiagnosisRunner:
 
     async def _run_one_dataset(self, ds_name: str):
         model = self.config.get("model_name", "unknown").replace("/", "_")
-        summary = load_cell(ds_name, model, self.model_slug, self.task_type, self.results_root)
+        summary = load_cell(
+            ds_name, model, self.model_slug, self.task_type, self.results_root
+        )
         if not summary["per_sample"]:
-            print(f"  [skip] no main-experiment cell for {ds_name}/{model} — run main_experiment first.")
+            print(
+                f"  [skip] no main-experiment cell for {ds_name}/{model} — run main_experiment first."
+            )
             return
         task_type = summary["task_type"]
 
@@ -201,19 +218,25 @@ class S6SelfDiagnosisRunner:
             if task_type == "mcq":
                 s2_msgs = build_mcq_s2_prompt(sample.question, sample.options)
             else:
-                s2_msgs = build_judge_s2_prompt(get_scheme(sample.source),
-                                                  sample.question, sample.context)
-            ai_records.append({
-                "sample": sample,
-                "s2_messages": s2_msgs,
-                "raw_s2": ps["raw_s2"],
-                # S4 correctness comes from the followup record.
-                "s4_correct": _is_correct_letter(
-                    fu.get("pred_s5_rerun") or fu.get("pred_s4"), fu["answer_idx"]),
-            })
+                s2_msgs = build_judge_s2_prompt(
+                    get_scheme(sample.source), sample.question, sample.context
+                )
+            ai_records.append(
+                {
+                    "sample": sample,
+                    "s2_messages": s2_msgs,
+                    "raw_s2": ps["raw_s2"],
+                    # S4 correctness comes from the followup record.
+                    "s4_correct": _is_correct_letter(
+                        fu.get("pred_s5_rerun") or fu.get("pred_s4"), fu["answer_idx"]
+                    ),
+                }
+            )
 
         if not ai_records:
-            print(f"  [skip] {ds_name}: no Abstention Inflation samples in main summary.")
+            print(
+                f"  [skip] {ds_name}: no Abstention Inflation samples in main summary."
+            )
             return
 
         # Build S5 prompts.
@@ -226,8 +249,9 @@ class S6SelfDiagnosisRunner:
                 )
             else:
                 s5_prompts.append(
-                    build_judge_s6_selfdiag_prompt(rec["s2_messages"], rec["raw_s2"],
-                                           get_scheme(sample.source))
+                    build_judge_s6_selfdiag_prompt(
+                        rec["s2_messages"], rec["raw_s2"], get_scheme(sample.source)
+                    )
                 )
 
         print(f"  Querying S5 on {len(s5_prompts)} Abstention Inflation samples ...")
@@ -248,28 +272,31 @@ class S6SelfDiagnosisRunner:
 
         out = {
             **stamp("S6"),
-            "dataset":           ds_name,
-            "task_type":         task_type,
-            "model":             self.config.get("model_name"),
-            "n_abstention_inflation_evaluated":   len(ai_records),
-            "tier_counts":       _tier_breakdown(tiers_s5),
+            "dataset": ds_name,
+            "task_type": task_type,
+            "model": self.config.get("model_name"),
+            "n_abstention_inflation_evaluated": len(ai_records),
+            "tier_counts": _tier_breakdown(tiers_s5),
             "metrics": {
                 "self_diagnosis_acc": sd_acc,
-                "self_diagnosis_f1":  sd_f1,
+                "self_diagnosis_f1": sd_f1,
             },
             "s4_s5_buckets": buckets,
             "per_sample": [
                 {
-                    "sample_id":  rec["sample"].id,
+                    "sample_id": rec["sample"].id,
                     "answer_idx": rec["sample"].answer_idx,
                     "s4_correct": rec["s4_correct"],
-                    "pred_s5":    preds_s5[k],
-                    "raw_s5":     raw_s5[k],
+                    "pred_s5": preds_s5[k],
+                    "raw_s5": raw_s5[k],
                 }
                 for k, rec in enumerate(ai_records)
             ],
         }
-        out_path = self.results_dir / f"{ds_name}_{self.config.get('model_name','unknown').replace('/','_')}.json"
+        out_path = (
+            self.results_dir
+            / f"{ds_name}_{self.config.get('model_name', 'unknown').replace('/', '_')}.json"
+        )
         self.data_handler.save_json(out, out_path)
         print(f"  [Result] SelfDiagAcc={sd_acc:.2%}  SelfDiagF1={sd_f1:.2%}")
         print(f"  [Buckets] {buckets}")
@@ -302,20 +329,22 @@ def _is_correct_letter(letter, answer_idx) -> bool:
 def main() -> None:
     """Run this setting from a config."""
     import argparse
-    import asyncio
 
-    from loader.config_loader import load_config
-    from loader.data_handler import DataHandler
     from infra.evaluator import Evaluator
     from infra.llm_handler import LLMHandler
+    from loader.config_loader import load_config
+    from loader.data_handler import DataHandler
 
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--config", required=True, help="Experiment YAML.")
     args = ap.parse_args()
 
     config = load_config(args.config)
-    asyncio.run(S6SelfDiagnosisRunner(config, DataHandler(config), LLMHandler(config),
-                      Evaluator()).run())
+    asyncio.run(
+        S6SelfDiagnosisRunner(
+            config, DataHandler(config), LLMHandler(config), Evaluator()
+        ).run()
+    )
 
 
 if __name__ == "__main__":

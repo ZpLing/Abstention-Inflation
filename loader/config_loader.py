@@ -1,17 +1,21 @@
-import yaml
 from pathlib import Path
 
+import yaml
 
 #: Config-block name used by the current code -> every name that has ever
 #: addressed that block, most-preferred first. YAMLs written before the paper's
 #: S1–S10 numbering keep working unchanged.
 BLOCK_ALIASES = {
-    "main_experiment":     ("main_experiment", "ab_experiment"),
-    "s6_self_diagnosis":   ("s6_self_diagnosis", "s5_supplementary"),
-    "s9_perception_unknown_labeled_samples": ("s9_perception_unknown_labeled_samples", "s9_unknown_labeled", "supplementary_experiment"),
-    "s10_model_sweep":     ("s10_model_sweep", "exp2_model_sweep"),
-    "s10_difficulty":      ("s10_difficulty", "exp3_difficulty"),
-    "s4_random_words":     ("s4_random_words", "random_perturbation_control"),
+    "main_experiment": ("main_experiment", "ab_experiment"),
+    "s6_self_diagnosis": ("s6_self_diagnosis", "s5_supplementary"),
+    "s9_perception_unknown_labeled_samples": (
+        "s9_perception_unknown_labeled_samples",
+        "s9_unknown_labeled",
+        "supplementary_experiment",
+    ),
+    "s10_model_sweep": ("s10_model_sweep", "exp2_model_sweep"),
+    "s10_difficulty": ("s10_difficulty", "exp3_difficulty"),
+    "s4_random_words": ("s4_random_words", "random_perturbation_control"),
 }
 
 
@@ -81,8 +85,13 @@ def load_config(config_path: str) -> dict:
     # 3. Optional `config` file (gateway-style):
     #        llm: {api_key, base_url, model}   → the backbone every runner uses
     gateway_config = next(
-        (p for p in (repo_root / "API_Config.yaml", repo_root / "config")
-         if p.exists() and p.is_file()), None)
+        (
+            p
+            for p in (repo_root / "API_Config.yaml", repo_root / "config")
+            if p.exists() and p.is_file()
+        ),
+        None,
+    )
     if gateway_config is not None:
         with open(gateway_config, "r", encoding="utf-8") as f:
             extra = yaml.safe_load(f) or {}

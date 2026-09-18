@@ -43,6 +43,7 @@ replaces the 2.5 cells rather than extending them.
     python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
         --model gemini-3.1-flash-lite --limit 8     # smoke
     python run_S10_temperature.py --model gemini-3.1-flash-lite   # full, 12 cells x 500"""
+
 from __future__ import annotations
 
 import argparse
@@ -55,14 +56,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from loader.config_loader import load_config              # noqa: E402
-from infra.llm_handler import LLMHandler                 # noqa: E402
-from infra.prompts import build_judge_s2_prompt          # noqa: E402
-from infra.label_scheme import get_scheme                # noqa: E402
+from infra.label_scheme import get_scheme  # noqa: E402
+from infra.llm_handler import LLMHandler  # noqa: E402
+from infra.prompts import build_judge_s2_prompt  # noqa: E402
 from infra.result_schema import results_dir, stamp
+from loader.config_loader import load_config  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
-    "_s10_runner", Path(__file__).with_name("run_S10_local_sweep.py"))
+    "_s10_runner", Path(__file__).with_name("run_S10_local_sweep.py")
+)
 _runner = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_runner)
 
@@ -70,13 +72,15 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-SLUG_OF = {"gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
+SLUG_OF = {
+    "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
 }
 CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
 
 
-async def query_at_temp(handler: LLMHandler, messages, temperature: float,
-                        retries: int = 4):
+async def query_at_temp(
+    handler: LLMHandler, messages, temperature: float, retries: int = 4
+):
     """`batch_query` with the temperature overridden for this call only.
 
     The handler hardcodes T=0 and is shared, so it is not mutated. Retries with
@@ -87,16 +91,20 @@ async def query_at_temp(handler: LLMHandler, messages, temperature: float,
     calls at T=1.5, which alone produced a 13-point dip and made an otherwise
     flat curve look like it moved.
     """
+
     async def one(msg):
         delay, last = 2.0, ""
         for attempt in range(retries + 1):
             async with handler.semaphore:
                 try:
                     resp = await handler.client.chat.completions.create(
-                        model=MODEL, messages=msg,
-                        temperature=temperature, max_tokens=MAX_TOKENS)
+                        model=MODEL,
+                        messages=msg,
+                        temperature=temperature,
+                        max_tokens=MAX_TOKENS,
+                    )
                     return resp.choices[0].message.content or ""
-                except Exception as exc:                        # noqa: BLE001
+                except Exception as exc:  # noqa: BLE001
                     last = f"{type(exc).__name__}: {exc}"
             if attempt < retries:
                 await asyncio.sleep(delay)
@@ -104,22 +112,28 @@ async def query_at_temp(handler: LLMHandler, messages, temperature: float,
         return f"__API_ERROR__: {last}"
 
     from tqdm.asyncio import tqdm_asyncio
-    return await tqdm_asyncio.gather(*[one(m) for m in messages],
-                                     desc=f"    T={temperature}")
+
+    return await tqdm_asyncio.gather(
+        *[one(m) for m in messages], desc=f"    T={temperature}"
+    )
 
 
 async def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="gemini-3.1-flash-lite",
-                    choices=sorted(SLUG_OF))
-    ap.add_argument("--limit", type=int, default=None,
-                    help="Items per cell, for a smoke run.")
+    ap.add_argument("--model", default="gemini-3.1-flash-lite", choices=sorted(SLUG_OF))
+    ap.add_argument(
+        "--limit", type=int, default=None, help="Items per cell, for a smoke run."
+    )
     ap.add_argument("--temperatures", type=float, nargs="+", default=TEMPERATURES)
     ap.add_argument("--datasets", nargs="+", default=DATASETS)
-    ap.add_argument("--max_workers", type=int, default=100,
-                    help="In-flight requests. The shared config sets 20, which "
-                         "is sized for the local reasoning endpoints; this "
-                         "sweep is 6000 short calls against a hosted model.")
+    ap.add_argument(
+        "--max_workers",
+        type=int,
+        default=100,
+        help="In-flight requests. The shared config sets 20, which "
+        "is sized for the local reasoning endpoints; this "
+        "sweep is 6000 short calls against a hosted model.",
+    )
     args = ap.parse_args()
 
     global MODEL, OUT_DIR
@@ -131,42 +145,54 @@ async def main() -> None:
     cfg["max_workers"] = args.max_workers
     cfg["max_tokens"] = MAX_TOKENS
     handler = LLMHandler(cfg)
-    print(f"{MODEL}: {args.max_workers} concurrent requests, "
-          f"max_tokens={MAX_TOKENS}")
+    print(f"{MODEL}: {args.max_workers} concurrent requests, max_tokens={MAX_TOKENS}")
 
     for ds in args.datasets:
         scheme = get_scheme(ds)
         samples = _runner.select_samples(ds, N_PER_CLASS, 0)
         if args.limit:
-            samples = samples[:args.limit]
-        prompts = [build_judge_s2_prompt(scheme, s.question, s.context)
-                   for s in samples]
+            samples = samples[: args.limit]
+        prompts = [
+            build_judge_s2_prompt(scheme, s.question, s.context) for s in samples
+        ]
         print(f"\n===== {MODEL} :: {ds} =====")
-        print(f"  {len(samples)} samples "
-              f"({sum(1 for s in samples if s.answer_idx == 0)} true / "
-              f"{sum(1 for s in samples if s.answer_idx == 1)} false)")
+        print(
+            f"  {len(samples)} samples "
+            f"({sum(1 for s in samples if s.answer_idx == 0)} true / "
+            f"{sum(1 for s in samples if s.answer_idx == 1)} false)"
+        )
         for temp in args.temperatures:
             raw_s2 = await query_at_temp(handler, prompts, temp)
             summary = _runner.summarize(
-                ds, samples, None, raw_s2, MODEL, ran_s1=False,
-                run_config={"max_new_tokens": MAX_TOKENS,
-                            "n_per_class": N_PER_CLASS,
-                            "temperature": temp,
-                            "settings": ["S2"],
-                            "class_offset": 0,
-                            "endpoint": "api",
-                            "use_chat_template": True})
+                ds,
+                samples,
+                None,
+                raw_s2,
+                MODEL,
+                ran_s1=False,
+                run_config={
+                    "max_new_tokens": MAX_TOKENS,
+                    "n_per_class": N_PER_CLASS,
+                    "temperature": temp,
+                    "settings": ["S2"],
+                    "class_offset": 0,
+                    "endpoint": "api",
+                    "use_chat_template": True,
+                },
+            )
             tag = f"_T{temp}".replace(".", "p")
             path = OUT_DIR / f"{ds}_{MODEL}{tag}.json"
             summary = {**stamp("S10/temperature"), **summary}
             path.write_text(json.dumps(summary, indent=2))
             m = summary["metrics"]["S2"]
             err = sum(1 for r in raw_s2 if r.startswith("__API_ERROR__"))
-            print(f"  T={temp}: Acc={m['label_acc']:.1%} "
-                  f"AbsRate={m['abs_rate']:.1%} "
-                  f"(strict {m['abs_rate_strict']:.1%}, "
-                  f"trusted {m['trusted_share']:.1%})"
-                  f"{f'  API errors={err}' if err else ''}  -> {path.name}")
+            print(
+                f"  T={temp}: Acc={m['label_acc']:.1%} "
+                f"AbsRate={m['abs_rate']:.1%} "
+                f"(strict {m['abs_rate_strict']:.1%}, "
+                f"trusted {m['trusted_share']:.1%})"
+                f"{f'  API errors={err}' if err else ''}  -> {path.name}"
+            )
 
 
 if __name__ == "__main__":

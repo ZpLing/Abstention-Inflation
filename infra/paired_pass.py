@@ -34,33 +34,35 @@ Workflow per dataset
 7. Write ``<dataset>_<model>.json`` in the canonical schema
    (:mod:`infra.result_schema`).
 """
+
 import asyncio
-import json
 from pathlib import Path
 from typing import Any, Dict, List
 
+from experiments.C1_structural_trigger.S1_baseline import run_S1_baseline
+from experiments.C1_structural_trigger.S2_unknown_option_added import (
+    run_S2_unknown_option_added,
+)
+from experiments.C1_structural_trigger.S3_question_format_ablation import (
+    run_S3_question_format_ablation,
+)
+from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import (
+    run_S5_without_unknown_option_rerun,
+)
 from infra import metrics
 from infra.label_scheme import get_scheme
 
-from experiments.C1_structural_trigger.S1_baseline import run_S1_baseline
-from experiments.C1_structural_trigger.S2_unknown_option_added import run_S2_unknown_option_added
-from experiments.C1_structural_trigger.S3_question_format_ablation import run_S3_question_format_ablation
-from experiments.C2_deny_yet_capable.S5_without_unknown_option_rerun import run_S5_without_unknown_option_rerun
 #: Each setting owns its prompt and whether the parser may see an abstention.
 SETTING_MODULES = {
     "S1": run_S1_baseline,
     "S2": run_S2_unknown_option_added,
     "S3": run_S3_question_format_ablation,
 }
-from infra.result_schema import SCHEMA_VERSION
-
-from loader.data_handler import DataHandler
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
-
+from infra.result_schema import SCHEMA_VERSION, cell_path
 from loader.config_loader import get_block
-from infra.result_schema import cell_path
-
+from loader.data_handler import DataHandler
 
 #: Settings this runner knows how to build prompts for, in dispatch order.
 SINGLE_TURN_SETTINGS = ("S1", "S2", "S3")
@@ -81,8 +83,13 @@ def _unanswered_reasons(per_sample) -> Dict[str, Dict[str, int]]:
 
 
 class ABRunner:
-    def __init__(self, config: Dict[str, Any], data_handler: DataHandler,
-                 llm_handler: LLMHandler, evaluator: Evaluator):
+    def __init__(
+        self,
+        config: Dict[str, Any],
+        data_handler: DataHandler,
+        llm_handler: LLMHandler,
+        evaluator: Evaluator,
+    ):
         self.config = config
         self.data_handler = data_handler
         self.llm_handler = llm_handler
@@ -101,16 +108,22 @@ class ABRunner:
         # subfolder each cell lands in. ``results_dir`` is the pre-split key and
         # is read only for its last component, the slug.
         self.results_root = Path(ab.get("results_root", "results"))
-        self.model_slug = ab.get("model_slug") or (Path(ab["results_dir"]).name if ab.get("results_dir") else None)
+        self.model_slug = ab.get("model_slug") or (
+            Path(ab["results_dir"]).name if ab.get("results_dir") else None
+        )
         if not self.model_slug:
-            raise ValueError("config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells")
+            raise ValueError(
+                "config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells"
+            )
 
     # =================================================================
     # Top-level dispatch
     # =================================================================
     async def run(self):
         if not self.dataset_names:
-            print("[ABRunner] No datasets configured under ab_experiment.datasets — nothing to do.")
+            print(
+                "[ABRunner] No datasets configured under ab_experiment.datasets — nothing to do."
+            )
             return
         for ds_name in self.dataset_names:
             print(f"\n===== S1/S2/S3 :: {ds_name} =====")
@@ -121,14 +134,20 @@ class ABRunner:
                 print(f"  [skip] {ds_name}: no answerable samples.")
                 continue
             task_type = samples[0].task_type
-            print(f"  loaded {len(samples)} answerable samples (task_type={task_type}).")
+            print(
+                f"  loaded {len(samples)} answerable samples (task_type={task_type})."
+            )
             await self._run_one_dataset(ds_name, samples, task_type)
 
     def _cell_paths(self, ds_name: str, task_type: str) -> Dict[str, Path]:
         """setting -> the file that setting's cell is written to."""
         model = str(self.config.get("model_name", "model")).replace("/", "_")
-        return {s: cell_path(s, ds_name, model, self.model_slug, task_type, self.results_root)
-                for s in ("S1", "S2", "S3", "S5")}
+        return {
+            s: cell_path(
+                s, ds_name, model, self.model_slug, task_type, self.results_root
+            )
+            for s in ("S1", "S2", "S3", "S5")
+        }
 
     def _apply_sample_limit(self, ds_name: str, samples: list) -> list:
         """Honour ``sample_limits[ds_name]`` + ``sample_offsets[ds_name]`` from YAML.
@@ -150,11 +169,19 @@ class ABRunner:
             return samples
         if isinstance(spec, int):
             offset = int(offset_spec) if isinstance(offset_spec, int) else 0
-            return samples[offset:offset + spec]
+            return samples[offset : offset + spec]
         if isinstance(spec, dict):
             key_to_idx = {
-                "true": 0, "True": 0, "TRUE": 0, "proved": 0, "PROVED": 0,
-                "false": 1, "False": 1, "FALSE": 1, "disproved": 1, "DISPROVED": 1,
+                "true": 0,
+                "True": 0,
+                "TRUE": 0,
+                "proved": 0,
+                "PROVED": 0,
+                "false": 1,
+                "False": 1,
+                "FALSE": 1,
+                "disproved": 1,
+                "DISPROVED": 1,
             }
             out = []
             for cls_name, n in spec.items():
@@ -170,12 +197,16 @@ class ABRunner:
                     cls_off = int(offset_spec.get(cls_name, 0))
                 elif isinstance(offset_spec, int):
                     cls_off = int(offset_spec)
-                taken = matching[cls_off:cls_off + n]
+                taken = matching[cls_off : cls_off + n]
                 out.extend(taken)
-                print(f"  [limit] {ds_name}: {cls_name}={len(taken)}/{n} requested "
-                      f"(offset={cls_off}, found {len(matching)} total).")
+                print(
+                    f"  [limit] {ds_name}: {cls_name}={len(taken)}/{n} requested "
+                    f"(offset={cls_off}, found {len(matching)} total)."
+                )
             return out
-        raise ValueError(f"sample_limits[{ds_name}] must be int or dict, got {type(spec)}")
+        raise ValueError(
+            f"sample_limits[{ds_name}] must be int or dict, got {type(spec)}"
+        )
 
     # =================================================================
     # Single-dataset loop (task_type-aware)
@@ -187,7 +218,7 @@ class ABRunner:
         active = [s for s in SINGLE_TURN_SETTINGS if s in self.settings]
         if "S3" in active and task_type != "tf":
             active.remove("S3")
-        for required in ("S2", "S1"):           # the paired baseline is mandatory
+        for required in ("S2", "S1"):  # the paired baseline is mandatory
             if required not in active:
                 active.insert(0, required)
         active.sort(key=SINGLE_TURN_SETTINGS.index)
@@ -206,7 +237,8 @@ class ABRunner:
 
         for name in active:
             raw_by_setting[name] = await self._retry_failed_requests(
-                prompts_by_setting[name], list(raw_by_setting[name]), label=name)
+                prompts_by_setting[name], list(raw_by_setting[name]), label=name
+            )
 
         # ---- Step 4: parse predictions and reasoning.
         preds: Dict[str, List[str]] = {}
@@ -219,15 +251,20 @@ class ABRunner:
                 preds[name], tiers[name] = self._parse_judge_mcq_batch(raw)
             else:
                 preds[name], tiers[name] = await self._parse_batch(
-                    raw, samples, task_type,
-                    with_unknown=SETTING_MODULES[name].WITH_UNKNOWN, label=name,
+                    raw,
+                    samples,
+                    task_type,
+                    with_unknown=SETTING_MODULES[name].WITH_UNKNOWN,
+                    label=name,
                 )
         answer_idxs = [s.answer_idx for s in samples]
 
         # ---- Step 5: the Abstention Inflation set, then the S5 rerun on it.
         ai_indices = [i for i, p in enumerate(preds["S2"]) if p == "UNKNOWN"]
-        print(f"  [Step 5] Abstention Inflation set (S2 == Unknown) = "
-              f"{len(ai_indices)} / {len(samples)}")
+        print(
+            f"  [Step 5] Abstention Inflation set (S2 == Unknown) = "
+            f"{len(ai_indices)} / {len(samples)}"
+        )
 
         preds_s5: List[str] = []
         tiers_s5: List[str] = []
@@ -235,21 +272,35 @@ class ABRunner:
         if self.run_s5_rerun and ai_indices:
             ai_samples = [samples[i] for i in ai_indices]
             s5_prompts = self._build_s5_rerun(
-                samples, ai_indices, prompts_by_setting["S2"], raw_by_setting["S2"],
+                samples,
+                ai_indices,
+                prompts_by_setting["S2"],
+                raw_by_setting["S2"],
                 task_type,
             )
             print(f"  [Step 5] Querying S5 rerun on {len(ai_indices)} samples ...")
             raw_s5 = await self.llm_handler.batch_query(s5_prompts)
             preds_s5, tiers_s5 = await self._parse_batch(
-                raw_s5, ai_samples, task_type,
-                with_unknown=run_S5_without_unknown_option_rerun.WITH_UNKNOWN, label="S5"
+                raw_s5,
+                ai_samples,
+                task_type,
+                with_unknown=run_S5_without_unknown_option_rerun.WITH_UNKNOWN,
+                label="S5",
             )
 
         # ---- Step 6+7: assemble & save.
         summary = self._build_summary(
-            ds_name, task_type, samples, answer_idxs, ai_indices,
-            preds, tiers, raw_by_setting,
-            preds_s5, tiers_s5, raw_s5,
+            ds_name,
+            task_type,
+            samples,
+            answer_idxs,
+            ai_indices,
+            preds,
+            tiers,
+            raw_by_setting,
+            preds_s5,
+            tiers_s5,
+            raw_s5,
         )
         self._save(ds_name, summary)
 
@@ -272,21 +323,31 @@ class ABRunner:
         request that failed once and then succeeded.
         """
         for attempt in range(self.max_retries):
-            failed = [i for i, r in enumerate(raw)
-                      if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES]
+            failed = [
+                i
+                for i, r in enumerate(raw)
+                if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES
+            ]
             if not failed:
                 break
-            print(f"  [Retry:{label}] {len(failed)} request(s) returned nothing — "
-                  f"attempt {attempt + 1}/{self.max_retries} ...")
+            print(
+                f"  [Retry:{label}] {len(failed)} request(s) returned nothing — "
+                f"attempt {attempt + 1}/{self.max_retries} ..."
+            )
             again = await self.llm_handler.batch_query([prompts[i] for i in failed])
             for i, r in zip(failed, again):
                 raw[i] = r
         else:
-            still = [i for i, r in enumerate(raw)
-                     if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES]
+            still = [
+                i
+                for i, r in enumerate(raw)
+                if not isinstance(r, str) or r.strip() in Evaluator.NO_REPLY_VALUES
+            ]
             if still:
-                print(f"  [Retry:{label}] {len(still)} request(s) never returned "
-                      f"on any attempt — excluded from scoring.")
+                print(
+                    f"  [Retry:{label}] {len(still)} request(s) never returned "
+                    f"on any attempt — excluded from scoring."
+                )
                 for i in still:
                     raw[i] = Evaluator.PERSISTENT_FAILURE
         return raw
@@ -303,17 +364,21 @@ class ABRunner:
 
     def _build_s5_rerun(self, samples, ai_indices, s2_prompts, raw_s2, task_type):
         """The S5 follow-up, for the abstaining samples only."""
-        return run_S5_without_unknown_option_rerun.build_prompts(samples, ai_indices, s2_prompts,
-                                       raw_s2, task_type)
+        return run_S5_without_unknown_option_rerun.build_prompts(
+            samples, ai_indices, s2_prompts, raw_s2, task_type
+        )
 
     # =================================================================
     # Output parsing (task_type-aware, positional)
     # =================================================================
-    async def _parse_batch(self, raw_outputs, samples, task_type, *,
-                            with_unknown, label: str = ""):
+    async def _parse_batch(
+        self, raw_outputs, samples, task_type, *, with_unknown, label: str = ""
+    ):
         if task_type == "mcq":
-            results = [self.evaluator.parse_mcq_tiered(r, with_unknown=with_unknown)
-                       for r in raw_outputs]
+            results = [
+                self.evaluator.parse_mcq_tiered(r, with_unknown=with_unknown)
+                for r in raw_outputs
+            ]
         elif task_type == "tf":
             results = [
                 self.evaluator.parse_judge_tiered(
@@ -329,9 +394,20 @@ class ABRunner:
     # =================================================================
     # Summary + persistence (canonical schema — see infra.result_schema)
     # =================================================================
-    def _build_summary(self, ds_name, task_type, samples, answer_idxs, ai_indices,
-                       preds, tiers, raw_by_setting,
-                       preds_s5, tiers_s5, raw_s5) -> Dict[str, Any]:
+    def _build_summary(
+        self,
+        ds_name,
+        task_type,
+        samples,
+        answer_idxs,
+        ai_indices,
+        preds,
+        tiers,
+        raw_by_setting,
+        preds_s5,
+        tiers_s5,
+        raw_s5,
+    ) -> Dict[str, Any]:
         # Label space per task_type. S1 has no abstain class (its prompt does
         # not offer one), so its macro-F1 is over the answer classes only.
         if task_type == "mcq":
@@ -360,21 +436,27 @@ class ABRunner:
             reason = self.evaluator.classify_unanswered(raw_by_setting[name][i])
             return reason == "no_commitment"
 
-        paired = [i for i in range(len(samples))
-                  if all(_has_answer(n, i) for n in ("S1", "S2") if n in preds)]
+        paired = [
+            i
+            for i in range(len(samples))
+            if all(_has_answer(n, i) for n in ("S1", "S2") if n in preds)
+        ]
 
         def _block(name: str) -> Dict[str, float]:
             raw = raw_by_setting[name]
-            keep = ([i for i in paired if _has_answer(name, i)]
-                    if name not in ("S1", "S2") else paired)
+            keep = (
+                [i for i in paired if _has_answer(name, i)]
+                if name not in ("S1", "S2")
+                else paired
+            )
             p = [preds[name][i] for i in keep]
             gold = [answer_idxs[i] for i in keep]
             classes = classes_no_unk if name == "S1" else classes_with_unk
             return {
                 "label_acc": metrics.label_acc(p, gold),
-                "abs_rate":  metrics.abs_rate(p),
-                "label_f1":  metrics.label_macro_f1(p, gold, classes),
-                "n_scored":  len(keep),
+                "abs_rate": metrics.abs_rate(p),
+                "label_f1": metrics.label_macro_f1(p, gold, classes),
+                "n_scored": len(keep),
                 "n_excluded": len(preds[name]) - len(keep),
             }
 
@@ -386,9 +468,10 @@ class ABRunner:
         if preds_s5 and ai_samples:
             unified["S5"] = {
                 "label_acc": metrics.label_acc(preds_s5, ai_answer_idxs),
-                "abs_rate":  metrics.abs_rate(preds_s5),
-                "label_f1":  metrics.label_macro_f1(preds_s5, ai_answer_idxs,
-                                                    classes_no_unk),
+                "abs_rate": metrics.abs_rate(preds_s5),
+                "label_f1": metrics.label_macro_f1(
+                    preds_s5, ai_answer_idxs, classes_no_unk
+                ),
                 "n_evaluated": len(ai_indices),
             }
 
@@ -407,8 +490,8 @@ class ABRunner:
         per_sample = []
         for i in range(len(samples)):
             row = {
-                "id":         samples[i].id,
-                "source":     samples[i].source,
+                "id": samples[i].id,
+                "source": samples[i].source,
                 "answer_idx": answer_idxs[i],
             }
             unanswered = {}
@@ -418,7 +501,8 @@ class ABRunner:
                 row[rk] = raw_by_setting[name][i]
                 if preds[name][i] == "UNPARSEABLE":
                     unanswered[name] = self.evaluator.classify_unanswered(
-                        raw_by_setting[name][i])
+                        raw_by_setting[name][i]
+                    )
             # A turn with no answer in it is not a wrong answer. Recording why
             # lets a reader drop the item from the paired contrast instead of
             # scoring a non-answer, and see what was dropped.
@@ -427,17 +511,19 @@ class ABRunner:
             per_sample.append(row)
 
         return {
-            "schema":       SCHEMA_VERSION,
-            "dataset":      ds_name,
-            "task_type":    task_type,
-            "model":        self.config.get("model_name"),
+            "schema": SCHEMA_VERSION,
+            "dataset": ds_name,
+            "task_type": task_type,
+            "model": self.config.get("model_name"),
             "settings_run": sorted(preds) + (["S5"] if preds_s5 else []),
-            "n_total":      len(samples),
+            "n_total": len(samples),
             "n_abstention_inflation": len(ai_indices),
             "unanswered_reasons": _unanswered_reasons(per_sample),
             "n_unparseable": {
-                **{name.lower(): sum(1 for p in preds[name] if p == "UNPARSEABLE")
-                   for name in preds},
+                **{
+                    name.lower(): sum(1 for p in preds[name] if p == "UNPARSEABLE")
+                    for name in preds
+                },
                 "s5": sum(1 for p in preds_s5 if p == "UNPARSEABLE"),
             },
             "tier_counts": {
@@ -448,10 +534,10 @@ class ABRunner:
             "per_sample": per_sample,
             "s5_rerun": [
                 {
-                    "sample_id":     samples[i].id,
-                    "answer_idx":    answer_idxs[i],
+                    "sample_id": samples[i].id,
+                    "answer_idx": answer_idxs[i],
                     "pred_s5_rerun": preds_s5[k] if preds_s5 else None,
-                    "raw_s5_rerun":  raw_s5[k]   if raw_s5   else None,
+                    "raw_s5_rerun": raw_s5[k] if raw_s5 else None,
                 }
                 for k, i in enumerate(ai_indices)
             ],
@@ -465,21 +551,42 @@ class ABRunner:
         """
         paths = self._cell_paths(ds_name, summary["task_type"])
         head = {k: summary[k] for k in ("schema", "dataset", "task_type", "model")}
-        fields = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
-                  "S3": ("pred_s3_format", "raw_s3_format")}
+        fields = {
+            "S1": ("pred_s1", "raw_s1"),
+            "S2": ("pred_s2", "raw_s2"),
+            "S3": ("pred_s3_format", "raw_s3_format"),
+        }
         for setting in summary["settings_run"]:
             if setting == "S5":
-                rows = [{"id": r["sample_id"], "answer_idx": r["answer_idx"],
-                         "pred": r["pred_s5_rerun"], "raw": r["raw_s5_rerun"]}
-                        for r in summary["s5_rerun"]]
+                rows = [
+                    {
+                        "id": r["sample_id"],
+                        "answer_idx": r["answer_idx"],
+                        "pred": r["pred_s5_rerun"],
+                        "raw": r["raw_s5_rerun"],
+                    }
+                    for r in summary["s5_rerun"]
+                ]
             else:
                 pf, rf = fields[setting]
-                rows = [{"id": r["id"], "source": r.get("source"), "answer_idx": r["answer_idx"],
-                         "pred": r.get(pf), "raw": r.get(rf)} for r in summary["per_sample"]]
-            doc = {**head, "setting": setting, "n": len(rows),
-                   "metrics": summary["metrics"].get(setting, {}),
-                   "n_unparseable": summary["n_unparseable"].get(setting.lower()),
-                   "per_sample": rows}
+                rows = [
+                    {
+                        "id": r["id"],
+                        "source": r.get("source"),
+                        "answer_idx": r["answer_idx"],
+                        "pred": r.get(pf),
+                        "raw": r.get(rf),
+                    }
+                    for r in summary["per_sample"]
+                ]
+            doc = {
+                **head,
+                "setting": setting,
+                "n": len(rows),
+                "metrics": summary["metrics"].get(setting, {}),
+                "n_unparseable": summary["n_unparseable"].get(setting.lower()),
+                "per_sample": rows,
+            }
             paths[setting].parent.mkdir(parents=True, exist_ok=True)
             self.data_handler.save_json(doc, paths[setting])
         m = summary["metrics"]

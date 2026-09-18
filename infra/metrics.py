@@ -30,8 +30,8 @@ Evaluator.parse_mcq_tiered / parse_judge_tiered:
 for Judge). Metrics here are computed on `answerable` samples only
 (answer_idx >= 0); the runner is responsible for filtering.
 """
-from typing import List, Set, Sequence, Tuple, Optional
 
+from typing import List, Optional, Sequence
 
 _BAD = {"UNKNOWN", "UNPARSEABLE", None}
 
@@ -39,6 +39,7 @@ _BAD = {"UNKNOWN", "UNPARSEABLE", None}
 # ============================================================
 # LABEL layer
 # ============================================================
+
 
 def is_correct(letter: str, answer_idx: int) -> bool:
     """Letter-string correctness check, abstaining counts as wrong on answerable."""
@@ -54,8 +55,9 @@ def label_acc(preds: Sequence[str], answer_idxs: Sequence[int]) -> float:
     return sum(is_correct(p, ai) for p, ai in zip(preds, answer_idxs)) / n
 
 
-def label_macro_f1(preds: Sequence[str], answer_idxs: Sequence[int],
-                    classes: Sequence[str]) -> float:
+def label_macro_f1(
+    preds: Sequence[str], answer_idxs: Sequence[int], classes: Sequence[str]
+) -> float:
     """Macro-averaged F1 over the dataset's label space.
 
     `classes` is the full label space INCLUDING the abstain class (e.g.
@@ -92,6 +94,7 @@ def label_macro_f1(preds: Sequence[str], answer_idxs: Sequence[int],
 
 
 # Class-list helpers (callers should use these to avoid magic strings).
+
 
 def mcq_classes(with_unknown: bool = True) -> List[str]:
     base = ["A", "B", "C", "D"]
@@ -140,6 +143,7 @@ def accuracy(preds, answer_idxs):
 # ``correct_abstention_rate`` equals accuracy on that subset, and the paper
 # contrasts it with Abs Rate on the answerable subset.
 # ============================================================
+
 
 def correct_abstention_rate(preds: Sequence[str]) -> float:
     """Fraction of predictions that abstain, on Unknown-labeled samples.

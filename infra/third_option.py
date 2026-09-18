@@ -14,6 +14,7 @@ against two different baselines. Deciding the destination from the word itself
 keeps that from happening again -- an ``Unknown`` pass cannot be written into an
 S4 directory, because :func:`results_dir` will not name one for it.
 """
+
 from __future__ import annotations
 
 from pathlib import Path

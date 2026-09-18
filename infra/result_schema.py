@@ -47,10 +47,10 @@ canonical namespace regardless of when the file was written. For files read
 with a bare ``json.load``, :func:`get_field` and :func:`canonical_sample_type`
 resolve the legacy spellings individually.
 """
+
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 from typing import Any, Dict
 
@@ -95,10 +95,14 @@ LEGACY_SETTING_MAP: Dict[str, str] = {
 
 #: legacy per-sample key -> canonical per-sample key.
 LEGACY_SAMPLE_KEY_MAP: Dict[str, str] = {
-    "pred_s1": "pred_s1", "raw_s1": "raw_s1",
-    "pred_s2": "pred_s2", "raw_s2": "raw_s2",
-    "pred_s4": "pred_s5_rerun", "raw_s4": "raw_s5_rerun",
-    "pred_s5": "pred_s3_format", "raw_s5": "raw_s3_format",
+    "pred_s1": "pred_s1",
+    "raw_s1": "raw_s1",
+    "pred_s2": "pred_s2",
+    "raw_s2": "raw_s2",
+    "pred_s4": "pred_s5_rerun",
+    "raw_s4": "raw_s5_rerun",
+    "pred_s5": "pred_s3_format",
+    "raw_s5": "raw_s3_format",
 }
 
 
@@ -106,16 +110,19 @@ LEGACY_SAMPLE_KEY_MAP: Dict[str, str] = {
 #: Written by code that predates the AIR -> "Abs Rate" terminology unification.
 LEGACY_FIELD_ALIASES: Dict[str, tuple] = {
     "n_abstention_inflation": ("n_air_s2", "n_air"),
-    "s5_rerun":               ("air_followups",),
-    "abs_rate":               ("air", "AIR"),
-    "abs_rate_s2":            ("AIR_S2", "air_s2"),
-    "abs_rate_s3":            ("AIR_S3", "air_s3"),
+    "s5_rerun": ("air_followups",),
+    "abs_rate": ("air", "AIR"),
+    "abs_rate_s2": ("AIR_S2", "air_s2"),
+    "abs_rate_s3": ("AIR_S3", "air_s3"),
 }
 
 #: legacy ``sample_type`` value -> canonical value (S8 logit-lens records).
 LEGACY_SAMPLE_TYPES: Dict[str, str] = {
-    "AIR": "ai", "air": "ai",
-    "non_AIR": "non_ai", "non_air": "non_ai", "nonAIR": "non_ai",
+    "AIR": "ai",
+    "air": "ai",
+    "non_AIR": "non_ai",
+    "non_air": "non_ai",
+    "nonAIR": "non_ai",
 }
 
 
@@ -140,7 +147,6 @@ def canonical_sample_type(value: str) -> str:
     return LEGACY_SAMPLE_TYPES.get(value, value)
 
 
-
 def is_legacy(summary: Dict[str, Any]) -> bool:
     """True when the summary predates the S1–S10 rename."""
     return summary.get("schema") != SCHEMA_VERSION
@@ -160,9 +166,7 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
     out["schema_migrated_from"] = "legacy"
 
     metrics = summary.get("metrics") or {}
-    out["metrics"] = {
-        LEGACY_SETTING_MAP.get(k, k): v for k, v in metrics.items()
-    }
+    out["metrics"] = {LEGACY_SETTING_MAP.get(k, k): v for k, v in metrics.items()}
 
     def _remap_row(row: Dict[str, Any]) -> Dict[str, Any]:
         return {LEGACY_SAMPLE_KEY_MAP.get(k, k): v for k, v in row.items()}
@@ -177,7 +181,7 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
 
     n_ai = get_field(summary, "n_abstention_inflation")
     if n_ai is not None:
-        out['n_abstention_inflation'] = n_ai
+        out["n_abstention_inflation"] = n_ai
         out.pop("n_air_s2", None)
         out.pop("n_air", None)
 
@@ -185,8 +189,11 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
     # the paper's Abs Rate.
     if isinstance(out.get("metrics"), dict):
         out["metrics"] = {
-            k: ({**v, "abs_rate": v["air"]} if isinstance(v, dict) and "air" in v
-                and "abs_rate" not in v else v)
+            k: (
+                {**v, "abs_rate": v["air"]}
+                if isinstance(v, dict) and "air" in v and "abs_rate" not in v
+                else v
+            )
             for k, v in out["metrics"].items()
         }
 
@@ -211,20 +218,20 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
 #: S10's temperature and size sweeps); "{slug}" is the model slug where one
 #: sweep is stored per model.
 SETTING_DIRS = {
-    "S1":                  "S1_baseline",
-    "S2":                  "S2_unknown_option",
-    "S3":                  "S3_question_format",
-    "S4/synonyms":         "S4_word_content/synonyms",
-    "S4/random_words":     "S4_word_content/random_words",
-    "S5":                  "S5_rerun",
-    "S6":                  "S6_self_diagnosis",
-    "S7":                  "S7_reasoning_traces",
-    "S8":                  "S8_logit_lens",
+    "S1": "S1_baseline",
+    "S2": "S2_unknown_option",
+    "S3": "S3_question_format",
+    "S4/synonyms": "S4_word_content/synonyms",
+    "S4/random_words": "S4_word_content/random_words",
+    "S5": "S5_rerun",
+    "S6": "S6_self_diagnosis",
+    "S7": "S7_reasoning_traces",
+    "S8": "S8_logit_lens",
     "S9/Perception_Unknown_labeled_Samples": "S9_stability/Perception_Unknown_labeled_Samples",
     "S9/Persistence_Across_Repeats": "S9_stability/Persistence_Across_Repeats",
-    "S10/temperature":     "S10_factor_analysis/temperature",   # one subfolder per model slug
-    "S10/size_alignment":  "S10_factor_analysis/size_alignment",
-    "S11":                 "S11_positional_bias",
+    "S10/temperature": "S10_factor_analysis/temperature",  # one subfolder per model slug
+    "S10/size_alignment": "S10_factor_analysis/size_alignment",
+    "S11": "S11_positional_bias",
 }
 
 
@@ -256,8 +263,11 @@ def setting_key_for_dir(rel_dir: str) -> str | None:
     return best
 
 
-_PAIRED_FIELD = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
-                 "S3": ("pred_s3_format", "raw_s3_format")}
+_PAIRED_FIELD = {
+    "S1": ("pred_s1", "raw_s1"),
+    "S2": ("pred_s2", "raw_s2"),
+    "S3": ("pred_s3_format", "raw_s3_format"),
+}
 
 
 def iter_cells(root: str | Path = "results"):
@@ -285,9 +295,11 @@ def position_name(slot: str) -> str:
 
 #: model name as the endpoint reports it -> the folder its cells live in. The
 #: slug is the name written out with the separators the file system prefers.
-MODEL_SLUG = {"gpt-5.4-nano": "gpt_5.4_nano",
-              "deepseek-v4-flash": "deepseek_v4_flash",
-              "gemini-3.1-flash-lite": "gemini_3.1_flash_lite"}
+MODEL_SLUG = {
+    "gpt-5.4-nano": "gpt_5.4_nano",
+    "deepseek-v4-flash": "deepseek_v4_flash",
+    "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
+}
 
 
 def model_slug(model_name: str) -> str:
@@ -315,17 +327,28 @@ def s8_logit_lens_path(ckpt: str, root: str | Path = "results") -> Path:
 TFQ_ONLY = {"S3"}
 
 
-def cell_path(setting: str, dataset: str, model: str, slug: str,
-              task_type: str = "tf", root: str | Path = "results") -> Path:
+def cell_path(
+    setting: str,
+    dataset: str,
+    model: str,
+    slug: str,
+    task_type: str = "tf",
+    root: str | Path = "results",
+) -> Path:
     """Where one (setting, dataset, model) cell lives."""
     base = Path(root) / SETTING_DIRS[setting]
-    if setting not in TFQ_ONLY:            # S3 has no MCQ arm, so no family level
+    if setting not in TFQ_ONLY:  # S3 has no MCQ arm, so no family level
         base = base / ("tfq" if task_type == "tf" else "mcq")
     return base / slug / f"{dataset}_{model}.json"
 
 
-def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
-              root: str | Path = "results") -> Dict[str, Any]:
+def load_cell(
+    dataset: str,
+    model: str,
+    slug: str,
+    task_type: str = "tf",
+    root: str | Path = "results",
+) -> Dict[str, Any]:
     """Join a cell's settings back into one paired summary.
 
     Reads whichever of S1/S2/S3/S5 exist for this cell and returns them in the
@@ -347,8 +370,14 @@ def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
         head = head or doc
         pf, rf = _PAIRED_FIELD[setting]
         for r in doc["per_sample"]:
-            row = rows.setdefault(r["id"], {"id": r["id"], "source": r.get("source"),
-                                            "answer_idx": r["answer_idx"]})
+            row = rows.setdefault(
+                r["id"],
+                {
+                    "id": r["id"],
+                    "source": r.get("source"),
+                    "answer_idx": r["answer_idx"],
+                },
+            )
             row[pf], row[rf] = r["pred"], r.get("raw")
     # An item one setting never returned must leave the paired contrast, as it
     # did when the settings shared a file: mark it unparseable with a raw that
@@ -360,7 +389,8 @@ def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
                 row[pf], row[rf] = "UNPARSEABLE", "__MISSING_IN_" + setting + "__"
     out: Dict[str, Any] = {
         "schema": head.get("schema", SCHEMA_VERSION),
-        "dataset": dataset, "model": model,
+        "dataset": dataset,
+        "model": model,
         "task_type": head.get("task_type", task_type),
         "trace_family": head.get("trace_family"),
         "settings_run": ran,
@@ -373,9 +403,15 @@ def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
         doc = json.loads(s5.read_text(encoding="utf-8"))
         out["settings_run"] = ran + ["S5"]
         out["metrics"]["S5"] = doc.get("metrics", {})
-        out["s5_rerun"] = [{"sample_id": r["id"], "answer_idx": r["answer_idx"],
-                            "pred_s5_rerun": r["pred"], "raw_s5_rerun": r.get("raw")}
-                           for r in doc["per_sample"]]
+        out["s5_rerun"] = [
+            {
+                "sample_id": r["id"],
+                "answer_idx": r["answer_idx"],
+                "pred_s5_rerun": r["pred"],
+                "raw_s5_rerun": r.get("raw"),
+            }
+            for r in doc["per_sample"]
+        ]
         out["n_abstention_inflation"] = len(out["s5_rerun"])
     return out
 
@@ -396,17 +432,20 @@ def is_paired_summary(path: str | Path) -> bool:
             head = f.read(4096)
     except OSError:
         return False
-    if '"setting"' in head:          # a per-setting cell, not the paired view
+    if '"setting"' in head:  # a per-setting cell, not the paired view
         return False
     if f'"{SCHEMA_VERSION}"' in head:
         return True
-    if '"schema"' in head:          # some other schema, decided
+    if '"schema"' in head:  # some other schema, decided
         return False
-    try:                            # schema past the head, or absent
+    try:  # schema past the head, or absent
         with path.open("r", encoding="utf-8") as f:
             doc = json.load(f)
-        return (isinstance(doc, dict) and doc.get("schema") == SCHEMA_VERSION
-                and "setting" not in doc)
+        return (
+            isinstance(doc, dict)
+            and doc.get("schema") == SCHEMA_VERSION
+            and "setting" not in doc
+        )
     except (OSError, ValueError):
         return False
 
@@ -422,8 +461,9 @@ def load_summary(path: str | Path) -> Dict[str, Any]:
         return normalize(json.load(f))
 
 
-def paired_keep_ids(summary: Dict[str, Any],
-                    settings: tuple[str, ...] = ("s1", "s2")) -> set[str]:
+def paired_keep_ids(
+    summary: Dict[str, Any], settings: tuple[str, ...] = ("s1", "s2")
+) -> set[str]:
     """Ids of the items an S1/S2 contrast is scored on.
 
     The runner drops an item from the paired contrast when a setting returned

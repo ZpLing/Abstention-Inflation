@@ -34,6 +34,7 @@ Output:
 Usage:
     python -m scripts.analyze_fld_steps_abstention
 """
+
 from __future__ import annotations
 
 import json
@@ -46,17 +47,21 @@ from typing import Dict, List, Tuple
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from infra.result_schema import paired_keep_ids
-from infra.result_schema import load_cell  # noqa: E402
+from infra.result_schema import (
+    load_cell,  # noqa: E402
+    paired_keep_ids,
+)
 
 #: Difficulty comes from the proof-tree depth the dataset ships with. The
 #: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;
 #: `dataset/FLD.json` carries `depth`, which is the same quantity under the
 #: unified schema.
 FLD_SOURCE = ROOT / "dataset" / "FLD.json"
-TFQ_CELLS = [("deepseek_v4_flash", "deepseek-v4-flash"),
-             ("gpt_5.4_nano", "gpt-5.4-nano"),
-             ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite")]
+TFQ_CELLS = [
+    ("deepseek_v4_flash", "deepseek-v4-flash"),
+    ("gpt_5.4_nano", "gpt-5.4-nano"),
+    ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite"),
+]
 
 ID_RE = re.compile(r"FLD_(\d+)")
 
@@ -112,16 +117,18 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
             idx = int(m.group(1))
             if idx not in steps_map:
                 continue
-            rows.append({
-                "model":        model,
-                "source_idx":   idx,
-                "steps":        steps_map[idx],
-                "answer_idx":   r.get("answer_idx", -1),
-                "gold_unknown": r.get("answer_idx", -1) < 0,
-                "abstained_s1": r.get("pred_s1") == "UNKNOWN",
-                "abstained_s2": r.get("pred_s2") == "UNKNOWN",
-                "source_file":  f"FLD_{model}.json",
-            })
+            rows.append(
+                {
+                    "model": model,
+                    "source_idx": idx,
+                    "steps": steps_map[idx],
+                    "answer_idx": r.get("answer_idx", -1),
+                    "gold_unknown": r.get("answer_idx", -1) < 0,
+                    "abstained_s1": r.get("pred_s1") == "UNKNOWN",
+                    "abstained_s2": r.get("pred_s2") == "UNKNOWN",
+                    "source_file": f"FLD_{model}.json",
+                }
+            )
     return rows
 
 
@@ -129,6 +136,7 @@ def spearman(x: List[float], y: List[float]) -> Tuple[float, float]:
     if len(x) < 3:
         return float("nan"), float("nan")
     from scipy.stats import spearmanr
+
     rho, p = spearmanr(x, y)
     return float(rho), float(p)
 
@@ -137,7 +145,9 @@ def cochran_armitage(bins_n: List[int], bins_pos: List[int]) -> Tuple[float, flo
     """Cochran-Armitage trend test. Scores = bin index (0..K-1).
     Returns (z, two-sided p)."""
     import math
+
     from scipy.stats import norm
+
     K = len(bins_n)
     if K < 2 or sum(bins_n) == 0:
         return float("nan"), float("nan")
@@ -149,7 +159,11 @@ def cochran_armitage(bins_n: List[int], bins_pos: List[int]) -> Tuple[float, flo
     p_bar = R / N
     T = sum(scores[i] * (bins_pos[i] - bins_n[i] * p_bar) for i in range(K))
     s_bar = sum(scores[i] * bins_n[i] for i in range(K)) / N
-    var = p_bar * (1 - p_bar) * sum(bins_n[i] * (scores[i] - s_bar) ** 2 for i in range(K))
+    var = (
+        p_bar
+        * (1 - p_bar)
+        * sum(bins_n[i] * (scores[i] - s_bar) ** 2 for i in range(K))
+    )
     if var <= 0:
         return float("nan"), float("nan")
     z = T / math.sqrt(var)
@@ -175,26 +189,30 @@ def summarise_group(rows: List[dict], universe: str) -> dict:
         n_abs = sum(1 for r in rs if r["abstained_s2"])
         rate = (n_abs / n) if n else float("nan")
         mean_steps = (sum(r["steps"] for r in rs) / n) if n else float("nan")
-        bin_rows.append({
-            "bin":            label,
-            "n":              n,
-            "n_abstain_s2":   n_abs,
-            "abstain_rate":   rate,
-            "mean_steps":     mean_steps,
-        })
+        bin_rows.append(
+            {
+                "bin": label,
+                "n": n,
+                "n_abstain_s2": n_abs,
+                "abstain_rate": rate,
+                "mean_steps": mean_steps,
+            }
+        )
         bins_n.append(n)
         bins_pos.append(n_abs)
 
-    rho, p_sp = spearman([r["steps"] for r in rows], [int(r["abstained_s2"]) for r in rows])
+    rho, p_sp = spearman(
+        [r["steps"] for r in rows], [int(r["abstained_s2"]) for r in rows]
+    )
     z, p_ca = cochran_armitage(bins_n, bins_pos)
 
     return {
-        "universe":    universe,
-        "n_total":     sum(bins_n),
-        "n_abstain":   sum(bins_pos),
-        "rate_total":  (sum(bins_pos) / sum(bins_n)) if sum(bins_n) else float("nan"),
-        "bins":        bin_rows,
-        "spearman":    {"rho": rho, "p": p_sp},
+        "universe": universe,
+        "n_total": sum(bins_n),
+        "n_abstain": sum(bins_pos),
+        "rate_total": (sum(bins_pos) / sum(bins_n)) if sum(bins_n) else float("nan"),
+        "bins": bin_rows,
+        "spearman": {"rho": rho, "p": p_sp},
         "cochran_armitage": {"z": z, "p": p_ca},
     }
 
@@ -205,10 +223,14 @@ def print_table(title: str, summary: dict) -> None:
     print(f"  {'bin':<8} {'n':>5} {'n_absS2':>8} {'rate':>8} {'mean_steps':>11}")
     for b in summary["bins"]:
         rate = f"{b['abstain_rate']:.1%}" if b["n"] else "    —"
-        ms   = f"{b['mean_steps']:.2f}" if b["n"] else "    —"
-        print(f"  {b['bin']:<8} {b['n']:>5d} {b['n_abstain_s2']:>8d} {rate:>8} {ms:>11}")
-    print(f"  {'TOTAL':<8} {summary['n_total']:>5d} {summary['n_abstain']:>8d} "
-          f"{summary['rate_total']:>7.1%}")
+        ms = f"{b['mean_steps']:.2f}" if b["n"] else "    —"
+        print(
+            f"  {b['bin']:<8} {b['n']:>5d} {b['n_abstain_s2']:>8d} {rate:>8} {ms:>11}"
+        )
+    print(
+        f"  {'TOTAL':<8} {summary['n_total']:>5d} {summary['n_abstain']:>8d} "
+        f"{summary['rate_total']:>7.1%}"
+    )
     sp = summary["spearman"]
     ca = summary["cochran_armitage"]
     print(f"  Spearman ρ(steps, abstain) = {sp['rho']:+.3f}  p = {sp['p']:.4g}")
@@ -222,7 +244,9 @@ def main() -> None:
     print(f"Loaded {len(steps_map)} FLD items with a `depth` annotation.")
 
     rows = collect_per_sample(steps_map)
-    print(f"Collected {len(rows)} (model, sample) cells from results/S11_positional_bias/.")
+    print(
+        f"Collected {len(rows)} (model, sample) cells from results/S11_positional_bias/."
+    )
     if not rows:
         sys.exit("No FLD ab_summary data found.")
 
@@ -231,11 +255,11 @@ def main() -> None:
         by_model[r["model"]].append(r)
 
     output: dict = {
-        "bins":         [{"label": b[0], "lo": b[1], "hi": b[2]} for b in BINS],
-        "n_models":     len(by_model),
-        "n_cells":      len(rows),
-        "per_model":    {},
-        "pooled":       {},
+        "bins": [{"label": b[0], "lo": b[1], "hi": b[2]} for b in BINS],
+        "n_models": len(by_model),
+        "n_cells": len(rows),
+        "per_model": {},
+        "pooled": {},
     }
 
     print("\n" + "=" * 78)

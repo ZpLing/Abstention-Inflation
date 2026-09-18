@@ -12,6 +12,7 @@ A YAML config can still declare ``paths.raw_dataset_template`` (e.g.
 ``"dataset/{dataset_name}.json"``); leaving it unset is fine — the default
 resolves to the same place.
 """
+
 from __future__ import annotations
 
 import json
@@ -19,9 +20,9 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from loader.dataset_loader import (
-    DEFAULT_DATASET_ROOT,
-    PAPER_DATASETS,
     Sample,
+)
+from loader.dataset_loader import (
     load_dataset as _load_dataset,
 )
 
@@ -49,8 +50,7 @@ class DataHandler:
         if not tpl:
             raise KeyError(f"paths.{key} not configured in YAML.")
         return Path(
-            tpl.format(dataset_name=self.dataset_name,
-                       model_name=self.model_name)
+            tpl.format(dataset_name=self.dataset_name, model_name=self.model_name)
         )
 
     # ------------------------------------------------------------------
@@ -61,8 +61,9 @@ class DataHandler:
         """Return all items of ``dataset/<name>.json`` as ``Sample`` instances."""
         if self._raw_template:
             # Honour a YAML-supplied template so non-default datasets still work.
-            path = Path(self._raw_template.format(
-                dataset_name=name, model_name=self.model_name))
+            path = Path(
+                self._raw_template.format(dataset_name=name, model_name=self.model_name)
+            )
             if path.is_file():
                 with path.open("r", encoding="utf-8") as f:
                     items = json.load(f)

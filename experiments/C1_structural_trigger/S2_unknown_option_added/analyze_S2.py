@@ -12,6 +12,7 @@ Usage:
     python -m scripts.analyze_acc_effect
     python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 """
+
 import argparse
 import json
 import sys
@@ -20,15 +21,20 @@ from typing import List, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from infra.result_schema import is_paired_summary  # noqa: E402
-from infra.result_schema import load_cell, iter_cells  # noqa: E402
-
+from infra.result_schema import iter_cells, load_cell  # noqa: E402
 
 _BAD = {"UNKNOWN", "UNPARSEABLE", None, ""}
 
-MCQ_DATASETS = {"ARC-Easy_250", "ARC-Challenge_250", "ARC-Easy", "ARC-Challenge", "MedQA",
-                "MedQA-Step1", "MedQA-Step2_3"}
-TF_DATASETS  = {"FLD", "FOLIO", "FEVER"}
+MCQ_DATASETS = {
+    "ARC-Easy_250",
+    "ARC-Challenge_250",
+    "ARC-Easy",
+    "ARC-Challenge",
+    "MedQA",
+    "MedQA-Step1",
+    "MedQA-Step2_3",
+}
+TF_DATASETS = {"FLD", "FOLIO", "FEVER"}
 
 
 def is_correct(pred: str, answer_idx: int) -> bool:
@@ -74,14 +80,17 @@ def mcnemar_p(n10: int, n01: int) -> float:
         return 1.0
     try:
         from scipy.stats import binomtest  # type: ignore  # scipy >= 1.7
+
         return binomtest(n01, n=discordant, p=0.5, alternative="two-sided").pvalue
     except ImportError:
         from scipy.stats import binom_test  # type: ignore  # scipy < 1.7
+
         return binom_test(n01, n=discordant, p=0.5, alternative="two-sided")
 
 
 def spearman(x: List[float], y: List[float]) -> Tuple[float, float]:
     from scipy.stats import spearmanr  # type: ignore
+
     if len(x) < 3:
         return float("nan"), float("nan")
     rho, p = spearmanr(x, y)
@@ -90,6 +99,7 @@ def spearman(x: List[float], y: List[float]) -> Tuple[float, float]:
 
 def pearson(x: List[float], y: List[float]) -> Tuple[float, float]:
     from scipy.stats import pearsonr  # type: ignore
+
     if len(x) < 3:
         return float("nan"), float("nan")
     r, p = pearsonr(x, y)
@@ -99,7 +109,8 @@ def pearson(x: List[float], y: List[float]) -> Tuple[float, float]:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--results_dirs", nargs="*",
+        "--results_dirs",
+        nargs="*",
         help="results root to scan (default: results/).",
     )
     args = parser.parse_args()
@@ -115,26 +126,26 @@ def main():
     # ----------------------------------------------------------------
     rows = []
     mcq_pairs: List[Tuple[bool, bool]] = []  # S1 vs S2
-    tf_pairs:  List[Tuple[bool, bool]] = []
+    tf_pairs: List[Tuple[bool, bool]] = []
 
     for s in summaries:
-        ds      = s.get("dataset", "?")
-        model   = s.get("model", "?")
-        tt      = s.get("task_type", "?")
+        ds = s.get("dataset", "?")
+        model = s.get("model", "?")
+        tt = s.get("task_type", "?")
         metrics = s.get("metrics", {})
-        s1m     = metrics.get("S1", {})
-        s2m     = metrics.get("S2", {})
-        acc_s1  = s1m.get("label_acc", None)
-        acc_s2  = s2m.get("label_acc", None)
+        s1m = metrics.get("S1", {})
+        s2m = metrics.get("S2", {})
+        acc_s1 = s1m.get("label_acc", None)
+        acc_s2 = s2m.get("label_acc", None)
         n_total = s.get("n_total", 0)
-        n_ai   = s.get("n_abstention_inflation", 0)
+        n_ai = s.get("n_abstention_inflation", 0)
 
         if acc_s1 is None or acc_s2 is None or n_total == 0:
             print(f"  [skip] {model}/{ds}: missing metrics.")
             continue
 
         delta_acc = acc_s2 - acc_s1
-        abs_rate  = n_ai / n_total
+        abs_rate = n_ai / n_total
 
         # Per-sample pairs for all setting comparisons
         per_sample = s.get("per_sample", [])
@@ -152,18 +163,20 @@ def main():
         elif tt == "tf":
             tf_pairs.extend(p12_here)
 
-        rows.append({
-            "model":     model,
-            "dataset":   ds,
-            "task_type": tt,
-            "acc_s1":    acc_s1,
-            "acc_s2":    acc_s2,
-            "delta_s1s2": acc_s2 - acc_s1,
-            "delta_acc":  delta_acc,
-            "abs_rate":        abs_rate,
-            "n":          n_total,
-            "n_pairs":    len(p12_here),
-        })
+        rows.append(
+            {
+                "model": model,
+                "dataset": ds,
+                "task_type": tt,
+                "acc_s1": acc_s1,
+                "acc_s2": acc_s2,
+                "delta_s1s2": acc_s2 - acc_s1,
+                "delta_acc": delta_acc,
+                "abs_rate": abs_rate,
+                "n": n_total,
+                "n_pairs": len(p12_here),
+            }
+        )
 
     if not rows:
         print("No data found. Check results directories.")
@@ -173,14 +186,18 @@ def main():
     # 2. Per-dataset table
     # ----------------------------------------------------------------
     print("=" * 100)
-    print(f"{'Model':<35} {'Dataset':<22} {'Type':<4} {'Acc_S1':>7} {'Acc_S2':>7} "
-          f"{'ΔS1→S2':>8} {'Abs Rate':>7} {'n':>5}")
+    print(
+        f"{'Model':<35} {'Dataset':<22} {'Type':<4} {'Acc_S1':>7} {'Acc_S2':>7} "
+        f"{'ΔS1→S2':>8} {'Abs Rate':>7} {'n':>5}"
+    )
     print("-" * 100)
     for r in sorted(rows, key=lambda x: (x["task_type"], x["model"], x["dataset"])):
-        print(f"{r['model']:<35} {r['dataset']:<22} {r['task_type']:<4} "
-              f"{r['acc_s1']:>7.1%} {r['acc_s2']:>7.1%} "
-              f"{r['delta_s1s2']:>+8.1%} "
-              f"{r['abs_rate']:>7.1%} {r['n']:>5d}")
+        print(
+            f"{r['model']:<35} {r['dataset']:<22} {r['task_type']:<4} "
+            f"{r['acc_s1']:>7.1%} {r['acc_s2']:>7.1%} "
+            f"{r['delta_s1s2']:>+8.1%} "
+            f"{r['abs_rate']:>7.1%} {r['n']:>5d}"
+        )
 
     # ----------------------------------------------------------------
     # 3. Group-level McNemar test: MCQ vs TF, per setting comparison
@@ -194,11 +211,20 @@ def main():
         a2 = (n11 + n01) / total
         delta = a2 - a1
         p = mcnemar_p(n10, n01)
-        sig = ('*** (p<0.001)' if p < 0.001 else '** (p<0.01)' if p < 0.01
-               else '* (p<0.05)' if p < 0.05 else '(n.s.)')
+        sig = (
+            "*** (p<0.001)"
+            if p < 0.001
+            else "** (p<0.01)"
+            if p < 0.01
+            else "* (p<0.05)"
+            if p < 0.05
+            else "(n.s.)"
+        )
         print(f"\n  {label_type} — {setting_label}  (n={total})")
-        print(f"    Acc_A={a1:.3f}  Acc_B={a2:.3f}  ΔAcc={delta:+.3f}  "
-              f"discordant: +{n01} / -{n10}  p={p:.4g}  {sig}")
+        print(
+            f"    Acc_A={a1:.3f}  Acc_B={a2:.3f}  ΔAcc={delta:+.3f}  "
+            f"discordant: +{n01} / -{n10}  p={p:.4g}  {sig}"
+        )
 
     print("\n" + "=" * 70)
     print("McNemar's test per setting comparison")
@@ -206,7 +232,7 @@ def main():
     print("A→B means: does accuracy change from setting A to setting B?")
     print("-" * 70)
     for type_label, p12 in [
-        ("MCQ",        mcq_pairs),
+        ("MCQ", mcq_pairs),
         ("TF (Judge)", tf_pairs),
     ]:
         _mcnemar_block(type_label, "S1 → S2  (+Unknown option)", p12)
@@ -219,14 +245,18 @@ def main():
     print("-" * 70)
 
     for label, tt_filter in [("All", None), ("MCQ only", "mcq"), ("TF only", "tf")]:
-        subset = rows if tt_filter is None else [r for r in rows if r["task_type"] == tt_filter]
+        subset = (
+            rows
+            if tt_filter is None
+            else [r for r in rows if r["task_type"] == tt_filter]
+        )
         if len(subset) < 3:
             print(f"{label}: too few data points ({len(subset)}).")
             continue
-        abs_rates   = [r["abs_rate"] for r in subset]
+        abs_rates = [r["abs_rate"] for r in subset]
         deltas = [r["delta_acc"] for r in subset]
         rho, p_sp = spearman(abs_rates, deltas)
-        r,   p_pe = pearson(abs_rates, deltas)
+        r, p_pe = pearson(abs_rates, deltas)
         print(f"\n{label}  (n_cells={len(subset)})")
         print(f"  Spearman ρ = {rho:+.3f}  p = {p_sp:.4g}")
         print(f"  Pearson  r = {r:+.3f}  p = {p_pe:.4g}")
@@ -240,7 +270,7 @@ def main():
     output = {
         "rows": rows,
         "mcq_mcnemar": None,
-        "tf_mcnemar":  None,
+        "tf_mcnemar": None,
     }
     for key, pairs in [("mcq_mcnemar", mcq_pairs), ("tf_mcnemar", tf_pairs)]:
         if pairs:

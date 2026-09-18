@@ -1,5 +1,6 @@
 import re
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 
 class Evaluator:
     """
@@ -32,7 +33,9 @@ class Evaluator:
             return "__PROVED__"
         return "__UNKNOWN__"
 
-    def calculate_accuracy(self, predictions: List[str], ground_truths: List[str]) -> Dict[str, Any]:
+    def calculate_accuracy(
+        self, predictions: List[str], ground_truths: List[str]
+    ) -> Dict[str, Any]:
         """
         Calculate basic metrics such as accuracy.
         """
@@ -46,7 +49,7 @@ class Evaluator:
         return {
             "correct_count": correct_count,
             "total_count": total_count,
-            "accuracy": accuracy
+            "accuracy": accuracy,
         }
 
     def parse_binary_answer(self, text: str) -> str:
@@ -300,17 +303,28 @@ class Evaluator:
         scripts = set()
         for c in letters:
             o = ord(c)
-            if o < 0x250: scripts.add("latin")
-            elif 0x370 <= o < 0x400: scripts.add("greek")
-            elif 0x400 <= o < 0x530: scripts.add("cyrillic")
-            elif 0x590 <= o < 0x600: scripts.add("hebrew")
-            elif 0x600 <= o < 0x700: scripts.add("arabic")
-            elif 0x900 <= o < 0xA00: scripts.add("devanagari")
-            elif 0xE00 <= o < 0xE80: scripts.add("thai")
-            elif 0x1100 <= o < 0x1200 or 0xAC00 <= o < 0xD7B0: scripts.add("hangul")
-            elif 0x3040 <= o < 0x3100: scripts.add("kana")
-            elif 0x4E00 <= o < 0xA000: scripts.add("han")
-            else: scripts.add("other")
+            if o < 0x250:
+                scripts.add("latin")
+            elif 0x370 <= o < 0x400:
+                scripts.add("greek")
+            elif 0x400 <= o < 0x530:
+                scripts.add("cyrillic")
+            elif 0x590 <= o < 0x600:
+                scripts.add("hebrew")
+            elif 0x600 <= o < 0x700:
+                scripts.add("arabic")
+            elif 0x900 <= o < 0xA00:
+                scripts.add("devanagari")
+            elif 0xE00 <= o < 0xE80:
+                scripts.add("thai")
+            elif 0x1100 <= o < 0x1200 or 0xAC00 <= o < 0xD7B0:
+                scripts.add("hangul")
+            elif 0x3040 <= o < 0x3100:
+                scripts.add("kana")
+            elif 0x4E00 <= o < 0xA000:
+                scripts.add("han")
+            else:
+                scripts.add("other")
         return len(scripts) >= 4
 
     @classmethod
@@ -330,9 +344,7 @@ class Evaluator:
             return "decoding_collapse"
         return "no_commitment"
 
-    _FINAL_ANSWER_RE = re.compile(
-        r"(?im)^\s*(?:final\s*answer|answer)\s*[:\-=]\s*.+$"
-    )
+    _FINAL_ANSWER_RE = re.compile(r"(?im)^\s*(?:final\s*answer|answer)\s*[:\-=]\s*.+$")
     _REASONING_PREFIX_RE = re.compile(
         r"(?im)^\s*(?:reasoning|chain[\s\-_]of[\s\-_]thought|cot)\s*[:\-]\s*"
     )

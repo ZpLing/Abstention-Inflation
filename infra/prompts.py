@@ -42,8 +42,8 @@ marked as such; no paper number depends on them.
 Critical invariant: the abstain option is appended at prompt-build time only.
 The on-disk dataset is never modified.
 """
-from typing import Dict, List
 
+from typing import Dict, List
 
 # Standard CoT response template. The two-line format makes downstream parsing
 # trivial (regex `Final answer:\s*X`) while keeping the natural-language
@@ -76,8 +76,7 @@ _DIRECT_INSTR_MCQ = (
 
 def _direct_instr_judge(verb_options: str) -> str:
     return (
-        f"\nAnswer with only one of {verb_options}, "
-        "with no reasoning or explanation."
+        f"\nAnswer with only one of {verb_options}, with no reasoning or explanation."
     )
 
 
@@ -114,9 +113,9 @@ def _format_mcq_options(options: List[str], with_unknown: bool = False) -> str:
     return "\n".join(lines)
 
 
-def build_mcq_s1_prompt(question: str, options: List[str],
-                        cot: bool = True,
-                        context: str = "") -> List[Dict[str, str]]:
+def build_mcq_s1_prompt(
+    question: str, options: List[str], cot: bool = True, context: str = ""
+) -> List[Dict[str, str]]:
     """S1 Baseline (MCQ) — original A/B/C/D label set, no "Unknown" option.
 
     ``cot=False`` selects the direct-answer variant used by the unreported CoT
@@ -133,9 +132,9 @@ def build_mcq_s1_prompt(question: str, options: List[str],
     return [{"role": "user", "content": content}]
 
 
-def build_mcq_s2_prompt(question: str, options: List[str],
-                        cot: bool = True,
-                        context: str = "") -> List[Dict[str, str]]:
+def build_mcq_s2_prompt(
+    question: str, options: List[str], cot: bool = True, context: str = ""
+) -> List[Dict[str, str]]:
     """S2 "Unknown" Option Added (MCQ) — appends ``E. Unknown`` as a 5th option."""
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
@@ -148,8 +147,9 @@ def build_mcq_s2_prompt(question: str, options: List[str],
     return [{"role": "user", "content": content}]
 
 
-def build_mcq_s4_word_prompt(question: str, options: List[str],
-                             abstain_word: str) -> List[Dict[str, str]]:
+def build_mcq_s4_word_prompt(
+    question: str, options: List[str], abstain_word: str
+) -> List[Dict[str, str]]:
     """S4 Word Content Ablation (MCQ) — 5th option is ``abstain_word``.
 
     Structurally identical to :func:`build_mcq_s2_prompt`; only the label of the
@@ -162,9 +162,7 @@ def build_mcq_s4_word_prompt(question: str, options: List[str],
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
         f"Question: {question}\n\n"
-        "Options:\n"
-        + "\n".join(lines)
-        + f"\n{_COT_INSTR_MCQ}"
+        "Options:\n" + "\n".join(lines) + f"\n{_COT_INSTR_MCQ}"
     )
     return [{"role": "user", "content": content}]
 
@@ -178,8 +176,9 @@ _STIMULATION_CORE = (
 )
 
 
-def build_mcq_s5_rerun_prompt(prior_messages: List[Dict[str, str]],
-                              prior_response: str) -> List[Dict[str, str]]:
+def build_mcq_s5_rerun_prompt(
+    prior_messages: List[Dict[str, str]], prior_response: str
+) -> List[Dict[str, str]]:
     """S5 w/o "Unknown" Option Rerun (MCQ) — multi-turn.
 
     Replays the S2 conversation, then appends a follow-up turn that removes
@@ -214,38 +213,43 @@ def _format_judge_options(scheme, with_unknown: bool = False) -> str:
     return " | ".join(parts)
 
 
-def _judge_body(scheme, claim: str, context: str = "", with_unknown: bool = False,
-                verb_opts: str = "") -> str:
+def _judge_body(
+    scheme,
+    claim: str,
+    context: str = "",
+    with_unknown: bool = False,
+    verb_opts: str = "",
+) -> str:
     ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
-    instr = (scheme.task_instruction_ternary if with_unknown
-             else scheme.task_instruction_binary)
+    instr = (
+        scheme.task_instruction_ternary
+        if with_unknown
+        else scheme.task_instruction_binary
+    )
     opts = verb_opts or _format_judge_options(scheme, with_unknown=with_unknown)
     return (
-        f"{instr}\n"
-        f"{ctx_block}"
-        f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Output one of: {opts}"
+        f"{instr}\n{ctx_block}\n{scheme.claim_label}:\n{claim}\n\nOutput one of: {opts}"
     )
 
 
-def build_judge_s1_prompt(scheme, claim: str, context: str = "",
-                          cot: bool = True) -> List[Dict[str, str]]:
+def build_judge_s1_prompt(
+    scheme, claim: str, context: str = "", cot: bool = True
+) -> List[Dict[str, str]]:
     """S1 Baseline (TFQ) — binary True/False, no abstain verb."""
     verb_opts = _format_judge_options(scheme, with_unknown=False)
-    content = (
-        _judge_body(scheme, claim, context, with_unknown=False)
-        + _judge_instr(verb_opts, cot)
+    content = _judge_body(scheme, claim, context, with_unknown=False) + _judge_instr(
+        verb_opts, cot
     )
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s2_prompt(scheme, claim: str, context: str = "",
-                          cot: bool = True) -> List[Dict[str, str]]:
+def build_judge_s2_prompt(
+    scheme, claim: str, context: str = "", cot: bool = True
+) -> List[Dict[str, str]]:
     """S2 "Unknown" Option Added (TFQ) — ternary True/False/<abstain verb>."""
     verb_opts = _format_judge_options(scheme, with_unknown=True)
-    content = (
-        _judge_body(scheme, claim, context, with_unknown=True)
-        + _judge_instr(verb_opts, cot)
+    content = _judge_body(scheme, claim, context, with_unknown=True) + _judge_instr(
+        verb_opts, cot
     )
     return [{"role": "user", "content": content}]
 
@@ -254,9 +258,7 @@ def _s3_body(scheme, claim: str, context: str = "") -> str:
     """Shared S3 body: the S2 ternary re-rendered as A/B/C letter options."""
     ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
     options_block = (
-        f"A. {scheme.pos_verb}\n"
-        f"B. {scheme.neg_verb}\n"
-        f"C. {scheme.abstain_verb}"
+        f"A. {scheme.pos_verb}\nB. {scheme.neg_verb}\nC. {scheme.abstain_verb}"
     )
     return (
         f"{scheme.task_instruction_ternary}\n"
@@ -273,8 +275,9 @@ _S3_COT_INSTR = (
 )
 
 
-def build_judge_s1_letter_prompt(scheme, claim: str,
-                                 context: str = "") -> List[Dict[str, str]]:
+def build_judge_s1_letter_prompt(
+    scheme, claim: str, context: str = ""
+) -> List[Dict[str, str]]:
     """The S3 rendering minus the abstain option -- A/B letters, no C.
 
     This is the baseline the S3 column needs: identical surface format, so the
@@ -293,8 +296,9 @@ def build_judge_s1_letter_prompt(scheme, claim: str,
     return [{"role": "user", "content": body + _S3_COT_INSTR}]
 
 
-def build_judge_s3_format_prompt(scheme, claim: str,
-                                 context: str = "") -> List[Dict[str, str]]:
+def build_judge_s3_format_prompt(
+    scheme, claim: str, context: str = ""
+) -> List[Dict[str, str]]:
     """S3 Question Format Ablation (TFQ) - same content, MCQ-style rendering.
 
     The verb-coded ternary of :func:`build_judge_s2_prompt` is re-rendered as
@@ -302,12 +306,14 @@ def build_judge_s3_format_prompt(scheme, claim: str,
     the task instruction, context block, claim block and CoT instruction are the
     S2 ones, so the only manipulation is the surface question format.
     """
-    return [{"role": "user",
-             "content": _s3_body(scheme, claim, context) + _S3_COT_INSTR}]
+    return [
+        {"role": "user", "content": _s3_body(scheme, claim, context) + _S3_COT_INSTR}
+    ]
 
 
-def build_judge_s3_format_prompt_calibrated(scheme, claim: str,
-                                            context: str = "") -> List[Dict[str, str]]:
+def build_judge_s3_format_prompt_calibrated(
+    scheme, claim: str, context: str = ""
+) -> List[Dict[str, str]]:
     """The S3 prompt *as first run* - letter rendering plus a calibration note.
 
     Retained only so the superseded FLD_MCQ / FOLIO_MCQ numbers stay
@@ -322,8 +328,12 @@ def build_judge_s3_format_prompt_calibrated(scheme, claim: str,
         f"you feel uncertain \u2014 choose it only when no answer can be determined from the\n"
         f"given context."
     )
-    return [{"role": "user",
-             "content": _s3_body(scheme, claim, context) + suffix + _S3_COT_INSTR}]
+    return [
+        {
+            "role": "user",
+            "content": _s3_body(scheme, claim, context) + suffix + _S3_COT_INSTR,
+        }
+    ]
 
 
 def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
@@ -341,9 +351,9 @@ def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
     raise ValueError(f"abstain_slot must be 1, 2 or 3, got {abstain_slot!r}")
 
 
-def build_judge_s11_position_prompt(scheme, claim: str, context: str = "",
-                                    abstain_slot: int = 3,
-                                    cot: bool = True) -> List[Dict[str, str]]:
+def build_judge_s11_position_prompt(
+    scheme, claim: str, context: str = "", abstain_slot: int = 3, cot: bool = True
+) -> List[Dict[str, str]]:
     """S11 Positional Biases (TFQ) — S2 with the three verbs reordered.
 
     This is the S2 prompt, not an MCQ rendering of it: the alternatives stay
@@ -354,15 +364,15 @@ def build_judge_s11_position_prompt(scheme, claim: str, context: str = "",
     original S2 ordering".
     """
     verb_opts = " | ".join(judge_verb_order(scheme, abstain_slot))
-    content = (
-        _judge_body(scheme, claim, context, with_unknown=True, verb_opts=verb_opts)
-        + _judge_instr(verb_opts, cot)
-    )
+    content = _judge_body(
+        scheme, claim, context, with_unknown=True, verb_opts=verb_opts
+    ) + _judge_instr(verb_opts, cot)
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s4_word_prompt(scheme, claim: str, context: str = "",
-                               abstain_word: str = "Triangular") -> List[Dict[str, str]]:
+def build_judge_s4_word_prompt(
+    scheme, claim: str, context: str = "", abstain_word: str = "Triangular"
+) -> List[Dict[str, str]]:
     """S4 Word Content Ablation (TFQ) — third option is ``abstain_word``.
 
     Byte-for-byte identical to :func:`build_judge_s2_prompt` except that
@@ -376,15 +386,14 @@ def build_judge_s4_word_prompt(scheme, claim: str, context: str = "",
         f"{scheme.task_instruction_ternary}\n"
         f"{ctx_block}"
         f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Output one of: {options_str}"
-        + _cot_instr_judge(options_str)
+        f"Output one of: {options_str}" + _cot_instr_judge(options_str)
     )
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s5_rerun_prompt(prior_messages: List[Dict[str, str]],
-                                prior_response: str,
-                                scheme) -> List[Dict[str, str]]:
+def build_judge_s5_rerun_prompt(
+    prior_messages: List[Dict[str, str]], prior_response: str, scheme
+) -> List[Dict[str, str]]:
     """S5 w/o "Unknown" Option Rerun (TFQ) — multi-turn.
 
     Replays the S2 conversation, then removes the abstain verb and forces a
@@ -429,16 +438,17 @@ def _s6_answer_suffix(options_str: str) -> str:
     )
 
 
-def build_judge_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
-                                   prior_response: str,
-                                   abstain_verb: str = "Unknown") -> List[Dict[str, str]]:
+def build_judge_s6_selfdiag_prompt(
+    prior_messages: List[Dict[str, str]],
+    prior_response: str,
+    abstain_verb: str = "Unknown",
+) -> List[Dict[str, str]]:
     """S6 Self-Diagnosis (TFQ) — appends the A/B attribution turn to the S2 chat."""
     followup = (
         f'You previously selected "{abstain_verb}" for this question.\n'
         "Looking back, which best describes your reason?\n"
         f"A. {S6_OPTION_A}\n"
-        f"B. {S6_OPTION_B}"
-        + _s6_answer_suffix("A | B")
+        f"B. {S6_OPTION_B}" + _s6_answer_suffix("A | B")
     )
     return list(prior_messages) + [
         {"role": "assistant", "content": prior_response},
@@ -446,11 +456,13 @@ def build_judge_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
     ]
 
 
-def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
-                                 prior_response: str) -> List[Dict[str, str]]:
+def build_mcq_s6_selfdiag_prompt(
+    prior_messages: List[Dict[str, str]], prior_response: str
+) -> List[Dict[str, str]]:
     """S6 Self-Diagnosis (MCQ) — same follow-up, phrased for the ``E. Unknown`` slot."""
-    return build_judge_s6_selfdiag_prompt(prior_messages, prior_response,
-                                          abstain_verb="E. Unknown")
+    return build_judge_s6_selfdiag_prompt(
+        prior_messages, prior_response, abstain_verb="E. Unknown"
+    )
 
 
 # =================================================================
@@ -463,13 +475,14 @@ def build_mcq_s6_selfdiag_prompt(prior_messages: List[Dict[str, str]],
 # =================================================================
 
 
-def build_judge_calibration_suffix_prompt(scheme, claim: str,
-                                          context: str = "") -> List[Dict[str, str]]:
+def build_judge_calibration_suffix_prompt(
+    scheme, claim: str, context: str = ""
+) -> List[Dict[str, str]]:
     """S9 third condition — S2 plus a suffix saying when to abstain (TFQ)."""
     verb_opts = _format_judge_options(scheme, with_unknown=True)
     body = _judge_body(scheme, claim, context, with_unknown=True)
     suffix = (
-        f"\n\nNote: Select \"{scheme.abstain_verb}\" ONLY if the relationship is genuinely\n"
+        f'\n\nNote: Select "{scheme.abstain_verb}" ONLY if the relationship is genuinely\n'
         f"undeterminable given the available information. Do NOT select it simply because\n"
         f"you feel uncertain — choose it only when no answer can be determined from the\n"
         f"given context."
@@ -486,8 +499,9 @@ def build_judge_calibration_suffix_prompt(scheme, claim: str,
 # =================================================================
 
 
-def build_mcq_compound_prompt(question: str, options: List[str],
-                              answer_idx: int) -> tuple:
+def build_mcq_compound_prompt(
+    question: str, options: List[str], answer_idx: int
+) -> tuple:
     """Control — 5th option "Both X and Y are correct" where X is the gold answer.
 
     Returns ``(messages, compound_text)``. The option is formally wrong (it
@@ -506,15 +520,14 @@ def build_mcq_compound_prompt(question: str, options: List[str],
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
         f"Question: {question}\n\n"
-        "Options:\n"
-        + "\n".join(lines)
-        + f"\n{_COT_INSTR_MCQ}"
+        "Options:\n" + "\n".join(lines) + f"\n{_COT_INSTR_MCQ}"
     )
     return [{"role": "user", "content": content}], compound_text
 
 
-def build_mcq_compound_ww_prompt(question: str, options: List[str],
-                                 answer_idx: int) -> tuple:
+def build_mcq_compound_ww_prompt(
+    question: str, options: List[str], answer_idx: int
+) -> tuple:
     """Control — compound option naming two *wrong* options (gold not mentioned).
 
     Compared against :func:`build_mcq_compound_prompt` to isolate whether the
@@ -532,8 +545,6 @@ def build_mcq_compound_ww_prompt(question: str, options: List[str],
     content = (
         "Answer the following question by selecting one of the given options.\n\n"
         f"Question: {question}\n\n"
-        "Options:\n"
-        + "\n".join(lines)
-        + f"\n{_COT_INSTR_MCQ}"
+        "Options:\n" + "\n".join(lines) + f"\n{_COT_INSTR_MCQ}"
     )
     return [{"role": "user", "content": content}], compound_text

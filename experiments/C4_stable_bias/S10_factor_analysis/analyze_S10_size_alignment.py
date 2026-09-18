@@ -23,18 +23,20 @@ Two things this module does that the hardcoded table could not:
   little of its output carries an explicit commitment -- ``trusted_share``
   below ``TRUST_FLOOR`` -- rather than being listed by hand.
 """
+
 from __future__ import annotations
 
-import json
 import sys
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir  # noqa: E402
-
-from infra.result_schema import get_field, load_summary   # noqa: E402, results_dir
+from infra.result_schema import (  # noqa: E402, results_dir
+    get_field,
+    load_summary,
+    results_dir,  # noqa: E402
+)
 
 #: Below this share of explicitly-committed answers, a cell's Abs Rate is
 #: whatever the whole-text fallback happened to find, and is not reportable.
@@ -73,20 +75,27 @@ def load_cells(results_dir: Path = RESULTS_DIR):
                 s2 = m.get("S2") or {}
                 n = s.get("n_total") or 0
                 abs_rate = s2.get("abs_rate")
-                if abs_rate is None:      # pre-rerun files carry only the count
-                    abs_rate = (get_field(s, "n_abstention_inflation", 0) / n) if n else None
+                if abs_rate is None:  # pre-rerun files carry only the count
+                    abs_rate = (
+                        (get_field(s, "n_abstention_inflation", 0) / n) if n else None
+                    )
                 trusted = s2.get("trusted_share")
-                cells.append({
-                    "dataset": ds, "size": size, "is_it": is_it, "model": tag,
-                    "n": n,
-                    "acc_s1": (m.get("S1") or {}).get("label_acc"),
-                    "acc_s2": s2.get("label_acc"),
-                    "abs_rate": abs_rate,
-                    "abs_rate_strict": s2.get("abs_rate_strict"),
-                    "trusted_share": trusted,
-                    "reliable": (trusted is not None and trusted >= TRUST_FLOOR),
-                    "provenance": (s.get("provenance") or {}).get("s2"),
-                })
+                cells.append(
+                    {
+                        "dataset": ds,
+                        "size": size,
+                        "is_it": is_it,
+                        "model": tag,
+                        "n": n,
+                        "acc_s1": (m.get("S1") or {}).get("label_acc"),
+                        "acc_s2": s2.get("label_acc"),
+                        "abs_rate": abs_rate,
+                        "abs_rate_strict": s2.get("abs_rate_strict"),
+                        "trusted_share": trusted,
+                        "reliable": (trusted is not None and trusted >= TRUST_FLOOR),
+                        "provenance": (s.get("provenance") or {}).get("s2"),
+                    }
+                )
     return cells, missing
 
 
@@ -132,7 +141,7 @@ def check_claims(cells, metric: str = "abs_rate_strict"):
     # so it reported the large scales as contradictions of a claim made only
     # about the small ones.
     SMALL, LARGE = ("E2B", "E4B"), ("26B-A4B", "31B")
-    GAP_CLOSED = 0.05          # 5 points counts as closed
+    GAP_CLOSED = 0.05  # 5 points counts as closed
 
     for ds in DATASETS:
         for size in SIZES:
@@ -141,28 +150,49 @@ def check_claims(cells, metric: str = "abs_rate_strict"):
                 continue
             vb, vi = val(b), val(i)
             small = size in SMALL
-            claim = ("IT raises Acc and Abs Rate together" if small
-                     else "Acc benefit persists, Abs Rate gap closes")
+            claim = (
+                "IT raises Acc and Abs Rate together"
+                if small
+                else "Acc benefit persists, Abs Rate gap closes"
+            )
             if vb is None or vi is None:
-                why = [f"{lbl} below the trust floor" for lbl, c in
-                       (("base", b), ("IT", i)) if not c["reliable"]]
-                why += [f"{lbl} is n={c['n']}, not {ref_n}" for lbl, c in
-                        (("base", b), ("IT", i)) if c["n"] != ref_n]
-                out.append((claim, "UNTESTABLE",
-                            f"{ds}/{size}: " + ("; ".join(why) or "metric missing")))
+                why = [
+                    f"{lbl} below the trust floor"
+                    for lbl, c in (("base", b), ("IT", i))
+                    if not c["reliable"]
+                ]
+                why += [
+                    f"{lbl} is n={c['n']}, not {ref_n}"
+                    for lbl, c in (("base", b), ("IT", i))
+                    if c["n"] != ref_n
+                ]
+                out.append(
+                    (
+                        claim,
+                        "UNTESTABLE",
+                        f"{ds}/{size}: " + ("; ".join(why) or "metric missing"),
+                    )
+                )
                 continue
             d_acc, d_abs = i["acc_s2"] - b["acc_s2"], vi - vb
-            ok = (d_acc > 0 and d_abs > 0) if small else \
-                 (d_acc > 0 and abs(d_abs) <= GAP_CLOSED)
-            detail = (f"{ds}/{size}: dAcc={d_acc:+.3f} dAbsRate={d_abs:+.3f} "
-                      f"[{metric}]")
+            ok = (
+                (d_acc > 0 and d_abs > 0)
+                if small
+                else (d_acc > 0 and abs(d_abs) <= GAP_CLOSED)
+            )
+            detail = f"{ds}/{size}: dAcc={d_acc:+.3f} dAbsRate={d_abs:+.3f} [{metric}]"
             if b.get("abs_rate") is not None and i.get("abs_rate") is not None:
                 up = i["abs_rate"] - b["abs_rate"]
-                ok_up = (d_acc > 0 and up > 0) if small else \
-                        (d_acc > 0 and abs(up) <= GAP_CLOSED)
+                ok_up = (
+                    (d_acc > 0 and up > 0)
+                    if small
+                    else (d_acc > 0 and abs(up) <= GAP_CLOSED)
+                )
                 if ok_up != ok:
-                    detail += (f"  <-- opposite verdict on the unaudited "
-                               f"abs_rate (dAbsRate={up:+.3f})")
+                    detail += (
+                        f"  <-- opposite verdict on the unaudited "
+                        f"abs_rate (dAbsRate={up:+.3f})"
+                    )
             out.append((claim, "OK" if ok else "CONTRADICTED", detail))
 
     return out
@@ -179,20 +209,31 @@ if __name__ == "__main__":
     ns = {c["n"] for c in cells}
     print(f"reading {RESULTS_DIR.relative_to(ROOT)}   [{len(cells)} cells]")
     if len(ns) > 1:
-        print(f"  [warn] cells disagree on sample size: {sorted(ns)} — "
-              f"they are not comparable")
-    hdr = (f"{'dataset':<7} {'size':<8} {'var':<5} {'n':>4} {'Acc S1':>7} {'Acc S2':>7} "
-           f"{'AbsR':>7} {'AbsR strict':>12} {'trusted':>8}  ok?")
-    print(hdr); print("-" * len(hdr))
+        print(
+            f"  [warn] cells disagree on sample size: {sorted(ns)} — "
+            f"they are not comparable"
+        )
+    hdr = (
+        f"{'dataset':<7} {'size':<8} {'var':<5} {'n':>4} {'Acc S1':>7} {'Acc S2':>7} "
+        f"{'AbsR':>7} {'AbsR strict':>12} {'trusted':>8}  ok?"
+    )
+    print(hdr)
+    print("-" * len(hdr))
     for c in cells:
-        f = lambda v, w=7, p=1: (f"{v:>{w}.{p}%}" if v is not None else " " * (w - 1) + "-")
-        print(f"{c['dataset']:<7} {c['size']:<8} {'IT' if c['is_it'] else 'base':<5} "
-              f"{c['n']:>4} {f(c['acc_s1'])} {f(c['acc_s2'])} {f(c['abs_rate'])} "
-              f"{f(c['abs_rate_strict'],12)} {f(c['trusted_share'],8)}  "
-              f"{'yes' if c['reliable'] else 'LOW-TRUST'}")
+        f = lambda v, w=7, p=1: (
+            f"{v:>{w}.{p}%}" if v is not None else " " * (w - 1) + "-"
+        )
+        print(
+            f"{c['dataset']:<7} {c['size']:<8} {'IT' if c['is_it'] else 'base':<5} "
+            f"{c['n']:>4} {f(c['acc_s1'])} {f(c['acc_s2'])} {f(c['abs_rate'])} "
+            f"{f(c['abs_rate_strict'], 12)} {f(c['trusted_share'], 8)}  "
+            f"{'yes' if c['reliable'] else 'LOW-TRUST'}"
+        )
 
-    print(f"\n=== paper claims, tested on abs_rate_strict "
-          f"(trust floor {TRUST_FLOOR:.0%}) ===")
+    print(
+        f"\n=== paper claims, tested on abs_rate_strict "
+        f"(trust floor {TRUST_FLOOR:.0%}) ==="
+    )
     for claim, verdict, detail in check_claims(cells):
         print(f"  [{verdict:<11}] {claim:<44} {detail}")
     print("\n=== same claims on the unaudited abs_rate, for comparison only ===")

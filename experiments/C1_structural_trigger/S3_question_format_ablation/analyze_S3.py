@@ -11,7 +11,7 @@ same keep-set, so these numbers and the main table's are the same numbers.
 
     python experiments/C1_structural_trigger/S3_question_format_ablation/analyze_S3.py
 """
-import json
+
 import sys
 from pathlib import Path
 
@@ -20,15 +20,19 @@ from scipy.stats import binomtest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from infra.evaluator import Evaluator             # noqa: E402
-from infra.result_schema import paired_keep_ids   # noqa: E402
-from infra.result_schema import load_cell  # noqa: E402
+from infra.evaluator import Evaluator  # noqa: E402
+from infra.result_schema import (
+    load_cell,  # noqa: E402
+    paired_keep_ids,  # noqa: E402
+)
 
 _EV = Evaluator()
 
-MODELS = [("deepseek_v4_flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
-          ("gpt_5.4_nano", "gpt-5.4-nano", "GPT-5.4-nano"),
-          ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+MODELS = [
+    ("deepseek_v4_flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
+    ("gpt_5.4_nano", "gpt-5.4-nano", "GPT-5.4-nano"),
+    ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite"),
+]
 DATASETS = ("FLD", "FOLIO")
 
 
@@ -43,8 +47,10 @@ def cell(slug: str, model: str, dataset: str) -> dict:
         if r["id"] not in keep:
             continue
         pred = r.get("pred_s3_format")
-        if pred == "UNPARSEABLE" and _EV.classify_unanswered(
-                r.get("raw_s3_format") or "") != "no_commitment":
+        if (
+            pred == "UNPARSEABLE"
+            and _EV.classify_unanswered(r.get("raw_s3_format") or "") != "no_commitment"
+        ):
             continue
         if pred:
             rows.append(r)
@@ -52,16 +58,28 @@ def cell(slug: str, model: str, dataset: str) -> dict:
     s2 = sum(r["pred_s2"] == "UNKNOWN" for r in rows)
     s3 = sum(r["pred_s3_format"] == "UNKNOWN" for r in rows)
     # discordant pairs: abstained under one rendering but not the other
-    b = sum(r["pred_s2"] == "UNKNOWN" and r["pred_s3_format"] != "UNKNOWN" for r in rows)
-    c = sum(r["pred_s2"] != "UNKNOWN" and r["pred_s3_format"] == "UNKNOWN" for r in rows)
-    return {"n": n, "abs_s2": 100 * s2 / n, "abs_s3": 100 * s3 / n,
-            "delta": 100 * (s3 - s2) / n, "b": b, "c": c,
-            "p": binomtest(b, b + c, 0.5).pvalue if b + c else 1.0}
+    b = sum(
+        r["pred_s2"] == "UNKNOWN" and r["pred_s3_format"] != "UNKNOWN" for r in rows
+    )
+    c = sum(
+        r["pred_s2"] != "UNKNOWN" and r["pred_s3_format"] == "UNKNOWN" for r in rows
+    )
+    return {
+        "n": n,
+        "abs_s2": 100 * s2 / n,
+        "abs_s3": 100 * s3 / n,
+        "delta": 100 * (s3 - s2) / n,
+        "b": b,
+        "c": c,
+        "p": binomtest(b, b + c, 0.5).pvalue if b + c else 1.0,
+    }
 
 
 def main() -> None:
-    print(f"{'Model':<24} {'Dataset':<7} {'n':>4} {'S2 Abs':>7} {'S3 Abs':>7} "
-          f"{'Delta':>7} {'McNemar p':>10}")
+    print(
+        f"{'Model':<24} {'Dataset':<7} {'n':>4} {'S2 Abs':>7} {'S3 Abs':>7} "
+        f"{'Delta':>7} {'McNemar p':>10}"
+    )
     print("-" * 72)
     deltas = []
     for slug, model, label in MODELS:
@@ -69,13 +87,19 @@ def main() -> None:
             r = cell(slug, model, ds)
             deltas.append(abs(r["delta"]))
             flag = " *" if r["p"] < 0.05 else ""
-            print(f"{label:<24} {ds:<7} {r['n']:>4} {r['abs_s2']:>6.1f}% "
-                  f"{r['abs_s3']:>6.1f}% {r['delta']:>+6.1f} {r['p']:>10.3g}{flag}")
+            print(
+                f"{label:<24} {ds:<7} {r['n']:>4} {r['abs_s2']:>6.1f}% "
+                f"{r['abs_s3']:>6.1f}% {r['delta']:>+6.1f} {r['p']:>10.3g}{flag}"
+            )
     print("-" * 72)
     print(f"Largest |Delta Abs Rate| in any cell : {max(deltas):.1f} points")
-    print(f"Mean    |Delta Abs Rate|             : {sum(deltas)/len(deltas):.1f} points")
-    print("\nThe letter rendering alone does not account for the abstention:\n"
-          "compare these against the S1->S2 jump the same table reports.")
+    print(
+        f"Mean    |Delta Abs Rate|             : {sum(deltas) / len(deltas):.1f} points"
+    )
+    print(
+        "\nThe letter rendering alone does not account for the abstention:\n"
+        "compare these against the S1->S2 jump the same table reports."
+    )
 
 
 if __name__ == "__main__":

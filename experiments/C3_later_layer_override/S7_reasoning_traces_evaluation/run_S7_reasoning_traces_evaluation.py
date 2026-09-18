@@ -30,6 +30,7 @@ abstentions whose own reasoning had already settled the question.
 
     python experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/run_S7_reasoning_traces_evaluation.py
 """
+
 import argparse
 import json
 import re
@@ -42,7 +43,7 @@ sys.path.insert(0, str(ROOT))
 from loader.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from infra.result_schema import load_cell, results_dir, stamp, iter_cells  # noqa: E402
+from infra.result_schema import load_cell, results_dir, stamp  # noqa: E402
 
 # gold answer_idx -> the NLI verdict that agrees with it
 
@@ -60,7 +61,7 @@ def strip_final_answer(raw: str) -> str:
     # cut at the last "Final answer" / "final answer:" if present
     m = re.search(r"\n?\s*final\s+answer\s*:", raw, re.IGNORECASE)
     if m:
-        return raw[:m.start()].strip()
+        return raw[: m.start()].strip()
     return raw.strip()
 
 
@@ -74,8 +75,8 @@ def take_tail(text: str, max_chars: int = 1500) -> str:
 GOLD_OF_IDX = {0: "entailment", 1: "contradiction"}
 
 CELLS = [
-    ("gpt_5.4_nano",      "gpt-5.4-nano"),
-    ("gemini_3.1_flash_lite",  "gemini-3.1-flash-lite"),
+    ("gpt_5.4_nano", "gpt-5.4-nano"),
+    ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite"),
     ("deepseek_v4_flash", "deepseek-v4-flash"),
 ]
 DATASETS = ("FLD", "FOLIO")
@@ -98,7 +99,7 @@ def windows(text, width=1200, overlap=300, cap=12):
             cur = f"{cur} {s}".strip()
     if cur:
         out.append(cur)
-    return out[:cap] if len(out) <= cap else (out[:cap - 1] + [out[-1]])
+    return out[:cap] if len(out) <= cap else (out[: cap - 1] + [out[-1]])
 
 
 def classify(tok, nli, torch, pairs, batch_size):
@@ -106,10 +107,15 @@ def classify(tok, nli, torch, pairs, batch_size):
     device = next(nli.parameters()).device
     out = []
     for i in range(0, len(pairs), batch_size):
-        chunk = pairs[i:i + batch_size]
-        enc = tok([p for p, _ in chunk], [h for _, h in chunk],
-                  truncation=True, max_length=512, padding=True,
-                  return_tensors="pt").to(device)
+        chunk = pairs[i : i + batch_size]
+        enc = tok(
+            [p for p, _ in chunk],
+            [h for _, h in chunk],
+            truncation=True,
+            max_length=512,
+            padding=True,
+            return_tensors="pt",
+        ).to(device)
         with torch.no_grad():
             probs = torch.softmax(nli(**enc).logits, dim=-1).cpu().tolist()
         for row in probs:
@@ -121,12 +127,16 @@ def classify(tok, nli, torch, pairs, batch_size):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--batch-size", type=int, default=16)
-    ap.add_argument("--mode", choices=("tail", "windows"), default="windows",
-                    help="how much of the trace the probe reads")
+    ap.add_argument(
+        "--mode",
+        choices=("tail", "windows"),
+        default="windows",
+        help="how much of the trace the probe reads",
+    )
     args = ap.parse_args()
 
-    from transformers import AutoTokenizer, AutoModelForSequenceClassification
     import torch
+    from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
     print(f"Loading {NLI_MODEL}")
     tok = AutoTokenizer.from_pretrained(NLI_MODEL)
@@ -142,11 +152,16 @@ def main():
         by_id = {s.id: s for s in load_judge(ds)}
         for slug, model in CELLS:
             summary = load_cell(ds, model, slug, "tf")
-            items = [s for s in summary["per_sample"]
-                     if s["id"] in by_id and by_id[s["id"]].answer_idx in GOLD_OF_IDX]
+            items = [
+                s
+                for s in summary["per_sample"]
+                if s["id"] in by_id and by_id[s["id"]].answer_idx in GOLD_OF_IDX
+            ]
             n_ai = sum(1 for s in items if s.get("pred_s2") == "UNKNOWN")
-            print(f"\n[{ds} / {model}] {len(items)} answerable items "
-                  f"({n_ai} of them Abstention Inflation)")
+            print(
+                f"\n[{ds} / {model}] {len(items)} answerable items "
+                f"({n_ai} of them Abstention Inflation)"
+            )
 
             pairs, owner, traces = [], [], []
             for s in items:
@@ -155,11 +170,16 @@ def main():
                     cot = strip_final_answer(s.get(f"raw_{setting}", "") or "")
                     if not cot:
                         continue
-                    parts = ([take_tail(cot)] if args.mode == "tail"
-                             else windows(cot))
-                    traces.append((s["id"], setting.upper(),
-                                   by_id[s["id"]].answer_idx,
-                                   s.get("pred_s2") == "UNKNOWN", len(parts)))
+                    parts = [take_tail(cot)] if args.mode == "tail" else windows(cot)
+                    traces.append(
+                        (
+                            s["id"],
+                            setting.upper(),
+                            by_id[s["id"]].answer_idx,
+                            s.get("pred_s2") == "UNKNOWN",
+                            len(parts),
+                        )
+                    )
                     for part in parts:
                         pairs.append((part, claim))
                         owner.append(len(traces) - 1)
@@ -178,39 +198,61 @@ def main():
             rows = []
             for (sid, setting, idx, is_ai, n_win), b in zip(traces, best):
                 verdict = b[0] if b else "neutral"
-                rows.append({"id": sid, "setting": setting, "nli": verdict,
-                             "n_windows": n_win,
-                             "abstention_inflation": is_ai,
-                             "decisive": verdict != "neutral",
-                             "gold_aligned": verdict == GOLD_OF_IDX[idx]})
+                rows.append(
+                    {
+                        "id": sid,
+                        "setting": setting,
+                        "nli": verdict,
+                        "n_windows": n_win,
+                        "abstention_inflation": is_ai,
+                        "decisive": verdict != "neutral",
+                        "gold_aligned": verdict == GOLD_OF_IDX[idx],
+                    }
+                )
 
             def rates(rs):
                 n = len(rs) or 1
-                return {"n": len(rs),
-                        "decisive_rate": sum(r["decisive"] for r in rs) / n,
-                        "gold_aligned_rate": sum(r["gold_aligned"] for r in rs) / n}
+                return {
+                    "n": len(rs),
+                    "decisive_rate": sum(r["decisive"] for r in rs) / n,
+                    "gold_aligned_rate": sum(r["gold_aligned"] for r in rs) / n,
+                }
 
             metrics, metrics_ai = {}, {}
             for setting in ("S1", "S2"):
                 rs = [r for r in rows if r["setting"] == setting]
                 metrics[setting] = rates(rs)
-                metrics_ai[setting] = rates([r for r in rs if r["abstention_inflation"]])
+                metrics_ai[setting] = rates(
+                    [r for r in rs if r["abstention_inflation"]]
+                )
 
             out = OUT_DIR / f"{ds}_{model}.json"
-            out.write_text(json.dumps({
-                **stamp("S7"),
-                "dataset": ds, "model": model, "nli_model": NLI_MODEL,
-                "mode": args.mode,
-                "n_answerable": len(items), "n_abstention_inflation": n_ai,
-                "metrics": metrics, "metrics_abstention_inflation": metrics_ai,
-                "rows": rows,
-            }, indent=2), encoding="utf-8")
+            out.write_text(
+                json.dumps(
+                    {
+                        **stamp("S7"),
+                        "dataset": ds,
+                        "model": model,
+                        "nli_model": NLI_MODEL,
+                        "mode": args.mode,
+                        "n_answerable": len(items),
+                        "n_abstention_inflation": n_ai,
+                        "metrics": metrics,
+                        "metrics_abstention_inflation": metrics_ai,
+                        "rows": rows,
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
             for setting in ("S1", "S2"):
                 m, a = metrics[setting], metrics_ai[setting]
-                print(f"  {setting}: all n={m['n']:4d} decisive {m['decisive_rate']:6.1%} "
-                      f"gold-aligned {m['gold_aligned_rate']:6.1%}   |   "
-                      f"AI n={a['n']:4d} decisive {a['decisive_rate']:6.1%} "
-                      f"gold-aligned {a['gold_aligned_rate']:6.1%}")
+                print(
+                    f"  {setting}: all n={m['n']:4d} decisive {m['decisive_rate']:6.1%} "
+                    f"gold-aligned {m['gold_aligned_rate']:6.1%}   |   "
+                    f"AI n={a['n']:4d} decisive {a['decisive_rate']:6.1%} "
+                    f"gold-aligned {a['gold_aligned_rate']:6.1%}"
+                )
             print(f"  saved -> {out.name}")
 
 
