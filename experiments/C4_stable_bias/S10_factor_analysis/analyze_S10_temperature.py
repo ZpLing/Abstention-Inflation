@@ -15,6 +15,11 @@ from pathlib import Path
 from statistics import NormalDist
 
 ROOT = Path(".")
+import sys as _sys
+
+_sys.path.insert(0, str(ROOT))  # noqa: E402
+from infra.result_schema import model_slug  # noqa: E402
+
 #: Set from --model. The sweep is reported on the two checkpoints whose
 #: sampling temperature the endpoint actually applies; the gateway ignored
 #: it for the other models, which is itself an S10 finding.
@@ -24,7 +29,7 @@ MODEL = "gemini-3.1-flash-lite"
 #: results/temperature_sweep/ tree was a 200-item pass and is gone.
 SLUG_OF = {
     "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
-    "Olmo-3-7B-Instruct": "olmo_topk20",
+    "Olmo-3-7B-Instruct": model_slug("Olmo-3-7B-Instruct"),
 }
 TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]

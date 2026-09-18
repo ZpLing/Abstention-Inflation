@@ -296,6 +296,7 @@ def position_name(slot: str) -> str:
 #: model name as the endpoint reports it -> the folder its cells live in. The
 #: slug is the name written out with the separators the file system prefers.
 MODEL_SLUG = {
+    "Olmo-3-7B-Instruct": "olmo_3_7b_instruct",
     "gpt-5.4-nano": "gpt_5.4_nano",
     "deepseek-v4-flash": "deepseek_v4_flash",
     "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
