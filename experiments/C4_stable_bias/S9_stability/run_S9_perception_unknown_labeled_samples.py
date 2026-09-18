@@ -252,8 +252,9 @@ class PerceptionUnknownLabeledSamplesRunner:
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
         print(
-            f"  [Result] CAR_S2={m['CAR_S2']:.2%}  CAR_S3={m['CAR_S3']:.2%}  "
-            f"Δ={m['CAR_Improvement_S2_to_S3']:+.2%}  "
+            f"  [Result] correct_abstention_s2={m['correct_abstention_s2']:.2%}  "
+            f"correct_abstention_s3={m['correct_abstention_s3']:.2%}  "
+            f"Δ={m['correct_abstention_improvement_s2_to_s3']:+.2%}  "
             f"S1 ForcedCommit={m['forced_commitment_rate_s1']:.2%}"
         )
 

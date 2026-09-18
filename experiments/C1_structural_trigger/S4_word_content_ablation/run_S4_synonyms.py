@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT))
 from infra import third_option
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
-from infra.result_schema import stamp
+from infra.result_schema import cell_path, model_slug, stamp
 from loader.config_loader import load_config
 from loader.dataset_loader import load_judge
 
@@ -27,38 +27,20 @@ from loader.dataset_loader import load_judge
 WORDINGS = [(third_option.slug(w), w) for w in third_option.SYNONYMS]
 DATASETS = ["FLD", "FOLIO"]
 
+#: The S2 cell each model re-words is found through the registry, so the
+#: ablation follows the main table wherever it is written.
 MODELS = [
     {
         "name": "gpt-5.4-nano",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
-        "sources": {
-            "FLD": ["S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json"],
-            "FOLIO": ["S2_unknown_option/tfq/gpt_5.4_nano/FOLIO_gpt-5.4-nano.json"],
-        },
     },
     {
         "name": "gemini-3.1-flash-lite",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
-        "sources": {
-            "FLD": [
-                "S2_unknown_option/tfq/gemini_3.1_flash_lite/FLD_gemini-3.1-flash-lite.json"
-            ],
-            "FOLIO": [
-                "S2_unknown_option/tfq/gemini_3.1_flash_lite/FOLIO_gemini-3.1-flash-lite.json"
-            ],
-        },
     },
     {
         "name": "deepseek-v4-flash",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
-        "sources": {
-            "FLD": [
-                "S2_unknown_option/tfq/deepseek_v4_flash/FLD_deepseek-v4-flash.json"
-            ],
-            "FOLIO": [
-                "S2_unknown_option/tfq/deepseek_v4_flash/FOLIO_deepseek-v4-flash.json"
-            ],
-        },
     },
 ]
 
@@ -124,19 +106,18 @@ def parse_output(text: str, scheme, abstain_text: str) -> Tuple[str, str]:
 
 
 # ── Sample loader ─────────────────────────────────────────────────────────────
-def load_sample_ids(sources: List[str]) -> List[str]:
-    """Ids of the S2 run this ablation re-words, in the order it stored them."""
+def load_sample_ids(dataset: str, model_name: str) -> List[str]:
+    """Ids of the S2 cell this ablation re-words, in the order it stored them."""
+    path = ROOT / cell_path("S2", dataset, model_name, model_slug(model_name), "tf")
+    if not path.exists():
+        print(f"  [warn] missing {path} -- run the main experiment first")
+        return []
     seen, ids = set(), []
-    for rel in sources:
-        path = ROOT / "results" / rel
-        if not path.exists():
-            print(f"  [warn] missing {path}")
-            continue
-        for ps in json.loads(path.read_text()).get("per_sample", []):
-            sid = ps["id"]
-            if sid not in seen:
-                seen.add(sid)
-                ids.append(sid)
+    for ps in json.loads(path.read_text()).get("per_sample", []):
+        sid = ps["id"]
+        if sid not in seen:
+            seen.add(sid)
+            ids.append(sid)
     return ids
 
 
@@ -206,7 +187,7 @@ async def main(models=None, datasets=None):
             scheme = get_scheme(ds)
             all_samples = load_judge(ds)
             by_id = {s.id: s for s in all_samples}
-            ids = load_sample_ids(model_cfg["sources"][ds])
+            ids = load_sample_ids(ds, model_name)
             samples = [by_id[i] for i in ids if i in by_id]
             print(f"\n[{ds}] {len(samples)} samples loaded")
 

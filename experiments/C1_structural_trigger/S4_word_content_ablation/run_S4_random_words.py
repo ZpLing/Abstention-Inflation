@@ -403,8 +403,17 @@ async def run_one_dataset(
             json.dump(out, f, indent=2, ensure_ascii=False)
         print(f"  Saved → {out_path}")
         written[word] = out
-    result = written
-    return result
+    # The Unknown condition joins the pooled table but is not written: its
+    # cell is the S2 cell of the main table (see above).
+    return {
+        "unknown": {
+            "n": m_c1["n"],
+            "abs_rate": m_c1["opt_x_rate"],
+            "label_acc": m_c1["label_acc"],
+            "delta_acc": round(m_c1["label_acc"] - s1_acc, 4),
+        },
+        **written,
+    }
 
 
 async def run_experiment(config: Dict):
@@ -460,7 +469,7 @@ async def run_experiment(config: Dict):
         rates, accs, deltas, ns = [], [], [], []
         for r in all_results.values():
             m = r[cond_key]
-            rates.append(m["opt_x_rate"] * m["n"])
+            rates.append(m["abs_rate"] * m["n"])
             accs.append(m["label_acc"] * m["n"])
             deltas.append(m["delta_acc"] * m["n"])
             ns.append(m["n"])
