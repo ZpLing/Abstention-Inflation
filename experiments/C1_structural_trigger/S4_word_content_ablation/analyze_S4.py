@@ -92,6 +92,14 @@ RPC_MODELS = [("deepseek-v4-flash", "DeepSeek-V4-Flash"),
               ("gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
 
 
+def _s2_abs_rate(ds, model):
+    """Abs Rate of the S2 cell in the main table -- the baseline both halves use."""
+    slug = {"deepseek-v4-flash": "dsv4flash", "gpt-5.4-nano": "nano",
+            "gemini-3.1-flash-lite": "gemini31"}[model]
+    rows = json.loads((ROOT / f"results/S1_S3_tfq/{slug}/{ds}_{model}.json").read_text())["per_sample"]
+    return sum(r["pred_s2"] == "UNKNOWN" for r in rows) / len(rows)
+
+
 def random_word_half():
     """The Triangular / Cerulean control, against the same S2 baseline."""
     print("\n" + "=" * 78)
@@ -103,12 +111,13 @@ def random_word_half():
     for model, label in RPC_MODELS:
         for ds in DATASETS:
             paths = {w: RPC / f"{ds}_{model}_{w}.json"
-                     for w in ("unknown", "triangular", "cerulean")}
+                     for w in ("triangular", "cerulean")}
             if not all(q.exists() for q in paths.values()):
                 print(f"{label:<24} {ds:<7} (missing)")
                 continue
             cell = {w: json.loads(q.read_text()) for w, q in paths.items()}
-            base = cell["unknown"]["abs_rate"]
+            # Same baseline the synonym half uses: the S2 cell of the main table.
+            base = _s2_abs_rate(ds, model)
             r1 = cell["triangular"]["abs_rate"]
             r2 = cell["cerulean"]["abs_rate"]
             shifts = [abs(r1 - base) * 100, abs(r2 - base) * 100]

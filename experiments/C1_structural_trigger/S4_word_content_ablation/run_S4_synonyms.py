@@ -17,12 +17,12 @@ sys.path.insert(0, str(ROOT))
 from loader.config_loader import load_config
 from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
+from infra import third_option
 from loader.dataset_loader import load_judge
 
-WORDINGS = [
-    ("i_dont_know", "I don't know"),
-    ("indeterminate", "Indeterminate"),
-]
+#: The synonyms come from third_option, which is also what decides that they
+#: belong to S4 rather than S2, and where they are written.
+WORDINGS = [(third_option.slug(w), w) for w in third_option.SYNONYMS]
 DATASETS = ["FLD", "FOLIO"]
 
 MODELS = [
@@ -30,29 +30,29 @@ MODELS = [
         "name": "gpt-5.4-nano",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
         "sources": {
-            "FLD":   ["tfq/nano/FLD_gpt-5.4-nano.json"],
-            "FOLIO": ["tfq/nano/FOLIO_gpt-5.4-nano.json"],
+            "FLD":   ["S1_S3_tfq/nano/FLD_gpt-5.4-nano.json"],
+            "FOLIO": ["S1_S3_tfq/nano/FOLIO_gpt-5.4-nano.json"],
         },
     },
     {
         "name": "gemini-3.1-flash-lite",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
         "sources": {
-            "FLD":   ["tfq/gemini31/FLD_gemini-3.1-flash-lite.json"],
-            "FOLIO": ["tfq/gemini31/FOLIO_gemini-3.1-flash-lite.json"],
+            "FLD":   ["S1_S3_tfq/gemini31/FLD_gemini-3.1-flash-lite.json"],
+            "FOLIO": ["S1_S3_tfq/gemini31/FOLIO_gemini-3.1-flash-lite.json"],
         },
     },
     {
         "name": "deepseek-v4-flash",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
         "sources": {
-            "FLD":   ["tfq/dsv4flash/FLD_deepseek-v4-flash.json"],
-            "FOLIO": ["tfq/dsv4flash/FOLIO_deepseek-v4-flash.json"],
+            "FLD":   ["S1_S3_tfq/dsv4flash/FLD_deepseek-v4-flash.json"],
+            "FOLIO": ["S1_S3_tfq/dsv4flash/FOLIO_deepseek-v4-flash.json"],
         },
     },
 ]
 
-OUT_DIR = ROOT / "results/S4_synonyms"
+OUT_DIR = ROOT / third_option.results_dir(third_option.SYNONYMS[0])
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -176,7 +176,7 @@ async def main(models=None, datasets=None):
             print(f"\n[{ds}] {len(samples)} samples loaded")
 
             for wording_id, abstain_text in WORDINGS:
-                out_path = OUT_DIR / f"{ds}_{model_name}_{wording_id}.json"
+                out_path = ROOT / third_option.result_path(wording_text, ds, model_name)
                 summary = await run_one_cell(
                     handler, scheme, samples, abstain_text, wording_id, ds, model_name)
                 out_path.write_text(json.dumps(summary, indent=2))

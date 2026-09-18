@@ -36,14 +36,17 @@ from loader.config_loader import load_config
 from loader.data_handler import DataHandler
 from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
+# imported by name: a parameter in this module is also called third_option
+from infra.third_option import RANDOM_WORDS, result_path
 from infra.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
     build_judge_s4_word_prompt,
 )
 
-RANDOM_WORD_1 = "Triangular"
-RANDOM_WORD_2 = "Cerulean"
+#: Both words, and the fact that they route to S4 rather than S2, come
+#: from third_option so the two halves of S4 cannot drift apart again.
+RANDOM_WORD_1, RANDOM_WORD_2 = RANDOM_WORDS
 
 
 # =============================================================================
@@ -308,10 +311,13 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
 
     # One file per substituted word, the same shape the synonym sweep writes,
     # so the two halves of S4 are read by one code path.
+    # Only the substituted words are written. The Unknown condition this run
+    # also collects is the S2 prompt (c1_prompts is build_judge_s2_prompt), and
+    # the S2 cell of the main table is the baseline both halves of S4 compare
+    # against; storing a second copy here gave the two halves two baselines.
     conditions = [
-        ("unknown",                    "Unknown",     m_c1, preds_c1, raw_c1, None),
-        (RANDOM_WORD_1.lower(),        RANDOM_WORD_1, m_c2, preds_c2, raw_c2, cats_c2),
-        (RANDOM_WORD_2.lower(),        RANDOM_WORD_2, m_c3, preds_c3, raw_c3, cats_c3),
+        (RANDOM_WORD_1.lower(), RANDOM_WORD_1, m_c2, preds_c2, raw_c2, cats_c2),
+        (RANDOM_WORD_2.lower(), RANDOM_WORD_2, m_c3, preds_c3, raw_c3, cats_c3),
     ]
     safe_model = model_name.replace("/", "_")
     written = {}
@@ -343,7 +349,7 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
                if k not in ("n", "opt_x_rate", "label_acc", "delta_acc")},
             "per_sample":   rows,
         }
-        out_path = results_dir / f"{ds_name}_{safe_model}_{word}.json"
+        out_path = results_dir / result_path(text, ds_name, model_name).name
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(out, f, indent=2, ensure_ascii=False)
         print(f"  Saved → {out_path}")

@@ -28,9 +28,9 @@
     "correct_abstention_s2": 0.9133333333333333,
     "correct_abstention_s3": 0.8666666666666667,
     "correct_abstention_improvement_s2_to_s3": -0.046666666666666634,
-    "ForcedCommitmentRate_S1": 0.9966666666666667,
-    "POS_rate_S1": 0.18,
-    "NEG_rate_S1": 0.8166666666666667
+    "forced_commitment_rate_s1": 0.9966666666666667,
+    "pos_rate_s1": 0.18,
+    "neg_rate_s1": 0.8166666666666667
   },
   "per_sample": [
     {

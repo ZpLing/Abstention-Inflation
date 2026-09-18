@@ -178,9 +178,9 @@ class UnknownLabeledRunner:
                 "correct_abstention_s2":                  car_s2,
                 "correct_abstention_s3":                  car_s3,
                 "correct_abstention_improvement_s2_to_s3": car_s3 - car_s2,
-                "ForcedCommitmentRate_S1": forced_commit_s1,
-                "POS_rate_S1":             metrics.commit_rate(preds_s1, "A"),
-                "NEG_rate_S1":             metrics.commit_rate(preds_s1, "B"),
+                "forced_commitment_rate_s1": forced_commit_s1,
+                "pos_rate_s1":              metrics.commit_rate(preds_s1, "A"),
+                "neg_rate_s1":              metrics.commit_rate(preds_s1, "B"),
             },
             "per_sample": [
                 {
@@ -205,7 +205,7 @@ class UnknownLabeledRunner:
         print(
             f"  [Result] CAR_S2={m['CAR_S2']:.2%}  CAR_S3={m['CAR_S3']:.2%}  "
             f"Δ={m['CAR_Improvement_S2_to_S3']:+.2%}  "
-            f"S1 ForcedCommit={m['ForcedCommitmentRate_S1']:.2%}"
+            f"S1 ForcedCommit={m['forced_commitment_rate_s1']:.2%}"
         )
 
 
