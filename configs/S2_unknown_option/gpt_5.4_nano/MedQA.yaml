@@ -1,0 +1,21 @@
+# S2 Unknown option added on MedQA for gpt-5.4-nano: the manipulation, scored per item
+# against its S1 pair, so the pass collects S1 and S2 together; writes
+# results/S2_unknown_option/mcq/gpt_5.4_nano/MedQA_gpt-5.4-nano.json (and the S1 cell).
+experiment_name: "S2_unknown_option_MedQA_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "MedQA"
+  settings: ['S1', 'S2']
+  run_s5_rerun: false
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

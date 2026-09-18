@@ -32,15 +32,15 @@ DATASETS = ["FLD", "FOLIO"]
 MODELS = [
     {
         "name": "gpt-5.4-nano",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
+        "config": "configs/S4_word_content/synonyms/gpt_5.4_nano/FLD.yaml",
     },
     {
         "name": "gemini-3.1-flash-lite",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
+        "config": "configs/S4_word_content/synonyms/gemini_3.1_flash_lite/FLD.yaml",
     },
     {
         "name": "deepseek-v4-flash",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
+        "config": "configs/S4_word_content/synonyms/deepseek_v4_flash/FLD.yaml",
     },
 ]
 
@@ -178,11 +178,11 @@ async def run_one_cell(
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-async def main(models=None, datasets=None, results_root="results", limit=None):
+async def main(models=None, datasets=None, results_root="results", limit=None, config_path=None):
     known = {m["name"]: m["config"] for m in MODELS}
     for model_name in models or list(known):
         print(f"\n{'=' * 60}\nModel: {model_name}\n{'=' * 60}")
-        config = load_config(str(ROOT / known.get(model_name, TEMPLATE_CONFIG)))
+        config = load_config(str(ROOT / (config_path or known.get(model_name, TEMPLATE_CONFIG))))
         config["max_workers"] = 100
         config["model_name"] = model_name
         handler = LLMHandler(config)
@@ -237,5 +237,11 @@ if __name__ == "__main__":
         choices=DATASETS,
         help="Restrict to these datasets (default: both).",
     )
+    ap.add_argument(
+        "--config",
+        default=None,
+        help="A configs/S4_word_content/synonyms/<model>/<dataset>.yaml to take the "
+        "gateway settings from; default is the model's own, or gpt-5.4-nano's.",
+    )
     _args = ap.parse_args()
-    asyncio.run(main(_args.models, _args.datasets, _args.results_root, _args.limit))
+    asyncio.run(main(_args.models, _args.datasets, _args.results_root, _args.limit, _args.config))

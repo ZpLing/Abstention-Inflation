@@ -1,0 +1,18 @@
+# S7 Reasoning traces on FOLIO for gemini-3.1-flash-lite: an NLI probe (DeBERTa-v3-large, MNLI /
+# FEVER / ANLI / LingNLI / WANLI) over the stored S1 and S2 traces of this
+# model's cells, read in windows, batch 16. Loads the encoder locally, no
+# gateway; writes results/S7_reasoning_traces/gemini_3.1_flash_lite/FOLIO_gemini-3.1-flash-lite.json.
+experiment_name: "S7_reasoning_traces_FOLIO_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+
+run_tasks: ['s7_reasoning_traces']
+
+s7_reasoning_traces:
+  datasets:
+    - "FOLIO"
+  nli_model: "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+  mode: "windows"
+  batch_size: 16
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"

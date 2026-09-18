@@ -1,0 +1,20 @@
+# S6 Self-Diagnosis on FOLIO for gemini-3.1-flash-lite: replay the S2 conversation on each
+# Abstention Inflation item and ask the model to attribute its own abstention to
+# (A) being unable to work it out or (B) the item being objectively unanswerable.
+# Reads this model's S1, S2 and S5 cells; writes results/S6_self_diagnosis/gemini_3.1_flash_lite/.
+experiment_name: "S6_self_diagnosis_FOLIO_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s6_self_diagnosis']
+
+s6_self_diagnosis:
+  datasets:
+    - "FOLIO"
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+  task_type: "tf"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

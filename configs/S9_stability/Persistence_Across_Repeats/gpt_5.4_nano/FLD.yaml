@@ -1,0 +1,20 @@
+# S9 Persistence across repeats on FLD for gpt-5.4-nano: the same S2 prompt re-drawn
+# three times on the items this model's S2 cell abstained on, at the endpoint's
+# own temperature (the one S2 ran under); writes
+# results/S9_stability/Persistence_Across_Repeats/gpt_5.4_nano/FLD_gpt-5.4-nano.json.
+experiment_name: "S9_Persistence_Across_Repeats_FLD_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 30
+
+run_tasks: ['s9_persistence_across_repeats']
+
+s9_persistence_across_repeats:
+  datasets:
+    - "FLD"
+  n_repeats: 3
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

@@ -1,0 +1,21 @@
+# S10 size & alignment on FLD for gemma-4-26B-A4B: S1 and S2 at T=0 (greedy) on 250 True +
+# 250 False items, 3072 new tokens, batch 8, as raw text (the base arm);
+# a local checkpoint whose path is given on the command line (--model-path).
+# Writes results/S10_factor_analysis/size_alignment/gemma_4_26B_A4B/FLD_gemma-4-26B-A4B.json.
+experiment_name: "S10_size_alignment_FLD_gemma_4_26B_A4B"
+model_name: "gemma-4-26B-A4B"
+override_model: true
+
+run_tasks: ['s10_size_alignment']
+
+s10_size_alignment:
+  datasets:
+    - "FLD"
+  settings: ["S1", "S2"]
+  n_per_class: 250
+  max_new_tokens: 3072
+  batch_size: 8
+  use_chat_template: false
+  results_root: "results"
+  model_slug: "gemma_4_26B_A4B"
+  # model_path: "/path/to/gemma-4-26B-A4B"

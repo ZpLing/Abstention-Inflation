@@ -122,12 +122,18 @@ def classify(tok, nli, torch, pairs, batch_size):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--batch-size", type=int, default=16)
+    ap.add_argument(
+        "--config",
+        default=None,
+        help="A configs/S7_reasoning_traces/<model>/<dataset>.yaml; its block names the "
+        "NLI model, the mode and the batch size unless they are given here.",
+    )
+    ap.add_argument("--batch-size", type=int, default=None, help="default 16")
     ap.add_argument(
         "--mode",
         choices=("tail", "windows"),
-        default="windows",
-        help="how much of the trace the probe reads",
+        default=None,
+        help="how much of the trace the probe reads (default windows)",
     )
     ap.add_argument(
         "--models",
@@ -142,6 +148,15 @@ def main():
         help="Root the S1/S2 cells are read from and the S7 cells are written under.",
     )
     args = ap.parse_args()
+    block = {}
+    if args.config:
+        import yaml
+
+        block = (yaml.safe_load(Path(args.config).read_text()) or {}).get("s7_reasoning_traces") or {}
+    global NLI_MODEL
+    NLI_MODEL = block.get("nli_model", NLI_MODEL)
+    args.mode = args.mode or block.get("mode", "windows")
+    args.batch_size = args.batch_size or int(block.get("batch_size", 16))
 
     import torch
     from transformers import AutoModelForSequenceClassification, AutoTokenizer

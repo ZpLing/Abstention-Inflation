@@ -1,0 +1,19 @@
+# S4 Word Content Ablation, synonym half, on FLD for deepseek-v4-flash: the third option
+# reads "I don't know" or "Indeterminate" in place of "Unknown" (the two wordings
+# in infra/third_option.py). Re-words this model's S2 cell; writes
+# results/S4_word_content/synonyms/deepseek_v4_flash/FLD_deepseek-v4-flash_<wording>.json.
+experiment_name: "S4_synonyms_FLD_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s4_synonyms']
+
+s4_synonyms:
+  datasets:
+    - "FLD"
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

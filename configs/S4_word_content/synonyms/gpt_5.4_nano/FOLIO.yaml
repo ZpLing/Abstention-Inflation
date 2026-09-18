@@ -1,0 +1,19 @@
+# S4 Word Content Ablation, synonym half, on FOLIO for gpt-5.4-nano: the third option
+# reads "I don't know" or "Indeterminate" in place of "Unknown" (the two wordings
+# in infra/third_option.py). Re-words this model's S2 cell; writes
+# results/S4_word_content/synonyms/gpt_5.4_nano/FOLIO_gpt-5.4-nano_<wording>.json.
+experiment_name: "S4_synonyms_FOLIO_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s4_synonyms']
+
+s4_synonyms:
+  datasets:
+    - "FOLIO"
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

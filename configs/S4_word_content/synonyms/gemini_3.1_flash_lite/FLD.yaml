@@ -1,0 +1,19 @@
+# S4 Word Content Ablation, synonym half, on FLD for gemini-3.1-flash-lite: the third option
+# reads "I don't know" or "Indeterminate" in place of "Unknown" (the two wordings
+# in infra/third_option.py). Re-words this model's S2 cell; writes
+# results/S4_word_content/synonyms/gemini_3.1_flash_lite/FLD_gemini-3.1-flash-lite_<wording>.json.
+experiment_name: "S4_synonyms_FLD_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s4_synonyms']
+
+s4_synonyms:
+  datasets:
+    - "FLD"
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

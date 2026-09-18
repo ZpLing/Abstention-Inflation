@@ -1,0 +1,21 @@
+# S2 Unknown option added on MedQA for deepseek-v4-flash: the manipulation, scored per item
+# against its S1 pair, so the pass collects S1 and S2 together; writes
+# results/S2_unknown_option/mcq/deepseek_v4_flash/MedQA_deepseek-v4-flash.json (and the S1 cell).
+experiment_name: "S2_unknown_option_MedQA_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "MedQA"
+  settings: ['S1', 'S2']
+  run_s5_rerun: false
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

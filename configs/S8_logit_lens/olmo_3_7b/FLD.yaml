@@ -1,0 +1,27 @@
+# S8 logit lens on FLD: the Olmo-3-7B family under the S1 and S2 prompts. No
+# gateway is called; main.py composes the chain from this block: step 1 fetches
+# the checkpoints from HuggingFace into models/, step 2 runs the Instruct
+# checkpoint's S1/S2 inference that partitions the items into abstention
+# inflation / correct abstention, step 3 probes each checkpoint listed here --
+# every layer's hidden state through the tied embedding, log P(Unknown) per
+# layer -- into results/S8_logit_lens/olmo_3_7b/FLD_<checkpoint>.json.
+# Checkpoint keys are the ones infra/result_schema.py maps to HuggingFace repos;
+# the paper probes these three, the released Instruct only supplies the
+# partition. Items: the paper's raw dump at data/Judge/FLD.json when present, else dataset/FLD.json +
+# dataset/FLD_unknown.json.
+experiment_name: "S8_logit_lens_FLD_olmo_3_7b"
+model_name: "olmo-3-7b"
+override_model: true
+
+run_tasks: ['s8_logit_lens']
+
+s8_logit_lens:
+  datasets:
+    - "FLD"
+  checkpoints:
+    - "base"
+    - "sft"
+    - "rl_zero"
+  results_root: "results"
+  model_slug: "olmo_3_7b"
+  # model_path: "/path/to/one/checkpoint"   # with a single checkpoint: probe that checkout instead of models/

@@ -1,0 +1,18 @@
+# S7 Reasoning traces on FLD for gpt-5.4-nano: an NLI probe (DeBERTa-v3-large, MNLI /
+# FEVER / ANLI / LingNLI / WANLI) over the stored S1 and S2 traces of this
+# model's cells, read in windows, batch 16. Loads the encoder locally, no
+# gateway; writes results/S7_reasoning_traces/gpt_5.4_nano/FLD_gpt-5.4-nano.json.
+experiment_name: "S7_reasoning_traces_FLD_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+
+run_tasks: ['s7_reasoning_traces']
+
+s7_reasoning_traces:
+  datasets:
+    - "FLD"
+  nli_model: "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+  mode: "windows"
+  batch_size: 16
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"

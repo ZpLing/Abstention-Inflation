@@ -1,0 +1,21 @@
+# S5 Without-Unknown rerun on LogiQA for gemini-3.1-flash-lite: the items S2 abstained on, asked
+# again without the option, inside the S1/S2 pass; writes
+# results/S5_rerun/mcq/gemini_3.1_flash_lite/LogiQA_gemini-3.1-flash-lite.json.
+experiment_name: "S5_rerun_LogiQA_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "LogiQA"
+  settings: ['S1', 'S2']
+  run_s5_rerun: true
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

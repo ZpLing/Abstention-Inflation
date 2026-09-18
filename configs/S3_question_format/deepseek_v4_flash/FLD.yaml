@@ -1,0 +1,21 @@
+# S3 Question format ablation on FLD for deepseek-v4-flash: the S2 ternary rendered as
+# A / B / C, TFQ only, collected in the same pass as the S1/S2 it is scored
+# against; writes results/S3_question_format/deepseek_v4_flash/FLD_deepseek-v4-flash.json.
+experiment_name: "S3_question_format_FLD_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FLD"
+  settings: ['S1', 'S2', 'S3']
+  run_s5_rerun: false
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

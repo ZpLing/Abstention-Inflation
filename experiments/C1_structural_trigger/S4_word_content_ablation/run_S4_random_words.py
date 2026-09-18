@@ -20,7 +20,7 @@ False-labeled).
 Usage::
 
     python experiments/C1_structural_trigger/S4_word_content_ablation/run_S4_random_words.py \\
-        --config configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml
+        --config configs/S4_word_content/random_words/gpt_5.4_nano/FLD.yaml
 """
 
 import argparse
@@ -502,7 +502,7 @@ def main():
     )
     parser.add_argument(
         "--config",
-        default="configs/C1_structural_trigger/S4_random_words_GPT_5_4_nano.yaml",
+        default="configs/S4_word_content/random_words/gpt_5.4_nano/FLD.yaml",
         help="Path to config YAML",
     )
     args = parser.parse_args()

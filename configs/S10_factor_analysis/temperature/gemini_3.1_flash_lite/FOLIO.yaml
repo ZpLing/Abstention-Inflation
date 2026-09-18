@@ -1,0 +1,20 @@
+# S10 temperature sweep on FOLIO for gemini-3.1-flash-lite, the one gateway model
+# whose endpoint applies the temperature: S2 at six temperatures on 250 True +
+# 250 False items. run_S10_temperature.py reads this block; --datasets and
+# --temperatures on its command line override it. Writes
+# results/S10_factor_analysis/temperature/gemini_3.1_flash_lite/FOLIO_<model>_T<t>.json.
+experiment_name: "S10_temperature_FOLIO_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+
+run_tasks: ['s10_temperature']
+
+s10_temperature:
+  datasets:
+    - "FOLIO"
+  temperatures: [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

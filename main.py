@@ -19,7 +19,7 @@ splits into sub-settings; a setting with one experiment runs by its name alone.
     python main.py S8 --model sft               download, inference, then the probe of one checkpoint
     python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path <checkout>
     python main.py all --limit 4 --results-root /tmp/smoke --dry-run
-    python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml
+    python main.py --config configs/S2_unknown_option/gpt_5.4_nano/FLD.yaml
 
 Two kinds of setting. The gateway settings (S1-S6, S9, S10 temperature, S11)
 call the OpenAI-compatible endpoint named in API_Config.yaml; they are what
@@ -50,31 +50,30 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Coroutine, Dict, List, Optional, Sequence, Tuple
 
+import yaml
+
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import (  # noqa: E402
     S8_INFERENCE_CKPT,
+    SETTING_DIRS,
     cell_path,
     model_slug,
     results_dir,
     s8_inference_path,
 )
-from loader.config_loader import block_key, load_config  # noqa: E402
+from loader.config_loader import block_key, get_block, load_config  # noqa: E402
 
 # =============================================================================
 # What the paper reports
 # =============================================================================
 
-#: gateway model -> the tag its YAMLs carry under configs/.
-GATEWAY_MODELS: Dict[str, str] = {
-    "gpt-5.4-nano": "GPT_5_4_nano",
-    "gemini-3.1-flash-lite": "Gemini_3_1_Flash_Lite",
-    "deepseek-v4-flash": "DeepSeek_V4_Flash",
-}
-#: A model with no YAML of its own borrows this one's and overrides the name.
+#: The gateway models the paper reports. configs/ is laid out like results/:
+#: configs/<setting folder>/<model slug>/<dataset>.yaml, one YAML per cell.
+GATEWAY = ("gpt-5.4-nano", "gemini-3.1-flash-lite", "deepseek-v4-flash")
+#: A model with no folder of its own borrows this one's YAMLs and overrides the name.
 TEMPLATE_MODEL = "gpt-5.4-nano"
-GATEWAY = tuple(GATEWAY_MODELS)
 
 TFQ_DATASETS = ("FLD", "FOLIO")
 MCQ_DATASETS = ("ARC", "MedQA", "MMLU", "LogiQA")
@@ -255,16 +254,25 @@ def script_step(label: str, argv: Sequence[Any], pre=None, chain=None) -> Step:
 # ---- configs -----------------------------------------------------------------
 
 
-def yaml_for(kind: str, model: str, dataset: Optional[str] = None) -> Path:
-    """The YAML that collects ``kind`` for ``model``; a new model borrows the template's."""
-    tag = GATEWAY_MODELS.get(model, GATEWAY_MODELS[TEMPLATE_MODEL])
-    return {
-        "tfq": CONFIGS / "C1_structural_trigger" / f"S1_S3_TFQ_{tag}.yaml",
-        "mcq": CONFIGS / "C1_structural_trigger" / f"S1_S2_{dataset}_{tag}.yaml",
-        "s4": CONFIGS / "C1_structural_trigger" / f"S4_random_words_{tag}.yaml",
-        "s6": CONFIGS / "C2_deny_yet_capable" / f"S6_{tag}.yaml",
-        "s9": CONFIGS / "C4_stable_bias" / f"S9_Perception_Unknown_labeled_Samples_{tag}.yaml",
-    }[kind]
+def yaml_for(key: str, model: str, dataset: str) -> Path:
+    """The YAML for one cell: configs/<setting folder>/<model slug>/<dataset>.yaml,
+    the setting folder being the one results/ uses (``"S2"``, ``"S4/random_words"``,
+    ...). A model with no folder under that setting borrows the template model's,
+    or failing that the first folder there, and overrides the name."""
+    base = CONFIGS / SETTING_DIRS[key]
+    folder = base / model_slug(model)
+    if not folder.is_dir():
+        others = sorted(p for p in base.iterdir() if p.is_dir()) if base.is_dir() else []
+        folder = next((p for p in [base / model_slug(TEMPLATE_MODEL), *others] if p.is_dir()), folder)
+    return folder / f"{dataset}.yaml"
+
+
+def _block(path: Path, name: str) -> dict:
+    """The ``name`` block of one config YAML -- the parameters the paper ran with
+    -- or {} when the file is absent (a model with no folder, a dry run)."""
+    if not path.exists():
+        return {}
+    return (yaml.safe_load(path.read_text()) or {}).get(name) or {}
 
 
 def configure(
@@ -411,19 +419,19 @@ def paired_steps(paired: List[str], model_req, ds_req, o: Options) -> List[Step]
 
     steps: List[Step] = []
     for model in models:
-        tfq = [d for d in datasets if d in TFQ_DATASETS]
-        mcq = [d for d in datasets if d in MCQ_DATASETS]
-        cells = ([("tfq", tfq)] if tfq else []) + [("mcq", [d]) for d in mcq]
-        for kind, ds in cells:
-            active = [s for s in ("S1", "S2", "S3") if s in settings and not (s == "S3" and kind == "mcq")]
+        for ds in datasets:
+            mcq = ds in MCQ_DATASETS
+            active = [s for s in ("S1", "S2", "S3") if s in settings and not (s == "S3" and mcq)]
+            # One YAML per cell; the most inclusive setting asked for names it.
+            lead = next(s for s in ("S5", "S3", "S2", "S1") if s in paired and not (s == "S3" and mcq))
 
-            def make(kind=kind, model=model, ds=tuple(ds), active=tuple(active)):
+            def make(model=model, ds=ds, active=tuple(active), lead=lead):
                 return run_paired(
                     configure(
-                        yaml_for(kind, model, ds[0]),
+                        yaml_for(lead, model, ds),
                         "main_experiment",
                         model,
-                        datasets=ds,
+                        datasets=[ds],
                         limit=o.limit,
                         results_root=o.results_root,
                         settings=list(active),
@@ -432,74 +440,79 @@ def paired_steps(paired: List[str], model_req, ds_req, o: Options) -> List[Step]
                 )
 
             what = "+".join(active + (["S5"] if run_s5 else []))
-            steps.append(Step(f"{what} · {model} · {'/'.join(ds)}", _main_cmd(paired, None, [model], ds, o), coro=make))
+            steps.append(Step(f"{what} · {model} · {ds}", _main_cmd(paired, None, [model], [ds], o), coro=make))
     return steps
 
 
 def _s4_synonyms(part, models, datasets, o: Options) -> List[Step]:
     return [
         script_step(
-            f"S4/synonyms · {m}",
-            [SCRIPT["S4/synonyms"], "--models", m, "--datasets", *datasets, *_root_flag("--results-root", o), *_limit_flag("--limit", o)],
-            pre=require_cells("S2", m, datasets, o, f"python main.py S2 --model {m}"),
+            f"S4/synonyms · {m} · {ds}",
+            [SCRIPT["S4/synonyms"], "--config", yaml_for("S4/synonyms", m, ds), "--models", m, "--datasets", ds,
+             *_root_flag("--results-root", o), *_limit_flag("--limit", o)],
+            pre=require_cells("S2", m, [ds], o, f"python main.py S2 --model {m} --dataset {ds}"),
         )
         for m in models
+        for ds in datasets
     ]
 
 
 def _s4_random_words(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for m in models:
+        for ds in datasets:
 
-        def make(m=m):
-            return run_s4_random_words(
-                configure(yaml_for("s4", m), "s4_random_words", m, datasets=datasets, results_root=o.results_root)
-            )
+            def make(m=m, ds=ds):
+                return run_s4_random_words(
+                    configure(yaml_for("S4/random_words", m, ds), "s4_random_words", m, datasets=[ds], results_root=o.results_root)
+                )
 
-        steps.append(Step(
-            f"S4/random_words · {m}",
-            _main_cmd(["S4"], "random_words", [m], datasets, o),
-            coro=make,
-            pre=require_cells("S2", m, datasets, o, f"python main.py S2 --model {m}"),
-        ))
+            steps.append(Step(
+                f"S4/random_words · {m} · {ds}",
+                _main_cmd(["S4"], "random_words", [m], [ds], o),
+                coro=make,
+                pre=require_cells("S2", m, [ds], o, f"python main.py S2 --model {m} --dataset {ds}"),
+            ))
     return steps
 
 
 def _s6(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for m in models:
+        for ds in datasets:
 
-        def make(m=m):
-            return run_s6(configure(yaml_for("s6", m), "s6_self_diagnosis", m, datasets=datasets, results_root=o.results_root))
+            def make(m=m, ds=ds):
+                return run_s6(configure(yaml_for("S6", m, ds), "s6_self_diagnosis", m, datasets=[ds], results_root=o.results_root))
 
-        # S5 is written only for items S2 abstained on, so a cell with no
-        # abstentions has no S5 file and S6 has nothing to ask; S2 is the input.
-        steps.append(Step(
-            f"S6 · {m}",
-            _main_cmd(["S6"], None, [m], datasets, o),
-            coro=make,
-            pre=require_cells("S2", m, datasets, o, f"python main.py S5 --model {m}"),
-        ))
+            # S5 is written only for items S2 abstained on, so a cell with no
+            # abstentions has no S5 file and S6 has nothing to ask; S2 is the input.
+            steps.append(Step(
+                f"S6 · {m} · {ds}",
+                _main_cmd(["S6"], None, [m], [ds], o),
+                coro=make,
+                pre=require_cells("S2", m, [ds], o, f"python main.py S5 --model {m} --dataset {ds}"),
+            ))
     return steps
 
 
 def _s9_perception(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for m in models:
+        for ds in datasets:
 
-        def make(m=m):
-            return run_s9_perception(
-                configure(
-                    yaml_for("s9", m),
-                    "s9_perception_unknown_labeled_samples",
-                    m,
-                    datasets=datasets,
-                    limit=o.limit,
-                    results_root=o.results_root,
+            def make(m=m, ds=ds):
+                return run_s9_perception(
+                    configure(
+                        yaml_for("S9/Perception_Unknown_labeled_Samples", m, ds),
+                        "s9_perception_unknown_labeled_samples",
+                        m,
+                        datasets=[ds],
+                        limit=o.limit,
+                        results_root=o.results_root,
+                    )
                 )
-            )
 
-        steps.append(Step(f"S9/perception · {m}", _main_cmd(["S9"], "perception", [m], datasets, o), coro=make))
+            steps.append(Step(f"S9/perception · {m} · {ds}", _main_cmd(["S9"], "perception", [m], [ds], o), coro=make))
     return steps
 
 
@@ -508,6 +521,8 @@ def _s9_persistence(part, models, datasets, o: Options) -> List[Step]:
     for m in models:
         slug = model_slug(m)
         for ds in datasets:
+            cfg = yaml_for("S9/Persistence_Across_Repeats", m, ds)
+            b = _block(cfg, "s9_persistence_across_repeats")
             steps.append(script_step(
                 f"S9/persistence · {m} · {ds}",
                 [
@@ -515,8 +530,9 @@ def _s9_persistence(part, models, datasets, o: Options) -> List[Step]:
                     "--summary", cell_path("S2", ds, m, slug, "tf", o.root),
                     "--dataset", ds,
                     "--model", m,
-                    "--n_repeats", "3",
-                    "--config", yaml_for("tfq", m),
+                    "--n_repeats", str(b.get("n_repeats", 3)),
+                    *(["--temperature", str(b["temperature"])] if b.get("temperature") is not None else []),
+                    "--config", cfg,
                     "--out", results_dir("S9/Persistence_Across_Repeats", o.root) / slug / f"{ds}_{m}.json",
                 ],
                 pre=require_cells("S2", m, [ds], o, f"python main.py S2 --model {m} --dataset {ds}"),
@@ -527,10 +543,12 @@ def _s9_persistence(part, models, datasets, o: Options) -> List[Step]:
 def _s10_temperature(part, models, datasets, o: Options) -> List[Step]:
     return [
         script_step(
-            f"S10/temperature · {m}",
-            [SCRIPT["S10/temperature"], "--model", m, "--datasets", *datasets, *_root_flag("--results-root", o), *_limit_flag("--limit", o)],
+            f"S10/temperature · {m} · {ds}",
+            [SCRIPT["S10/temperature"], "--config", yaml_for("S10/temperature", m, ds), "--model", m, "--datasets", ds,
+             *_root_flag("--results-root", o), *_limit_flag("--limit", o)],
         )
         for m in models
+        for ds in datasets
     ]
 
 
@@ -546,19 +564,20 @@ def _one_checkpoint(models: Sequence[str], o: Options) -> Optional[str]:
 def _s10_temperature_local(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for tag in models:
-        for T in TEMPERATURES:
+        b = _block(yaml_for("S10/temperature", tag, datasets[0]), "s10_temperature_local")
+        for T in b.get("temperatures") or TEMPERATURES:
             st = script_step(
                 f"S10/temperature_local · {tag} · T={T}",
                 [
                     SCRIPT["S10/local_sweep"],
                     "--model_path", o.model_path or f"<checkout of {tag}>",
                     "--model_tag", tag,
-                    "--use_chat_template",
-                    "--settings", "S2",
-                    "--n_per_class", "250",
-                    "--max_new_tokens", "8192",
-                    "--batch_size", "8",
-                    "--top_k", "20",
+                    *(["--use_chat_template"] if b.get("use_chat_template", True) else []),
+                    "--settings", *(b.get("settings") or ["S2"]),
+                    "--n_per_class", str(b.get("n_per_class", 250)),
+                    "--max_new_tokens", str(b.get("max_new_tokens", 8192)),
+                    "--batch_size", str(b.get("batch_size", 8)),
+                    "--top_k", str(b.get("top_k", 20)),
                     "--temperature", str(T),
                     "--datasets", *datasets,
                     "--out_dir", results_dir("S10/temperature", o.root) / model_slug(tag),
@@ -572,16 +591,18 @@ def _s10_temperature_local(part, models, datasets, o: Options) -> List[Step]:
 def _s10_size_alignment(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for tag in models:
+        b = _block(yaml_for("S10/size_alignment", tag, datasets[0]), "s10_size_alignment")
         st = script_step(
             f"S10/size_alignment · {tag}",
             [
                 SCRIPT["S10/local_sweep"],
                 "--model_path", o.model_path or f"<checkout of {tag}>",
                 "--model_tag", tag,
-                *(["--use_chat_template"] if tag.endswith("-it") else []),
-                "--n_per_class", "250",
-                "--max_new_tokens", "3072",
-                "--batch_size", "8",
+                *(["--use_chat_template"] if b.get("use_chat_template", tag.endswith("-it")) else []),
+                "--settings", *(b.get("settings") or ["S1", "S2"]),
+                "--n_per_class", str(b.get("n_per_class", 250)),
+                "--max_new_tokens", str(b.get("max_new_tokens", 3072)),
+                "--batch_size", str(b.get("batch_size", 8)),
                 "--datasets", *datasets,
                 "--out_dir", results_dir("S10/size_alignment", o.root),
             ],
@@ -592,34 +613,44 @@ def _s10_size_alignment(part, models, datasets, o: Options) -> List[Step]:
 
 
 def _s11(part, models, datasets, o: Options) -> List[Step]:
-    return [
-        script_step(
-            f"S11 · {m} · {ds}",
-            [
-                SCRIPT["S11/run"],
-                "--model", m,
-                "--dataset", ds,
-                "--positions", "A", "B", "C",
-                "--unified-labels",
-                *_limit_flag("--sample-limit", o),
-                *_root_flag("--results-root", o),
-            ],
-        )
-        for m in models
-        for ds in datasets
-    ]
+    steps = []
+    for m in models:
+        for ds in datasets:
+            cfg = yaml_for("S11", m, ds)
+            b = _block(cfg, "s11_positional_biases")
+            steps.append(script_step(
+                f"S11 · {m} · {ds}",
+                [
+                    SCRIPT["S11/run"],
+                    "--config", cfg,
+                    "--model", m,
+                    "--dataset", ds,
+                    "--positions", *(b.get("positions") or ["A", "B", "C"]),
+                    *(["--unified-labels"] if b.get("unified_labels", True) else []),
+                    *_limit_flag("--sample-limit", o),
+                    *_root_flag("--results-root", o),
+                ],
+            ))
+    return steps
 
 
 def _s7(part, models, datasets, o: Options) -> List[Step]:
-    def pre():
-        for m in models:
-            require_cells("S2", m, datasets, o, f"python main.py S2 --model {m}")()
-
-    return [script_step(
-        "S7 · " + ", ".join(models),
-        [SCRIPT["S7/run"], "--models", *models, "--datasets", *datasets, *_root_flag("--results-root", o)],
-        pre=pre,
-    )]
+    steps = []
+    for m in models:
+        for ds in datasets:
+            cfg = yaml_for("S7", m, ds)
+            b = _block(cfg, "s7_reasoning_traces")
+            steps.append(script_step(
+                f"S7 · {m} · {ds}",
+                [
+                    SCRIPT["S7/run"], "--config", cfg, "--models", m, "--datasets", ds,
+                    *(["--mode", b["mode"]] if b.get("mode") else []),
+                    *(["--batch-size", str(b["batch_size"])] if b.get("batch_size") else []),
+                    *_root_flag("--results-root", o),
+                ],
+                pre=require_cells("S2", m, [ds], o, f"python main.py S2 --model {m} --dataset {ds}"),
+            ))
+    return steps
 
 
 def _s8(part, models, datasets, o: Options) -> List[Step]:
@@ -831,9 +862,56 @@ CONFIG_BLOCKS = (
     "main_experiment",
     "s6_self_diagnosis",
     "s9_perception_unknown_labeled_samples",
-    "s4_random_words",
     "s10_model_sweep",
+    "s8_logit_lens",
+    "s4_random_words",
+    "s4_synonyms",
+    "s7_reasoning_traces",
+    "s9_persistence_across_repeats",
+    "s10_temperature",
+    "s10_temperature_local",
+    "s10_size_alignment",
+    "s11_positional_biases",
 )
+
+
+#: run_tasks entry -> the (setting, part) whose builder composes it; these blocks
+#: are run the way `main.py <setting>` runs them, from the block's own values.
+SCRIPT_BLOCKS: Dict[str, Tuple[str, str]] = {
+    "s4_synonyms": ("S4", "synonyms"),
+    "s7_reasoning_traces": ("S7", "reasoning_traces"),
+    "s8_logit_lens": ("S8", "logit_lens"),
+    "s9_persistence_across_repeats": ("S9", "persistence"),
+    "s10_temperature": ("S10", "temperature"),
+    "s10_temperature_local": ("S10", "temperature_local"),
+    "s10_size_alignment": ("S10", "size_alignment"),
+    "s11_positional_biases": ("S11", "positional_biases"),
+}
+
+
+def run_script_blocks(config: dict, dry_run: bool = False) -> int:
+    """Every SCRIPT_BLOCKS task in the YAML's run_tasks: build its steps from the
+    block (datasets; checkpoints for S8, else the file's model; results_root;
+    model_path for a local checkpoint) and run them."""
+    rc = 0
+    for name in _resolve_tasks(config):
+        if name not in SCRIPT_BLOCKS:
+            continue
+        skey, pname = SCRIPT_BLOCKS[name]
+        part = next(p for p in SETTINGS[skey].parts if p.name == pname)
+        block = get_block(config, name)
+        models = list(block.get("checkpoints") or [config.get("model_name")])
+        datasets = list(block.get("datasets") or part.datasets)
+        bad = [d for d in datasets if d not in part.datasets]
+        if bad:
+            raise SystemExit(f"{name}: dataset {bad} is not one of {skey}'s ({', '.join(part.datasets)})")
+        models = resolve_models(part, models, skey)
+        root = block.get("results_root")
+        o = Options(results_root=Path(root).resolve() if root and root != "results" else None,
+                    model_path=block.get("model_path"), dry_run=dry_run)
+        print(f"\n===== {skey}/{pname} from {name} =====")
+        rc = execute(BUILDERS[(skey, pname)](part, models, datasets, o), o) or rc
+    return rc
 
 
 def _resolve_tasks(config: dict) -> list:
@@ -874,6 +952,12 @@ async def _dispatch(config: dict) -> None:
 
         await _run(config, ModelSweepRunner)
 
+    if "s4_random_words" in tasks:
+        print("\n===== S4 random words =====")
+        await run_s4_random_words(config)
+
+    run_script_blocks(config)
+
 
 def run_config(args: argparse.Namespace) -> int:
     config = load_config(args.config)
@@ -888,7 +972,9 @@ def run_config(args: argparse.Namespace) -> int:
             continue
         block = config[key] or {}
         config[key] = block
-        if model:
+        if model and name == "s8_logit_lens":
+            block["checkpoints"] = model  # for S8, --model names the checkpoint key
+        elif model:
             block["model_slug"] = model_slug(model[0])
         if not _is_all(args.dataset):
             block["datasets"] = [d for d in block.get("datasets", []) if d in args.dataset]
@@ -897,6 +983,7 @@ def run_config(args: argparse.Namespace) -> int:
         if args.limit:
             block["sample_limits"] = {ds: args.limit for ds in block.get("datasets", [])}
     if args.dry_run:
+        run_script_blocks(config, dry_run=True)
         print(f"would run run_tasks={_resolve_tasks(config)} from {args.config} "
               f"on model={config.get('model_name')!r}")
         return 0

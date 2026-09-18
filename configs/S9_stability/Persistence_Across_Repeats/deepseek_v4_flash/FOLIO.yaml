@@ -1,0 +1,20 @@
+# S9 Persistence across repeats on FOLIO for deepseek-v4-flash: the same S2 prompt re-drawn
+# three times on the items this model's S2 cell abstained on, at the endpoint's
+# own temperature (the one S2 ran under); writes
+# results/S9_stability/Persistence_Across_Repeats/deepseek_v4_flash/FOLIO_deepseek-v4-flash.json.
+experiment_name: "S9_Persistence_Across_Repeats_FOLIO_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 30
+
+run_tasks: ['s9_persistence_across_repeats']
+
+s9_persistence_across_repeats:
+  datasets:
+    - "FOLIO"
+  n_repeats: 3
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

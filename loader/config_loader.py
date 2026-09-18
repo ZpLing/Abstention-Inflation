@@ -39,7 +39,7 @@ def get_block(config: dict, name: str) -> dict:
 def load_config(config_path: str) -> dict:
     """Load + merge three sources into one flat dict:
 
-        1. main experiment yaml   (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml)
+        1. main experiment yaml   (configs/S2_unknown_option/gpt_5.4_nano/FLD.yaml)
         2. API_Config.yaml        (repo root, git-ignored) — credentials
 
     API_Config.yaml takes either shape. Flat:
@@ -62,7 +62,7 @@ def load_config(config_path: str) -> dict:
     an existing checkout keeps working.
 
     Args:
-        config_path: Path to the main configuration file (e.g., 'configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml').
+        config_path: Path to the main configuration file (e.g., 'configs/S2_unknown_option/gpt_5.4_nano/FLD.yaml').
 
     Returns:
         A dictionary containing all configuration information.

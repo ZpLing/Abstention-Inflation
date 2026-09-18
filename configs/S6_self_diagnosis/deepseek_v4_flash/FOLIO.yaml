@@ -1,0 +1,20 @@
+# S6 Self-Diagnosis on FOLIO for deepseek-v4-flash: replay the S2 conversation on each
+# Abstention Inflation item and ask the model to attribute its own abstention to
+# (A) being unable to work it out or (B) the item being objectively unanswerable.
+# Reads this model's S1, S2 and S5 cells; writes results/S6_self_diagnosis/deepseek_v4_flash/.
+experiment_name: "S6_self_diagnosis_FOLIO_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s6_self_diagnosis']
+
+s6_self_diagnosis:
+  datasets:
+    - "FOLIO"
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+  task_type: "tf"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

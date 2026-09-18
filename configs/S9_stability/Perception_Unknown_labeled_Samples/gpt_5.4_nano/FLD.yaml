@@ -1,0 +1,18 @@
+# S9 Perception of Unknown-labeled items on FLD for gpt-5.4-nano: S1 / S2 / S3 on the
+# 300 Unknown-labeled items of dataset/FLD_unknown.json, all of them used; writes
+# results/S9_stability/Perception_Unknown_labeled_Samples/gpt_5.4_nano/.
+experiment_name: "S9_Perception_Unknown_labeled_Samples_FLD_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s9_perception_unknown_labeled_samples']
+
+s9_perception_unknown_labeled_samples:
+  datasets:
+    - "FLD"
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

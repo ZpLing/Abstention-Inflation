@@ -8,7 +8,7 @@ a model gradient. Each per-model run produces the standard
 `results/S10_factor_analysis/size_alignment/<dataset>_<model>.json`; this runner reads them back
 afterward and writes the cross-model aggregate.
 
-Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
+Config block (any gateway YAML under configs/, e.g. configs/S2_unknown_option/gpt_5.4_nano/FLD.yaml):
 
     exp2_model_sweep:
       models:

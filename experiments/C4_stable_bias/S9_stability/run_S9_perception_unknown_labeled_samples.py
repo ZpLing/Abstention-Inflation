@@ -5,7 +5,7 @@ answer, abstaining is correct, so this run measures whether the models can
 tell the two populations apart. Paired against the Abs Rate on answerable
 items, it is what shows the bias is directional rather than indiscriminate.
 
-Driven by main.py through configs/C4_stable_bias/S9_Perception_Unknown_labeled_Samples_*.yaml.
+Driven by main.py through configs/S9_stability/Perception_Unknown_labeled_Samples/<model slug>/<dataset>.yaml.
 """
 
 import sys

@@ -1,0 +1,21 @@
+# S2 Unknown option added on FLD for gemini-3.1-flash-lite: the manipulation, scored per item
+# against its S1 pair, so the pass collects S1 and S2 together; writes
+# results/S2_unknown_option/tfq/gemini_3.1_flash_lite/FLD_gemini-3.1-flash-lite.json (and the S1 cell).
+experiment_name: "S2_unknown_option_FLD_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FLD"
+  settings: ['S1', 'S2']
+  run_s5_rerun: false
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

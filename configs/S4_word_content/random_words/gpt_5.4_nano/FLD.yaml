@@ -1,0 +1,20 @@
+# S4 Word Content Ablation, random-word half, on FLD for gpt-5.4-nano: the third
+# option becomes "Triangular" / "Cerulean", words with no bearing on the task, so
+# any abstention into that slot is attributable to the slot, not to what it says.
+# Reads this model's S1 and S2 cells; writes results/S4_word_content/random_words/gpt_5.4_nano/.
+experiment_name: "S4_random_words_FLD_gpt_5.4_nano"
+model_name: "gpt-5.4-nano"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s4_random_words']
+
+s4_random_words:
+  datasets:
+    - "FLD"
+  n_per_class: 250          # 250 True + 250 False = the full 500
+  results_root: "results"
+  model_slug: "gpt_5.4_nano"      # S1 and the Unknown condition come from this model's main-table cells
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

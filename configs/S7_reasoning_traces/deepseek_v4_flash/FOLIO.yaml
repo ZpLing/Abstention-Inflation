@@ -1,0 +1,18 @@
+# S7 Reasoning traces on FOLIO for deepseek-v4-flash: an NLI probe (DeBERTa-v3-large, MNLI /
+# FEVER / ANLI / LingNLI / WANLI) over the stored S1 and S2 traces of this
+# model's cells, read in windows, batch 16. Loads the encoder locally, no
+# gateway; writes results/S7_reasoning_traces/deepseek_v4_flash/FOLIO_deepseek-v4-flash.json.
+experiment_name: "S7_reasoning_traces_FOLIO_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+
+run_tasks: ['s7_reasoning_traces']
+
+s7_reasoning_traces:
+  datasets:
+    - "FOLIO"
+  nli_model: "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+  mode: "windows"
+  batch_size: 16
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"

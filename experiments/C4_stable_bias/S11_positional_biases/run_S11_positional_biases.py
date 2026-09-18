@@ -47,15 +47,15 @@ from loader.dataset_loader import Sample
 MODELS = {
     "gpt_5.4_nano": {
         "model_name": "gpt-5.4-nano",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
+        "config": "configs/S11_positional_bias/gpt_5.4_nano/FLD.yaml",
     },
     "gemini_3.1_flash_lite": {
         "model_name": "gemini-3.1-flash-lite",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
+        "config": "configs/S11_positional_bias/gemini_3.1_flash_lite/FLD.yaml",
     },
     "deepseek_v4_flash": {
         "model_name": "deepseek-v4-flash",
-        "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
+        "config": "configs/S11_positional_bias/deepseek_v4_flash/FLD.yaml",
     },
 }
 
@@ -397,12 +397,13 @@ async def run_model(
     max_workers: Optional[int],
     unified_labels: bool = False,
     max_retries: int = 3,
+    config_path: Optional[str] = None,
 ):
     spec = resolve_model(model_key)
     model_name = spec["model_name"]
     model_key = model_slug(model_name)
     print(f"\n{'=' * 72}\nModel: {model_key} ({model_name})\n{'=' * 72}")
-    config = load_config(str(ROOT / spec["config"]))
+    config = load_config(str(ROOT / (config_path or spec["config"])))
     config["model_name"] = model_name
     if max_workers is not None:
         config["max_workers"] = max_workers
@@ -430,6 +431,12 @@ def _parse_args():
         help="'all' for the three models the paper reports, one of "
         + ", ".join(MODELS)
         + ", or any other gateway model name (it borrows gpt-5.4-nano's config).",
+    )
+    parser.add_argument(
+        "--config",
+        default=None,
+        help="A configs/S11_positional_bias/<model>/<dataset>.yaml to take the gateway "
+        "settings from; default is the model's own, or gpt-5.4-nano's for a new model.",
     )
     parser.add_argument(
         "--results-root",
@@ -504,6 +511,7 @@ async def main():
             args.max_workers,
             args.unified_labels,
             args.max_retries,
+            config_path=args.config,
         )
     print("\nDone.")
 

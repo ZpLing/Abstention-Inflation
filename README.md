@@ -24,7 +24,8 @@ cp configs/API_Config.template.yaml API_Config.yaml   # fill in your key
 ```
 
 `API_Config.yaml` is git-ignored and holds the API key used to run this code.
-The experiment configuration is in the YAMLs under `configs/`.
+The experiment configuration is in the YAMLs under `configs/`, laid out like
+`results/`: one folder per setting, one per model inside it, one YAML per dataset.
 
 ## Quick start
 
@@ -65,10 +66,6 @@ python main.py S2                     # one specific setting: S2 with its S1 pai
 ├── dataset/
 └── results/
 ```
-
-**Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
-runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
-`main.py S8` pass their arguments on the command line.
 
 ## Running the settings
 

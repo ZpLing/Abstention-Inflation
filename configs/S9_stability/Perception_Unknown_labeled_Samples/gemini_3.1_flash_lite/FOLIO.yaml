@@ -1,0 +1,18 @@
+# S9 Perception of Unknown-labeled items on FOLIO for gemini-3.1-flash-lite: S1 / S2 / S3 on the
+# 300 Unknown-labeled items of dataset/FOLIO_unknown.json, all of them used; writes
+# results/S9_stability/Perception_Unknown_labeled_Samples/gemini_3.1_flash_lite/.
+experiment_name: "S9_Perception_Unknown_labeled_Samples_FOLIO_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s9_perception_unknown_labeled_samples']
+
+s9_perception_unknown_labeled_samples:
+  datasets:
+    - "FOLIO"
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

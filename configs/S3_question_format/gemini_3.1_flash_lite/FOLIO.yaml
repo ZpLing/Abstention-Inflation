@@ -1,0 +1,21 @@
+# S3 Question format ablation on FOLIO for gemini-3.1-flash-lite: the S2 ternary rendered as
+# A / B / C, TFQ only, collected in the same pass as the S1/S2 it is scored
+# against; writes results/S3_question_format/gemini_3.1_flash_lite/FOLIO_gemini-3.1-flash-lite.json.
+experiment_name: "S3_question_format_FOLIO_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "FOLIO"
+  settings: ['S1', 'S2', 'S3']
+  run_s5_rerun: false
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

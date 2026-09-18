@@ -27,7 +27,7 @@ from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.prompts import build_judge_s2_prompt
 from infra.result_schema import model_slug, results_dir, stamp  # noqa: E402
-from loader.config_loader import load_config
+from loader.config_loader import get_block, load_config
 from loader.dataset_loader import load_judge
 
 
@@ -84,17 +84,19 @@ async def main():
     ap.add_argument("--summary", required=True, nargs="+")
     ap.add_argument("--dataset", required=True)
     ap.add_argument("--model", required=True)
-    ap.add_argument("--n_repeats", type=int, default=3)
+    ap.add_argument("--n_repeats", type=int, default=None, help="default: the config block's, else 3")
     # Default: the endpoint's own temperature, the one S2 ran under.
     ap.add_argument("--temperature", type=float, default=None)
     ap.add_argument(
-        "--config", default="configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml"
+        "--config", default="configs/S9_stability/Persistence_Across_Repeats/gpt_5.4_nano/FLD.yaml"
     )
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
     # Load config
     cfg = load_config(args.config)
+    if args.n_repeats is None:
+        args.n_repeats = int(get_block(cfg, "s9_persistence_across_repeats").get("n_repeats", 3))
     cfg["model_name"] = args.model
     cfg["max_workers"] = 30  # Concurrency boost for repeated queries
     handler = LLMHandler(cfg)

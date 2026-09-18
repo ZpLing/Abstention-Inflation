@@ -1,0 +1,21 @@
+# S5 Without-Unknown rerun on LogiQA for deepseek-v4-flash: the items S2 abstained on, asked
+# again without the option, inside the S1/S2 pass; writes
+# results/S5_rerun/mcq/deepseek_v4_flash/LogiQA_deepseek-v4-flash.json.
+experiment_name: "S5_rerun_LogiQA_deepseek_v4_flash"
+model_name: "deepseek-v4-flash"
+override_model: true
+max_workers: 100
+max_retries: 3
+
+run_tasks: ['main_experiment']
+
+main_experiment:
+  datasets:
+    - "LogiQA"
+  settings: ['S1', 'S2']
+  run_s5_rerun: true
+  results_root: "results"
+  model_slug: "deepseek_v4_flash"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

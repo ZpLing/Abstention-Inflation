@@ -17,7 +17,7 @@ Why a fresh sweep rather than a complement
 `results/temperature_sweep{,_p2}` were generated with **gemini-3.1-flash-lite**,
 although every config file, figure label and paper mention calls the model
 Gemini-3.1-Flash-Lite: the rename reached the file names
-(`S10_temperature_Gemini_3_1_Flash_Lite.yaml`) and the display map in
+(`configs/S10_factor_analysis/temperature/gemini_3.1_flash_lite/`) and the display map in
 the figure data layer, but never the `model_name` field. So the old cells cannot
 be extended, only replaced.
 
@@ -60,7 +60,7 @@ from infra.label_scheme import get_scheme  # noqa: E402
 from infra.llm_handler import LLMHandler  # noqa: E402
 from infra.prompts import build_judge_s2_prompt  # noqa: E402
 from infra.result_schema import model_slug, results_dir, stamp
-from loader.config_loader import load_config  # noqa: E402
+from loader.config_loader import get_block, load_config  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
     "_s10_runner", Path(__file__).with_name("run_S10_local_sweep.py")
@@ -72,9 +72,10 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-#: Credentials come from this file; the model is whatever --model names, and
-#: its cells land under that model's slug.
-CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
+#: The default --config: its `s10_temperature` block supplies the datasets and
+#: temperatures unless the command line names them; the model is whatever
+#: --model names, and its cells land under that model's slug.
+CFG = ROOT / "configs" / "S10_factor_analysis" / "temperature" / "gemini_3.1_flash_lite" / "FLD.yaml"
 
 
 async def query_at_temp(
@@ -134,8 +135,14 @@ async def main() -> None:
     ap.add_argument(
         "--limit", type=int, default=None, help="Items per cell, for a smoke run."
     )
-    ap.add_argument("--temperatures", type=float, nargs="+", default=TEMPERATURES)
-    ap.add_argument("--datasets", nargs="+", default=DATASETS)
+    ap.add_argument(
+        "--config",
+        default=str(CFG),
+        help="A configs/S10_factor_analysis/temperature/<model>/<dataset>.yaml; its block "
+        "gives the datasets and temperatures when the flags below are left out.",
+    )
+    ap.add_argument("--temperatures", type=float, nargs="+", default=None)
+    ap.add_argument("--datasets", nargs="+", default=None)
     ap.add_argument(
         "--max_workers",
         type=int,
@@ -150,14 +157,17 @@ async def main() -> None:
     MODEL = args.model
     OUT_DIR = ROOT / results_dir("S10/temperature", args.results_root) / model_slug(MODEL)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    cfg = load_config(str(CFG))
+    cfg = load_config(str(args.config))
+    block = get_block(cfg, "s10_temperature")
+    datasets = args.datasets or block.get("datasets") or DATASETS
+    temperatures = args.temperatures or block.get("temperatures") or TEMPERATURES
     cfg["model_name"] = MODEL
     cfg["max_workers"] = args.max_workers
     cfg["max_tokens"] = MAX_TOKENS
     handler = LLMHandler(cfg)
     print(f"{MODEL}: {args.max_workers} concurrent requests, max_tokens={MAX_TOKENS}")
 
-    for ds in args.datasets:
+    for ds in datasets:
         scheme = get_scheme(ds)
         samples = _runner.select_samples(ds, N_PER_CLASS, 0)
         if args.limit:
@@ -171,7 +181,7 @@ async def main() -> None:
             f"({sum(1 for s in samples if s.answer_idx == 0)} true / "
             f"{sum(1 for s in samples if s.answer_idx == 1)} false)"
         )
-        for temp in args.temperatures:
+        for temp in temperatures:
             raw_s2 = await query_at_temp(handler, prompts, temp)
             summary = _runner.summarize(
                 ds,
