@@ -12,7 +12,7 @@ own S2 ordering rather than a look-alike, and the model keeps answering with a
 verb. The slot letters name the position; they are never shown to the model.
 
 Outputs:
-    results/S11_positional_bias/{DS}_{MODEL}_pos{A,B,C}.json
+    results/S11_positional_bias/{DS}_{MODEL}_{first,second,last}.json
 
 Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
@@ -36,19 +36,19 @@ from loader.dataset_loader import load_judge, Sample
 from infra.evaluator import Evaluator
 from infra.prompts import build_judge_s11_position_prompt, judge_verb_order
 from infra.metrics import label_acc, label_macro_f1, judge_classes
-from infra.result_schema import results_dir, stamp
+from infra.result_schema import results_dir, stamp, position_name  # noqa: E402
 
 
 MODELS = {
-    "nano": {
+    "gpt_5.4_nano": {
         "model_name": "gpt-5.4-nano",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
     },
-    "gemini": {
+    "gemini_3.1_flash_lite": {
         "model_name": "gemini-3.1-flash-lite",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
     },
-    "deepseek": {
+    "deepseek_v4_flash": {
         "model_name": "deepseek-v4-flash",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
     },
@@ -182,7 +182,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
                    unified_labels: bool = False,
                    max_retries: int = 3):
     out_dir = OUT_DIR_500
-    out_path = out_dir / f"{dataset}_{model_name}_pos{unknown_position}.json"
+    out_path = out_dir / f"{dataset}_{model_name}_{position_name(unknown_position)}.json"
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.
@@ -292,6 +292,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
 
     summary = {
         **stamp("S11"),
+        "position_name": position_name(unknown_position),
         "experiment": "positional_bias",
         "model_key": model_key,
         "model": model_name,

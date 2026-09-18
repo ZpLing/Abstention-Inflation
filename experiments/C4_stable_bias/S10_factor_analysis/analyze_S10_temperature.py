@@ -22,7 +22,7 @@ MODEL = "gemini-3.1-flash-lite"
 
 #: The directories the reported sweep actually wrote to. The older
 #: results/temperature_sweep/ tree was a 200-item pass and is gone.
-SLUG_OF = {"gemini-3.1-flash-lite": "gemini31",
+SLUG_OF = {"gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
            "olmo3-instruct":        "olmo_topk20"}
 TEMPS = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]

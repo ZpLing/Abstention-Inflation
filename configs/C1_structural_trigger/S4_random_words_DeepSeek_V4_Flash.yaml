@@ -1,7 +1,7 @@
 # S4 Word Content Ablation, random-word half: the third option becomes
 # "Triangular" / "Cerulean", words with no bearing on the task. Any abstention
 # into that slot is attributable to the slot, not to what it says.
-experiment_name: "S4_random_words_dsv4flash"
+experiment_name: "S4_random_words_deepseek_v4_flash"
 model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 100
@@ -13,7 +13,7 @@ s4_random_words:
     - "FLD"
     - "FOLIO"
   n_per_class: 250          # 250 True + 250 False = the full 500 per dataset
-  model_slug: "dsv4flash"      # S1 and the Unknown condition come from this model's main-table cells
+  model_slug: "deepseek_v4_flash"      # S1 and the Unknown condition come from this model's main-table cells
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

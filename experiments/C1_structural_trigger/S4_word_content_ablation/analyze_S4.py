@@ -41,7 +41,7 @@ def load_w1_per_sample(ds):
     Read from the paired summary the main table is built from, so the wording sweep is
     compared against the same run the paper reports rather than an earlier one.
     """
-    ab = load_cell(ds, MODEL, "dsv4flash", "tf")
+    ab = load_cell(ds, MODEL, "deepseek_v4_flash", "tf")
     return {ps["id"]: ps["pred_s2"] for ps in ab.get("per_sample", [])}
 
 
@@ -95,8 +95,8 @@ RPC_MODELS = [("deepseek-v4-flash", "DeepSeek-V4-Flash"),
 
 def _s2_abs_rate(ds, model):
     """Abs Rate of the S2 cell in the main table -- the baseline both halves use."""
-    slug = {"deepseek-v4-flash": "dsv4flash", "gpt-5.4-nano": "nano",
-            "gemini-3.1-flash-lite": "gemini31"}[model]
+    slug = {"deepseek-v4-flash": "deepseek_v4_flash", "gpt-5.4-nano": "gpt_5.4_nano",
+            "gemini-3.1-flash-lite": "gemini_3.1_flash_lite"}[model]
     rows = load_cell(ds, model, slug, "tf")["per_sample"]
     return sum(r["pred_s2"] == "UNKNOWN" for r in rows) / len(rows)
 

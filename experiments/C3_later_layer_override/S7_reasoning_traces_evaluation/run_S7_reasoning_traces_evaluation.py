@@ -74,9 +74,9 @@ def take_tail(text: str, max_chars: int = 1500) -> str:
 GOLD_OF_IDX = {0: "entailment", 1: "contradiction"}
 
 CELLS = [
-    ("nano",      "gpt-5.4-nano"),
-    ("gemini31",  "gemini-3.1-flash-lite"),
-    ("dsv4flash", "deepseek-v4-flash"),
+    ("gpt_5.4_nano",      "gpt-5.4-nano"),
+    ("gemini_3.1_flash_lite",  "gemini-3.1-flash-lite"),
+    ("deepseek_v4_flash", "deepseek-v4-flash"),
 ]
 DATASETS = ("FLD", "FOLIO")
 OUT_DIR = ROOT / results_dir("S7")

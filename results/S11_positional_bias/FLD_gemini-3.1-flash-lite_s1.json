@@ -1,7 +1,7 @@
 {
   "setting": "S11",
   "experiment": "positional_bias",
-  "model_key": "gemini",
+  "model_key": "gemini_3.1_flash_lite",
   "model": "gemini-3.1-flash-lite",
   "dataset": "FLD",
   "unified_labels": true,

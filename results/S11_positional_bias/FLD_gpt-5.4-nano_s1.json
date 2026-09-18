@@ -1,7 +1,7 @@
 {
   "setting": "S11",
   "experiment": "positional_bias",
-  "model_key": "nano",
+  "model_key": "gpt_5.4_nano",
   "model": "gpt-5.4-nano",
   "dataset": "FLD",
   "unified_labels": true,

@@ -1,5 +1,5 @@
 # MedQA at n=500 on gemini-3.1-flash-lite, the model Table 1 names.
-experiment_name: "main_experiment_mcq_MedQA_gemini31"
+experiment_name: "main_experiment_mcq_MedQA_gemini_3.1_flash_lite"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 100
@@ -12,7 +12,7 @@ main_experiment:
     - "MedQA"
   run_s5_rerun: true
   results_root: "results"
-  model_slug: "gemini31"
+  model_slug: "gemini_3.1_flash_lite"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

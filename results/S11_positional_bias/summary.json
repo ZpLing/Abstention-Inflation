@@ -2,7 +2,7 @@
   "setting": "S11",
   "rows": [
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FLD",
       "position": "A",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FLD",
       "position": "B",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FLD",
       "position": "C",
@@ -74,7 +74,7 @@
       }
     },
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FOLIO",
       "position": "A",
@@ -98,7 +98,7 @@
       }
     },
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FOLIO",
       "position": "B",
@@ -122,7 +122,7 @@
       }
     },
     {
-      "model": "nano",
+      "model": "gpt_5.4_nano",
       "model_name": "gpt-5.4-nano",
       "dataset": "FOLIO",
       "position": "C",
@@ -146,7 +146,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FLD",
       "position": "A",
@@ -170,7 +170,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FLD",
       "position": "B",
@@ -194,7 +194,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FLD",
       "position": "C",
@@ -218,7 +218,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FOLIO",
       "position": "A",
@@ -242,7 +242,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FOLIO",
       "position": "B",
@@ -266,7 +266,7 @@
       }
     },
     {
-      "model": "gemini",
+      "model": "gemini_3.1_flash_lite",
       "model_name": "gemini-3.1-flash-lite",
       "dataset": "FOLIO",
       "position": "C",
@@ -290,7 +290,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FLD",
       "position": "A",
@@ -314,7 +314,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FLD",
       "position": "B",
@@ -338,7 +338,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FLD",
       "position": "C",
@@ -362,7 +362,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FOLIO",
       "position": "A",
@@ -386,7 +386,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FOLIO",
       "position": "B",
@@ -410,7 +410,7 @@
       }
     },
     {
-      "model": "deepseek",
+      "model": "deepseek_v4_flash",
       "model_name": "deepseek-v4-flash",
       "dataset": "FOLIO",
       "position": "C",
@@ -436,7 +436,7 @@
   ],
   "rebuttal_table": [
     {
-      "model_key": "nano",
+      "model_key": "gpt_5.4_nano",
       "model": "gpt-5.4-nano",
       "dataset": "FLD",
       "A": 64.3,
@@ -457,7 +457,7 @@
       "unified_labels": true
     },
     {
-      "model_key": "nano",
+      "model_key": "gpt_5.4_nano",
       "model": "gpt-5.4-nano",
       "dataset": "FOLIO",
       "A": 22.0,
@@ -478,7 +478,7 @@
       "unified_labels": true
     },
     {
-      "model_key": "gemini",
+      "model_key": "gemini_3.1_flash_lite",
       "model": "gemini-3.1-flash-lite",
       "dataset": "FLD",
       "A": 40.0,
@@ -499,7 +499,7 @@
       "unified_labels": true
     },
     {
-      "model_key": "gemini",
+      "model_key": "gemini_3.1_flash_lite",
       "model": "gemini-3.1-flash-lite",
       "dataset": "FOLIO",
       "A": 17.6,
@@ -520,7 +520,7 @@
       "unified_labels": true
     },
     {
-      "model_key": "deepseek",
+      "model_key": "deepseek_v4_flash",
       "model": "deepseek-v4-flash",
       "dataset": "FLD",
       "A": 47.6,
@@ -541,7 +541,7 @@
       "unified_labels": true
     },
     {
-      "model_key": "deepseek",
+      "model_key": "deepseek_v4_flash",
       "model": "deepseek-v4-flash",
       "dataset": "FOLIO",
       "A": 19.6,

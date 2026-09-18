@@ -2,7 +2,7 @@
 # is defined in run_S10_temperature_api.py -- 250 items per class (n=500 per
 # dataset) over T in {0, 0.3, 0.7, 1.0, 1.5, 2.0} -- not here; this file only
 # tells the gateway which model to call.
-experiment_name: "S10_temperature_gemini31"
+experiment_name: "S10_temperature_gemini_3.1_flash_lite"
 model_name: "gemini-3.1-flash-lite"
 override_model: true
 max_workers: 20

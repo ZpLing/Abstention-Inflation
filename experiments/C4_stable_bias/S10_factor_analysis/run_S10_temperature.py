@@ -70,7 +70,7 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-SLUG_OF = {"gemini-3.1-flash-lite": "gemini31",
+SLUG_OF = {"gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
 }
 CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
 

@@ -26,9 +26,9 @@ from infra.result_schema import load_cell  # noqa: E402
 
 _EV = Evaluator()
 
-MODELS = [("dsv4flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
-          ("nano", "gpt-5.4-nano", "GPT-5.4-nano"),
-          ("gemini31", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
+MODELS = [("deepseek_v4_flash", "deepseek-v4-flash", "DeepSeek-V4-Flash"),
+          ("gpt_5.4_nano", "gpt-5.4-nano", "GPT-5.4-nano"),
+          ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite", "Gemini-3.1-Flash-Lite")]
 DATASETS = ("FLD", "FOLIO")
 
 

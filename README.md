@@ -153,14 +153,14 @@ python $S8/run_S8_step6_suppression_detect.py
 
 ```bash
 for m in DeepSeek_V4_Flash GPT_5_4_nano Gemini_3_1_Flash_Lite; do
-  python main.py --config configs/C4_stable_bias/S9_unknown_labeled_$m.yaml
+  python main.py --config configs/C4_stable_bias/S9_Perception_Unknown_labeled_Samples_$m.yaml
 done
 
 # the three re-draws, per (model, dataset)
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-    --summary results/S2_unknown_option/tfq/nano/FLD_gpt-5.4-nano.json \
+    --summary results/S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/S9_stability/persistence/FLD_gpt-5.4-nano.json
+    --out results/S9_stability/Persistence_Across_Repeats/FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis

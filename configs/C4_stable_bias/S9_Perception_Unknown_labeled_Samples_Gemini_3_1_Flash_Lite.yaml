@@ -1,0 +1,18 @@
+# S9 Unknown-labeled perception: S1/S2/S3 on the Unknown-labeled subsets.
+# Both files hold 300 items, and all of them are used.
+experiment_name: "S9_Perception_Unknown_labeled_Samples_gemini_3.1_flash_lite"
+model_name: "gemini-3.1-flash-lite"
+override_model: true
+max_workers: 100
+
+run_tasks: ['s9_perception_unknown_labeled_samples']
+
+s9_perception_unknown_labeled_samples:
+  datasets:
+    - "FLD"
+    - "FOLIO"
+  results_root: "results"
+  model_slug: "gemini_3.1_flash_lite"
+
+paths:
+  raw_dataset_template: "dataset/{dataset_name}.json"

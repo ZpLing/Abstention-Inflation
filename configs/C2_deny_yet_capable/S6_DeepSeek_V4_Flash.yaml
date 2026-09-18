@@ -1,7 +1,7 @@
 # S6 Self-Diagnosis: replay the S2 conversation on each Abstention Inflation
 # sample and ask the model to attribute its own abstention to (A) being unable
 # to work it out or (B) the item being objectively unanswerable.
-experiment_name: "S6_self_diagnosis_dsv4flash"
+experiment_name: "S6_self_diagnosis_deepseek_v4_flash"
 model_name: "deepseek-v4-flash"
 override_model: true
 max_workers: 100
@@ -13,7 +13,7 @@ s6_self_diagnosis:
     - "FLD"
     - "FOLIO"
   results_root: "results"
-  model_slug: "dsv4flash"
+  model_slug: "deepseek_v4_flash"
   task_type: "tf"
 
 paths:

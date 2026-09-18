@@ -54,9 +54,9 @@ from infra.result_schema import load_cell  # noqa: E402
 #: `dataset/FLD.json` carries `depth`, which is the same quantity under the
 #: unified schema.
 FLD_SOURCE = ROOT / "dataset" / "FLD.json"
-TFQ_CELLS = [("dsv4flash", "deepseek-v4-flash"),
-             ("nano", "gpt-5.4-nano"),
-             ("gemini31", "gemini-3.1-flash-lite")]
+TFQ_CELLS = [("deepseek_v4_flash", "deepseek-v4-flash"),
+             ("gpt_5.4_nano", "gpt-5.4-nano"),
+             ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite")]
 
 ID_RE = re.compile(r"FLD_(\d+)")
 

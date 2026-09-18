@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import results_dir, stamp  # noqa: E402
+from infra.result_schema import results_dir, stamp, position_name  # noqa: E402
 
 from scipy.stats import binomtest
 from infra.metrics import label_acc, label_macro_f1, judge_classes
@@ -16,16 +16,16 @@ from infra.metrics import label_acc, label_macro_f1, judge_classes
 RESULT_DIR = ROOT / results_dir("S11")
 
 MODELS = [
-    ("nano", "gpt-5.4-nano"),
-    ("gemini", "gemini-3.1-flash-lite"),
-    ("deepseek", "deepseek-v4-flash"),
+    ("gpt_5.4_nano", "gpt-5.4-nano"),
+    ("gemini_3.1_flash_lite", "gemini-3.1-flash-lite"),
+    ("deepseek_v4_flash", "deepseek-v4-flash"),
 ]
 DATASETS = ["FLD", "FOLIO"]
 POSITIONS = ["A", "B", "C"]
 
 def load_summary(model_name: str, dataset: str, position: str, result_dir: Path = None):
     result_dir = result_dir or RESULT_DIR
-    path = result_dir / f"{dataset}_{model_name}_pos{position}.json"
+    path = result_dir / f"{dataset}_{model_name}_{position_name(position)}.json"
     if path.exists():
         return json.loads(path.read_text())
     return None
@@ -33,7 +33,7 @@ def load_summary(model_name: str, dataset: str, position: str, result_dir: Path 
 
 # Row order by model_key. Row LABELS are taken from the actual model id in the
 # data (never a hardcoded alias) so the report cannot mislabel what was run.
-DISPLAY_ORDER = ["deepseek", "nano", "gemini"]
+DISPLAY_ORDER = ["deepseek_v4_flash", "gpt_5.4_nano", "gemini_3.1_flash_lite"]
 
 # Expected full coverage = every model_key × dataset. Used to mark a report as
 # partial when some cells did not complete.
@@ -215,7 +215,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--result-dir", default=str(RESULT_DIR),
-        help="Directory of *_pos*.json files "
+        help="Directory of *_{first,second,last}.json files "
              "(e.g. results/S11_positional_bias for the 500-sample run).",
     )
     ap.add_argument(

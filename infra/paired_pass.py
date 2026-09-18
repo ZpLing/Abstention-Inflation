@@ -103,7 +103,7 @@ class ABRunner:
         self.results_root = Path(ab.get("results_root", "results"))
         self.model_slug = ab.get("model_slug") or (Path(ab["results_dir"]).name if ab.get("results_dir") else None)
         if not self.model_slug:
-            raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
+            raise ValueError("config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells")
 
     # =================================================================
     # Top-level dispatch

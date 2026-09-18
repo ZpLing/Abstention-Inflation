@@ -1,0 +1,2351 @@
+{
+  "setting": "S9",
+  "variant": "Persistence_Across_Repeats",
+  "model": "deepseek-v4-flash",
+  "dataset": "FLD",
+  "n_abstention_inflation": 212,
+  "n_repeats": 3,
+  "temperature": null,
+  "full_persistence": 0.5471698113207547,
+  "avg_persistence": 0.75314465408805,
+  "n_unknown_distribution": {
+    "3": 116,
+    "0": 15,
+    "1": 31,
+    "2": 50
+  },
+  "rows": [
+    {
+      "id": "FLD_0001",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0008",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0013",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0014",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0015",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0022",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0025",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0026",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0028",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0029",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0031",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0032",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0033",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0036",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0039",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0044",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0045",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0046",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0047",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0050",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0052",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0054",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0055",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0060",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0063",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0066",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0068",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0071",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0072",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0075",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0083",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0087",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0088",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0091",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0093",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0095",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0099",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0102",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0103",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0106",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0112",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0120",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0128",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0129",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0130",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0132",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0134",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0138",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0141",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0144",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0145",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0146",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0147",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0149",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0150",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0153",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0154",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0155",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0156",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0157",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0158",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0159",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0163",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0168",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0169",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0170",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0171",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0172",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0173",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0175",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0180",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0183",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0186",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0188",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0190",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0191",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0193",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0195",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0196",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0197",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0198",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0202",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0210",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0213",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0216",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0217",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0218",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0219",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0220",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0221",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0222",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0228",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0230",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0231",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0232",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0233",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0236",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0237",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0241",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0242",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0243",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0245",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0246",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0249",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0250",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0251",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0252",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0253",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0257",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0260",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0261",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0263",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0265",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0267",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0269",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0270",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0271",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0275",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0278",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0280",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0282",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0283",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0289",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0291",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0292",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0295",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0297",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0299",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0301",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0305",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0307",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0311",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0314",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0317",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0322",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0323",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0326",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0327",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0329",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0330",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0331",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0338",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0341",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0344",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0346",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0348",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0351",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0356",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0362",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0364",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0368",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0370",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0372",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0375",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0376",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0378",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0381",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0382",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0383",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0385",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0388",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0389",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0391",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0392",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0394",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0400",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0401",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0402",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0404",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0405",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0406",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0407",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0409",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0411",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0416",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0417",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0420",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0422",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0424",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0429",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0430",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0432",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0436",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0438",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0440",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0441",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0444",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0445",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0446",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0447",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0449",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0451",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_unknown": 0,
+      "persistence": 0.0
+    },
+    {
+      "id": "FLD_0453",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0455",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0458",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0459",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0461",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0468",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0469",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0470",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0471",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0474",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0477",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "B",
+        "UNKNOWN"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0478",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0481",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "B"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0484",
+      "n_repeats": 3,
+      "preds": [
+        "B",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0486",
+      "n_repeats": 3,
+      "preds": [
+        "A",
+        "UNKNOWN",
+        "A"
+      ],
+      "n_unknown": 1,
+      "persistence": 0.3333333333333333
+    },
+    {
+      "id": "FLD_0491",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0493",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0496",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "A",
+        "UNKNOWN"
+      ],
+      "n_unknown": 2,
+      "persistence": 0.6666666666666666
+    },
+    {
+      "id": "FLD_0498",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    },
+    {
+      "id": "FLD_0499",
+      "n_repeats": 3,
+      "preds": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "n_unknown": 3,
+      "persistence": 1.0
+    }
+  ]
+}

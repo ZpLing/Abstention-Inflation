@@ -1,7 +1,7 @@
 {
   "setting": "S11",
   "experiment": "positional_bias",
-  "model_key": "deepseek",
+  "model_key": "deepseek_v4_flash",
   "model": "deepseek-v4-flash",
   "dataset": "FOLIO",
   "unified_labels": true,

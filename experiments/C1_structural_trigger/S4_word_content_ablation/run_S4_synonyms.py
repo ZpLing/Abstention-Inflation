@@ -31,24 +31,24 @@ MODELS = [
         "name": "gpt-5.4-nano",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml",
         "sources": {
-            "FLD":   ["S2_unknown_option/tfq/nano/FLD_gpt-5.4-nano.json"],
-            "FOLIO": ["S2_unknown_option/tfq/nano/FOLIO_gpt-5.4-nano.json"],
+            "FLD":   ["S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json"],
+            "FOLIO": ["S2_unknown_option/tfq/gpt_5.4_nano/FOLIO_gpt-5.4-nano.json"],
         },
     },
     {
         "name": "gemini-3.1-flash-lite",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_Gemini_3_1_Flash_Lite.yaml",
         "sources": {
-            "FLD":   ["S2_unknown_option/tfq/gemini31/FLD_gemini-3.1-flash-lite.json"],
-            "FOLIO": ["S2_unknown_option/tfq/gemini31/FOLIO_gemini-3.1-flash-lite.json"],
+            "FLD":   ["S2_unknown_option/tfq/gemini_3.1_flash_lite/FLD_gemini-3.1-flash-lite.json"],
+            "FOLIO": ["S2_unknown_option/tfq/gemini_3.1_flash_lite/FOLIO_gemini-3.1-flash-lite.json"],
         },
     },
     {
         "name": "deepseek-v4-flash",
         "config": "configs/C1_structural_trigger/S1_S3_TFQ_DeepSeek_V4_Flash.yaml",
         "sources": {
-            "FLD":   ["S2_unknown_option/tfq/dsv4flash/FLD_deepseek-v4-flash.json"],
-            "FOLIO": ["S2_unknown_option/tfq/dsv4flash/FOLIO_deepseek-v4-flash.json"],
+            "FLD":   ["S2_unknown_option/tfq/deepseek_v4_flash/FLD_deepseek-v4-flash.json"],
+            "FOLIO": ["S2_unknown_option/tfq/deepseek_v4_flash/FOLIO_deepseek-v4-flash.json"],
         },
     },
 ]

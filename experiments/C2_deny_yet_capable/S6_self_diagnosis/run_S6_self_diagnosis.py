@@ -147,7 +147,7 @@ class S6SelfDiagnosisRunner:
         self.results_root = Path(cfg.get("results_root", "results"))
         self.model_slug = cfg.get("model_slug") or (Path(cfg["s1_s2_results_dir"]).name if cfg.get("s1_s2_results_dir") else None)
         if not self.model_slug:
-            raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
+            raise ValueError("config needs model_slug (e.g. gpt_5.4_nano / deepseek_v4_flash / gemini_3.1_flash_lite) to place its cells")
         self.task_type = cfg.get("task_type", "tf")
         self.results_dir = Path(cfg["results_dir"]) if cfg.get("results_dir") \
             else results_dir("S6", self.results_root) / self.model_slug

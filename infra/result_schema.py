@@ -220,8 +220,8 @@ SETTING_DIRS = {
     "S6":                  "S6_self_diagnosis",
     "S7":                  "S7_reasoning_traces",
     "S8":                  "S8_logit_lens",
-    "S9/perception":       "S9_stability/perception",
-    "S9/persistence":      "S9_stability/persistence",
+    "S9/Perception_Unknown_labeled_Samples": "S9_stability/Perception_Unknown_labeled_Samples",
+    "S9/Persistence_Across_Repeats": "S9_stability/Persistence_Across_Repeats",
     "S10/temperature":     "S10_factor_analysis/temperature",   # one subfolder per model slug
     "S10/size_alignment":  "S10_factor_analysis/size_alignment",
     "S11":                 "S11_positional_bias",
@@ -245,7 +245,7 @@ def stamp(key: str) -> Dict[str, str]:
 
 def setting_key_for_dir(rel_dir: str) -> str | None:
     """Registry key for a directory given relative to results/ (e.g.
-    ``"S4_word_content/synonyms"`` or ``"S1_baseline/tfq/nano"``); the inverse
+    ``"S4_word_content/synonyms"`` or ``"S1_baseline/tfq/gpt_5.4_nano"``); the inverse
     of :data:`SETTING_DIRS`, for files written before they were stamped."""
     rel = str(rel_dir).strip("/")
     best = None
@@ -271,6 +271,28 @@ def iter_cells(root: str | Path = "results"):
         for f in sorted((base / family).glob("*/*.json")):
             dataset, _, model = f.stem.partition("_")
             yield dataset, model, f.parent.name, task_type
+
+
+#: S11 puts the "Unknown" option in one of three slots; files are named by the
+#: slot's position in the option list, as the paper's figure labels them.
+POSITION_NAME = {"A": "first", "B": "second", "C": "last"}
+
+
+def position_name(slot: str) -> str:
+    """``"A"`` -> ``"first"``, ``"B"`` -> ``"second"``, ``"C"`` -> ``"last"``."""
+    return POSITION_NAME[slot]
+
+
+#: model name as the endpoint reports it -> the folder its cells live in. The
+#: slug is the name written out with the separators the file system prefers.
+MODEL_SLUG = {"gpt-5.4-nano": "gpt_5.4_nano",
+              "deepseek-v4-flash": "deepseek_v4_flash",
+              "gemini-3.1-flash-lite": "gemini_3.1_flash_lite"}
+
+
+def model_slug(model_name: str) -> str:
+    """Folder name for a model; falls back to the name with '-' -> '_'."""
+    return MODEL_SLUG.get(model_name, model_name.replace("/", "_").replace("-", "_"))
 
 
 #: Settings collected for TFQ only; their folders skip the {tfq,mcq} level.

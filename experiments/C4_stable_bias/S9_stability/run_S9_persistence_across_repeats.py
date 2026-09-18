@@ -7,9 +7,9 @@ not sampling lottery.
 
 Usage:
     python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-        --summary results/S2_unknown_option/tfq/nano/FLD_gpt-5.4-nano.json \
+        --summary results/S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-        --out results/S9_stability/persistence/FLD_gpt-5.4-nano.json
+        --out results/S9_stability/Persistence_Across_Repeats/FLD_gpt-5.4-nano.json
 """
 import argparse
 import asyncio
@@ -146,10 +146,10 @@ async def main():
     for k in sorted(dist.keys(), reverse=True):
         print(f"  {k}/{args.n_repeats}: {dist[k]} ({dist[k]/n:.1%})")
 
-    out = args.out or str(results_dir("S9/persistence") / f"{args.dataset}_{args.model}.json")
+    out = args.out or str(results_dir("S9/Persistence_Across_Repeats") / f"{args.dataset}_{args.model}.json")
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps({
-        **stamp("S9/persistence"),
+        **stamp("S9/Persistence_Across_Repeats"),
         "model": args.model, "dataset": args.dataset,
         "n_abstention_inflation": n, "n_repeats": args.n_repeats, "temperature": args.temperature,
         "full_persistence": full_persist / n,
