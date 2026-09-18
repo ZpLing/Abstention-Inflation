@@ -33,8 +33,8 @@ the only way to run everything.
 
 ```bash
 python main.py --list                 # overview of every setting
-python main.py all                    # collect every gateway setting on every reported cell
-python main.py all --stage analyze    # print every setting's numbers
+python main.py all                    # run every setting that calls the API
+python main.py all --stage analyze    # print the results of every setting
 python main.py S2                     # one setting: S2 with its S1 pair, 3 models x 6 datasets
 ```
 
