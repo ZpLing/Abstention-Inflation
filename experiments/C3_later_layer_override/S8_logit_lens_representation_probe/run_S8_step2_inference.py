@@ -1,6 +1,6 @@
 """
-S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, OLMo-3-7B-Instruct) on FLD in S1 and S2.
-Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_OLMo-3-7B-Instruct_inference.json
+S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, Olmo-3-7B-Instruct) on FLD in S1 and S2.
+Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_Olmo-3-7B-Instruct_inference.json
 
 Run on the 3090 server after downloading models:
     python scripts/c3_run_olmo_inference.py

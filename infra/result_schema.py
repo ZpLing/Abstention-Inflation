@@ -314,10 +314,10 @@ def model_slug(model_name: str) -> str:
 #: checkpoint produced it.
 S8_MODEL = "olmo-3-7b"  # the family; names the results subfolder
 S8_CHECKPOINTS = {
-    "base": "allenai/OLMo-3-1025-7B",
-    "sft": "allenai/OLMo-3-7B-Instruct-SFT",
-    "instruct": "allenai/OLMo-3-7B-Instruct",
-    "rl_zero": "allenai/OLMo-3-7B-RL-Zero-General",
+    "base": "allenai/Olmo-3-1025-7B",
+    "sft": "allenai/Olmo-3-7B-Instruct-SFT",
+    "instruct": "allenai/Olmo-3-7B-Instruct",
+    "rl_zero": "allenai/Olmo-3-7B-RL-Zero-General",
 }
 #: The checkpoint whose S1/S2 answers partition the 600 items into abstention
 #: inflation / correct abstention; every probe is scored on that partition.
@@ -325,7 +325,7 @@ S8_INFERENCE_CKPT = "instruct"
 
 
 def s8_checkpoint_name(ckpt: str) -> str:
-    """``"instruct"`` -> ``"OLMo-3-7B-Instruct"``, the repo's own basename."""
+    """``"instruct"`` -> ``"Olmo-3-7B-Instruct"``, the repo's own basename."""
     return S8_CHECKPOINTS[ckpt].rsplit("/", 1)[-1]
 
 

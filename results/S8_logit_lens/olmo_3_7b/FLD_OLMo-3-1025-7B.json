@@ -1,6 +1,6 @@
 {
   "setting": "S8",
-  "variant": "OLMo-3-1025-7B",
+  "variant": "Olmo-3-1025-7B",
   "checkpoint": "base",
   "per_sample": [
     {

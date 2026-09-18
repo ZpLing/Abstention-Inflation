@@ -1,6 +1,6 @@
 {
   "setting": "S8",
-  "variant": "OLMo-3-7B-Instruct",
+  "variant": "Olmo-3-7B-Instruct",
   "checkpoint": "instruct",
   "per_sample": [
     {

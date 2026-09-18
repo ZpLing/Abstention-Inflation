@@ -11,7 +11,7 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/S8_logit_lens/olmo_3_7b/FLD_OLMo-3-7B-Instruct_inference.json
+Input:  results/S8_logit_lens/olmo_3_7b/FLD_Olmo-3-7B-Instruct_inference.json
 Output: results/S8_logit_lens/olmo_3_7b/FLD_<checkpoint name>.json
         (each sample has layers_s1 and layers_s2)
 

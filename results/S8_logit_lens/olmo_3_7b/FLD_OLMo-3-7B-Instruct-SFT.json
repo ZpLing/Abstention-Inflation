@@ -1,6 +1,6 @@
 {
   "setting": "S8",
-  "variant": "OLMo-3-7B-Instruct-SFT",
+  "variant": "Olmo-3-7B-Instruct-SFT",
   "checkpoint": "sft",
   "per_sample": [
     {
