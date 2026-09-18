@@ -3,20 +3,22 @@
 
 Every setting the paper reports is reached from here. The first argument names
 the setting; ``all`` is the only way to run everything. Below the setting the
-levels are read top-down -- ``--part``, ``--model``, ``--dataset`` -- and a
+levels are read top-down -- ``--sub-setting``, ``--model``, ``--dataset`` -- and a
 level left out means every value the paper reports for that setting (``all``
-at any level says the same explicitly).
+at any level says the same explicitly). A setting with more than one experiment
+splits into sub-settings; the local settings run in steps, chosen with
+``--step``, the same option under its other name.
 
-    python main.py --list                       every setting, its parts, what --model means there
+    python main.py --list                       every setting, its sub-settings or steps, what --model means there
     python main.py all                          every gateway setting on every reported cell
     python main.py all --stage analyze          print every setting's numbers
     python main.py S2                           one setting (collected with its S1 pair)
     python main.py S2 --model gemini-3.1-flash-lite --dataset FLD
-    python main.py S4 --part random_words --model deepseek-v4-flash
-    python main.py S9 --part persistence --model gpt-5.4-nano --dataset FOLIO
+    python main.py S4 --sub-setting random_words --model deepseek-v4-flash
+    python main.py S9 --sub-setting persistence --model gpt-5.4-nano --dataset FOLIO
     python main.py S2 --model qwen3-max         any model the gateway serves
-    python main.py S8 --part logit_lens --model sft
-    python main.py S10 --part size_alignment --model gemma-4-E4B-it --model-path <checkout>
+    python main.py S8 --step logit_lens --model sft
+    python main.py S10 --step size_alignment --model gemma-4-E4B-it --model-path <checkout>
     python main.py all --limit 4 --results-root /tmp/smoke --dry-run
     python main.py --config configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml
 
@@ -220,10 +222,10 @@ def _script_cmd(argv: Sequence[Any]) -> str:
     return "python " + " ".join(shlex.quote(_rel(a)) for a in argv)
 
 
-def _main_cmd(settings, part, models, datasets, o: Options, stage=None) -> str:
+def _main_cmd(settings, part, models, datasets, o: Options, stage=None, flag="--sub-setting") -> str:
     words = ["python main.py", *settings]
     if part:
-        words += ["--part", part]
+        words += [flag, part]
     if models:
         words += ["--model", *(shlex.quote(m) for m in models)]
     if datasets:
@@ -668,14 +670,15 @@ COLLECT_ORDER = ("S4", "S6", "S9", "S10", "S11", "S7", "S8")
 def part_steps(setting: Setting, part: Part, model_req, ds_req, o: Options) -> List[Step]:
     key = setting.key
     tag = f"{key}/{part.name}"
+    named = part.name if len(setting.parts) > 1 else None  # a single-experiment setting runs by name alone
     if part.analyze_only:
-        return [Step(tag, _main_cmd([key], part.name, [], [], o, stage="analyze"),
-                     note="nothing to collect: this part stratifies the S2 cells already on disk; run it with --stage analyze")]
+        return [Step(tag, _main_cmd([key], named, [], [], o, stage="analyze"),
+                     note="nothing to collect: this sub-setting stratifies the S2 cells already on disk; run it with --stage analyze")]
     datasets = resolve_datasets(part, ds_req)
     if not datasets:
         return [Step(tag, "-", note=f"none of the requested datasets belongs to {tag} ({', '.join(part.datasets)})")]
     if part.local and o.everything:
-        return [Step(tag, _main_cmd([key], part.name, [], [], Options()),
+        return [Step(tag, _main_cmd([key], named, [], [], Options(), flag=_part_flag(part)),
                      skip="loads a checkpoint from disk; `all` leaves it out, run it by name")]
     models = resolve_models(part, model_req, key)
     return BUILDERS[(key, part.name)](part, models, datasets, o)
@@ -783,15 +786,25 @@ def execute(steps: List[Step], o: Options) -> int:
     return 0
 
 
+def _part_flag(p: Part) -> str:
+    """The local settings run in steps; the gateway ones split into sub-settings."""
+    return "--step" if p.local else "--sub-setting"
+
+
+def _runs(p: Part) -> str:
+    return "analysis only" if p.analyze_only else ("local checkpoint" if p.local else "gateway")
+
+
 def print_list() -> None:
-    print("Setting -> --part -> --model -> --dataset. A level left out means every value")
-    print("listed for it; `all` at a level says the same. `python main.py all` runs the")
-    print("gateway rows; local rows run when named. --stage analyze prints the numbers.\n")
+    print("Setting -> --sub-setting (or --step) -> --model -> --dataset. A level left out means")
+    print("every value listed for it; `all` at a level says the same. `python main.py all` runs")
+    print("the gateway rows; local rows run when named. --stage analyze prints the numbers.\n")
     for s in SETTINGS.values():
-        print(f"{s.key:<4} {s.title}")
+        single = len(s.parts) == 1
+        print(f"{s.key:<4} {s.title}" + (f"   [{_runs(s.parts[0])}]" if single else ""))
         for p in s.parts:
-            runs = "analysis only" if p.analyze_only else ("local checkpoint" if p.local else "gateway")
-            print(f"     --part {p.name:<18} {runs}")
+            if not single:
+                print(f"     {_part_flag(p) + ' ' + p.name:<32} {_runs(p)}")
             print(f"       {p.doc}")
             print(f"       --model ({p.model_kind}): {' | '.join(p.models)}")
             print(f"       --dataset: {' '.join(p.datasets)}")
@@ -893,14 +906,14 @@ def run_config(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Run the Abstention Inflation settings: a setting (or `all`), then --part, --model, --dataset.",
+        description="Run the Abstention Inflation settings: a setting (or `all`), then --sub-setting / --step, --model, --dataset.",
         epilog=__doc__.split("\n\n", 1)[1],
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("setting", nargs="*", metavar="SETTING",
                    help="S1 ... S11 (several allowed) or `all`. Required unless --list or --config.")
-    p.add_argument("--part", nargs="+", metavar="PART",
-                   help="which experiment(s) of a setting with more than one; default every part")
+    p.add_argument("--sub-setting", "--step", dest="sub_setting", nargs="+", metavar="NAME",
+                   help="which sub-setting(s) of a setting with more than one, or which step(s) of a local setting; default all of them")
     p.add_argument("--model", nargs="+", metavar="MODEL",
                    help="gateway model name(s), or for S8 / local S10 the checkpoint key or tag; default every reported one")
     p.add_argument("--dataset", nargs="+", metavar="DATASET",
@@ -909,9 +922,9 @@ def build_parser() -> argparse.ArgumentParser:
                    help="collect the cells (default), print the numbers, or both")
     p.add_argument("--limit", type=int, metavar="N", help="items per cell, for a smoke run")
     p.add_argument("--results-root", metavar="DIR", help="read and write under DIR instead of results/")
-    p.add_argument("--model-path", metavar="PATH", help="local checkout for S8 and the local S10 parts")
+    p.add_argument("--model-path", metavar="PATH", help="local checkout for S8 and the local S10 steps")
     p.add_argument("--dry-run", action="store_true", help="print every command without calling anything")
-    p.add_argument("--list", action="store_true", help="show every setting, its parts and their levels")
+    p.add_argument("--list", action="store_true", help="show every setting, its sub-settings or steps, and their levels")
     p.add_argument("--config", metavar="YAML", help="run one experiment YAML instead of naming a setting")
     return p
 
@@ -942,11 +955,11 @@ def main() -> int:
     if unknown:
         raise SystemExit(f"unknown setting(s): {', '.join(unknown)}. Choose from {', '.join(SETTINGS)} or `all`.")
 
-    if not _is_all(args.part):
+    if not _is_all(args.sub_setting):
         have = {p.name for k in keys for p in SETTINGS[k].parts}
-        bad = [p for p in args.part if p not in have]
+        bad = [p for p in args.sub_setting if p not in have]
         if bad:
-            raise SystemExit(f"--part {', '.join(bad)}: no such part in {', '.join(keys)}. Parts: {', '.join(sorted(have))}.")
+            raise SystemExit(f"{', '.join(bad)}: no such sub-setting or step in {', '.join(keys)}. Choose from: {', '.join(sorted(have))}.")
     if not _is_all(args.dataset):
         bad = [d for d in args.dataset if d not in ALL_DATASETS]
         if bad:
@@ -961,9 +974,9 @@ def main() -> int:
     )
     steps: List[Step] = []
     if args.stage in ("collect", "both"):
-        steps += build_collect(keys, args.part, args.model, args.dataset, o)
+        steps += build_collect(keys, args.sub_setting, args.model, args.dataset, o)
     if args.stage in ("analyze", "both"):
-        steps += build_analyze(keys, args.part, args.model, args.dataset, o)
+        steps += build_analyze(keys, args.sub_setting, args.model, args.dataset, o)
     try:
         return execute(steps, o)
     except KeyboardInterrupt:

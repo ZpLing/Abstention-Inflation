@@ -69,37 +69,34 @@ python main.py S2                     # one setting: S2 with its S1 pair, 3 mode
 
 **Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
 runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
-`main.py S8 --part …` pass their arguments on the command line.
+`main.py S8 --step …` pass their arguments on the command line.
 
 ## Running the settings
 
-Arguments are read top-down: **setting → `--part` → `--model` → `--dataset`**.
-The setting is required, and `all` at that level is the only way to run
-everything. Below it, a level left out means every value the paper reports for
-that setting; `all` at any level says the same explicitly. A setting with more
-than one experiment splits into sub-settings, chosen with `--part`; a setting
-with a single experiment runs by its name alone.
+
 
 ```bash
-python main.py S2 --model gemini-3.1-flash-lite --dataset FLD    # one cell
-python main.py S4 --part random_words --model deepseek-v4-flash  # one sub-setting of S4
-python main.py S9 --part persistence --model gpt-5.4-nano --dataset FOLIO  # one sub-setting, one cell
-python main.py S3 --stage analyze                                # numbers only, nothing collected
-python main.py S2 --model qwen3-max                              # any model the gateway serves
+python main.py S2 --model gemini-3.1-flash-lite --dataset FLD           # one cell
+python main.py S4 --sub-setting random_words --model deepseek-v4-flash  # one sub-setting of S4
+python main.py S9 --sub-setting persistence --model gpt-5.4-nano --dataset FOLIO  # one sub-setting, one cell
+python main.py S3 --stage analyze                                       # numbers only, nothing collected
+python main.py S2 --model qwen3-max                                     # any model the gateway serves
 ```
 
 ### Settings that load a checkpoint
 
-S7, S8 and the local S10 sub-settings need `torch` and `transformers` and a model on
+S7, S8 and the local S10 runs need `torch` and `transformers` and a model on
 disk. `all` prints the command for each and moves on; they run when named.
+These run in steps rather than sub-settings, chosen with `--step`, which is
+the same option under its other name.
 
 ```bash
 python main.py S7                                             # NLI probe over the stored S1/S2 traces
-python main.py S8 --part download                             # Olmo-3-7B checkpoints into models/
-python main.py S8 --part inference                            # S1/S2 answers of the instruct checkpoint on FLD
-python main.py S8 --part logit_lens                           # the base, sft and rl_zero probes the paper reports
-python main.py S10 --part size_alignment --model gemma-4-E4B-it --model-path <checkout>
-python main.py S10 --part temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
+python main.py S8 --step download                             # Olmo-3-7B checkpoints into models/
+python main.py S8 --step inference                            # S1/S2 answers of the instruct checkpoint on FLD
+python main.py S8 --step logit_lens                           # the base, sft and rl_zero probes the paper reports
+python main.py S10 --step size_alignment --model gemma-4-E4B-it --model-path <checkout>
+python main.py S10 --step temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
 ```
 
 Each run loads one checkpoint, so `--model` names the tag and
