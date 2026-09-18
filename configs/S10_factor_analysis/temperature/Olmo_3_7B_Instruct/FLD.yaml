@@ -2,8 +2,8 @@
 # temperatures on 250 True + 250 False items, top-k 20 sampling, 8192 new tokens,
 # batch 8, through the chat template; the checkpoint's path is given on the command
 # line (--model-path). Writes
-# results/S10_factor_analysis/temperature/olmo_3_7b_instruct/FLD_Olmo-3-7B-Instruct_T<t>.json.
-experiment_name: "S10_temperature_local_FLD_olmo_3_7b_instruct"
+# results/S10_factor_analysis/temperature/Olmo_3_7B_Instruct/FLD_Olmo-3-7B-Instruct_T<t>.json.
+experiment_name: "S10_temperature_local_FLD_Olmo_3_7B_Instruct"
 model_name: "Olmo-3-7B-Instruct"
 override_model: true
 
@@ -20,5 +20,5 @@ s10_temperature_local:
   top_k: 20
   use_chat_template: true
   results_root: "results"
-  model_slug: "olmo_3_7b_instruct"
+  model_slug: "Olmo_3_7B_Instruct"
   # model_path: "/path/to/Olmo-3-7B-Instruct"

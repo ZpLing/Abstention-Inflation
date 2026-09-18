@@ -3,7 +3,7 @@ S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, Olmo-3-7B-Instruct) 
 TFQ dataset in S1 and S2; its S2 answers partition the items into abstention inflation /
 correct abstention for every probe.
 Saves raw outputs + predictions to
-    results/S8_logit_lens/olmo_3_7b/<dataset>_Olmo-3-7B-Instruct_inference.json
+    results/S8_logit_lens/Olmo_3_7B/<dataset>_Olmo-3-7B-Instruct_inference.json
 
 Items. FLD, the paper's run, was taken from a raw FLD dump (data/Judge/FLD.json:
 600 items with Facts / Conclusion / proof_label). When that dump is absent, and for

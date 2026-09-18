@@ -295,8 +295,12 @@ def position_name(slot: str) -> str:
 
 #: model name as the endpoint reports it -> the folder its cells live in. The
 #: slug is the name written out with the separators the file system prefers.
+#: A model's folder in results/ and configs/ is its official name with "-" and
+#: "/" as "_" and the case kept, so `Olmo-3-7B-Instruct` -> `Olmo_3_7B_Instruct`
+#: and `gemma-4-E2B-it` -> `gemma_4_E2B_it`. This table only fixes the three
+#: gateway models' spelling; never add an entry that changes a name's case.
+#: `python infra/check_names.py` verifies every tracked folder against the rule.
 MODEL_SLUG = {
-    "Olmo-3-7B-Instruct": "olmo_3_7b_instruct",
     "gpt-5.4-nano": "gpt_5.4_nano",
     "deepseek-v4-flash": "deepseek_v4_flash",
     "gemini-3.1-flash-lite": "gemini_3.1_flash_lite",
@@ -315,7 +319,7 @@ def model_slug(model_name: str) -> str:
 #: from. The download folder, the path the probe loads and the result file
 #: are all named after the repo's own basename, so a file says exactly which
 #: checkpoint produced it.
-S8_MODEL = "olmo-3-7b"  # the family; names the results subfolder
+S8_MODEL = "Olmo-3-7B"  # the family, spelled as Ai2 does; names the results subfolder Olmo_3_7B
 S8_CHECKPOINTS = {
     "base": "allenai/Olmo-3-1025-7B",
     "sft": "allenai/Olmo-3-7B-Instruct-SFT",
@@ -358,7 +362,7 @@ def s8_inference_path(
 def s8_logit_lens_path(
     ckpt: str, root: str | Path = "results", dataset: str = S8_DEFAULT_DATASET
 ) -> Path:
-    """The logit-lens probe for one checkpoint: olmo_3_7b/<dataset>_<checkpoint name>.json."""
+    """The logit-lens probe for one checkpoint: Olmo_3_7B/<dataset>_<checkpoint name>.json."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
