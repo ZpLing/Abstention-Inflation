@@ -9,7 +9,7 @@ Usage:
     python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
         --summary results/S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-        --out results/S9_stability/Persistence_Across_Repeats/FLD_gpt-5.4-nano.json
+        --out results/S9_stability/Persistence_Across_Repeats/gpt_5.4_nano/FLD_gpt-5.4-nano.json
 """
 
 import argparse
@@ -26,7 +26,7 @@ from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.prompts import build_judge_s2_prompt
-from infra.result_schema import results_dir, stamp
+from infra.result_schema import model_slug, results_dir, stamp  # noqa: E402
 from loader.config_loader import load_config
 from loader.dataset_loader import load_judge
 
@@ -169,6 +169,7 @@ async def main():
 
     out = args.out or str(
         results_dir("S9/Persistence_Across_Repeats")
+        / model_slug(args.model)
         / f"{args.dataset}_{args.model}.json"
     )
     Path(out).parent.mkdir(parents=True, exist_ok=True)

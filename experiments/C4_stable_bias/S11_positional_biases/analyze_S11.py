@@ -9,7 +9,12 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from scipy.stats import binomtest
 
-from infra.result_schema import position_name, results_dir, stamp  # noqa: E402
+from infra.result_schema import (  # noqa: E402
+    model_slug,
+    position_name,
+    results_dir,
+    stamp,
+)
 
 #: The reported cells are the n=500 runs; `--result-dir` still reaches the
 #: earlier 200-sample sweep.
@@ -26,7 +31,11 @@ POSITIONS = ["A", "B", "C"]
 
 def load_summary(model_name: str, dataset: str, position: str, result_dir: Path = None):
     result_dir = result_dir or RESULT_DIR
-    path = result_dir / f"{dataset}_{model_name}_{position_name(position)}.json"
+    path = (
+        result_dir
+        / model_slug(model_name)
+        / f"{dataset}_{model_name}_{position_name(position)}.json"
+    )
     if path.exists():
         return json.loads(path.read_text())
     return None
@@ -39,104 +48,6 @@ DISPLAY_ORDER = ["deepseek_v4_flash", "gpt_5.4_nano", "gemini_3.1_flash_lite"]
 # Expected full coverage = every model_key × dataset. Used to mark a report as
 # partial when some cells did not complete.
 EXPECTED_CELLS = len(DISPLAY_ORDER) * len(DATASETS)
-
-
-def write_markdown_report(table_rows, incomplete, out_path: Path, incompatible=None):
-    """Emit the markdown table from complete rows only, labeled by real model id.
-
-    table_rows carries model_key/model(id)/dataset/A/B/C/Max-Min for cells that
-    finished cleanly AND passed the cross-position compatibility gate; incomplete
-    and incompatible cells are listed as caveats rather than tabulated, so a
-    partial, stale, or mislabeled number never lands in the paper table.
-    """
-    incompatible = incompatible or []
-    by = {(r["model_key"], r["dataset"]): r for r in table_rows}
-    partial = len(table_rows) < EXPECTED_CELLS
-    # Title's label claim is data-driven: only assert "unified" if every
-    # tabulated row actually ran with unified labels.
-    all_unified = bool(table_rows) and all(
-        r.get("unified_labels") is True for r in table_rows
-    )
-    label_note = (
-        "unified True/False/Unknown" if all_unified else "mixed/native labels — verify"
-    )
-    lines = [
-        f"# Positional Bias Control: Unknown Option Position (n=500, {label_note})",
-        "",
-    ]
-    if partial:
-        lines += [
-            f"> ⚠ PARTIAL: {len(table_rows)}/{EXPECTED_CELLS} model×benchmark "
-            f"rows are complete AND mutually compatible. Incomplete/incompatible "
-            f"cells are listed at the bottom and are NOT tabulated. Rerun before "
-            f"using as final.",
-            "",
-        ]
-    lines += [
-        "Abstention rate with the `Unknown` option at positions A, B, and C on "
-        "FLD and FOLIO. All cells use the same 500 balanced samples (250 True + "
-        "250 False) and the unified True/False/Unknown label set; C is measured "
-        "directly (not taken from the main table). Rows are labeled with the **actual "
-        "API model id** that was queried.",
-        "",
-        "## Abstention Rate by Position",
-        "",
-        "| Model (API id) | Benchmark | A: Unknown | B: Unknown | C: Unknown | Max–Min (pp) |",
-        "|---|---|---:|---:|---:|---:|",
-    ]
-    pos_means = {p: [] for p in POSITIONS}
-    min_nvalid_overall = None
-    for mk in DISPLAY_ORDER:
-        for ds in DATASETS:
-            r = by.get((mk, ds))
-            if not r:
-                continue
-            lines.append(
-                f"| `{r['model']}` | {ds} | {r['A']:.1f}% | {r['B']:.1f}% | "
-                f"{r['C']:.1f}% | {r['max_minus_min_pp']:.1f} pp |"
-            )
-            for p in POSITIONS:
-                pos_means[p].append(r[p])
-            mnv = r.get("min_n_valid")
-            if mnv is not None:
-                min_nvalid_overall = (
-                    mnv if min_nvalid_overall is None else min(min_nvalid_overall, mnv)
-                )
-    if min_nvalid_overall is not None and min_nvalid_overall < 500:
-        lines += [
-            "",
-            f"*Abs Rate is computed over the valid subset (n_valid ≥ "
-            f"{min_nvalid_overall}/500). A small number of FLD prompts are "
-            f'deterministically refused by the API content filter ("Sensitive '
-            f'word detected") and are excluded from the denominator.*',
-        ]
-    lines += [
-        "",
-        "*Model ids are the exact strings sent to the API. If the paper uses "
-        'different display names (e.g. "DeepSeek-V4-Flash", "Gemini-3.1-Flash-'
-        'Lite"), map them deliberately — do not assume `deepseek-r1-distill-'
-        "llama-8b` or `gemini-3.1-flash-lite` equal those names.*",
-    ]
-    if any(pos_means[p] for p in POSITIONS):
-        lines += [
-            "",
-            "## Mean Abstention Rate",
-            "",
-            "| Unknown position | Mean Abs Rate |",
-            "|---|---:|",
-        ]
-        for p in POSITIONS:
-            vals = pos_means[p]
-            mean = sum(vals) / len(vals) if vals else float("nan")
-            lines.append(f"| {p} | {mean:.1f}% |")
-    if incomplete:
-        lines += ["", "## Incomplete cells (excluded — rerun before trusting)", ""]
-        lines += [f"- {c}" for c in incomplete]
-    if incompatible:
-        lines += ["", "## Incompatible rows (excluded — stale/mismatched data)", ""]
-        lines += [f"- {c}" for c in incompatible]
-    out_path.write_text("\n".join(lines) + "\n")
-    return out_path
 
 
 def validate_group(model_name, group, expected_n=None, require_unified=True):
@@ -416,11 +327,6 @@ def main():
         )
     )
     print(f"\nSaved -> {out_path}")
-
-    md_path = write_markdown_report(
-        table_rows, incomplete, result_dir / "report.md", incompatible=incompatible
-    )
-    print(f"Saved -> {md_path}")
 
 
 if __name__ == "__main__":

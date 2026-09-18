@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[3]
 import sys as _sys
 
 _sys.path.insert(0, str(ROOT))  # noqa: E402
-from infra.result_schema import load_cell  # noqa: E402
+from infra.result_schema import load_cell, model_slug  # noqa: E402
 
 MODEL = "deepseek-v4-flash"
 
@@ -49,7 +49,10 @@ def load_w1_per_sample(ds):
 
 
 def load_wording_per_sample(w, ds):
-    p = ROOT / f"results/S4_word_content/synonyms/{ds}_{MODEL}_{w}.json"
+    p = (
+        ROOT
+        / f"results/S4_word_content/synonyms/{model_slug(MODEL)}/{ds}_{MODEL}_{w}.json"
+    )
     s = json.loads(p.read_text())
     return {ps["id"]: ps["pred"] for ps in s["per_sample"]}
 
@@ -123,7 +126,8 @@ def random_word_half():
     for model, label in RPC_MODELS:
         for ds in DATASETS:
             paths = {
-                w: RPC / f"{ds}_{model}_{w}.json" for w in ("triangular", "cerulean")
+                w: RPC / model_slug(model) / f"{ds}_{model}_{w}.json"
+                for w in ("triangular", "cerulean")
             }
             if not all(q.exists() for q in paths.values()):
                 print(f"{label:<24} {ds:<7} (missing)")
@@ -162,7 +166,8 @@ def main():
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
         w2_path = (
-            ROOT / f"results/S4_word_content/synonyms/{ds}_{MODEL}_i_dont_know.json"
+            ROOT
+            / f"results/S4_word_content/synonyms/{model_slug(MODEL)}/{ds}_{MODEL}_i_dont_know.json"
         )
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]

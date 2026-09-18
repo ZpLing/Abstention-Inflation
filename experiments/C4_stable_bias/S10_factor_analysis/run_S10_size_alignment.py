@@ -44,7 +44,7 @@ from typing import Any, Dict, List
 from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 from infra.paired_pass import ABRunner
-from infra.result_schema import results_dir
+from infra.result_schema import model_slug, results_dir  # noqa: E402
 from loader.config_loader import get_block
 from loader.data_handler import DataHandler
 
@@ -133,7 +133,11 @@ class ModelSweepRunner:
         for entry in self.models:
             model_name = entry["name"] if isinstance(entry, dict) else str(entry)
             safe_model = model_name.replace("/", "_")
-            path = self.ab_results_dir / f"{dataset}_{safe_model}.json"
+            path = (
+                self.ab_results_dir
+                / model_slug(safe_model)
+                / f"{dataset}_{safe_model}.json"
+            )
             if not path.exists():
                 print(f"  [warn] missing summary for {model_name} on {dataset}: {path}")
                 continue

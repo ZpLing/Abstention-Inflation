@@ -32,10 +32,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import (  # noqa: E402, results_dir
+from infra.result_schema import (  # noqa: E402
     get_field,
     load_summary,
-    results_dir,  # noqa: E402
+    model_slug,
+    results_dir,
 )
 
 #: Below this share of explicitly-committed answers, a cell's Abs Rate is
@@ -66,7 +67,7 @@ def load_cells(results_dir: Path = RESULTS_DIR):
         for size in SIZES:
             for is_it in (False, True):
                 tag = _tag(size, is_it)
-                path = results_dir / f"{ds}_{tag}.json"
+                path = results_dir / model_slug(tag) / f"{ds}_{tag}.json"
                 if not path.exists():
                     missing.append(f"{ds}/{tag}")
                     continue

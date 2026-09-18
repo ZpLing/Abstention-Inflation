@@ -40,7 +40,7 @@ from infra.prompts import (
     build_judge_s2_prompt,
     build_judge_s4_word_prompt,
 )
-from infra.result_schema import load_cell, stamp
+from infra.result_schema import load_cell, model_slug, stamp  # noqa: E402
 
 # imported by name: a parameter in this module is also called third_option
 from infra.third_option import RANDOM_WORDS, result_path
@@ -360,7 +360,6 @@ async def run_one_dataset(
         (RANDOM_WORD_1.lower(), RANDOM_WORD_1, m_c2, preds_c2, raw_c2, cats_c2),
         (RANDOM_WORD_2.lower(), RANDOM_WORD_2, m_c3, preds_c3, raw_c3, cats_c3),
     ]
-    safe_model = model_name.replace("/", "_")
     written = {}
     for word, text, m, preds, raws, cats in conditions:
         rows = []
@@ -394,7 +393,12 @@ async def run_one_dataset(
             },
             "per_sample": rows,
         }
-        out_path = results_dir / result_path(text, ds_name, model_name).name
+        out_path = (
+            results_dir
+            / model_slug(model_name)
+            / result_path(text, ds_name, model_name).name
+        )
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(out, f, indent=2, ensure_ascii=False)
         print(f"  Saved → {out_path}")

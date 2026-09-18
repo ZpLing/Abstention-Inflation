@@ -61,7 +61,8 @@ from infra.prompts import (  # noqa: E402
     build_judge_s2_prompt,
 )
 from infra.result_schema import (  # noqa: E402
-    TRUSTED_TIERS,  # noqa: E402
+    TRUSTED_TIERS,
+    model_slug,
     results_dir,
     stamp,
 )
@@ -537,7 +538,12 @@ def main():
             if args.temperature is None
             else f"_T{args.temperature}".replace(".", "p")
         )
-        path = out_dir / f"{ds}_{args.model_tag}{suffix}.json"
+        path = (
+            out_dir
+            if args.temperature is not None
+            else out_dir / model_slug(args.model_tag)
+        ) / f"{ds}_{args.model_tag}{suffix}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
         summary = {
             **stamp(
                 "S10/size_alignment" if args.temperature is None else "S10/temperature"

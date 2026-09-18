@@ -19,6 +19,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from infra.result_schema import model_slug
 from infra.result_schema import results_dir as _rd
 
 UNKNOWN = "Unknown"
@@ -93,4 +94,8 @@ def result_path(word: str, dataset: str, model: str, task_type: str = "tf") -> P
             "run at the main experiment instead of writing a second copy."
         )
     safe_model = model.replace("/", "_")
-    return results_dir(word, task_type) / f"{dataset}_{safe_model}_{slug(word)}.json"
+    return (
+        results_dir(word, task_type)
+        / model_slug(model)
+        / f"{dataset}_{safe_model}_{slug(word)}.json"
+    )

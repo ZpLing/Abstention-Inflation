@@ -43,7 +43,7 @@ sys.path.insert(0, str(ROOT))
 from loader.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from infra.result_schema import load_cell, results_dir, stamp  # noqa: E402
+from infra.result_schema import load_cell, model_slug, results_dir, stamp  # noqa: E402
 
 # gold answer_idx -> the NLI verdict that agrees with it
 
@@ -226,7 +226,8 @@ def main():
                     [r for r in rs if r["abstention_inflation"]]
                 )
 
-            out = OUT_DIR / f"{ds}_{model}.json"
+            out = OUT_DIR / model_slug(model) / f"{ds}_{model}.json"
+            out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(
                 json.dumps(
                     {

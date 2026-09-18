@@ -157,7 +157,7 @@ done
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
     --summary results/S2_unknown_option/tfq/gpt_5.4_nano/FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/S9_stability/Persistence_Across_Repeats/FLD_gpt-5.4-nano.json
+    --out results/S9_stability/Persistence_Across_Repeats/gpt_5.4_nano/FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis

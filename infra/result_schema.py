@@ -315,16 +315,32 @@ S8_VARIANT = {"base": "base", "sft": "instruct_sft", "rl_zero": "rl_zero"}
 
 def s8_inference_path(root: str | Path = "results") -> Path:
     """The raw OLMo inference every S8 probe starts from."""
-    return results_dir("S8", root) / f"FLD_{S8_MODEL}_inference.json"
+    return (
+        results_dir("S8", root)
+        / model_slug(S8_MODEL)
+        / f"FLD_{S8_MODEL}_inference.json"
+    )
 
 
 def s8_logit_lens_path(ckpt: str, root: str | Path = "results") -> Path:
-    """The logit-lens probe for one checkpoint: FLD_olmo-3-7b_<variant>.json."""
-    return results_dir("S8", root) / f"FLD_{S8_MODEL}_{S8_VARIANT[ckpt]}.json"
+    """The logit-lens probe for one checkpoint: olmo_3_7b/FLD_olmo-3-7b_<variant>.json."""
+    return (
+        results_dir("S8", root)
+        / model_slug(S8_MODEL)
+        / f"FLD_{S8_MODEL}_{S8_VARIANT[ckpt]}.json"
+    )
 
 
 #: Settings collected for TFQ only; their folders skip the {tfq,mcq} level.
 TFQ_ONLY = {"S3"}
+
+
+def model_dir(key: str, model: str, root: str | Path = "results") -> Path:
+    """``results_dir(key) / model_slug(model)`` -- where one model's cells of a
+    setting live. Every setting that is split by model uses this."""
+    d = results_dir(key, root) / model_slug(model)
+    d.mkdir(parents=True, exist_ok=True)
+    return d
 
 
 def cell_path(

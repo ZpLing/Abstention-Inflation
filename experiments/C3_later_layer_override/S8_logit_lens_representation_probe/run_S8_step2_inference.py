@@ -1,6 +1,6 @@
 """
 C3 Step 1: Run OLMo-3-Instruct on FLD in S1 and S2 conditions.
-Saves raw outputs + predictions to results/S8_logit_lens/FLD_olmo-3-7b_inference.json
+Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_inference.json
 
 Run on the 3090 server after downloading models:
     python scripts/c3_run_olmo_inference.py
@@ -135,6 +135,7 @@ def main():
             }
         )
 
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(merged, indent=2, ensure_ascii=False))
 

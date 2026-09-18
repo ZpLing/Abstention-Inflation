@@ -11,8 +11,8 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/S8_logit_lens/FLD_olmo-3-7b_inference.json
-Output: results/S8_logit_lens/FLD_olmo-3-7b_{base,instruct_sft,rl_zero}.json
+Input:  results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_inference.json
+Output: results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_{base,instruct_sft,rl_zero}.json
         (each sample has layers_s1 and layers_s2)
 
 Run one checkpoint per GPU in parallel:
@@ -241,6 +241,7 @@ def main():
     out_path = ROOT / s8_logit_lens_path(args.ckpt)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     result = {**stamp("S8"), **result}
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2))
     print(f"\nSaved → {out_path}")
 

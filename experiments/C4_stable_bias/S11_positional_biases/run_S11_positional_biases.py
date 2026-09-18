@@ -12,7 +12,7 @@ own S2 ordering rather than a look-alike, and the model keeps answering with a
 verb. The slot letters name the position; they are never shown to the model.
 
 Outputs:
-    results/S11_positional_bias/{DS}_{MODEL}_{first,second,last}.json
+    results/S11_positional_bias/<model-slug>/{DS}_{MODEL}_{first,second,last}.json
 
 Usage:
     python experiments/C4_stable_bias/S11_positional_biases/run_S11_positional_biases.py \
@@ -35,7 +35,12 @@ from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.metrics import judge_classes, label_acc, label_macro_f1
 from infra.prompts import build_judge_s11_position_prompt, judge_verb_order
-from infra.result_schema import position_name, results_dir, stamp  # noqa: E402
+from infra.result_schema import (  # noqa: E402
+    model_slug,
+    position_name,
+    results_dir,
+    stamp,
+)
 from loader.config_loader import load_config
 from loader.dataset_loader import Sample
 
@@ -197,8 +202,11 @@ async def run_cell(
 ):
     out_dir = OUT_DIR_500
     out_path = (
-        out_dir / f"{dataset}_{model_name}_{position_name(unknown_position)}.json"
+        out_dir
+        / model_slug(model_name)
+        / f"{dataset}_{model_name}_{position_name(unknown_position)}.json"
     )
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     # Only skip a prior run if it finished cleanly. A summary written with
     # api_errors > 0 (or lacking the flag from an interrupted run) is treated as
     # NOT done, so a rerun overwrites it rather than freezing a partial result.
@@ -206,9 +214,6 @@ async def run_cell(
     samples = [s for s in load_full_dataset(dataset) if s.answer_idx >= 0]
     if sample_limit:
         samples = samples[:sample_limit]
-        missing = [sid for sid in ids if sid not in by_id]
-        if missing:
-            print(f"  [warn] {dataset}: {len(missing)} ids not found in loader.")
     if not samples:
         raise RuntimeError(f"No samples loaded for {model_key}/{dataset}")
 

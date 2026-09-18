@@ -211,7 +211,8 @@ async def main(models=None, datasets=None):
             print(f"\n[{ds}] {len(samples)} samples loaded")
 
             for wording_id, abstain_text in WORDINGS:
-                out_path = ROOT / third_option.result_path(wording_text, ds, model_name)
+                out_path = ROOT / third_option.result_path(abstain_text, ds, model_name)
+                out_path.parent.mkdir(parents=True, exist_ok=True)
                 summary = await run_one_cell(
                     handler, scheme, samples, abstain_text, wording_id, ds, model_name
                 )
