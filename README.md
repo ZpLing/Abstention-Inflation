@@ -173,10 +173,10 @@ python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
 
 for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
   python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
-      --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
+      --model_path <Olmo-3-7B-Instruct checkout> --model_tag Olmo-3-7B-Instruct \
       --use_chat_template --settings S2 --n_per_class 250 \
       --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
-      --out_dir results/S10_factor_analysis/temperature/olmo_topk20
+      --out_dir results/S10_factor_analysis/temperature/olmo_3_7b_instruct
 done
 ```
 

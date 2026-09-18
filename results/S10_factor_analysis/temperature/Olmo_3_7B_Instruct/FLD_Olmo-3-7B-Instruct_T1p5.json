@@ -4,7 +4,7 @@
   "schema": "paper-s1-s10/v1",
   "dataset": "FLD",
   "task_type": "tf",
-  "model": "olmo3-instruct",
+  "model": "Olmo-3-7B-Instruct",
   "trace_family": "hard",
   "n_total": 500,
   "n_abstention_inflation": 373,
