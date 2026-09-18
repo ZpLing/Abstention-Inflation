@@ -299,7 +299,6 @@ def position_name(slot: str) -> str:
 #: "/" as "_" and the case kept, so `Olmo-3-7B-Instruct` -> `Olmo_3_7B_Instruct`
 #: and `gemma-4-E2B-it` -> `gemma_4_E2B_it`. This table only fixes the three
 #: gateway models' spelling; never add an entry that changes a name's case.
-#: `python infra/check_names.py` verifies every tracked folder against the rule.
 MODEL_SLUG = {
     "gpt-5.4-nano": "gpt_5.4_nano",
     "deepseek-v4-flash": "deepseek_v4_flash",
