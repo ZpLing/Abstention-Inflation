@@ -6,6 +6,7 @@ Run on the 3090 server: python scripts/download_olmo3.py
 """
 
 import os
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
