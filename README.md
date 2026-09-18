@@ -91,7 +91,9 @@ python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-p
 python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path <checkout>
 ```
 
-Each S10 run loads one checkpoint, so `--model` names the tag and `--model-path` its checkout.
+Each S10 run loads one checkpoint: `--model` names its tag and `--model-path`
+names the root directory of that checkpoint on disk. Without the path, the
+command is printed and skipped.
 
 ## Citation
 
