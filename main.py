@@ -958,10 +958,14 @@ def main() -> int:
         raise SystemExit(f"unknown setting(s): {', '.join(unknown)}. Choose from {', '.join(SETTINGS)} or `all`.")
 
     if not _is_all(args.sub_setting):
-        have = {p.name for k in keys for p in SETTINGS[k].parts}
+        # a single-experiment setting has no sub-settings; it runs by name alone
+        have = {p.name for k in keys for p in SETTINGS[k].parts if len(SETTINGS[k].parts) > 1}
         bad = [p for p in args.sub_setting if p not in have]
         if bad:
-            raise SystemExit(f"{', '.join(bad)}: no such sub-setting in {', '.join(keys)}. Sub-settings: {', '.join(sorted(have))}.")
+            where = ", ".join(keys)
+            if have:
+                raise SystemExit(f"{', '.join(bad)}: no such sub-setting in {where}. Sub-settings: {', '.join(sorted(have))}.")
+            raise SystemExit(f"{where} has no sub-settings; run it by name alone.")
     if not _is_all(args.dataset):
         bad = [d for d in args.dataset if d not in ALL_DATASETS]
         if bad:
