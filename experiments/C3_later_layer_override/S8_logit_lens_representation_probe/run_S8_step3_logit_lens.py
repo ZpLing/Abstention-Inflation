@@ -11,14 +11,15 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/S8_logit_lens/olmo_3_7b/FLD_Olmo-3-7B-Instruct_inference.json
-Output: results/S8_logit_lens/olmo_3_7b/FLD_<checkpoint name>.json
+Input:  results/S8_logit_lens/olmo_3_7b/<dataset>_Olmo-3-7B-Instruct_inference.json
+Output: results/S8_logit_lens/olmo_3_7b/<dataset>_<checkpoint name>.json
         (each sample has layers_s1 and layers_s2)
+The dataset is FLD unless --dataset says otherwise.
 
 Run one checkpoint per GPU in parallel:
     CUDA_VISIBLE_DEVICES=0 python -u run_S8_step3_logit_lens.py --ckpt base
-    CUDA_VISIBLE_DEVICES=1 python -u run_S8_step3_logit_lens.py --ckpt instruct
-    CUDA_VISIBLE_DEVICES=0 python -u run_S8_step3_logit_lens.py --ckpt rl_zero
+    CUDA_VISIBLE_DEVICES=1 python -u run_S8_step3_logit_lens.py --ckpt sft
+    CUDA_VISIBLE_DEVICES=0 python -u run_S8_step3_logit_lens.py --ckpt rl_zero --dataset FOLIO
 """
 
 import argparse
@@ -34,6 +35,8 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from infra.result_schema import (  # noqa: E402
     S8_CHECKPOINTS,
+    S8_DATASETS,
+    S8_DEFAULT_DATASET,
     s8_inference_path,
     s8_logit_lens_path,
     s8_model_dir,
@@ -200,6 +203,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True, choices=sorted(S8_CHECKPOINTS))
     ap.add_argument(
+        "--dataset",
+        default=S8_DEFAULT_DATASET,
+        choices=S8_DATASETS,
+        help="Which dataset's step-2 inference to probe; names the output file.",
+    )
+    ap.add_argument(
         "--model_path",
         default=None,
         help="Local checkout of --ckpt; default is where step 1 downloads it.",
@@ -215,7 +224,12 @@ def main():
     if not ckpt_path.exists():
         raise SystemExit(f"[error] model path not found: {ckpt_path}")
 
-    inference_path = ROOT / s8_inference_path(args.results_root)
+    inference_path = ROOT / s8_inference_path(args.results_root, args.dataset)
+    if not inference_path.exists():
+        raise SystemExit(
+            f"[error] step-2 inference not found: {inference_path}; "
+            f"run run_S8_step2_inference.py --dataset {args.dataset} first"
+        )
     raw = json.loads(inference_path.read_text())
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -242,12 +256,14 @@ def main():
 
     from collections import Counter
 
-    print(f"Checkpoint: {args.ckpt}  |  total: {len(samples)}")
+    print(
+        f"Checkpoint: {args.ckpt}  |  dataset: {args.dataset}  |  total: {len(samples)}"
+    )
     print("  type counts:", dict(Counter(s["sample_type"] for s in samples)))
 
     result = process_checkpoint(args.ckpt, ckpt_path, samples, device)
-    out_path = ROOT / s8_logit_lens_path(args.ckpt, args.results_root)
-    result = {**stamp("S8"), **result}
+    out_path = ROOT / s8_logit_lens_path(args.ckpt, args.results_root, args.dataset)
+    result = {**stamp("S8"), "dataset": args.dataset, **result}
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2))
     print(f"\nSaved → {out_path}")

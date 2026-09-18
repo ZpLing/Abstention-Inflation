@@ -161,7 +161,7 @@ SETTINGS: Dict[str, Setting] = {
         Part("reasoning_traces", "NLI probe over the stored S1/S2 traces; loads the DeBERTa NLI encoder", TFQ_DATASETS, local=True),
     )),
     "S8": Setting("S8", "Logit lens", (
-        Part("logit_lens", "one chain: fetch the Olmo-3-7B checkpoints into models/, run the instruct S1/S2 inference on FLD, then probe each checkpoint's per-layer UNKNOWN logit", ("FLD",), S8_REPORTED, "checkpoint key", local=True),
+        Part("logit_lens", "one chain per dataset: fetch the Olmo-3-7B checkpoints into models/, run the instruct S1/S2 inference, then probe each checkpoint's per-layer UNKNOWN logit", TFQ_DATASETS, S8_REPORTED, "checkpoint key", local=True),
     )),
     "S9": Setting("S9", "Stability", (
         Part("perception", "S1/S2/S3 on the Unknown-labeled items", TFQ_DATASETS),
@@ -623,28 +623,31 @@ def _s7(part, models, datasets, o: Options) -> List[Step]:
 
 
 def _s8(part, models, datasets, o: Options) -> List[Step]:
-    """S8 is one chain: fetch the checkpoints, run the instruct S1/S2 inference
-    every probe is scored on, then probe each requested checkpoint. A failed
-    step skips the rest; the download skips checkpoints already under models/
-    and the inference is skipped when its file is already on disk. With
-    --model-path the one probe named by --model reads that checkout instead."""
+    """S8 fetches the checkpoints once, then runs one chain per dataset: the
+    instruct S1/S2 inference every probe is scored on, then a probe of each
+    requested checkpoint. A failed step skips the rest of its chain; the
+    download skips checkpoints already under models/ and an inference is
+    skipped when its file is already on disk. With --model-path the one probe
+    named by --model reads that checkout instead."""
     probes = list(models)
     if o.model_path and len(probes) != 1:
         return [Step("S8", _main_cmd(["S8"], None, probes, [], o),
                      skip="one --model per --model-path; name the checkpoint the path holds")]
     fetch = list(dict.fromkeys([S8_INFERENCE_CKPT, *([] if o.model_path else probes)]))
     steps = [script_step("S8/download · " + ", ".join(fetch), [SCRIPT["S8/download"], "--models", *fetch], chain="S8")]
-    inference = script_step(f"S8/inference · {S8_INFERENCE_CKPT}",
-                            [SCRIPT["S8/inference"], *_root_flag("--results-root", o)], chain="S8")
-    out = ROOT / s8_inference_path(o.results_root or "results")
-    if out.exists():
-        shown = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
-        inference.skip = f"already on disk: {shown}; delete it to redo"
-    steps.append(inference)
-    for ckpt in probes:
-        argv = [SCRIPT["S8/logit_lens"], "--ckpt", ckpt,
-                *(["--model_path", o.model_path] if o.model_path else []), *_root_flag("--results-root", o)]
-        steps.append(script_step(f"S8/logit_lens · {ckpt}", argv, chain="S8"))
+    for ds in datasets:
+        chain = f"S8/{ds}"
+        inference = script_step(f"S8/inference · {S8_INFERENCE_CKPT} · {ds}",
+                                [SCRIPT["S8/inference"], "--dataset", ds, *_root_flag("--results-root", o)], chain=chain)
+        out = ROOT / s8_inference_path(o.results_root or "results", ds)
+        if out.exists():
+            shown = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
+            inference.skip = f"already on disk: {shown}; delete it to redo"
+        steps.append(inference)
+        for ckpt in probes:
+            argv = [SCRIPT["S8/logit_lens"], "--ckpt", ckpt, "--dataset", ds,
+                    *(["--model_path", o.model_path] if o.model_path else []), *_root_flag("--results-root", o)]
+            steps.append(script_step(f"S8/logit_lens · {ckpt} · {ds}", argv, chain=chain))
     return steps
 
 

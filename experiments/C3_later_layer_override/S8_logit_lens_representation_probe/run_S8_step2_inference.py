@@ -1,9 +1,19 @@
 """
-S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, Olmo-3-7B-Instruct) on FLD in S1 and S2.
-Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_Olmo-3-7B-Instruct_inference.json
+S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, Olmo-3-7B-Instruct) on one
+TFQ dataset in S1 and S2; its S2 answers partition the items into abstention inflation /
+correct abstention for every probe.
+Saves raw outputs + predictions to
+    results/S8_logit_lens/olmo_3_7b/<dataset>_Olmo-3-7B-Instruct_inference.json
 
-Run on the 3090 server after downloading models:
-    python scripts/c3_run_olmo_inference.py
+Items. FLD, the paper's run, was taken from a raw FLD dump (data/Judge/FLD.json:
+600 items with Facts / Conclusion / proof_label). When that dump is absent, and for
+every other dataset, the items are the repo's own dataset/<name>.json (the answerable
+items) followed by dataset/<name>_unknown.json (the Unknown-labeled ones), rendered
+into the same three fields -- so `--dataset FOLIO` runs the full FOLIO, 500 + 300.
+
+Run on a GPU box after downloading models:
+    python run_S8_step2_inference.py                       # FLD
+    python run_S8_step2_inference.py --dataset FOLIO --model_path <checkpoint>
 """
 
 import json
@@ -16,6 +26,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from infra.result_schema import (  # noqa: E402
+    S8_DATASETS,
+    S8_DEFAULT_DATASET,
     S8_INFERENCE_CKPT,
     s8_inference_path,
     s8_model_dir,
@@ -23,9 +35,12 @@ from infra.result_schema import (  # noqa: E402
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
 MODEL_PATH = ROOT / s8_model_dir(S8_INFERENCE_CKPT)
-DATA_PATH = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH = ROOT / s8_inference_path()
+DATASET = S8_DEFAULT_DATASET  # overridable with --dataset
+OUT_PATH = ROOT / s8_inference_path(dataset=DATASET)
 BATCH_SIZE = 4  # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
+
+#: The TFQ answer -> the proof label the raw FLD dump carries.
+PROOF_LABEL = {"True": "__PROVED__", "False": "__DISPROVED__", "Unknown": "__UNKNOWN__"}
 
 S1_SYSTEM = (
     "You are a logical reasoning assistant. Given the following facts and a "
@@ -40,6 +55,35 @@ S2_SYSTEM = (
 )
 S1_SUFFIX = "Answer with exactly one word: PROVED or DISPROVED."
 S2_SUFFIX = "Answer with exactly one word: PROVED, DISPROVED, or UNKNOWN."
+
+
+def load_items(dataset: str) -> list:
+    """The items to run, each with id / Facts / Conclusion / proof_label.
+
+    The raw dump under data/Judge/ when there is one (FLD's 600 items, ids by
+    position as before); otherwise the repo's dataset/<name>.json followed by
+    dataset/<name>_unknown.json, keeping the items' own ids."""
+    judge = ROOT / "data" / "Judge" / f"{dataset}.json"
+    if judge.exists():
+        items = json.loads(judge.read_text())
+        for i, item in enumerate(items):
+            item.setdefault("id", f"{dataset}_{i:04d}")
+        print(f"Items: {len(items)} from {judge.relative_to(ROOT)}")
+        return items
+    items = []
+    for name in (dataset, f"{dataset}_unknown"):
+        path = ROOT / "dataset" / f"{name}.json"
+        for i, s in enumerate(json.loads(path.read_text())):
+            items.append(
+                {
+                    "id": s.get("id", f"{name}_{i:04d}"),
+                    "proof_label": PROOF_LABEL[s["answer"]],
+                    "Conclusion": s["question"],
+                    "Facts": s["context"],
+                }
+            )
+        print(f"Items: {len(items)} so far, after {path.relative_to(ROOT)}")
+    return items
 
 
 def build_user_content(sample: dict, setting: str) -> str:
@@ -89,7 +133,7 @@ def run_inference(model, tokenizer, samples, setting, device, max_new_tokens=512
 
         results.append(
             {
-                "id": f"FLD_{i:04d}",
+                "id": sample["id"],
                 "proof_label": sample["proof_label"],
                 "Conclusion": sample["Conclusion"],
                 f"raw_{setting}": raw,
@@ -115,8 +159,8 @@ def main():
     model.eval()
     print(f"Model loaded on: {device}")
 
-    samples = json.loads(DATA_PATH.read_text())
-    print(f"FLD samples: {len(samples)}")
+    samples = load_items(DATASET)
+    print(f"{DATASET} samples: {len(samples)}")
 
     print("\nRunning S1 ...")
     s1_results = run_inference(model, tokenizer, samples, "s1", device)
@@ -140,7 +184,6 @@ def main():
         )
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(merged, indent=2, ensure_ascii=False))
 
     # quick stats
@@ -162,12 +205,18 @@ def main():
 def _cli():
     import argparse
 
-    global MODEL_PATH, OUT_PATH
+    global MODEL_PATH, OUT_PATH, DATASET
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--model_path",
         default=str(MODEL_PATH),
         help="Local checkout of the checkpoint to run.",
+    )
+    ap.add_argument(
+        "--dataset",
+        default=S8_DEFAULT_DATASET,
+        choices=S8_DATASETS,
+        help="Which TFQ dataset to run; names the output file.",
     )
     ap.add_argument(
         "--results-root",
@@ -176,7 +225,8 @@ def _cli():
     )
     a = ap.parse_args()
     MODEL_PATH = Path(a.model_path)
-    OUT_PATH = ROOT / s8_inference_path(a.results_root)
+    DATASET = a.dataset
+    OUT_PATH = ROOT / s8_inference_path(a.results_root, a.dataset)
 
 
 if __name__ == "__main__":

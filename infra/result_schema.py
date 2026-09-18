@@ -308,7 +308,9 @@ def model_slug(model_name: str) -> str:
     return MODEL_SLUG.get(model_name, model_name.replace("/", "_").replace("-", "_"))
 
 
-#: S8 probes the Olmo-3-7B family on FLD. One table is the source of every S8
+#: S8 probes the Olmo-3-7B family on the TFQ datasets: FLD is the paper's run
+#: and the default of every S8 path, FOLIO the same chain on the other TFQ
+#: dataset. One table is the source of every S8
 #: name: the code's checkpoint key -> the HuggingFace repo it was downloaded
 #: from. The download folder, the path the probe loads and the result file
 #: are all named after the repo's own basename, so a file says exactly which
@@ -320,9 +322,12 @@ S8_CHECKPOINTS = {
     "instruct": "allenai/Olmo-3-7B-Instruct",
     "rl_zero": "allenai/Olmo-3-7B-RL-Zero-General",
 }
-#: The checkpoint whose S1/S2 answers partition the 600 items into abstention
+#: The checkpoint whose S1/S2 answers partition a dataset's items into abstention
 #: inflation / correct abstention; every probe is scored on that partition.
 S8_INFERENCE_CKPT = "instruct"
+#: The datasets the S8 chain runs on, and the one every S8 path defaults to.
+S8_DATASETS = ("FLD", "FOLIO")
+S8_DEFAULT_DATASET = "FLD"
 
 
 def s8_checkpoint_name(ckpt: str) -> str:
@@ -335,24 +340,29 @@ def s8_model_dir(ckpt: str, models_root: str | Path = "models") -> Path:
     return Path(models_root) / s8_checkpoint_name(ckpt)
 
 
-def s8_inference_path(root: str | Path = "results") -> Path:
+def s8_inference_path(
+    root: str | Path = "results", dataset: str = S8_DEFAULT_DATASET
+) -> Path:
     """Step 2's S1/S2 inference, the intermediate the probes are built from.
 
-    Named for the checkpoint that produced it. Not published: each probe row
-    carries the pred_s1 / pred_s2 it needs, so results/ holds only the probes."""
+    Named for the dataset and the checkpoint that produced it. Not published:
+    each probe row carries the pred_s1 / pred_s2 it needs, so results/ holds
+    only the probes."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
-        / f"FLD_{s8_checkpoint_name(S8_INFERENCE_CKPT)}_inference.json"
+        / f"{dataset}_{s8_checkpoint_name(S8_INFERENCE_CKPT)}_inference.json"
     )
 
 
-def s8_logit_lens_path(ckpt: str, root: str | Path = "results") -> Path:
-    """The logit-lens probe for one checkpoint: olmo_3_7b/FLD_<checkpoint name>.json."""
+def s8_logit_lens_path(
+    ckpt: str, root: str | Path = "results", dataset: str = S8_DEFAULT_DATASET
+) -> Path:
+    """The logit-lens probe for one checkpoint: olmo_3_7b/<dataset>_<checkpoint name>.json."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
-        / f"FLD_{s8_checkpoint_name(ckpt)}.json"
+        / f"{dataset}_{s8_checkpoint_name(ckpt)}.json"
     )
 
 

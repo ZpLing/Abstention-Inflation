@@ -87,6 +87,7 @@ python main.py S7                                        # NLI probe over the st
 python main.py S8                                        # download, inference, then the probes
 python main.py S8 --model sft                            # probe the SFT checkpoint only
 python main.py S8 --model sft --model-path xxxx          # load that checkpoint from your own directory
+python main.py S8 --dataset FOLIO                        # the same chain on FOLIO instead of FLD
 python main.py S10 --sub-setting size_alignment --model gemma-4-E4B-it --model-path xxxx
 python main.py S10 --sub-setting temperature_local --model Olmo-3-7B-Instruct --model-path xxxx
 ```
