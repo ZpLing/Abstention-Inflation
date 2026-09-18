@@ -42,7 +42,7 @@ sys.path.insert(0, str(ROOT))
 from loader.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from infra.result_schema import load_cell, iter_cells  # noqa: E402
+from infra.result_schema import load_cell, results_dir, stamp, iter_cells  # noqa: E402
 
 # gold answer_idx -> the NLI verdict that agrees with it
 
@@ -79,7 +79,7 @@ CELLS = [
     ("dsv4flash", "deepseek-v4-flash"),
 ]
 DATASETS = ("FLD", "FOLIO")
-OUT_DIR = ROOT / "results/S7_reasoning_traces"
+OUT_DIR = ROOT / results_dir("S7")
 
 
 _SENT = re.compile(r"(?<=[.!?])\s+|\n+")
@@ -198,6 +198,7 @@ def main():
 
             out = OUT_DIR / f"{ds}_{model}.json"
             out.write_text(json.dumps({
+                **stamp("S7"),
                 "dataset": ds, "model": model, "nli_model": NLI_MODEL,
                 "mode": args.mode,
                 "n_answerable": len(items), "n_abstention_inflation": n_ai,

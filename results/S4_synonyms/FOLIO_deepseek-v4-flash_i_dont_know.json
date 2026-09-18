@@ -1,4 +1,6 @@
 {
+  "setting": "S4",
+  "variant": "synonyms",
   "wording_id": "i_dont_know",
   "abstain_text": "I don't know",
   "dataset": "FOLIO",

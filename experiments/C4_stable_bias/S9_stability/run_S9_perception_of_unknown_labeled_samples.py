@@ -33,6 +33,7 @@ from infra.llm_handler import LLMHandler
 from infra import metrics
 
 from loader.config_loader import get_block
+from infra.result_schema import results_dir, stamp
 
 
 SUPPLEMENTARY_DATASETS = ("FLD", "FOLIO", "FLD_unknown", "FOLIO_unknown")
@@ -55,7 +56,12 @@ class UnknownLabeledRunner:
         sup = get_block(config, "s9_unknown_labeled")
         self.dataset_names = sup.get("datasets", list(SUPPLEMENTARY_DATASETS))
         self.sample_limits = sup.get("sample_limits", {}) or {}
-        self.results_dir = Path(sup.get("results_dir", "results/S9_unknown_labeled"))
+        self.results_root = Path(sup.get("results_root", "results"))
+        self.model_slug = sup.get("model_slug") or (Path(sup["results_dir"]).name if sup.get("results_dir") else None)
+        if not self.model_slug:
+            raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
+        self.results_dir = Path(sup["results_dir"]) if sup.get("results_dir") \
+            else results_dir("S9/unknown_labeled", self.results_root) / self.model_slug
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
 
@@ -200,6 +206,7 @@ class UnknownLabeledRunner:
     def _save(self, ds_name: str, summary: Dict[str, Any]):
         model = self.config.get("model_name", "unknown").replace("/", "_")
         path = self.results_dir / f"{ds_name}_{model}.json"
+        summary = {**stamp("S9/unknown_labeled"), **summary}
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
         print(

@@ -1,6 +1,6 @@
 {
+  "setting": "S11",
   "experiment": "positional_bias",
-  "setting": "S1_binary",
   "model_key": "nano",
   "model": "gpt-5.4-nano",
   "dataset": "FOLIO",

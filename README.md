@@ -72,9 +72,14 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
 ├── configs/                      one YAML per (model, dataset) cell, named
 │                                 for the settings it collects
 ├── dataset/                      the eight benchmark files, one schema
-└── results/                      git-ignored; one directory per setting,
-                                  named `S<n>_<setting>` so it matches the
-                                  runner and analyzer above (e.g. S6_self_diagnosis).
+└── results/                      one folder per setting, named S<n>_<setting>
+                                  to match the runner above; the main experiment
+                                  is S1_baseline/ S2_unknown_option/
+                                  S3_question_format/ S5_rerun/, each split by
+                                  {tfq,mcq}/<model-slug>/. Every file carries a
+                                  "setting" field. infra/result_schema.py holds
+                                  the registry (SETTING_DIRS) and load_cell(),
+                                  which joins a cell's settings by item id.
 ```
 
 **Note:** C3 has no `configs/` entry: S7 scores traces that are already on disk and S8
@@ -172,7 +177,7 @@ for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
       --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
       --use_chat_template --settings S2 --n_per_class 250 \
       --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
-      --out_dir results/S10_temperature_olmo_topk20
+      --out_dir results/S10_temperature/olmo_topk20
 done
 ```
 

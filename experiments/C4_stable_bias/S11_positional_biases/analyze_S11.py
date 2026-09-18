@@ -6,13 +6,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+from infra.result_schema import results_dir, stamp  # noqa: E402
 
 from scipy.stats import binomtest
 from infra.metrics import label_acc, label_macro_f1, judge_classes
 
 #: The reported cells are the n=500 runs; `--result-dir` still reaches the
 #: earlier 200-sample sweep.
-RESULT_DIR = ROOT / "results/S11_positional_bias"
+RESULT_DIR = ROOT / results_dir("S11")
 
 MODELS = [
     ("nano", "gpt-5.4-nano"),
@@ -370,7 +371,7 @@ def main():
 
     out_path = result_dir / "summary.json"
     out_path.write_text(json.dumps(
-        {"rows": rows, "rebuttal_table": table_rows,
+        {**stamp("S11"), "rows": rows, "rebuttal_table": table_rows,
          "incomplete": incomplete, "incompatible": incompatible},
         indent=2, ensure_ascii=False))
     print(f"\nSaved -> {out_path}")

@@ -56,6 +56,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import canonical_sample_type   # noqa: E402
+from infra.result_schema import results_dir, stamp
 
 EARLY_LAYERS = slice(1, 9)    # layers 1-8 (skip embedding layer 0)
 LATE_LAYERS  = slice(-4, None) # last 4 transformer layers
@@ -69,7 +70,7 @@ COLORS = {
 
 
 def load_data(ckpt: str) -> list[dict]:
-    path = ROOT / "results" / "S8_logit_lens" / f"logit_lens_{ckpt}.json"
+    path = ROOT / results_dir("S8") / f"logit_lens_{ckpt}.json"
     raw = json.loads(path.read_text())
     return _normalize_sample_types(raw["per_sample"])
 
@@ -223,10 +224,10 @@ def main():
         "classifier_acc":      acc,
         "classifier_threshold": thr,
     }
-    out_dir = ROOT / "results" / "S8_logit_lens"
+    out_dir = ROOT / results_dir("S8")
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"suppression_detect_{args.ckpt}.json").write_text(
-        json.dumps(out_data, indent=2)
+        json.dumps({**stamp("S8"), **out_data}, indent=2)
     )
 
     # ------------------------------------------------------------------

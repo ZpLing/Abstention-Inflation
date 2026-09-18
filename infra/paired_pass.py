@@ -101,7 +101,9 @@ class ABRunner:
         # subfolder each cell lands in. ``results_dir`` is the pre-split key and
         # is read only for its last component, the slug.
         self.results_root = Path(ab.get("results_root", "results"))
-        self.model_slug = ab.get("model_slug") or Path(ab.get("results_dir", "results/ab")).name
+        self.model_slug = ab.get("model_slug") or (Path(ab["results_dir"]).name if ab.get("results_dir") else None)
+        if not self.model_slug:
+            raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
 
     # =================================================================
     # Top-level dispatch

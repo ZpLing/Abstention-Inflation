@@ -32,9 +32,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+from infra.result_schema import results_dir, stamp  # noqa: E402
 
-INFERENCE_PATH = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
-OUT_DIR        = ROOT / "results" / "S8_logit_lens"
+INFERENCE_PATH = ROOT / results_dir("S8") / "olmo_inference_FLD.json"
+OUT_DIR        = ROOT / results_dir("S8")
 
 CHECKPOINTS = {
     "base":     ROOT / "models" / "olmo3-base",
@@ -218,6 +219,7 @@ def main():
     result   = process_checkpoint(args.ckpt, ckpt_path, samples, device)
     out_path = OUT_DIR / f"logit_lens_{args.ckpt}.json"
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    result = {**stamp("S8"), **result}
     out_path.write_text(json.dumps(result, indent=2))
     print(f"\nSaved → {out_path}")
 

@@ -1,4 +1,5 @@
 {
+  "setting": "S6",
   "dataset": "FOLIO",
   "task_type": "tf",
   "model": "deepseek-v4-flash",

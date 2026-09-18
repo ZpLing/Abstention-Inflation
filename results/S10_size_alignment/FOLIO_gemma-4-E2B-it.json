@@ -1,4 +1,6 @@
 {
+  "setting": "S10",
+  "variant": "size_alignment",
   "schema": "paper-s1-s10/v1",
   "dataset": "FOLIO",
   "task_type": "tf",

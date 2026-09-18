@@ -16,11 +16,12 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+from infra.result_schema import results_dir  # noqa: E402
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
 MODEL_PATH   = ROOT / "models" / "olmo3-instruct"
 DATA_PATH    = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH     = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
+OUT_PATH     = ROOT / results_dir("S8") / "olmo_inference_FLD.json"
 BATCH_SIZE   = 4    # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)
 
 S1_SYSTEM = (

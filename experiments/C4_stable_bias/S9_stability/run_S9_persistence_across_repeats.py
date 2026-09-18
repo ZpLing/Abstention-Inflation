@@ -27,6 +27,7 @@ from infra.evaluator import Evaluator
 from loader.dataset_loader import load_judge
 from infra.label_scheme import get_scheme
 from infra.prompts import build_judge_s2_prompt
+from infra.result_schema import results_dir, stamp
 
 
 def _is_ai(s):
@@ -145,9 +146,10 @@ async def main():
     for k in sorted(dist.keys(), reverse=True):
         print(f"  {k}/{args.n_repeats}: {dist[k]} ({dist[k]/n:.1%})")
 
-    out = args.out or f"results/S9_persistence/{args.model}_{args.dataset}.json"
+    out = args.out or str(results_dir("S9/persistence") / f"{args.dataset}_{args.model}.json")
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps({
+        **stamp("S9/persistence"),
         "model": args.model, "dataset": args.dataset,
         "n_abstention_inflation": n, "n_repeats": args.n_repeats, "temperature": args.temperature,
         "full_persistence": full_persist / n,

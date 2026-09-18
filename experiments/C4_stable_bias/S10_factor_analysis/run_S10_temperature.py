@@ -4,9 +4,8 @@ T in {0, 0.3, 0.7, 1.0, 1.5, 2.0} at 250 items per class. Only the models
 whose temperature the endpoint actually applies are swept; for the rest the
 setting is ignored, which is itself an S10 finding.
 
-Model is selected with --model; the two run so far are
-`gemini-3.1-flash-lite` and `deepseek-v4-flash`. Both were screened first, and
-the screen is not optional: of the gateway models tested, gpt-5.4-nano,
+Model is selected with --model; the one reported is `gemini-3.1-flash-lite`.
+It was screened first, and the screen is not optional: of the gateway models tested, gpt-5.4-nano,
 o4-mini, gpt-5.5, gpt-5.6-sol, gemini-3.7-flash, kimi-k3, glm-5.3 and
 glm-5.3-flash all accept a `temperature` argument and return the same answer
 distribution at T=0 and T=2, while qwen3-max, qwen3.7-plus, qwen3.8-max,
@@ -43,7 +42,7 @@ replaces the 2.5 cells rather than extending them.
 
     python experiments/C4_stable_bias/S10_factor_analysis/run_S10_temperature.py \
         --model gemini-3.1-flash-lite --limit 8     # smoke
-    python run_S10_temperature_gemini31.py              # full, 12 cells x 500"""
+    python run_S10_temperature.py --model gemini-3.1-flash-lite   # full, 12 cells x 500"""
 from __future__ import annotations
 
 import argparse
@@ -60,6 +59,7 @@ from loader.config_loader import load_config              # noqa: E402
 from infra.llm_handler import LLMHandler                 # noqa: E402
 from infra.prompts import build_judge_s2_prompt          # noqa: E402
 from infra.label_scheme import get_scheme                # noqa: E402
+from infra.result_schema import results_dir, stamp
 
 _spec = importlib.util.spec_from_file_location(
     "_s10_runner", Path(__file__).with_name("run_S10_local_sweep.py"))
@@ -70,9 +70,8 @@ TEMPERATURES = [0.0, 0.3, 0.7, 1.0, 1.5, 2.0]
 DATASETS = ["FLD", "FOLIO"]
 N_PER_CLASS = 250
 MAX_TOKENS = 8192
-OUT_DIRS = {"gemini-3.1-flash-lite": "S10_temperature_gemini31",
-            "deepseek-v4-flash":     "S10_temperature_dsv4flash",
-            "deepseek-v4-pro":       "s10_temp_dsv4pro"}
+SLUG_OF = {"gemini-3.1-flash-lite": "gemini31",
+}
 CFG = ROOT / "configs" / "C4_stable_bias" / "S10_temperature_Gemini_3_1_Flash_Lite.yaml"
 
 
@@ -112,7 +111,7 @@ async def query_at_temp(handler: LLMHandler, messages, temperature: float,
 async def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gemini-3.1-flash-lite",
-                    choices=sorted(OUT_DIRS))
+                    choices=sorted(SLUG_OF))
     ap.add_argument("--limit", type=int, default=None,
                     help="Items per cell, for a smoke run.")
     ap.add_argument("--temperatures", type=float, nargs="+", default=TEMPERATURES)
@@ -125,7 +124,7 @@ async def main() -> None:
 
     global MODEL, OUT_DIR
     MODEL = args.model
-    OUT_DIR = ROOT / "results" / OUT_DIRS[MODEL]
+    OUT_DIR = ROOT / results_dir("S10/temperature") / SLUG_OF[MODEL]
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     cfg = load_config(str(CFG))
     cfg["model_name"] = MODEL
@@ -159,6 +158,7 @@ async def main() -> None:
                             "use_chat_template": True})
             tag = f"_T{temp}".replace(".", "p")
             path = OUT_DIR / f"{ds}_{MODEL}{tag}.json"
+            summary = {**stamp("S10/temperature"), **summary}
             path.write_text(json.dumps(summary, indent=2))
             m = summary["metrics"]["S2"]
             err = sum(1 for r in raw_s2 if r.startswith("__API_ERROR__"))

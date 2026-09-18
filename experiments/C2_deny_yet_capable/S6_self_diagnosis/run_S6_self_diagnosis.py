@@ -8,7 +8,7 @@ label is derived from S4 behavior. So it doesn't fit the unified
 
 What this runner does:
     1. For each (dataset, model) tuple, read the ABRunner summary JSON
-       at `results/ab/<dataset>_<model>.json`.
+       under results/S{1,2,5}_*/<family>/<slug>/<dataset>_<model>.json, joined by load_cell.
     2. Identify Abstention Inflation samples (S2 == UNKNOWN) and the corresponding raw_s2 +
        prior S2 prompt history (re-built from sample data).
     3. Build S5 self-diagnosis prompts (verb-coded for Judge, letter-coded
@@ -58,7 +58,7 @@ from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
 from loader.config_loader import get_block
-from infra.result_schema import load_cell
+from infra.result_schema import load_cell, results_dir, stamp
 from infra.result_schema import get_field
 
 
@@ -145,9 +145,12 @@ class S6SelfDiagnosisRunner:
         # The main experiment is one folder per setting; the slug and task type
         # locate this model's cells. ``s1_s2_results_dir`` is the pre-split key.
         self.results_root = Path(cfg.get("results_root", "results"))
-        self.model_slug = cfg.get("model_slug") or Path(cfg.get("s1_s2_results_dir", "results/ab")).name
+        self.model_slug = cfg.get("model_slug") or (Path(cfg["s1_s2_results_dir"]).name if cfg.get("s1_s2_results_dir") else None)
+        if not self.model_slug:
+            raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
         self.task_type = cfg.get("task_type", "tf")
-        self.results_dir = Path(cfg.get("results_dir", "results/S6_self_diagnosis"))
+        self.results_dir = Path(cfg["results_dir"]) if cfg.get("results_dir") \
+            else results_dir("S6", self.results_root) / self.model_slug
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
 
@@ -244,6 +247,7 @@ class S6SelfDiagnosisRunner:
         buckets = s4_s5_cross_buckets(preds_s5, s4_correct_flags)
 
         out = {
+            **stamp("S6"),
             "dataset":           ds_name,
             "task_type":         task_type,
             "model":             self.config.get("model_name"),

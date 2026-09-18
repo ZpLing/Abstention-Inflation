@@ -11,7 +11,8 @@ s9_unknown_labeled:
   datasets:
     - "FLD"
     - "FOLIO"
-  results_dir: "results/S9_unknown_labeled/gemini31"
+  results_root: "results"
+  model_slug: "gemini31"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

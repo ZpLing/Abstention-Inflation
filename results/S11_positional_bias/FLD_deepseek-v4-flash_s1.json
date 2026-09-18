@@ -1,6 +1,6 @@
 {
+  "setting": "S11",
   "experiment": "positional_bias",
-  "setting": "S1_binary",
   "model_key": "deepseek",
   "model": "deepseek-v4-flash",
   "dataset": "FLD",

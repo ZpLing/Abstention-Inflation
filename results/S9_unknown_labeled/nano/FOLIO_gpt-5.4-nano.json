@@ -1,4 +1,6 @@
 {
+  "setting": "S9",
+  "variant": "unknown_labeled",
   "dataset": "FOLIO",
   "model": "gpt-5.4-nano",
   "n_total": 300,

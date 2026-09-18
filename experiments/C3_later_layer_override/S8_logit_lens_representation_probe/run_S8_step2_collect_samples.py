@@ -15,12 +15,13 @@ Run:
 import json
 import sys
 from pathlib import Path
+from infra.result_schema import results_dir, stamp
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-INFERENCE_PATH = ROOT / "results" / "S8_logit_lens" / "olmo_inference_FLD.json"
-OUT_PATH       = ROOT / "results" / "S8_logit_lens" / "c3_samples.json"
+INFERENCE_PATH = ROOT / results_dir("S8") / "olmo_inference_FLD.json"
+OUT_PATH       = ROOT / results_dir("S8") / "c3_samples.json"
 
 
 def main():
@@ -73,6 +74,7 @@ def main():
         },
     }
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    output = {**stamp("S8"), **output}
     OUT_PATH.write_text(json.dumps(output, indent=2, ensure_ascii=False))
     print(f"Saved → {OUT_PATH}")
 

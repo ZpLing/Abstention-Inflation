@@ -57,6 +57,7 @@ from loader.dataset_loader import load_judge                          # noqa: E4
 from infra.evaluator import Evaluator                                # noqa: E402
 from infra.label_scheme import get_scheme                            # noqa: E402
 from infra.result_schema import TRUSTED_TIERS                        # noqa: E402
+from infra.result_schema import results_dir, stamp                   # noqa: E402
 from infra.prompts import (                                          # noqa: E402
     build_judge_s1_prompt,
     build_judge_s2_prompt,
@@ -380,7 +381,7 @@ def main():
                     help="S10(a) only needs S2 -- S1 has no abstain option to "
                          "measure and would double the generation cost.")
     ap.add_argument("--datasets", nargs="+", default=DATASETS)
-    ap.add_argument("--out_dir", default=str(ROOT / "results" / "S10_size_alignment"))
+    ap.add_argument("--out_dir", default=str(ROOT / results_dir("S10/size_alignment")))
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir); out_dir.mkdir(parents=True, exist_ok=True)
@@ -420,6 +421,7 @@ def main():
         })
         suffix = "" if args.temperature is None else f"_T{args.temperature}".replace(".", "p")
         path = out_dir / f"{ds}_{args.model_tag}{suffix}.json"
+        summary = {**stamp("S10/size_alignment" if args.temperature is None else "S10/temperature"), **summary}
         path.write_text(json.dumps(summary, indent=2))
         m = summary["metrics"]
         a1 = m["S1"]["label_acc"]

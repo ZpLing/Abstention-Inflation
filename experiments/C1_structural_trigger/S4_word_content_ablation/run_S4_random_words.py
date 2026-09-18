@@ -37,7 +37,9 @@ from loader.data_handler import DataHandler
 from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
 # imported by name: a parameter in this module is also called third_option
-from infra.third_option import RANDOM_WORDS, result_path
+from infra.third_option import RANDOM_WORDS, result_path, results_dir as results_path_dir
+from infra.result_schema import stamp, load_cell
+from loader.config_loader import get_block
 from infra.prompts import (
     build_judge_s1_prompt,
     build_judge_s2_prompt,
@@ -209,39 +211,37 @@ def load_balanced_samples(data_handler: DataHandler, ds_name: str, n_per_class: 
 # Main experiment
 # =============================================================================
 
-def load_baseline_from_file(baseline_path: str, data_handler, ds_name: str):
-    """Load S1/C1 results from a previous RPC output file.
+def load_baseline_from_main(ds_name: str, model_name: str, model_slug: str, data_handler):
+    """S1 and the Unknown condition for this cell, read from the main table.
+
+    The Unknown condition of this control *is* S2 -- c1_prompts is
+    build_judge_s2_prompt -- so the main experiment already holds both baselines
+    for the same 500 items. Reusing them keeps the control on the exact S2 cell
+    the paper reports and spares two of the four query passes.
 
     Returns (samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
-    where samples_ordered matches the per_sample order in the file.
+    in the main table's per_sample order.
     """
-    with open(baseline_path, encoding="utf-8") as f:
-        baseline = json.load(f)
-
-    per_sample = baseline["per_sample"]
-    id_to_row = {row["id"]: row for row in per_sample}
-
-    # Reload data file to get full sample objects (needed for C2/C3 prompt building)
+    cell = load_cell(ds_name, model_name.replace("/", "_"), model_slug, "tf")
     all_samples = data_handler.load_dataset(ds_name)
     id_to_sample = {s.id: s for s in all_samples}
 
     samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = [], [], [], [], [], []
     missing = []
-    for row in per_sample:
+    for row in cell["per_sample"]:
         sid = row["id"]
         if sid not in id_to_sample:
             missing.append(sid)
             continue
         samples_ordered.append(id_to_sample[sid])
         answer_idxs.append(row["answer_idx"])
-        preds_s1.append(row["pred_s1"])
-        preds_c1.append(row["pred_c1"])
-        raw_s1.append(row.get("raw_s1", ""))
-        raw_c1.append(row.get("raw_c1", ""))
-
+        preds_s1.append(row.get("pred_s1"))
+        preds_c1.append(row.get("pred_s2"))
+        raw_s1.append(row.get("raw_s1") or "")
+        raw_c1.append(row.get("raw_s2") or "")
     if missing:
-        print(f"  [warn] {len(missing)} sample IDs from baseline not found in data file.")
-    print(f"  Loaded {len(samples_ordered)} samples from baseline: {baseline_path}")
+        print(f"  [warn] {len(missing)} ids from the main table not found in the data file.")
+    print(f"  Loaded {len(samples_ordered)} samples from the main table ({model_slug}/{ds_name}).")
     return samples_ordered, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1
 
 
@@ -336,6 +336,7 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
                 row["cat"] = cats[i]
             rows.append(row)
         out = {
+            **stamp("S4/random_words"),
             "wording_id":   word,
             "abstain_text": text,
             "dataset":      ds_name,
@@ -359,13 +360,14 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
 
 
 async def run_experiment(config: Dict):
-    rpc_cfg = config.get("random_perturbation_control", {})
+    rpc_cfg = get_block(config, "s4_random_words")
     datasets = rpc_cfg.get("datasets", ["FLD", "FOLIO"])
     n_per_class = rpc_cfg.get("n_per_class", 100)
-    results_dir = Path(rpc_cfg.get("results_dir", "results/S4_random_words"))
+    results_dir = Path(rpc_cfg.get("results_dir", results_path_dir(RANDOM_WORD_1)))
     results_dir.mkdir(parents=True, exist_ok=True)
-    # Optional: {FLD: "path/to/FLD_*.json", FOLIO: "..."} — skips S1/C1 queries
-    baseline_files: Dict[str, str] = rpc_cfg.get("baseline_result_files", {})
+    # With model_slug set, S1 and the Unknown condition are read from the main
+    # table for the same items and only the two random words are queried.
+    model_slug = rpc_cfg.get("model_slug")
 
     data_handler = DataHandler(config)
     llm_handler = LLMHandler(config)
@@ -373,17 +375,17 @@ async def run_experiment(config: Dict):
 
     print(f"Model: {model_name}")
     print(f"Third options: C2={RANDOM_WORD_1!r}  C3={RANDOM_WORD_2!r}")
-    if baseline_files:
-        print("Baseline mode: S1/C1 loaded from existing files, only C2/C3 queried.")
+    if model_slug:
+        print("Baseline mode: S1/Unknown taken from the main table, only the random words are queried.")
     else:
         print(f"Samples per class per dataset: {n_per_class} (total: {n_per_class*2})")
 
     all_results = {}
     for ds_name in datasets:
         print(f"\n===== {ds_name} =====")
-        if ds_name in baseline_files:
-            samples, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = load_baseline_from_file(
-                baseline_files[ds_name], data_handler, ds_name
+        if model_slug:
+            samples, answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1 = load_baseline_from_main(
+                ds_name, model_name, model_slug, data_handler
             )
             baseline = (answer_idxs, preds_s1, preds_c1, raw_s1, raw_c1)
         else:

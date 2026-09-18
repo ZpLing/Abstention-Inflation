@@ -8,12 +8,12 @@ max_workers: 100
 
 run_tasks: []
 
-random_perturbation_control:
+s4_random_words:
   datasets:
     - "FLD"
     - "FOLIO"
   n_per_class: 250          # 250 True + 250 False = the full 500 per dataset
-  results_dir: "results/S4_random_words"
+  model_slug: "gemini31"      # S1 and the Unknown condition come from this model's main-table cells
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

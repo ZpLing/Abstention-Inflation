@@ -1,4 +1,6 @@
 {
+  "setting": "S4",
+  "variant": "synonyms",
   "wording_id": "indeterminate",
   "abstain_text": "Indeterminate",
   "dataset": "FLD",

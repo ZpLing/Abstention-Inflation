@@ -15,7 +15,6 @@ s6_self_diagnosis:
   results_root: "results"
   model_slug: "nano"
   task_type: "tf"
-  results_dir: "results/S6_self_diagnosis/nano"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

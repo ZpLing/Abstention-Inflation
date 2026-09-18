@@ -5,7 +5,7 @@ then aggregates abs_rate_s2 / abs_rate_s3 / Acc per (dataset, model) into a sing
 
 No new prompts, parsers, or metrics — S10(c) is the same S1/S2 logic run across
 a model gradient. Each per-model run produces the standard
-`results/ab/<dataset>_<model>.json`; this runner reads them back
+`results/S10_size_alignment/<dataset>_<model>.json`; this runner reads them back
 afterward and writes the cross-model aggregate.
 
 Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
@@ -18,8 +18,8 @@ Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
         - {name: "Gemma-3-12B"}            # falls back to global api_key/base_url
         - {name: "Gemma-3-12B-IT"}
       datasets: ["MedQA"]                  # paper S10(c) main: MedQA
-      ab_results_dir: "results/ab"         # where ABRunner writes per-model JSON
-      results_dir:    "results/exp2"       # this aggregator's output
+      ab_results_dir: "results/S10_size_alignment"   # where the sweep writes per-model JSON
+      results_dir:    "results/S10_size_alignment"   # this aggregator's output
 
 Per model, this runner:
     1. Builds a sub-config that overrides `model_name` (and optionally api_key /
@@ -46,6 +46,7 @@ from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
 from loader.config_loader import get_block
+from infra.result_schema import results_dir
 
 
 class ModelSweepRunner:
@@ -61,8 +62,8 @@ class ModelSweepRunner:
         cfg = get_block(config, "s10_model_sweep")
         self.models: List[Dict[str, Any]] = cfg.get("models", [])
         self.datasets: List[str] = cfg.get("datasets", ["MedQA"])
-        self.ab_results_dir = Path(cfg.get("ab_results_dir", "results/ab"))
-        self.results_dir = Path(cfg.get("results_dir", "results/exp2"))
+        self.ab_results_dir = Path(cfg.get("ab_results_dir", results_dir("S10/size_alignment")))
+        self.results_dir = Path(cfg.get("results_dir", results_dir("S10/size_alignment")))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
     # =================================================================

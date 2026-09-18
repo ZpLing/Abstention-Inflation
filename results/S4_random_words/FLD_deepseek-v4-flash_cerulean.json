@@ -1,4 +1,6 @@
 {
+  "setting": "S4",
+  "variant": "random_words",
   "wording_id": "cerulean",
   "abstain_text": "Cerulean",
   "dataset": "FLD",

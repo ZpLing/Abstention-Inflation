@@ -1,4 +1,5 @@
 {
+  "setting": "S7",
   "dataset": "FOLIO",
   "model": "gpt-5.4-nano",
   "nli_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",

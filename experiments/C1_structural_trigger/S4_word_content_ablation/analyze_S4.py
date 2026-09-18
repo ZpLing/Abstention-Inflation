@@ -142,13 +142,13 @@ def main():
     cells = {}  # (ds, w) -> {n, n_ai, abs_rate, pred_by_id}
 
     for ds in DATASETS:
-        # W1 from main exp
+        # baseline (S2 of the main table)
         w1_pred = load_w1_per_sample(ds)
         # Use the same ordered ID list as the wording sweep
         w2_path = ROOT / f"results/S4_synonyms/{ds}_{MODEL}_i_dont_know.json"
         w2_summary = json.loads(w2_path.read_text())
         sample_ids = [ps["id"] for ps in w2_summary["per_sample"]]
-        # W1 restricted to these IDs
+        # baseline restricted to these IDs
         w1_pred_aligned = {sid: w1_pred[sid] for sid in sample_ids if sid in w1_pred}
         n_w1 = len(w1_pred_aligned)
         n_ai_w1 = sum(1 for v in w1_pred_aligned.values() if v == "UNKNOWN")
@@ -180,7 +180,7 @@ def main():
             print(f"{ds:8s} {w:15s} {c['n']:>4} {c['n_abstention_inflation']:>6} {c['abs_rate']:>8.1%}  {WORDING_TEXTS[w]}")
         print()
 
-    # Paired McNemar W1 vs each Wi
+    # Paired McNemar: baseline vs each synonym
     print("=== Paired McNemar (baseline vs each synonym, same items) ===\n")
     print(f"{'Dataset':8s} {'baseline':>9s} {'':>3s} {'synonym':<15s} {'b':>4s} {'c':>4s} {'Δ_AIR':>7s} {'p':>10s}")
     print("-" * 60)

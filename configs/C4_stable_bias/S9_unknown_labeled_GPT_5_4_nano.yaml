@@ -11,7 +11,8 @@ s9_unknown_labeled:
   datasets:
     - "FLD"
     - "FOLIO"
-  results_dir: "results/S9_unknown_labeled/nano"
+  results_root: "results"
+  model_slug: "nano"
 
 paths:
   raw_dataset_template: "dataset/{dataset_name}.json"

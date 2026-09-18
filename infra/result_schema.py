@@ -50,6 +50,7 @@ resolve the legacy spellings individually.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict
 
@@ -202,12 +203,54 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
-#: setting -> the directory its cells live in, and the per-sample field the
-#: paired view exposes it as. One folder per setting keeps a run's output where
-#: its name says it is; the paired view is rebuilt here, in one place, because
-#: the paper's statistics are per item across settings.
-SETTING_DIRS = {"S1": "S1_baseline", "S2": "S2_unknown_option",
-                "S3": "S3_question_format", "S5": "S5_rerun"}
+#: Every setting the paper reports, and the folder under results/ its files
+#: live in. One registry: the runners write where it says, the analyses read
+#: where it says, and :func:`stamp` puts the same key into every file so a
+#: file names its own setting without its folder. A variant separates the two
+#: halves a setting has (S4's synonyms and random words, S9's two probes,
+#: S10's temperature and size sweeps); "{slug}" is the model slug where one
+#: sweep is stored per model.
+SETTING_DIRS = {
+    "S1":                  "S1_baseline",
+    "S2":                  "S2_unknown_option",
+    "S3":                  "S3_question_format",
+    "S4/synonyms":         "S4_synonyms",
+    "S4/random_words":     "S4_random_words",
+    "S5":                  "S5_rerun",
+    "S6":                  "S6_self_diagnosis",
+    "S7":                  "S7_reasoning_traces",
+    "S8":                  "S8_logit_lens",
+    "S9/unknown_labeled":  "S9_unknown_labeled",
+    "S9/persistence":      "S9_persistence",
+    "S10/temperature":     "S10_temperature",   # one subfolder per model slug
+    "S10/size_alignment":  "S10_size_alignment",
+    "S11":                 "S11_positional_bias",
+}
+
+
+def results_dir(key: str, root: str | Path = "results", **fmt) -> Path:
+    """The folder for ``key`` (``"S6"``, ``"S4/synonyms"``, ...) under ``root``."""
+    return Path(root) / SETTING_DIRS[key].format(**fmt)
+
+
+def stamp(key: str) -> Dict[str, str]:
+    """The fields every result file carries so it names its own setting.
+
+    ``{"setting": "S4", "variant": "synonyms"}`` for ``"S4/synonyms"``;
+    ``{"setting": "S6"}`` when the setting has no variant.
+    """
+    setting, _, variant = key.partition("/")
+    return {"setting": setting, **({"variant": variant} if variant else {})}
+
+
+def setting_key_for_dir(dirname: str) -> str | None:
+    """Inverse of :data:`SETTING_DIRS`, for files written before they were stamped."""
+    for key, pat in SETTING_DIRS.items():
+        if pat == dirname or ("{slug}" in pat and re.fullmatch(pat.replace("{slug}", r"[A-Za-z0-9_]+"), dirname)):
+            return key
+    return None
+
+
 _PAIRED_FIELD = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
                  "S3": ("pred_s3_format", "raw_s3_format")}
 
@@ -258,6 +301,14 @@ def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
             row = rows.setdefault(r["id"], {"id": r["id"], "source": r.get("source"),
                                             "answer_idx": r["answer_idx"]})
             row[pf], row[rf] = r["pred"], r.get("raw")
+    # An item one setting never returned must leave the paired contrast, as it
+    # did when the settings shared a file: mark it unparseable with a raw that
+    # classifies as a non-reply, and paired_keep_ids drops it.
+    for row in rows.values():
+        for setting in ran:
+            pf, rf = _PAIRED_FIELD[setting]
+            if pf not in row:
+                row[pf], row[rf] = "UNPARSEABLE", "__MISSING_IN_" + setting + "__"
     out: Dict[str, Any] = {
         "schema": head.get("schema", SCHEMA_VERSION),
         "dataset": dataset, "model": model,

@@ -18,6 +18,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from infra.result_schema import results_dir as _rd
+
 UNKNOWN = "Unknown"
 #: Words that mean the same thing as "Unknown".
 SYNONYMS = ("I don't know", "Indeterminate")
@@ -28,12 +30,8 @@ RANDOM_WORDS = ("Triangular", "Cerulean")
 #: class -> the directory that class's results live in. The main experiment is
 #: split by task type and further by model slug, so it is named by family here
 #: and completed from the config.
-_DIRS = {
-    "synonym": Path("results/S4_synonyms"),
-    "random_word": Path("results/S4_random_words"),
-}
-_MAIN = {"tf": Path("results/S2_unknown_option/tfq"),
-         "mcq": Path("results/S2_unknown_option/mcq")}
+_DIRS = {"synonym": _rd("S4/synonyms"), "random_word": _rd("S4/random_words")}
+_MAIN = {"tf": _rd("S2") / "tfq", "mcq": _rd("S2") / "mcq"}
 
 
 def slug(word: str) -> str:

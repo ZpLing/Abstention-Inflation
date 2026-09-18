@@ -16,11 +16,12 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+from infra.result_schema import results_dir, stamp  # noqa: E402
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
 MODEL_PATH   = ROOT / "models" / "olmo3-base"
 DATA_PATH  = ROOT / "data" / "Judge" / "FLD.json"
-OUT_PATH   = ROOT / "results" / "S8_logit_lens" / "base_baseline_logit_lens.json"
+OUT_PATH   = ROOT / results_dir("S8") / "base_baseline_logit_lens.json"
 
 N_SAMPLES  = 100   # answerable samples to probe
 
@@ -102,7 +103,7 @@ def main():
             print(f"  {i+1}/{len(answerable)}")
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(json.dumps({"checkpoint": "base", "per_sample": results}, indent=2))
+    OUT_PATH.write_text(json.dumps({**stamp("S8"), "checkpoint": "base", "per_sample": results}, indent=2))
 
     # quick summary: mean rank and logit_gap at final layer
     final_ranks = [s["layers"][-1]["rank_unknown"] for s in results]

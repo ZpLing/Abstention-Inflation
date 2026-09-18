@@ -18,6 +18,7 @@ from loader.config_loader import load_config
 from infra.llm_handler import LLMHandler
 from infra.label_scheme import get_scheme
 from infra import third_option
+from infra.result_schema import stamp
 from loader.dataset_loader import load_judge
 
 #: The synonyms come from third_option, which is also what decides that they
@@ -143,6 +144,7 @@ async def run_one_cell(handler: LLMHandler, scheme, samples,
           f"(A={preds.count('A')}, B={preds.count('B')}, "
           f"UNK={n_unk}, UNP={preds.count('UNPARSEABLE')})")
     return {
+        **stamp("S4/synonyms"),
         "wording_id": wording_id, "abstain_text": abstain_text,
         "dataset": dataset, "model": model_name,
         "n": len(samples), "abs_rate": abs_rate,

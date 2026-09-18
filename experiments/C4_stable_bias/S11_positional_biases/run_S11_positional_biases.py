@@ -36,6 +36,7 @@ from loader.dataset_loader import load_judge, Sample
 from infra.evaluator import Evaluator
 from infra.prompts import build_judge_s11_position_prompt, judge_verb_order
 from infra.metrics import label_acc, label_macro_f1, judge_classes
+from infra.result_schema import results_dir, stamp
 
 
 MODELS = {
@@ -62,7 +63,7 @@ SLOT_OF = {"A": 1, "B": 2, "C": 3}
 _EVALUATOR = Evaluator()
 # Full canonical 500-sample runs (250 True + 250 False) go to a separate dir so
 # the existing 200-sample A/B summaries stay intact.
-OUT_DIR_500 = ROOT / "results/S11_positional_bias"
+OUT_DIR_500 = ROOT / results_dir("S11")
 # Canonical balanced 500-sample TFQ files (unified schema, answer_idx 0=True/1=False).
 FULL_DATASET_PATHS = {
     "FLD": ROOT / "dataset/FLD.json",
@@ -290,6 +291,7 @@ async def run_cell(handler: LLMHandler, model_key: str, model_name: str,
     tier_counts = {tier: tiers.count(tier) for tier in sorted(set(tiers))}
 
     summary = {
+        **stamp("S11"),
         "experiment": "positional_bias",
         "model_key": model_key,
         "model": model_name,

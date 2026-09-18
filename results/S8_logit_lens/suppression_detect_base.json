@@ -1,4 +1,5 @@
 {
+  "setting": "S8",
   "checkpoint": "base",
   "abstention_inflation": {
     "n": 112,

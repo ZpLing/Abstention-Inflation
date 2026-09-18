@@ -1,4 +1,6 @@
 {
+  "setting": "S9",
+  "variant": "unknown_labeled",
   "dataset": "FOLIO",
   "model": "deepseek-v4-flash",
   "n_total": 300,

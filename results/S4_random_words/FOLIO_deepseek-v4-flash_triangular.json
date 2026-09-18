@@ -1,4 +1,6 @@
 {
+  "setting": "S4",
+  "variant": "random_words",
   "wording_id": "triangular",
   "abstain_text": "Triangular",
   "dataset": "FOLIO",

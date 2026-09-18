@@ -1,4 +1,6 @@
 {
+  "setting": "S9",
+  "variant": "persistence",
   "model": "deepseek-v4-flash",
   "dataset": "FLD",
   "n_abstention_inflation": 212,

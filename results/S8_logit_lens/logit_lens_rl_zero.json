@@ -1,4 +1,5 @@
 {
+  "setting": "S8",
   "checkpoint": "rl_zero",
   "per_sample": [
     {
