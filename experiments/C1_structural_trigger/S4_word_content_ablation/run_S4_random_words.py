@@ -341,7 +341,7 @@ async def run_one_dataset(
     print(f"  {'-' * 58}")
     print(f"  {'S1 (binary)':<26} {'—':>12} {s1_acc:>8.1%} {'—':>8}")
     for label, m in [
-        (f"C1 Unknown", m_c1),
+        ("C1 Unknown", m_c1),
         (f"C2 Random ({RANDOM_WORD_1})", m_c2),
         (f"C3 Random ({RANDOM_WORD_2})", m_c3),
     ]:
