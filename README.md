@@ -11,10 +11,10 @@ Adding an "Unknown" option to a True/False question makes a model abstain on
 questions it can answer. We call this **Abstention Inflation**.
 
 
-| Format | Samples | Accuracy without the “Unknown” option | Accuracy with the "Unknown" Option | Abs Rate |
+| Format | Samples | Accuracy without the “Unknown” option | Accuracy with the "Unknown" Option | Δ |
 | --- | ---: | ---: | ---: | ---: |
-| True-False Questions | 1,000 | 79.4% | **59.5%** | **34.5%** |
-| Multiple-Choice Questions | 2,000 | 84.5% | 83.3% | 2.3% |
+| True-False Questions | 1,000 | 79.4% | **59.5%** | **−19.9%** |
+| Multiple-Choice Questions | 2,000 | 84.5% | 83.3% | −1.2% |
 
 The abstention does not result from uncertainty: removing the option again recovers **63.6%**
 accuracy on exactly the samples that previously abstained.
