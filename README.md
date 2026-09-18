@@ -23,9 +23,8 @@ pip install -r requirements.txt
 cp configs/API_Config.template.yaml API_Config.yaml   # fill in your key
 ```
 
-`API_Config.yaml` is git-ignored and holds the only credentials this code
-reads. Everything else — which model, which datasets, where results land — is
-in the experiment YAML.
+`API_Config.yaml` is git-ignored and holds the API key used to run this code.
+The experiment configuration lives in the YAMLs under `configs/`.
 
 ## Quick start
 
