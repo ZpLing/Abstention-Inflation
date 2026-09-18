@@ -76,19 +76,21 @@ runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
 Arguments are read top-down: **setting → `--part` → `--model` → `--dataset`**.
 The setting is required, and `all` at that level is the only way to run
 everything. Below it, a level left out means every value the paper reports for
-that setting; `all` at any level says the same explicitly.
+that setting; `all` at any level says the same explicitly. A setting with more
+than one experiment splits into sub-settings, chosen with `--part`; a setting
+with a single experiment runs by its name alone.
 
 ```bash
 python main.py S2 --model gemini-3.1-flash-lite --dataset FLD    # one cell
-python main.py S4 --part random_words --model deepseek-v4-flash  # one half of a two-part setting
-python main.py S9 --part persistence --model gpt-5.4-nano --dataset FOLIO
+python main.py S4 --part random_words --model deepseek-v4-flash  # one sub-setting of S4
+python main.py S9 --part persistence --model gpt-5.4-nano --dataset FOLIO  # one sub-setting, one cell
 python main.py S3 --stage analyze                                # numbers only, nothing collected
 python main.py S2 --model qwen3-max                              # any model the gateway serves
 ```
 
 ### Settings that load a checkpoint
 
-S7, S8 and the local S10 parts need `torch` and `transformers` and a model on
+S7, S8 and the local S10 sub-settings need `torch` and `transformers` and a model on
 disk. `all` prints the command for each and moves on; they run when named.
 
 ```bash
