@@ -307,27 +307,48 @@ def model_slug(model_name: str) -> str:
     return MODEL_SLUG.get(model_name, model_name.replace("/", "_").replace("-", "_"))
 
 
-#: S8 runs one model, Olmo-3-7B, on FLD, in the three variants the paper
-#: reports. checkpoint key as the code passes it -> the variant in the file name.
-S8_MODEL = "olmo-3-7b"
-S8_VARIANT = {"base": "base", "sft": "instruct_sft", "rl_zero": "rl_zero"}
+#: S8 probes the Olmo-3-7B family on FLD. One table is the source of every S8
+#: name: the code's checkpoint key -> the HuggingFace repo it was downloaded
+#: from. The download folder, the path the probe loads and the result file
+#: are all named after the repo's own basename, so a file says exactly which
+#: checkpoint produced it.
+S8_MODEL = "olmo-3-7b"  # the family; names the results subfolder
+S8_CHECKPOINTS = {
+    "base": "allenai/OLMo-3-1025-7B",
+    "sft": "allenai/OLMo-3-7B-Instruct-SFT",
+    "instruct": "allenai/OLMo-3-7B-Instruct",
+    "rl_zero": "allenai/OLMo-3-7B-RL-Zero-General",
+}
+#: The checkpoint whose S1/S2 answers partition the 600 items into abstention
+#: inflation / correct abstention; every probe is scored on that partition.
+S8_INFERENCE_CKPT = "instruct"
+
+
+def s8_checkpoint_name(ckpt: str) -> str:
+    """``"instruct"`` -> ``"OLMo-3-7B-Instruct"``, the repo's own basename."""
+    return S8_CHECKPOINTS[ckpt].rsplit("/", 1)[-1]
+
+
+def s8_model_dir(ckpt: str, models_root: str | Path = "models") -> Path:
+    """Where step 1 downloads a checkpoint and steps 2-3 load it from."""
+    return Path(models_root) / s8_checkpoint_name(ckpt)
 
 
 def s8_inference_path(root: str | Path = "results") -> Path:
-    """The raw OLMo inference every S8 probe starts from."""
+    """The S1/S2 inference the probes start from, named for the checkpoint that produced it."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
-        / f"FLD_{S8_MODEL}_inference.json"
+        / f"FLD_{s8_checkpoint_name(S8_INFERENCE_CKPT)}_inference.json"
     )
 
 
 def s8_logit_lens_path(ckpt: str, root: str | Path = "results") -> Path:
-    """The logit-lens probe for one checkpoint: olmo_3_7b/FLD_olmo-3-7b_<variant>.json."""
+    """The logit-lens probe for one checkpoint: olmo_3_7b/FLD_<checkpoint name>.json."""
     return (
         results_dir("S8", root)
         / model_slug(S8_MODEL)
-        / f"FLD_{S8_MODEL}_{S8_VARIANT[ckpt]}.json"
+        / f"FLD_{s8_checkpoint_name(ckpt)}.json"
     )
 
 

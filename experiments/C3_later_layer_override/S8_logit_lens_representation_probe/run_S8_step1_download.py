@@ -6,12 +6,16 @@ Run on the 3090 server: python scripts/download_olmo3.py
 """
 
 import os
+from pathlib import Path
 
-MODELS = {
-    "olmo3-base": "allenai/OLMo-3-1025-7B",
-    "olmo3-instruct": "allenai/OLMo-3-7B-Instruct",
-    "olmo3-rl-zero": "allenai/OLMo-3-7B-RL-Zero-General",
-}
+ROOT = Path(__file__).resolve().parents[3]
+import sys as _sys
+
+_sys.path.insert(0, str(ROOT))  # noqa: E402
+from infra.result_schema import S8_CHECKPOINTS, s8_model_dir  # noqa: E402
+
+#: checkpoint key -> HF repo, from the one S8 table.
+MODELS = dict(S8_CHECKPOINTS)
 
 #: Repo root / models, overridable with --save_dir.
 SAVE_DIR = os.path.join(
@@ -26,7 +30,7 @@ def download_model(name: str, repo_id: str):
     # Optional dependency: only this download step needs it.
     from modelscope.hub.snapshot_download import snapshot_download
 
-    local_path = os.path.join(SAVE_DIR, name)
+    local_path = s8_model_dir(name, ROOT / "models")
     if os.path.isdir(local_path) and any(
         f.endswith(".safetensors") or f.endswith(".bin") for f in os.listdir(local_path)
     ):

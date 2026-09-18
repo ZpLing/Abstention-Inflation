@@ -1,6 +1,6 @@
 """
-C3 Step 1: Run OLMo-3-Instruct on FLD in S1 and S2 conditions.
-Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_inference.json
+S8 step 2: run the inference checkpoint (S8_INFERENCE_CKPT, OLMo-3-7B-Instruct) on FLD in S1 and S2.
+Saves raw outputs + predictions to results/S8_logit_lens/olmo_3_7b/FLD_OLMo-3-7B-Instruct_inference.json
 
 Run on the 3090 server after downloading models:
     python scripts/c3_run_olmo_inference.py
@@ -15,10 +15,14 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from infra.result_schema import s8_inference_path  # noqa: E402
+from infra.result_schema import (  # noqa: E402
+    S8_INFERENCE_CKPT,
+    s8_inference_path,
+    s8_model_dir,
+)
 
 #: Overridable with --model_path; the S8 runs used a local checkout.
-MODEL_PATH = ROOT / "models" / "olmo3-instruct"
+MODEL_PATH = ROOT / s8_model_dir(S8_INFERENCE_CKPT)
 DATA_PATH = ROOT / "data" / "Judge" / "FLD.json"
 OUT_PATH = ROOT / s8_inference_path()
 BATCH_SIZE = 4  # increase if VRAM allows (3090 24GB with 7B model can handle 4-8)

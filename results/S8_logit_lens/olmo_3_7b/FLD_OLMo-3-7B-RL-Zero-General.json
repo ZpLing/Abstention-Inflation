@@ -1,6 +1,6 @@
 {
   "setting": "S8",
-  "variant": "rl_zero",
+  "variant": "OLMo-3-7B-RL-Zero-General",
   "checkpoint": "rl_zero",
   "per_sample": [
     {

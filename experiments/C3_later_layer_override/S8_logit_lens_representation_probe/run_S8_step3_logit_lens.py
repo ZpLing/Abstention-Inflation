@@ -11,14 +11,14 @@ Analysis 2 (Abs Rate vs CAR distinguishability):
   vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
   both groups are directly comparable on the same axis.
 
-Input:  results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_inference.json
-Output: results/S8_logit_lens/olmo_3_7b/FLD_olmo-3-7b_{base,instruct_sft,rl_zero}.json
+Input:  results/S8_logit_lens/olmo_3_7b/FLD_OLMo-3-7B-Instruct_inference.json
+Output: results/S8_logit_lens/olmo_3_7b/FLD_<checkpoint name>.json
         (each sample has layers_s1 and layers_s2)
 
 Run one checkpoint per GPU in parallel:
-    CUDA_VISIBLE_DEVICES=0 python -u scripts/c3_logit_lens.py --ckpt base
-    CUDA_VISIBLE_DEVICES=1 python -u scripts/c3_logit_lens.py --ckpt instruct
-    CUDA_VISIBLE_DEVICES=0 python -u scripts/c3_logit_lens.py --ckpt rl_zero
+    CUDA_VISIBLE_DEVICES=0 python -u run_S8_step3_logit_lens.py --ckpt base
+    CUDA_VISIBLE_DEVICES=1 python -u run_S8_step3_logit_lens.py --ckpt instruct
+    CUDA_VISIBLE_DEVICES=0 python -u run_S8_step3_logit_lens.py --ckpt rl_zero
 """
 
 import argparse
@@ -33,20 +33,18 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from infra.result_schema import (  # noqa: E402
+    S8_CHECKPOINTS,
     results_dir,
     s8_inference_path,
     s8_logit_lens_path,
+    s8_model_dir,
     stamp,
 )
 
 INFERENCE_PATH = ROOT / s8_inference_path()
 OUT_DIR = ROOT / results_dir("S8")
 
-CHECKPOINTS = {
-    "base": ROOT / "models" / "olmo3-base",
-    "instruct": ROOT / "models" / "olmo3-instruct",
-    "rl_zero": ROOT / "models" / "olmo3-rl-zero",
-}
+CHECKPOINTS = {k: ROOT / s8_model_dir(k) for k in S8_CHECKPOINTS}
 
 # S1: no UNKNOWN option (forces definitive answer)
 S1_PROMPT = (
