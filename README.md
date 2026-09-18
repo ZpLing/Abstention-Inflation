@@ -76,7 +76,9 @@ python experiments/C1_structural_trigger/S2_unknown_option_added/analyze_S2.py
                                   to match the runner above; the main experiment
                                   is S1_baseline/ S2_unknown_option/
                                   S3_question_format/ S5_rerun/, each split by
-                                  {tfq,mcq}/<model-slug>/. Every file carries a
+                                  {tfq,mcq}/<model-slug>/ (S3 is TFQ-only and
+                                  skips that level); S4, S9 and S10 keep their two
+                                  halves as subfolders of one setting folder. Every file carries a
                                   "setting" field. infra/result_schema.py holds
                                   the registry (SETTING_DIRS) and load_cell(),
                                   which joins a cell's settings by item id.
@@ -158,7 +160,7 @@ done
 python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
     --summary results/S2_unknown_option/tfq/nano/FLD_gpt-5.4-nano.json \
     --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
-    --out results/S9_persistence/FLD_gpt-5.4-nano.json
+    --out results/S9_stability/persistence/FLD_gpt-5.4-nano.json
 ```
 
 ### 7. S10 — factor analysis
@@ -177,7 +179,7 @@ for T in 0.0 0.3 0.7 1.0 1.5 2.0; do
       --model_path <olmo-3-7b-instruct> --model_tag olmo3-instruct \
       --use_chat_template --settings S2 --n_per_class 250 \
       --max_new_tokens 8192 --batch_size 8 --top_k 20 --temperature $T \
-      --out_dir results/S10_temperature/olmo_topk20
+      --out_dir results/S10_factor_analysis/temperature/olmo_topk20
 done
 ```
 
@@ -189,7 +191,7 @@ ones -- that is the only difference between the two arms.
 python experiments/C4_stable_bias/S10_factor_analysis/run_S10_local_sweep.py \
     --model_path <gemma-4-E4B-it> --model_tag gemma-4-E4B-it --use_chat_template \
     --n_per_class 250 --max_new_tokens 3072 --batch_size 8 \
-    --out_dir results/S10_size_alignment
+    --out_dir results/S10_factor_analysis/size_alignment
 ```
 
 ### 8. S11 — positional biases

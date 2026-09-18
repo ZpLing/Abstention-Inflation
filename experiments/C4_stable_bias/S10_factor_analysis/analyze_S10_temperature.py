@@ -3,7 +3,7 @@
 Inputs:
   T=0.0 baseline: main experiment pooled per_sample (FLD/FOLIO, deepseek)
                   — pred_s2 == "UNKNOWN" indicates abstain
-  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_temperature/<model-slug>/<DS>_<model>_T<t>.json
+  T={0.3, 0.7, 1.0, 1.5, 2.0}: results/S10_factor_analysis/temperature/<model-slug>/<DS>_<model>_T<t>.json
 
 Outputs:
   results/analysis/temperature_sweep_summary.json
@@ -35,14 +35,14 @@ def load_w0_per_sample(ds):
     contrast below is per item. An earlier version pooled two deepseek batches
     from a different collection round, which is a different sample.
     """
-    path = ROOT / f"results/S10_temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_T0p0.json"
+    path = ROOT / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_T0p0.json"
     rows = json.loads(path.read_text()).get("per_sample", [])
     return {r["id"]: r["pred_s2"] for r in rows}
 
 
 def load_temp_per_sample(t, ds):
     t_tag = f"T{t:.1f}".replace(".", "p")
-    p = ROOT / f"results/S10_temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json"
+    p = ROOT / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json"
     s = json.loads(p.read_text())
     return {ps["id"]: ps.get("pred_s2", ps.get("pred")) for ps in s["per_sample"]}
 
@@ -92,7 +92,7 @@ def main():
     for ds in DATASETS:
         # Get sample IDs from any T>0 cell (they share IDs)
         t_tag = f"T{0.3:.1f}".replace(".", "p")
-        ref = json.loads((ROOT / f"results/S10_temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json").read_text())
+        ref = json.loads((ROOT / f"results/S10_factor_analysis/temperature/{SLUG_OF[MODEL]}/{ds}_{MODEL}_{t_tag}.json").read_text())
         sample_ids = [ps["id"] for ps in ref["per_sample"]]
         # answer_idx map
         ans_by_id = {ps["id"]: ps["answer_idx"] for ps in ref["per_sample"]}

@@ -61,7 +61,7 @@ class UnknownLabeledRunner:
         if not self.model_slug:
             raise ValueError("config needs model_slug (e.g. nano / dsv4flash / gemini31) to place its cells")
         self.results_dir = Path(sup["results_dir"]) if sup.get("results_dir") \
-            else results_dir("S9/unknown_labeled", self.results_root) / self.model_slug
+            else results_dir("S9/perception", self.results_root) / self.model_slug
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
 
@@ -206,7 +206,7 @@ class UnknownLabeledRunner:
     def _save(self, ds_name: str, summary: Dict[str, Any]):
         model = self.config.get("model_name", "unknown").replace("/", "_")
         path = self.results_dir / f"{ds_name}_{model}.json"
-        summary = {**stamp("S9/unknown_labeled"), **summary}
+        summary = {**stamp("S9/perception"), **summary}
         self.data_handler.save_json(summary, path)
         m = summary["metrics"]
         print(

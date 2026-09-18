@@ -214,16 +214,16 @@ SETTING_DIRS = {
     "S1":                  "S1_baseline",
     "S2":                  "S2_unknown_option",
     "S3":                  "S3_question_format",
-    "S4/synonyms":         "S4_synonyms",
-    "S4/random_words":     "S4_random_words",
+    "S4/synonyms":         "S4_word_content/synonyms",
+    "S4/random_words":     "S4_word_content/random_words",
     "S5":                  "S5_rerun",
     "S6":                  "S6_self_diagnosis",
     "S7":                  "S7_reasoning_traces",
     "S8":                  "S8_logit_lens",
-    "S9/unknown_labeled":  "S9_unknown_labeled",
-    "S9/persistence":      "S9_persistence",
-    "S10/temperature":     "S10_temperature",   # one subfolder per model slug
-    "S10/size_alignment":  "S10_size_alignment",
+    "S9/perception":       "S9_stability/perception",
+    "S9/persistence":      "S9_stability/persistence",
+    "S10/temperature":     "S10_factor_analysis/temperature",   # one subfolder per model slug
+    "S10/size_alignment":  "S10_factor_analysis/size_alignment",
     "S11":                 "S11_positional_bias",
 }
 
@@ -243,12 +243,17 @@ def stamp(key: str) -> Dict[str, str]:
     return {"setting": setting, **({"variant": variant} if variant else {})}
 
 
-def setting_key_for_dir(dirname: str) -> str | None:
-    """Inverse of :data:`SETTING_DIRS`, for files written before they were stamped."""
+def setting_key_for_dir(rel_dir: str) -> str | None:
+    """Registry key for a directory given relative to results/ (e.g.
+    ``"S4_word_content/synonyms"`` or ``"S1_baseline/tfq/nano"``); the inverse
+    of :data:`SETTING_DIRS`, for files written before they were stamped."""
+    rel = str(rel_dir).strip("/")
+    best = None
     for key, pat in SETTING_DIRS.items():
-        if pat == dirname or ("{slug}" in pat and re.fullmatch(pat.replace("{slug}", r"[A-Za-z0-9_]+"), dirname)):
-            return key
-    return None
+        if rel == pat or rel.startswith(pat + "/"):
+            if best is None or len(pat) > len(SETTING_DIRS[best]):
+                best = key
+    return best
 
 
 _PAIRED_FIELD = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
@@ -268,11 +273,17 @@ def iter_cells(root: str | Path = "results"):
             yield dataset, model, f.parent.name, task_type
 
 
+#: Settings collected for TFQ only; their folders skip the {tfq,mcq} level.
+TFQ_ONLY = {"S3"}
+
+
 def cell_path(setting: str, dataset: str, model: str, slug: str,
               task_type: str = "tf", root: str | Path = "results") -> Path:
     """Where one (setting, dataset, model) cell lives."""
-    family = "tfq" if task_type == "tf" else "mcq"
-    return Path(root) / SETTING_DIRS[setting] / family / slug / f"{dataset}_{model}.json"
+    base = Path(root) / SETTING_DIRS[setting]
+    if setting not in TFQ_ONLY:            # S3 has no MCQ arm, so no family level
+        base = base / ("tfq" if task_type == "tf" else "mcq")
+    return base / slug / f"{dataset}_{model}.json"
 
 
 def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",

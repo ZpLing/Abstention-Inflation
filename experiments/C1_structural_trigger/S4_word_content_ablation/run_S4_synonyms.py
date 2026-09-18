@@ -2,7 +2,7 @@
 
 Runs the two synonyms × {FLD, FOLIO} × the full 500 samples for each model.
 
-Output: results/S4_synonyms/{DS}_{MODEL}_{W}.json
+Output: results/S4_word_content/synonyms/{DS}_{MODEL}_{W}.json
 """
 import asyncio
 import json

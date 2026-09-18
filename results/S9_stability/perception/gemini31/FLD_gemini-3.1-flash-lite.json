@@ -1,6 +1,6 @@
 {
   "setting": "S9",
-  "variant": "unknown_labeled",
+  "variant": "perception",
   "dataset": "FLD",
   "model": "gemini-3.1-flash-lite",
   "n_total": 300,

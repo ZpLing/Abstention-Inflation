@@ -5,7 +5,7 @@ then aggregates abs_rate_s2 / abs_rate_s3 / Acc per (dataset, model) into a sing
 
 No new prompts, parsers, or metrics — S10(c) is the same S1/S2 logic run across
 a model gradient. Each per-model run produces the standard
-`results/S10_size_alignment/<dataset>_<model>.json`; this runner reads them back
+`results/S10_factor_analysis/size_alignment/<dataset>_<model>.json`; this runner reads them back
 afterward and writes the cross-model aggregate.
 
 Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
@@ -18,8 +18,8 @@ Config block (configs/C1_structural_trigger/S1_S3_TFQ_GPT_5_4_nano.yaml):
         - {name: "Gemma-3-12B"}            # falls back to global api_key/base_url
         - {name: "Gemma-3-12B-IT"}
       datasets: ["MedQA"]                  # paper S10(c) main: MedQA
-      ab_results_dir: "results/S10_size_alignment"   # where the sweep writes per-model JSON
-      results_dir:    "results/S10_size_alignment"   # this aggregator's output
+      ab_results_dir: "results/S10_factor_analysis/size_alignment"   # where the sweep writes per-model JSON
+      results_dir:    "results/S10_factor_analysis/size_alignment"   # this aggregator's output
 
 Per model, this runner:
     1. Builds a sub-config that overrides `model_name` (and optionally api_key /

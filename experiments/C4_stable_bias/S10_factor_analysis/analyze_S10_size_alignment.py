@@ -32,8 +32,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
+from infra.result_schema import results_dir  # noqa: E402
 
-from infra.result_schema import get_field, load_summary   # noqa: E402
+from infra.result_schema import get_field, load_summary   # noqa: E402, results_dir
 
 #: Below this share of explicitly-committed answers, a cell's Abs Rate is
 #: whatever the whole-text fallback happened to find, and is not reportable.
@@ -44,7 +45,7 @@ DATASETS = ["FLD", "FOLIO"]
 
 #: Where to read cells from: the n=500 sweep the paper reports. Every row still
 #: carries its own ``n`` so a caller can check what it is comparing.
-RESULTS_DIR = ROOT / "results" / "S10_size_alignment"
+RESULTS_DIR = ROOT / results_dir("S10/size_alignment")
 
 
 def _tag(size: str, is_it: bool) -> str:
