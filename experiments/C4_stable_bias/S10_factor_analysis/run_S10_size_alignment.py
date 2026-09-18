@@ -148,7 +148,7 @@ class ModelSweepRunner:
             return
 
         report = {"dataset": dataset, "rows": rows}
-        out = self.results_dir / f"exp2_model_sweep_{dataset}.json"
+        out = self.results_dir / f"model_sweep_{dataset}.json"
         out.write_text(json.dumps(report, indent=2, ensure_ascii=False))
         print(f"\n[S10] aggregate written -> {out}")
         self._print_table(dataset, rows)

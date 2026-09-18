@@ -176,7 +176,7 @@ async def main(models=None, datasets=None):
             print(f"\n[{ds}] {len(samples)} samples loaded")
 
             for wording_id, abstain_text in WORDINGS:
-                out_path = OUT_DIR / f"summary_{wording_id}_{ds}_{model_name}.json"
+                out_path = OUT_DIR / f"{ds}_{model_name}_{wording_id}.json"
                 summary = await run_one_cell(
                     handler, scheme, samples, abstain_text, wording_id, ds, model_name)
                 out_path.write_text(json.dumps(summary, indent=2))

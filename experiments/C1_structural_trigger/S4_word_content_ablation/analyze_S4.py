@@ -97,24 +97,25 @@ def random_word_half():
     print("\n" + "=" * 78)
     print("Random words — rate at which the third slot is selected")
     print("=" * 78)
-    print(f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Rand1':>8} {'Rand2':>8} "
+    print(f"{'Model':<24} {'Dataset':<7} {'Unknown':>8} {'Triangular':>11} {'Cerulean':>9} "
           f"{'max |d|':>8}")
     worst, every = [], []
     for model, label in RPC_MODELS:
         for ds in DATASETS:
-            path = RPC / f"{ds}_{model}.json"
-            if not path.exists():
+            paths = {w: RPC / f"{ds}_{model}_{w}.json"
+                     for w in ("unknown", "triangular", "cerulean")}
+            if not all(q.exists() for q in paths.values()):
                 print(f"{label:<24} {ds:<7} (missing)")
                 continue
-            d = json.loads(path.read_text())
-            base = d["C1_Unknown"]["opt_x_rate"]
-            r1 = d["C2_Rand1"]["opt_x_rate"]
-            r2 = d["C3_Rand2"]["opt_x_rate"]
+            cell = {w: json.loads(q.read_text()) for w, q in paths.items()}
+            base = cell["unknown"]["abs_rate"]
+            r1 = cell["triangular"]["abs_rate"]
+            r2 = cell["cerulean"]["abs_rate"]
             shifts = [abs(r1 - base) * 100, abs(r2 - base) * 100]
             every += shifts
             delta = max(shifts)
             worst.append(delta)
-            print(f"{label:<24} {ds:<7} {base:>7.1%} {r1:>7.1%} {r2:>7.1%} "
+            print(f"{label:<24} {ds:<7} {base:>7.1%} {r1:>10.1%} {r2:>8.1%} "
                   f"{delta:>7.1f}pp")
     if worst:
         print("-" * 78)

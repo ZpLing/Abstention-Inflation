@@ -306,39 +306,49 @@ async def run_one_dataset(ds_name: str, samples, llm_handler: LLMHandler,
         delta = m["label_acc"] - s1_acc
         print(f"  {label:<26} {m['opt_x_rate']:>12.1%} {m['label_acc']:>8.1%} {delta:>+8.1%}")
 
-    result = {
-        "dataset": ds_name,
-        "model": model_name,
-        "n_samples": n,
-        "third_options": {"C2": RANDOM_WORD_1, "C3": RANDOM_WORD_2},
-        "S1_acc": round(s1_acc, 4),
-        "C1_Unknown": {**m_c1, "delta_acc": round(m_c1["label_acc"] - s1_acc, 4)},
-        "C2_Rand1":   {**m_c2, "delta_acc": round(m_c2["label_acc"] - s1_acc, 4)},
-        "C3_Rand2":   {**m_c3, "delta_acc": round(m_c3["label_acc"] - s1_acc, 4)},
-        "per_sample": [
-            {
+    # One file per substituted word, the same shape the synonym sweep writes,
+    # so the two halves of S4 are read by one code path.
+    conditions = [
+        ("unknown",                    "Unknown",     m_c1, preds_c1, raw_c1, None),
+        (RANDOM_WORD_1.lower(),        RANDOM_WORD_1, m_c2, preds_c2, raw_c2, cats_c2),
+        (RANDOM_WORD_2.lower(),        RANDOM_WORD_2, m_c3, preds_c3, raw_c3, cats_c3),
+    ]
+    safe_model = model_name.replace("/", "_")
+    written = {}
+    for word, text, m, preds, raws, cats in conditions:
+        rows = []
+        for i in range(n):
+            row = {
                 "id":         samples[i].id,
                 "answer_idx": answer_idxs[i],
+                "pred":       preds[i],
+                "raw":        raws[i],
                 "pred_s1":    preds_s1[i],
-                "pred_c1":    preds_c1[i],
-                "pred_c2":    preds_c2[i],
-                "cat_c2":     cats_c2[i],
-                "pred_c3":    preds_c3[i],
-                "cat_c3":     cats_c3[i],
                 "raw_s1":     raw_s1[i],
-                "raw_c1":     raw_c1[i],
-                "raw_c2":     raw_c2[i],
-                "raw_c3":     raw_c3[i],
             }
-            for i in range(n)
-        ],
-    }
-
-    safe_model = model_name.replace("/", "_")
-    out_path = results_dir / f"{ds_name}_{safe_model}.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
-    print(f"  Saved → {out_path}")
+            if cats is not None:
+                row["cat"] = cats[i]
+            rows.append(row)
+        out = {
+            "wording_id":   word,
+            "abstain_text": text,
+            "dataset":      ds_name,
+            "model":        model_name,
+            "n":            m["n"],
+            "abs_rate":     m["opt_x_rate"],
+            "label_acc":    m["label_acc"],
+            "delta_acc":    round(m["label_acc"] - s1_acc, 4),
+            "s1_acc":       round(s1_acc, 4),
+            **{k: v for k, v in m.items()
+               if k not in ("n", "opt_x_rate", "label_acc", "delta_acc")},
+            "per_sample":   rows,
+        }
+        out_path = results_dir / f"{ds_name}_{safe_model}_{word}.json"
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(out, f, indent=2, ensure_ascii=False)
+        print(f"  Saved → {out_path}")
+        written[word] = out
+    result = written
     return result
 
 
@@ -383,9 +393,9 @@ async def run_experiment(config: Dict):
     print(f"{'Condition':<22} {'OPT_X Rate':>12} {'Acc':>8} {'ΔAcc':>8}")
     print("-" * 54)
     for cond_key, label in [
-        ("C1_Unknown", "C1 Unknown"),
-        ("C2_Rand1",   f"C2 Random ({RANDOM_WORD_1})"),
-        ("C3_Rand2",   f"C3 Random ({RANDOM_WORD_2})"),
+        ("unknown", "Unknown"),
+        (RANDOM_WORD_1.lower(), f"Random ({RANDOM_WORD_1})"),
+        (RANDOM_WORD_2.lower(), f"Random ({RANDOM_WORD_2})"),
     ]:
         rates, accs, deltas, ns = [], [], [], []
         for r in all_results.values():
