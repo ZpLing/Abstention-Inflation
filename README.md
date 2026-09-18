@@ -76,8 +76,8 @@ runs a local checkpoint, so neither reaches the gateway. `main.py S7` and
 python main.py S2 --model gemini-3.1-flash-lite --dataset FLD           # one cell
 python main.py S4 --sub-setting random_words --model deepseek-v4-flash  # one sub-setting of S4
 python main.py S9 --sub-setting persistence --model gpt-5.4-nano --dataset FOLIO  # one sub-setting, one cell
-python main.py S3 --stage analyze                                       # numbers only, nothing collected
-python main.py S2 --model qwen3-max                                     # any model the gateway serves
+python main.py S3 --stage analyze                                       # analysis of experimental results
+python main.py S2 --model qwen3-max                                     # any model available through your API
 ```
 
 ### Settings that load a checkpoint
