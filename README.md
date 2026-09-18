@@ -35,7 +35,7 @@ the only way to run everything.
 python main.py --list                 # overview of every setting
 python main.py all                    # run every setting that calls the API
 python main.py all --stage analyze    # print the results of every setting
-python main.py S2                     # one setting: S2 with its S1 pair, 3 models x 6 datasets
+python main.py S2                     # one specific setting: S2 with its S1 pair, 3 models x 6 datasets
 ```
 
 ## Repository layout
