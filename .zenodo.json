@@ -1,0 +1,57 @@
+{
+  "upload_type": "software",
+  "title": "LLM Abstention Can Be a Prompt Artifact, in Addition to Genuine Uncertainty: official code and datasets",
+  "description": "<p>Adding an &quot;Unknown&quot; option to a True/False question makes a model abstain on questions it can otherwise answer; on multiple-choice questions the same option costs almost nothing. This repository holds the code and datasets behind that finding, which we call <strong>Abstention Inflation</strong>.</p>",
+  "license": "MIT",
+  "access_right": "open",
+  "version": "1.0.0",
+  "keywords": [
+    "large language models",
+    "abstention",
+    "prompt sensitivity",
+    "uncertainty quantification",
+    "natural language processing"
+  ],
+  "creators": [
+    {
+      "name": "Ling, Zipeng"
+    },
+    {
+      "name": "Liu, Shuliang"
+    },
+    {
+      "name": "Tang, Yuehao"
+    },
+    {
+      "name": "Yang, Junqi"
+    },
+    {
+      "name": "Fu, Shenghong"
+    },
+    {
+      "name": "Son, Seonil"
+    },
+    {
+      "name": "Huang, Chen"
+    },
+    {
+      "name": "Huang, Kejia"
+    },
+    {
+      "name": "Wan, Yao"
+    },
+    {
+      "name": "Hou, Zhichao"
+    },
+    {
+      "name": "Hu, Xuming"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.48550/arXiv.2507.16199",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ]
+}
