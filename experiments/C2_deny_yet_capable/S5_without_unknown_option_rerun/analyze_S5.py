@@ -1,6 +1,6 @@
 """Aggregate S5 — w/o "Unknown" Option Rerun.
 
-For every ``*.json`` under ``results/``, restrict to the Abstention
+For every main-experiment cell under ``results/``, restrict to the Abstention
 Inflation set (S2 == "Unknown") and report the accuracy the model reaches once
 the "Unknown" option is removed. The paper's claim is that this sits well above
 the 50% random baseline (~64% pooled), i.e. the abstention hid a recoverable
@@ -26,6 +26,7 @@ _REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_REPO))
 
 from infra.result_schema import load_summary, find_paired_summaries
+from infra.result_schema import load_cell, iter_cells  # noqa: E402
 
 RANDOM_BASELINE_TFQ = 0.50
 
@@ -46,13 +47,14 @@ def _letter(answer_idx: int) -> str:
 def collect(results_root: Path, datasets: set[str] | None):
     """Return {(model, dataset): [n_correct, n_total]} over the S5 rerun rows."""
     cells: dict[tuple[str, str], list[int]] = defaultdict(lambda: [0, 0])
-    files = find_paired_summaries(results_root)
-    for path in files:
+    files = []
+    for ds_, model_, slug_, tt_ in iter_cells(results_root):
         try:
-            s = load_summary(path)
-        except Exception as e:  # noqa: BLE001 — a malformed file must not stop the sweep
-            print(f"  [skip] {path}: {e}")
+            s = load_cell(ds_, model_, slug_, tt_, results_root)
+        except Exception as e:  # noqa: BLE001 — a malformed cell must not stop the sweep
+            print(f"  [skip] {ds_}/{model_}: {e}")
             continue
+        files.append(f"{slug_}/{ds_}_{model_}")
         rows = s.get("s5_rerun") or []
         if not rows:
             continue

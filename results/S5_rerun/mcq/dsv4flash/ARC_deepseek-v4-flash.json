@@ -1,0 +1,25 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "ARC",
+  "model": "deepseek-v4-flash",
+  "trace_family": "soft",
+  "n": 1,
+  "metrics": {
+    "label_acc": 1.0,
+    "abs_rate": 0.0,
+    "label_f1": 0.25,
+    "trace_f1": 0.0,
+    "n_evaluated": 1
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "Mercury_SC_400063",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: Water evaporation removes moisture from the surface, which can lead to the concentration of dissolved minerals and salts. Over long periods, in shallow seas or lakes, evaporation can cause precipitation of calcium carbonate, which is a key component of limestone. Thus, evaporation is directly involved in the formation of certain sedimentary rocks like limestone.  \nFinal answer: D"
+    }
+  ]
+}

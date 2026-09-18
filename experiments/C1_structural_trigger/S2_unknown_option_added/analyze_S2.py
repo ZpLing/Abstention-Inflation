@@ -1,7 +1,7 @@
 """Effect of adding the Unknown option (S1 → S2) on accuracy, split by task type.
 
 Loads the paired summaries the main table is built from:
-results/S1_S3_tfq/<model>/ and results/S1_S2_mcq/<model>/.
+one folder per setting (S1_baseline, S2_unknown_option, ...), joined per cell.
 For each (model, dataset), computes per-sample (correct_s1, correct_s2) pairs.
 Groups by MCQ vs TF, then runs:
   - McNemar's test (within-group pooled): p-value for accuracy change
@@ -21,6 +21,7 @@ from typing import List, Tuple
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 from infra.result_schema import is_paired_summary  # noqa: E402
+from infra.result_schema import load_cell, iter_cells  # noqa: E402
 
 
 _BAD = {"UNKNOWN", "UNPARSEABLE", None, ""}
@@ -36,17 +37,16 @@ def is_correct(pred: str, answer_idx: int) -> bool:
     return ord(pred) - ord("A") == answer_idx
 
 
-def load_summaries(results_dirs: List[Path]) -> List[dict]:
+def load_summaries(root: Path) -> List[dict]:
+    """One joined paired summary per main-experiment cell."""
     summaries = []
-    for d in results_dirs:
-        for path in [q for q in sorted(d.glob("*.json")) if is_paired_summary(q)]:
-            try:
-                with open(path) as f:
-                    data = json.load(f)
-                data["_source_file"] = str(path)
-                summaries.append(data)
-            except Exception as e:
-                print(f"[warn] Could not load {path}: {e}")
+    for ds, model, slug, tt in iter_cells(root):
+        try:
+            data = load_cell(ds, model, slug, tt, root)
+            data["_source_file"] = f"{slug}/{ds}_{model}"
+            summaries.append(data)
+        except Exception as e:
+            print(f"[warn] Could not load {slug}/{ds}_{model}: {e}")
     return summaries
 
 
@@ -100,22 +100,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--results_dirs", nargs="*",
-        help="Directories to scan (default: results/S1_S3_tfq/* and results/S1_S2_mcq/*).",
+        help="results root to scan (default: results/).",
     )
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parents[3]
-    if args.results_dirs:
-        results_dirs = [Path(d) for d in args.results_dirs]
-    else:
-        results_dirs = (sorted(root.glob("results/S1_S3_tfq/*/"))
-                        + sorted(root.glob("results/S1_S2_mcq/*/")))
-
-    print(f"Scanning {len(results_dirs)} result directory/ies:")
-    for d in results_dirs:
-        print(f"  {d}")
-
-    summaries = load_summaries(results_dirs)
+    results_root = Path(args.results_dirs[0]) if args.results_dirs else root / "results"
+    print(f"Scanning main-experiment cells under {results_root}")
+    summaries = load_summaries(results_root)
     print(f"\nLoaded {len(summaries)} summary files.\n")
 
     # ----------------------------------------------------------------

@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT))
 
 from infra.evaluator import Evaluator             # noqa: E402
 from infra.result_schema import paired_keep_ids   # noqa: E402
+from infra.result_schema import load_cell  # noqa: E402
 
 _EV = Evaluator()
 
@@ -32,8 +33,7 @@ DATASETS = ("FLD", "FOLIO")
 
 
 def cell(slug: str, model: str, dataset: str) -> dict:
-    summary = json.loads(
-        (ROOT / f"results/S1_S3_tfq/{slug}/{dataset}_{model}.json").read_text())
+    summary = load_cell(dataset, model, slug, "tf")
     # The S1/S2 keep-set, minus whatever S3 itself failed to answer -- the same
     # rule the runner applies when it writes metrics.S3.n_scored. Counting an
     # exhausted retry as "did not abstain" would understate S3's Abs Rate.

@@ -32,7 +32,8 @@ _DIRS = {
     "synonym": Path("results/S4_synonyms"),
     "random_word": Path("results/S4_random_words"),
 }
-_MAIN = {"tf": Path("results/S1_S3_tfq"), "mcq": Path("results/S1_S2_mcq")}
+_MAIN = {"tf": Path("results/S2_unknown_option/tfq"),
+         "mcq": Path("results/S2_unknown_option/mcq")}
 
 
 def slug(word: str) -> str:
@@ -67,7 +68,7 @@ def setting(word: str) -> str:
 def results_dir(word: str, task_type: str = "tf") -> Path:
     """Where a run with this third option writes.
 
-    ``Unknown`` resolves to the main experiment's family directory; the model
+    ``Unknown`` resolves to the S2 directory for the task type; the model
     slug under it comes from the config, because that is where the main runs
     are addressed from. The two S4 classes resolve to their own directory.
     """

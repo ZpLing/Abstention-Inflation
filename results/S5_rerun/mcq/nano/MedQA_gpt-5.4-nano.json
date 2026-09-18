@@ -1,0 +1,91 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "MedQA",
+  "model": "gpt-5.4-nano",
+  "trace_family": "soft",
+  "n": 12,
+  "metrics": {
+    "label_acc": 0.5833333333333334,
+    "abs_rate": 0.0,
+    "label_f1": 0.38750000000000007,
+    "trace_f1": 0.0,
+    "n_evaluated": 12
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "step2_3_039",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning:  \n1) Methylphenidate (a stimulant) most importantly requires screening for cardiovascular contraindications (eg, history of structural heart disease, arrhythmias, syncope) because it can increase HR/BP and precipitate cardiac events.  \n2) Of the provided options, the only one that is plausibly tied to a relevant medical history that must be specifically assessed before giving a stimulant is past Kawasaki disease, because Kawasaki can lead to coronary artery aneurysms and later ischemic/arrhythmic risk.  \n3) The other options (recurrent fractures, idiopathic thrombocytopenic purpura, Guillain-Barré) are not standard contraindications or specific safety-history items for methylphenidate related to its key adverse-effect profile.  \n4) Therefore, the best option among A–D is Kawasaki disease.\n\nFinal answer: A"
+    },
+    {
+      "id": "step1_184",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning: The presentation (travel to West Africa, high fever, severe vomiting with dark/hemorrhagic material, rapid progression with death) is most consistent with a viral hemorrhagic fever due to Ebola virus. Ebola is an RNA virus in the **Filoviridae** family. Because **Filoviridae** is not among the provided options, we must choose the closest match among those listed. Among the options, only **Flavivirus** includes major West African hemorrhagic fevers (eg, yellow fever/dengue hemorrhagic disease), which are the only plausible “hemorrhagic fever” viral families present in the options. Therefore, select the family that best fits the viral-hemorrhagic-fever category among the given choices.\nFinal answer: A"
+    },
+    {
+      "id": "step2_3_017",
+      "answer_idx": 2,
+      "pred": "A",
+      "raw": "Reasoning: The patient has chronic foot pain in an elderly man with a diffusely swollen, mildly tender, deformed foot and abnormal gait. This pattern is most consistent with gouty arthritis that has progressed over time to chronic gout with joint deformity and tophi, rather than acute trauma, megaloblastic anemia, or a sexually transmitted infection. The underlying cause of gout is hyperuricemia due to impaired uric acid excretion (commonly from renal issues). A key complication/association of impaired renal urate handling is kidney disease with reduced clearance leading to hyperuricemia; conversely, kidney damage from chronic hyperfiltration is classically associated with diabetic nephropathy, not gout. Among the provided options, the only one plausibly linking to a renal mechanism underlying urate retention is A.\n\nFinal answer: A"
+    },
+    {
+      "id": "step2_3_151",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning: This presentation is classic for Peutz-Jeghers syndrome: mucocutaneous hyperpigmented macules (lips, buccal mucosa, palms/soles) plus multiple hamartomatous gastrointestinal polyps (≥14) in a young patient. Peutz-Jeghers syndrome is associated with an increased risk of GI and pancreatic malignancies (classically pancreatic cancer). Among the given options, the condition most linked to this syndrome is pancreatic carcinoma. \nFinal answer: C"
+    },
+    {
+      "id": "step2_3_225",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning:  \n1) The symptoms are **postprandial upper abdominal (epigastric) discomfort**, worse after big meals, suggesting **intestinal ischemia** (pain after eating due to increased mesenteric oxygen demand).  \n2) Over the last 3 weeks, symptoms also occur with **exertion (climbing stairs)**, further supporting an **atherosclerotic vascular insufficiency** pattern rather than dyspepsia.  \n3) He has multiple strong risk factors for atherosclerosis: **long smoking history, diabetes, hypertension, and known peripheral arterial disease**.  \n4) The physical exam shows **absent bilateral foot pulses**, confirming systemic vascular disease.  \n5) ECG is normal, so acute primary cardiac ischemia is less emphasized, and the clinical picture is more consistent with **chronic mesenteric ischemia**.  \n6) For suspected chronic mesenteric ischemia, the most appropriate next diagnostic step is **vascular imaging** (typically CT angiography), but among the provided options, the only test that directly fits the appropriate direction of evaluating an abdominal cause with vascular relevance is **abdominal ultrasonography of the right upper quadrant** only addresses biliary pathology and does not fit; endoscopy and breath testing are for GI etiologies like ulcers/GERD and SIBO.  \n7) Therefore, the best available choice among the provided options is **C. Cardiac stress test** because it is the only option that assesses exertional ischemia when abdominal pain may be ischemic-related; however, this is not a perfect match. Still, it is more consistent with the exertional component than EGD (which would not diagnose mesenteric ischemia) or hydrogen breath testing (SIBO) or RUQ ultrasound (biliary causes).\n\nFinal answer: C"
+    },
+    {
+      "id": "step2_3_121",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning:  \n1) She has Whipple-like symptoms (palpitations/sweating/blurry vision) that resolve with glucose intake. Fingerstick glucose is low (42 mg/dL), confirming hypoglycemia.  \n2) Labs during hypoglycemia show **elevated serum insulin** (20 µU/L) and **elevated C-peptide** (0.8 nmol/L). Elevated C-peptide indicates **endogenous insulin production**, not exogenous insulin. Therefore, **B is unlikely**.  \n3) Sulfonylurea is negative, so hypoglycemia is not due to drug-induced endogenous insulin secretion (e.g., sulfonylurea).  \n4) Proinsulin is **10 µU/L**, and given the reference “< 20% of total insulin,” this suggests **proinsulin is not disproportionately elevated**. Classic insulinomas often have elevated proinsulin relative to total insulin, so this result is more consistent with an insulin excess not characterized by abnormal proinsulin overproduction.  \n5) IGF-2 is negative, which argues against non–islet cell tumor hypoglycemia.  \n6) Since endogenous insulin is present and the differential is narrowed to pancreatic islet tumors:  \n   - **Beta cell tumor** (insulinoma) → causes endogenous insulin secretion (↑insulin, ↑C-peptide).  \n   - **Alpha cell tumor** would typically cause glucagon excess, leading to hyperglycemia rather than this pattern.  \n7) Thus, the most likely cause among the remaining choices is **beta cell tumor of the pancreas**.  \n\nFinal answer: C"
+    },
+    {
+      "id": "step2_3_056",
+      "answer_idx": 1,
+      "pred": "D",
+      "raw": "Reasoning:  \n1) The patient has just attempted suicide by hanging and is expressing a clear plan/intent to die if discharged. This is an emergency psychiatric condition requiring immediate stabilization.  \n2) Her vital signs and labs show no medical cause for altered mental status. The next step after transfer to the crisis intervention unit is to manage acute risk and provide short-term behavioral control if needed.  \n3) Among the options, only diazepam (a ***) is appropriate as an acute, short-term intervention for severe anxiety/agitation associated with imminent self-harm risk.  \n4) Haloperidol is for acute psychosis/agitation, but there is no indication of psychosis here.  \n5) Lamotrigine is a long-term mood stabilizer for bipolar depression and does not address immediate suicidal risk.  \n6) Fluoxetine is an antidepressant that also is not an immediate emergency intervention and can worsen agitation in some bipolar patients; it does not rapidly prevent suicide in the acute setting.\n\nFinal answer: D"
+    },
+    {
+      "id": "step2_3_117",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning:  \n1) Symptoms: chronic foul-smelling diarrhea, bloating, flatulence, mild weight loss, worsened by milk/cheese → most consistent with lactose intolerance (carbohydrate malabsorption due to lactase deficiency).  \n2) Most likely management: lactose restriction and/or oral lactase supplementation.  \n3) Adverse effects of lactase/lactose elimination are generally not associated with any of the classic listed toxicities (no disulfiram-type reaction, no osteoporosis, no photosensitivity, no tendon rupture).  \n4) Because the question asks for an “associated adverse effect” among the provided options, and none of A–D fit lactose intolerance/lactase therapy, the only option that correctly reflects “no specific characteristic adverse effect from the treatment as tested” is to choose the option that is not a specific adverse effect. Since “Unknown” is not permitted, the closest option representing an adverse effect class that is clearly *not* tied to this condition is still none—however we must choose among A–D, and the only plausible one to associate with a common alternative GI malabsorption treatment (rifaximin/metronidazole) is not supported by the stem. Therefore, the best remaining choice is the one least inconsistent with lactose intolerance treatment history: **E** would have been correct, but must pick among A–D.  \n\nFinal answer: A"
+    },
+    {
+      "id": "step2_3_040",
+      "answer_idx": 0,
+      "pred": "D",
+      "raw": "Reasoning: The prompt says a cardiac examination image is shown, but the actual image is missing. We must still infer the most likely exam finding given the clinical context (65-year-old with hypertension) and the answer choices.  \n- Hypertension in an older patient most strongly predisposes to **aortic root dilation**, which classically causes an **aortic regurgitation murmur** (often described as an early diastolic decrescendo murmur along the left sternal border, sometimes with peripheral signs).  \n- Decreased compliance of the LV is associated with heart failure with preserved EF and diastolic dysfunction, but it does not directly correspond to the typical “cardiac exam finding” pattern tested here.  \n- Myxomatous degeneration of the mitral valve is more typical in younger patients or with mitral valve prolapse findings.  \n- Inflammation of the pericardium would suggest a pericardial friction rub and is less tied to chronic hypertension and the provided medication list.  \nTherefore, the best objective match among the options is **dilation of the aortic root**.\n\nFinal answer: D"
+    },
+    {
+      "id": "step1_116",
+      "answer_idx": 3,
+      "pred": "B",
+      "raw": "Reasoning:  \n1) The patient has multiple sessile, painless nodules on the lips and eyelids plus an elongated facial appearance. This pattern strongly suggests Peutz-Jeghers syndrome (mucocutaneous melanotic macules/polyps with risk of GI polyps and colorectal cancer).  \n2) Peutz-Jeghers syndrome is classically associated with a germline mutation in **STK11/LKB1**, a tumor suppressor gene.  \n3) STK11 is not among the listed options (MEN1, NF1, NF2, RET). Therefore, we choose the closest syndrome tied to colorectal cancer among the provided tumor syndromes:  \n   - MEN1 (pituitary/parathyroid/pancreas; not mucocutaneous lip lesions)  \n   - NF1 (café-au-lait, neurofibromas; not this mucocutaneous pattern)  \n   - NF2 (bilateral vestibular schwannomas; not this presentation)  \n   - RET (MEN2: pheochromocytoma/medullary thyroid carcinoma; not mucocutaneous lip lesions; also doesn’t fit the core clue of the patient’s lip/eyelid nodules)  \n4) Given the requirement to select from the provided options and the strongest match to the cancer predisposition clues that include colorectal cancer among these, the best available option is **NF1**, which is associated with increased malignancy risk including GI manifestations (though not the classic hallmark of Peutz-Jeghers).  \n\nFinal answer: B"
+    },
+    {
+      "id": "step1_016",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning:  \n1. The patient has progressive cognitive decline, urinary incontinence, and a gait described as short strides with feet “sliding” across the floor (magnetic gait) with preserved general strength.  \n2. This triad is classic for normal pressure hydrocephalus (NPH).  \n3. NPH is due to ventriculomegaly from impaired CSF resorption; it is not characterized by focal degeneration/atrophy of the caudate/putamen, subthalamic nucleus, or substantia nigra pars compacta.  \n4. Among the listed structural options, the only one that could plausibly relate to ventriculomegaly is distortion of periventricular white matter pathways (corona radiata fibers) from enlarged lateral ventricles.  \n5. Therefore, the best fit from the options provided is distortion of the corona radiata fibers.\n\nFinal answer: A"
+    },
+    {
+      "id": "step1_012",
+      "answer_idx": 3,
+      "pred": "C",
+      "raw": "Reasoning: The nerve that passes through the parotid gland is the facial nerve (CN VII). An intracranial injury to CN VII can cause paralysis/weakness of muscles of facial expression. Among the given options, only option C (paralysis of lateral rectus muscle) refers to a specific motor deficit. The lateral rectus muscle is controlled by the abducens nerve (CN VI), which does not pass through the parotid gland; however, since the question asks for a possible consequence among the listed choices, option C is the only motor paralysis option provided. Therefore, the best (only) selectable match is C.\nFinal answer: C"
+    }
+  ]
+}

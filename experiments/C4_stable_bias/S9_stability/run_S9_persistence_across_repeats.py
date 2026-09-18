@@ -7,7 +7,7 @@ not sampling lottery.
 
 Usage:
     python experiments/C4_stable_bias/S9_stability/run_S9_persistence_across_repeats.py \
-        --summary results/S1_S3_tfq/nano/FLD_gpt-5.4-nano.json \
+        --summary results/S2_unknown_option/tfq/nano/FLD_gpt-5.4-nano.json \
         --dataset FLD --model gpt-5.4-nano --n_repeats 3 \
         --out results/S9_persistence/FLD_gpt-5.4-nano.json
 """
@@ -30,7 +30,7 @@ from infra.prompts import build_judge_s2_prompt
 
 
 def _is_ai(s):
-    return s.get("pred_s2") == "UNKNOWN"
+    return s.get("pred_s2", s.get("pred")) == "UNKNOWN"
 
 
 async def rerun_one(handler, prompts, n_repeats, temperature):

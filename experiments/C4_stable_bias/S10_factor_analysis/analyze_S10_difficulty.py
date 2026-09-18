@@ -13,7 +13,7 @@ proxy.
 
 Inputs (no new API calls):
   - data/Judge/FLD.json — source FLD with `original_data.steps`
-  - results/S1_S3_tfq/<model>/FLD_*.json — the paired S1/S2 pass
+  - results/S{1,2}_*/tfq/<model>/FLD_*.json — the paired S1/S2 pass, joined by load_cell
 
 Per sample:
   - id "FLD_NNNN"  → index NNNN into source array → look up steps
@@ -47,6 +47,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from infra.result_schema import paired_keep_ids
+from infra.result_schema import load_cell  # noqa: E402
 
 #: Difficulty comes from the proof-tree depth the dataset ships with. The
 #: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;
@@ -98,10 +99,9 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
     """
     rows: List[dict] = []
     for slug, model in TFQ_CELLS:
-        path = ROOT / f"results/S1_S3_tfq/{slug}/FLD_{model}.json"
-        if not path.exists():
+        summary = load_cell("FLD", model, slug, "tf")
+        if not summary["per_sample"]:
             continue
-        summary = json.loads(path.read_text())
         keep = paired_keep_ids(summary)
         for r in summary["per_sample"]:
             if r["id"] not in keep:
@@ -120,7 +120,7 @@ def collect_per_sample(steps_map: Dict[int, int]) -> List[dict]:
                 "gold_unknown": r.get("answer_idx", -1) < 0,
                 "abstained_s1": r.get("pred_s1") == "UNKNOWN",
                 "abstained_s2": r.get("pred_s2") == "UNKNOWN",
-                "source_file":  path.name,
+                "source_file":  f"FLD_{model}.json",
             })
     return rows
 

@@ -1,0 +1,73 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "MMLU",
+  "model": "gemini-3.1-flash-lite",
+  "trace_family": "none",
+  "n": 9,
+  "metrics": {
+    "label_acc": 0.6666666666666666,
+    "abs_rate": 0.0,
+    "label_f1": 0.6166666666666667,
+    "trace_f1": 0.0,
+    "n_evaluated": 9
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "MMLU_0050",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning: \n1. Option A is incorrect because Egyptian hieroglyphics are fundamentally based on pictographs (signs representing objects).\n2. Option C is incorrect because Sumerian cuneiform is widely recognized by historians and archaeologists as the earliest known writing system, predating Egyptian hieroglyphics.\n3. Option B refers to the historical observation that, unlike the gradual evolution seen in Mesopotamian cuneiform, the Egyptian hieroglyphic system appears in the archaeological record in a nearly fully formed state during the Protodynastic period (c. 3200 BCE). While scholars continue to search for precursors, the \"sudden appearance\" of the system is a standard observation in historical textbooks regarding the transition from predynastic symbols to formal writing.\n4. Since A and C are factually incorrect, and D is therefore impossible, B is the only option that aligns with the traditional historical characterization of the development of the script.\n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0100",
+      "answer_idx": 1,
+      "pred": "C",
+      "raw": "Reasoning: To determine which action increases excess reserves, we must look at the formula: Excess Reserves = Total Reserves - Required Reserves.\n- Option A: Increasing the reserve ratio increases Required Reserves, which decreases Excess Reserves.\n- Option B: If checking deposits increase, Required Reserves increase, which decreases Excess Reserves (assuming Total Reserves remain constant).\n- Option C: Increasing the discount rate makes borrowing from the Fed more expensive, which may lead banks to hold more excess reserves as a buffer against liquidity shocks, but it does not directly increase the supply of reserves.\n- Option D: When the Fed sells securities, it drains reserves from the banking system, decreasing Excess Reserves.\n- Re-evaluating the options under the context of standard macroeconomic textbook problems: If the question implies a scenario where the Fed *buys* securities (an open market purchase), reserves would increase. However, given the provided options, if we must select the one that could lead to an increase in excess reserves, we look for the scenario where banks are incentivized to hold them. An increase in the discount rate (Option C) increases the cost of borrowing reserves, which historically incentivizes banks to maintain higher levels of excess reserves to avoid having to borrow from the discount window. While the other options (A, B, D) mathematically or mechanically reduce excess reserves, C is the only option that influences bank behavior toward increasing their holdings of excess reserves.\n\nFinal answer: C"
+    },
+    {
+      "id": "MMLU_0107",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning: While the Conquest of Mecca was a bloodless entry following the violation of the Treaty of Hudaybiyyah, in the context of historical examinations regarding the series of conflicts between the Muslims and the Quraish, the Battle of the Trench (also known as the Battle of the Confederates) is often cited as the strategic turning point. The failure of the Quraish to defeat the Muslims at the Trench led to a shift in the balance of power, forcing the Quraish into the Treaty of Hudaybiyyah, which ultimately paved the way for the peaceful conquest and conversion of Mecca. Among the provided options, the Battle of the Trench is the most significant precursor that led to the eventual submission of Mecca.\n\nFinal answer: C"
+    },
+    {
+      "id": "MMLU_0190",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning: In the context of the 1993 House Judiciary Committee hearings regarding the Branch Davidian standoff in Waco, Texas, Representative John Conyers and other critics of the federal government's actions frequently cited the 1973 Wounded Knee occupation and the 1890 Wounded Knee Massacre as historical precedents or comparative examples of federal overreach and the misuse of state power against citizens. Within the framework of the political discourse surrounding the Waco incident, these events were consistently categorized by critics as instances of federal misuse of power.\n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0229",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning: \n1. The auditory tube (pharyngotympanic tube) connects the middle ear cavity to the nasopharynx.\n2. Embryologically, the auditory tube is derived from the first pharyngeal pouch.\n3. Regarding the muscles: The tensor veli palatini is the primary muscle responsible for opening the auditory tube during swallowing. \n4. Re-evaluating the options provided:\n   - Option A: Incorrect (connects middle ear, not inner ear).\n   - Option B: Incorrect (derived from first pouch, not second).\n   - Option C: While the tensor veli palatini is the primary opener, the levator veli palatini is also anatomically associated with the tube and its contraction contributes to the opening/dilatation of the tube. In many anatomical contexts, the action of the levator veli palatini is cited as assisting in the opening of the auditory tube.\n   - Option D: Incorrect (tensor veli palatini opens it, it does not close it).\n5. Given the requirement to select from the provided options and acknowledging that the levator veli palatini is widely recognized in anatomical literature as contributing to the opening of the auditory tube, Option C is the most plausible choice among the provided alternatives.\n\nFinal answer: C"
+    },
+    {
+      "id": "MMLU_0252",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning: Let's re-examine the definitions provided in the context of General Systems Theory and Family Systems Theory:\n- A. Equifinality: Correct. It states that the same end state can be reached from different starting points or through different paths.\n- B. Wholeness: Correct. It is a fundamental axiom that the system is greater than the sum of its parts because the relationships between the parts create a unique entity.\n- C. Homeostasis: Correct. It refers to the system's tendency to maintain a steady state or equilibrium.\n- D. Positive Feedback: In systems theory, positive feedback is defined as a process that *amplifies* deviation (deviation-amplifying), which leads to change. Negative feedback is the process that *reduces* deviation to maintain homeostasis (deviation-counteracting). While the definition in D says it \"disrupts homeostasis,\" this is technically the *result* of positive feedback, but the definition is often contrasted with negative feedback. However, looking closely at the phrasing of B: \"Wholeness: whole is greater than sum of parts.\" In strict systems theory, the definition of wholeness is that the system is an *organized* whole, and the properties of the system are *not* simply the sum of its parts (the parts are interdependent). The phrase \"greater than\" is a common colloquialism, but it is often considered a slight mischaracterization in academic systems theory, which emphasizes that the system's properties are *different* from the sum of its parts, not necessarily \"greater.\" However, comparing this to the other options, D is the most standard definition of positive feedback. Upon closer inspection of common test banks for this specific question, Option B is frequently cited as the \"incorrectly defined\" property because the system is defined by the *interdependence* of parts, not by the \"greater than\" magnitude.\n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0335",
+      "answer_idx": 3,
+      "pred": "B",
+      "raw": "Reasoning: In the context of standard economic and legal definitions, predatory pricing is defined by specific criteria: 1) Pricing below an appropriate measure of cost (usually average variable cost or marginal cost), 2) The intent to eliminate competition or discipline rivals, 3) The ability to recoup losses through subsequent supra-competitive pricing, and 4) The existence of significant barriers to entry that prevent new competitors from entering the market once prices are raised. These four elements constitute the standard legal and economic framework (often associated with the Areeda-Turner test and subsequent antitrust jurisprudence) used to identify predatory pricing. Therefore, all four components are necessary to define the practice.\n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0344",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning: The Exner Comprehensive System for the Rorschach Inkblot Test categorizes scoring into specific domains to analyze a subject's responses. These primary categories are:\n1. **Location**: Where on the blot the response is seen (e.g., Whole, Detail).\n2. **Determinants**: What features of the blot influenced the response (e.g., Form, Color, Shading, Movement).\n3. **Content**: What the subject sees (e.g., Human, Animal, Anatomy).\n4. **Popular**: Whether the response is one frequently given by the general population.\n\nUpon re-evaluating the provided options (A, B, C, D, E), it appears there is a misunderstanding regarding the standard categories. All four options A, B, C, and D are indeed recognized categories within the Exner system. However, if the question implies that one of these is *not* a primary scoring category in the same structural sense as the others, it is important to note that \"Color\" is a sub-type of \"Determinants,\" whereas Location, Content, and Popular are distinct, high-level scoring categories. Given the constraint to choose from the provided list and the fact that \"Unknown\" was previously identified as the outlier, if the prompt forces a selection from A-D, there may be a technical error in the question's premise. However, strictly following the instruction to select from the original options and acknowledging that \"Color\" is a determinant rather than a top-level category like Location or Content, \"Color\" is the most distinct from the others.\n\nFinal answer: A"
+    },
+    {
+      "id": "MMLU_0482",
+      "answer_idx": 3,
+      "pred": "B",
+      "raw": "Reasoning: To judge distance, humans use two types of cues: binocular cues (requiring two eyes) and monocular cues (requiring only one eye). Binocular cues include retinal disparity and convergence. Monocular cues include relative size, interposition, linear perspective, relative height, and motion parallax. Because Abdul has lost sight in one eye, he is unable to use binocular cues. He must rely entirely on monocular cues. In standard psychology textbooks (such as those by Myers or Gleitman), the cues available to a person with one eye are categorized as monocular cues. Given the options provided, and assuming the standard classification where \"monocular cues\" is the correct answer, we must identify which option corresponds to this. Since the prompt implies a specific set of options (I, II, III) that were omitted in the text but are standard in this specific academic question, and \"monocular cues\" is the only scientifically accurate category for a one-eyed individual, the answer is the one representing monocular cues. In the context of this classic psychology question, monocular cues are typically labeled as the correct choice.\n\nFinal answer: B"
+    }
+  ]
+}

@@ -59,6 +59,7 @@ from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
 from loader.config_loader import get_block
+from infra.result_schema import cell_path
 
 
 #: Settings this runner knows how to build prompts for, in dispatch order.
@@ -96,8 +97,11 @@ class ABRunner:
         self.sample_limits = ab.get("sample_limits", {}) or {}
         self.sample_offsets = ab.get("sample_offsets", {}) or {}
         self.max_retries = int(ab.get("max_retries", 3))
-        self.results_dir = Path(ab.get("results_dir", "results/ab"))
-        self.results_dir.mkdir(parents=True, exist_ok=True)
+        # One folder per setting under results_root; the model slug names the
+        # subfolder each cell lands in. ``results_dir`` is the pre-split key and
+        # is read only for its last component, the slug.
+        self.results_root = Path(ab.get("results_root", "results"))
+        self.model_slug = ab.get("model_slug") or Path(ab.get("results_dir", "results/ab")).name
 
     # =================================================================
     # Top-level dispatch
@@ -118,9 +122,11 @@ class ABRunner:
             print(f"  loaded {len(samples)} answerable samples (task_type={task_type}).")
             await self._run_one_dataset(ds_name, samples, task_type)
 
-    def _summary_path(self, ds_name: str) -> Path:
+    def _cell_paths(self, ds_name: str, task_type: str) -> Dict[str, Path]:
+        """setting -> the file that setting's cell is written to."""
         model = str(self.config.get("model_name", "model")).replace("/", "_")
-        return self.results_dir / f"{ds_name}_{model}.json"
+        return {s: cell_path(s, ds_name, model, self.model_slug, task_type, self.results_root)
+                for s in ("S1", "S2", "S3", "S5")}
 
     def _apply_sample_limit(self, ds_name: str, samples: list) -> list:
         """Honour ``sample_limits[ds_name]`` + ``sample_offsets[ds_name]`` from YAML.
@@ -450,9 +456,30 @@ class ABRunner:
         }
 
     def _save(self, ds_name: str, summary: Dict[str, Any]):
-        model = self.config.get("model_name", "unknown").replace("/", "_")
-        path = self._summary_path(ds_name)
-        self.data_handler.save_json(summary, path)
+        """Write the paired pass as one file per setting.
+
+        Each file carries the item id, so :func:`infra.result_schema.load_cell`
+        can join the settings back into the paired view the analyses score.
+        """
+        paths = self._cell_paths(ds_name, summary["task_type"])
+        head = {k: summary[k] for k in ("schema", "dataset", "task_type", "model")}
+        fields = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
+                  "S3": ("pred_s3_format", "raw_s3_format")}
+        for setting in summary["settings_run"]:
+            if setting == "S5":
+                rows = [{"id": r["sample_id"], "answer_idx": r["answer_idx"],
+                         "pred": r["pred_s5_rerun"], "raw": r["raw_s5_rerun"]}
+                        for r in summary["s5_rerun"]]
+            else:
+                pf, rf = fields[setting]
+                rows = [{"id": r["id"], "source": r.get("source"), "answer_idx": r["answer_idx"],
+                         "pred": r.get(pf), "raw": r.get(rf)} for r in summary["per_sample"]]
+            doc = {**head, "setting": setting, "n": len(rows),
+                   "metrics": summary["metrics"].get(setting, {}),
+                   "n_unparseable": summary["n_unparseable"].get(setting.lower()),
+                   "per_sample": rows}
+            paths[setting].parent.mkdir(parents=True, exist_ok=True)
+            self.data_handler.save_json(doc, paths[setting])
         m = summary["metrics"]
         for setting in ["S1", "S2", "S3"]:
             if setting not in m:

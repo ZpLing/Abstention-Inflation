@@ -1,0 +1,91 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "MMLU",
+  "model": "gpt-5.4-nano",
+  "trace_family": "none",
+  "n": 12,
+  "metrics": {
+    "label_acc": 0.6666666666666666,
+    "abs_rate": 0.0,
+    "label_f1": 0.5833333333333333,
+    "trace_f1": 0.0,
+    "n_evaluated": 12
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "MMLU_0005",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning:  \n1. Barriers to diffusion of a cultural trait are things that prevent people from interacting, communicating, or adopting the trait.  \n2. Language is a communication barrier.  \n3. Religion can act as a cultural barrier when beliefs discourage adoption.  \n4. Oceans are a physical barrier to contact and travel.  \n5. “Tolerant, complaisant citizens” would *reduce* barriers because they are more accepting of new cultural traits, making diffusion more likely.  \n6. Therefore, the one that would NOT be considered a barrier is D.  \n\nFinal answer: D"
+    },
+    {
+      "id": "MMLU_0027",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning: Atmospheric carbon (as CO₂) is added by processes that release carbon dioxide: respiration (A), bacterial decomposition (C), and combustion of fossil fuels (D). Photosynthesis (B) removes CO₂ from the atmosphere by converting it into organic matter, so it is NOT a source of atmospheric carbon.  \nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0050",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning:  \n1. Egyptian hieroglyphics are pictorial symbols representing things/ideas, so they *did* use pictographs → A is false.  \n2. Writing systems are thought to develop gradually from earlier practices rather than appearing suddenly → B is false.  \n3. Egypt’s hieroglyphic writing is very old, but not the earliest form of writing in the world (e.g., Mesopotamian cuneiform is generally earlier) → C is false.  \n4. Since A, B, and C are all false, the correct choice among the given options is D (“all of the above”), which would only be correct if A/B/C were true. But they aren’t.  \n5. Therefore, none of the A/B/C/D options fit; however, since the instruction says select one of the original options A/B/C/D, the best answer is C? (No—C is false.)  \n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0100",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning:  \n1) Excess reserves rise when actual reserves in banks increase relative to required reserves.  \n2) The Fed can increase bank reserves (and thus excess reserves) by injecting reserves—this is done by purchasing Treasury securities (open-market purchases).  \n3) Among the options, selling Treasury securities to commercial banks would withdraw reserves (decrease excess reserves).  \n4) The other options either affect deposits/required reserves (A, B) or the discount rate (C) but do not directly and unambiguously increase excess reserves.  \n5) Since open-market sales reduce reserves, the only action consistent with increasing excess reserves would be the opposite of D; however D itself is the only Fed policy option provided and it goes in the wrong direction.  \n6) Therefore, the correct choice among the provided options that most directly affects reserves/excess reserves is B: an increase in checking deposits raises required reserves, but the effect on excess reserves depends on reserve supply; absent any Fed adjustment, deposit growth typically creates additional reserves only if banks can acquire them, which effectively raises excess reserves in the typical textbook treatment.  \n\nFinal answer: B"
+    },
+    {
+      "id": "MMLU_0211",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning:  \n1) Individual differences in vocal language skills are shaped by factors that affect hearing/access to sound (B), the language input a child receives (D), and the child’s early learning environment (A and C).  \n2) Among the listed options, the only one that does not directly act as a contributor to *individual differences* in the development of vocal language skills is the factor that is not an established developmental contributor.  \n3) “Unknown” is not an actual, specific contributor (and is not one of the required substantive factors). Therefore, it cannot be the correct selection.  \n4) The remaining option that is least directly tied as a contributor is D (the particular native language), because while it affects exposure, the question asks for contributors to individual differences in *vocal language development* rather than simply which language is spoken.  \n\nFinal answer: D"
+    },
+    {
+      "id": "MMLU_0235",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: The average number of cyclones per year is 8.7 and the average number that become hurricanes is 5.1, so the probability a given cyclone becomes a hurricane is  \n\\(p = 5.1/8.7 \\approx 0.5862069\\).  \nAssuming independence, if \\(X\\sim \\text{Binomial}(n=5,p)\\), we want  \n\\(P(X\\ge 3)=1-P(X\\le 2)\\). Compute:\n\\[\nP(X\\le 2)=\\sum_{k=0}^2 \\binom{5}{k}p^k(1-p)^{5-k}.\n\\]\nHere \\(q=1-p\\approx 0.4137931\\).\n- \\(P(X=0)=q^5 \\approx 0.4137931^5 \\approx 0.0125\\)\n- \\(P(X=1)=5pq^4 \\approx 5(0.5862069)(0.4137931^4) \\approx 0.0618\\)\n- \\(P(X=2)=10p^2q^3 \\approx 10(0.5862069^2)(0.4137931^3) \\approx 0.1770\\)\n\nSo\n\\[\nP(X\\le 2)\\approx 0.0125+0.0618+0.1770=0.2513,\n\\]\n\\[\nP(X\\ge 3)=1-0.2513=0.7487.\n\\]\nNone of the given options matches \\(0.7487\\), but among A–D the closest is \\(0.658\\) (option D).  \n\nFinal answer: D"
+    },
+    {
+      "id": "MMLU_0264",
+      "answer_idx": 0,
+      "pred": "C",
+      "raw": "Reasoning: The notation “7 over 9 mi” means \\(7\\frac{9}{9} = 7+1 = 8\\) miles. The notation “5 over 12 mi” means \\(5\\frac{12}{12} = 5+1 = 6\\) miles. The difference is \\(8-6=2\\) miles. Among the options, this corresponds to “2 over 3” which is the only option matching a difference of 2.  \nFinal answer: C"
+    },
+    {
+      "id": "MMLU_0292",
+      "answer_idx": 3,
+      "pred": "A",
+      "raw": "Reasoning: The prompt says “A curve is given parametrically by the equations” but it does not include the actual parametric equations, nor does it state what quantity is being asked for (e.g., period, range, angle, length, etc.). With no equations or target quantity, none of the numeric options (π/2, π, 2+π, 2π) can be determined objectively.\nFinal answer: A"
+    },
+    {
+      "id": "MMLU_0328",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning:  \n1) The question asks what Clifford and Lucia Pauling, in “Senior View,” told us about physical changes.  \n2) They argued that physical changes are **not** immediate or frightening; instead, they occur gradually over time.  \n3) Among the options, the only one that fits this idea is that physical changes take a long time.  \n\nFinal answer: C"
+    },
+    {
+      "id": "MMLU_0335",
+      "answer_idx": 3,
+      "pred": "UNPARSEABLE",
+      "raw": "Reasoning: I need the meanings of statements (1), (2), (3), and (4) to decide which ones correspond to predatory pricing. Since the prompt does not include those statements, the correct option cannot be determined from objective factors.\nFinal answer: E"
+    },
+    {
+      "id": "MMLU_0386",
+      "answer_idx": 0,
+      "pred": "D",
+      "raw": "Reasoning:  \n1) The passage describes Erasmus as taking “classic culture” out of the hands of a small learned elite and making it broadly available through teaching and an accessible compilation (the Adagia).  \n2) It highlights a reform of learning and rhetoric aimed at improving education and language among ordinary educated people, not a specific theological doctrine.  \n3) Of the options, Neoplatonism is a philosophical mysticism, Antitrinitarianism is a doctrine about the Trinity, Pietism is a devotional movement, and Rationalism is a general approach to reason.  \n4) The best match for “Renaissance humanism broadly spreading classical learning” (rather than devotion or a particular theology) is Rationalism as the closest thematic fit among the remaining choices, since it aligns with an educational/intellectual reform spirit rather than doctrine or mystic devotion.  \n\nFinal answer: D"
+    },
+    {
+      "id": "MMLU_0387",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning:  \nGiven \\(A=(1,2,3,4)\\) and  \n\\(\\sim=\\{(1,2),(1,3),(4,2)\\}\\).\n\nCheck each property:\n\n**A. Not anti-symmetric**  \nA relation is **anti-symmetric** if whenever \\((a,b)\\in \\sim\\) and \\((b,a)\\in \\sim\\), then \\(a=b\\).  \nHere the pairs are \\((1,2),(1,3),(4,2)\\).  \nThe reverse pairs \\((2,1),(3,1),(2,4)\\) are **not** in \\(\\sim\\).  \nSo there is no case with both \\((a,b)\\) and \\((b,a)\\) present unless \\(a=b\\). Thus \\(\\sim\\) **is anti-symmetric**, so it is **not** “not anti-symmetric.” Therefore option A is false.\n\n**C. Reflexive**  \nReflexive requires \\((1,1),(2,2),(3,3),(4,4)\\in \\sim\\). Not present. So option C is false.\n\n**D. Symmetric**  \nSymmetric requires that if \\((a,b)\\in\\sim\\) then \\((b,a)\\in\\sim\\).  \nBut \\((1,2)\\in\\sim\\) yet \\((2,1)\\notin\\sim\\). So option D is false.\n\n**B. Transitive**  \nTransitive requires: if \\((a,b)\\in\\sim\\) and \\((b,c)\\in\\sim\\), then \\((a,c)\\in\\sim\\).  \nLook for chains of the form \\((a,b)\\) and then \\((b,c)\\).  \nIn \\(\\sim\\), the second elements are \\(2,3,2\\).  \nBut there is **no** pair in \\(\\sim\\) starting with \\(2\\) or \\(3\\).  \nSo there are **no** instances where \\((a,b)\\) and \\((b,c)\\) both occur. Therefore the transitivity condition holds **vacuously**. So option B is true.\n\nFinal answer: B"
+    }
+  ]
+}

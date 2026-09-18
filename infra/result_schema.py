@@ -202,6 +202,84 @@ def normalize(summary: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
+#: setting -> the directory its cells live in, and the per-sample field the
+#: paired view exposes it as. One folder per setting keeps a run's output where
+#: its name says it is; the paired view is rebuilt here, in one place, because
+#: the paper's statistics are per item across settings.
+SETTING_DIRS = {"S1": "S1_baseline", "S2": "S2_unknown_option",
+                "S3": "S3_question_format", "S5": "S5_rerun"}
+_PAIRED_FIELD = {"S1": ("pred_s1", "raw_s1"), "S2": ("pred_s2", "raw_s2"),
+                 "S3": ("pred_s3_format", "raw_s3_format")}
+
+
+def iter_cells(root: str | Path = "results"):
+    """Every main-experiment cell as ``(dataset, model, slug, task_type)``.
+
+    Enumerated from S1, which every cell has; the other settings are joined
+    onto it by :func:`load_cell`.
+    """
+    base = Path(root) / SETTING_DIRS["S1"]
+    for family, task_type in (("tfq", "tf"), ("mcq", "mcq")):
+        for f in sorted((base / family).glob("*/*.json")):
+            dataset, _, model = f.stem.partition("_")
+            yield dataset, model, f.parent.name, task_type
+
+
+def cell_path(setting: str, dataset: str, model: str, slug: str,
+              task_type: str = "tf", root: str | Path = "results") -> Path:
+    """Where one (setting, dataset, model) cell lives."""
+    family = "tfq" if task_type == "tf" else "mcq"
+    return Path(root) / SETTING_DIRS[setting] / family / slug / f"{dataset}_{model}.json"
+
+
+def load_cell(dataset: str, model: str, slug: str, task_type: str = "tf",
+              root: str | Path = "results") -> Dict[str, Any]:
+    """Join a cell's settings back into one paired summary.
+
+    Reads whichever of S1/S2/S3/S5 exist for this cell and returns them in the
+    shape the analyses expect: ``per_sample`` rows carrying ``pred_s1`` /
+    ``pred_s2`` / ``pred_s3_format`` for the same item, plus ``s5_rerun``
+    alongside. The join is by item id, so a setting that is missing an item
+    simply leaves its field unset and :func:`paired_keep_ids` drops the item,
+    exactly as it did when the four settings shared one file.
+    """
+    rows: Dict[str, Dict[str, Any]] = {}
+    metrics, ran, head = {}, [], {}
+    for setting in ("S1", "S2", "S3"):
+        path = cell_path(setting, dataset, model, slug, task_type, root)
+        if not path.exists():
+            continue
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        ran.append(setting)
+        metrics[setting] = doc.get("metrics", {})
+        head = head or doc
+        pf, rf = _PAIRED_FIELD[setting]
+        for r in doc["per_sample"]:
+            row = rows.setdefault(r["id"], {"id": r["id"], "source": r.get("source"),
+                                            "answer_idx": r["answer_idx"]})
+            row[pf], row[rf] = r["pred"], r.get("raw")
+    out: Dict[str, Any] = {
+        "schema": head.get("schema", SCHEMA_VERSION),
+        "dataset": dataset, "model": model,
+        "task_type": head.get("task_type", task_type),
+        "trace_family": head.get("trace_family"),
+        "settings_run": ran,
+        "n_total": len(rows),
+        "metrics": metrics,
+        "per_sample": list(rows.values()),
+    }
+    s5 = cell_path("S5", dataset, model, slug, task_type, root)
+    if s5.exists():
+        doc = json.loads(s5.read_text(encoding="utf-8"))
+        out["settings_run"] = ran + ["S5"]
+        out["metrics"]["S5"] = doc.get("metrics", {})
+        out["s5_rerun"] = [{"sample_id": r["id"], "answer_idx": r["answer_idx"],
+                            "pred_s5_rerun": r["pred"], "raw_s5_rerun": r.get("raw")}
+                           for r in doc["per_sample"]]
+        out["n_abstention_inflation"] = len(out["s5_rerun"])
+    return out
+
+
 def is_paired_summary(path: str | Path) -> bool:
     """True when ``path`` is a paired S1/S2 summary in the canonical schema.
 
@@ -218,6 +296,8 @@ def is_paired_summary(path: str | Path) -> bool:
             head = f.read(4096)
     except OSError:
         return False
+    if '"setting"' in head:          # a per-setting cell, not the paired view
+        return False
     if f'"{SCHEMA_VERSION}"' in head:
         return True
     if '"schema"' in head:          # some other schema, decided
@@ -225,7 +305,8 @@ def is_paired_summary(path: str | Path) -> bool:
     try:                            # schema past the head, or absent
         with path.open("r", encoding="utf-8") as f:
             doc = json.load(f)
-        return isinstance(doc, dict) and doc.get("schema") == SCHEMA_VERSION
+        return (isinstance(doc, dict) and doc.get("schema") == SCHEMA_VERSION
+                and "setting" not in doc)
     except (OSError, ValueError):
         return False
 

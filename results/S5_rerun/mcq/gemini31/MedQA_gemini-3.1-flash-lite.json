@@ -1,0 +1,49 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "MedQA",
+  "model": "gemini-3.1-flash-lite",
+  "trace_family": "soft",
+  "n": 5,
+  "metrics": {
+    "label_acc": 1.0,
+    "abs_rate": 0.0,
+    "label_f1": 0.5,
+    "trace_f1": 0.0,
+    "n_evaluated": 5
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "step1_053",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: \n1. **Diagnosis:** The patient has a high pre-test probability for pulmonary embolism (PE) given the recent surgery (hip fracture), tachycardia, tachypnea, hypoxia, and V/Q scan findings.\n2. **Clinical Context:** The patient is hemodynamically stable (BP 112/74). The standard of care for a stable patient with a confirmed PE is systemic anticoagulation.\n3. **Contraindication Assessment:** While the patient has a history of subarachnoid hemorrhage (SAH), this is a remote history (not specified as acute). In clinical practice, a remote history of SAH is not an absolute contraindication to anticoagulation for an acute, life-threatening PE. The risk of death from a recurrent PE outweighs the risk of intracranial hemorrhage in a stable patient without an active bleed.\n4. **Mechanism of Action:** The first-line treatment for acute PE is heparin or low-molecular-weight heparin (LMWH). These agents work by binding to antithrombin III, inducing a conformational change that increases its ability to inactivate thrombin and Factor Xa.\n5. **Evaluating Options:**\n    *   A (Warfarin): Inhibits vitamin K epoxide reductase; used for long-term maintenance, not acute treatment.\n    *   B (Clopidogrel): Antiplatelet; not indicated for PE.\n    *   C (tPA): Thrombolytic; reserved for massive PE with hemodynamic instability (this patient is stable).\n    *   D (Heparin): Activates antithrombin III; the standard initial treatment for acute PE.\n\nFinal answer: D"
+    },
+    {
+      "id": "step1_197",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning: \n1. The clinical presentation of a 49-year-old man with peripheral edema, preserved ejection fraction, and impaired diastolic relaxation is characteristic of restrictive cardiomyopathy.\n2. Among the provided options, Hemochromatosis (Option B) is a well-established cause of restrictive cardiomyopathy. It results from iron deposition in the myocardium, which leads to stiffening of the ventricular walls, impaired diastolic filling, and eventually heart failure.\n3. Doxorubicin (Option A) is classically associated with dilated cardiomyopathy (systolic dysfunction).\n4. A history of myocardial infarction (Option C) typically results in ischemic cardiomyopathy, which is characterized by systolic dysfunction (reduced ejection fraction).\n5. A recent viral infection (Option D) is the classic cause of viral myocarditis, which typically presents as dilated cardiomyopathy.\n6. Given the requirement to select from the provided options (A-D) and the clinical profile of restrictive cardiomyopathy, Hemochromatosis is the only condition listed that is a recognized cause of this specific hemodynamic pattern.\n\nFinal answer: B"
+    },
+    {
+      "id": "step1_135",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: The patient in the prompt is using **humor** to cope with a traumatic event (the loss of a testicle). Humor is a mature defense mechanism that allows an individual to acknowledge the reality of a painful situation while distancing themselves from the associated anxiety through wit or irony. \n\nReviewing the options provided:\nA. **Reaction formation**: Transforming an unacceptable impulse into its opposite.\nB. **Displacement**: Redirecting emotions to a less threatening target.\nC. **Sublimation**: Channeling unacceptable impulses into socially productive activities.\nD. **Rationalization**: Using logical, but often false, explanations to justify behavior or minimize the impact of a distressing event.\n\nUpon re-evaluating the standard classification of these defense mechanisms in medical board examinations (such as USMLE), \"humor\" is often categorized alongside \"rationalization\" or \"intellectualization\" as a way of distancing oneself from emotional pain. However, if forced to select from the provided list, **Rationalization (D)** is the most similar in function to the patient's joke. By joking that he is \"half the man,\" the patient is using a cognitive strategy to minimize the psychological impact of the surgery, which is functionally similar to the husband in option D who uses a logical (though defensive) excuse to minimize the pain of his divorce.\n\nFinal answer: D"
+    },
+    {
+      "id": "step1_172",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: The patient presents with classic symptoms of narcolepsy (excessive daytime sleepiness, sleep attacks, and hypnagogic hallucinations). While modafinil is the most common first-line treatment, its mechanism is often described as \"unknown\" or complex. However, in the context of board-style pharmacology questions where \"unknown\" is not the intended answer, the focus shifts to the treatment of the associated symptoms or the use of stimulants. Narcolepsy is often treated with stimulants to combat daytime sleepiness. Among the options provided, the mechanism of action for traditional stimulants used in narcolepsy (such as amphetamines) involves the enhancement of the release of norepinephrine (and dopamine) from presynaptic vesicles. Given the requirement to select from the provided options A-D, option D represents the mechanism of action for amphetamine-based stimulants, which are a standard pharmacological intervention for narcolepsy.\n\nFinal answer: D"
+    },
+    {
+      "id": "step2_3_236",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: The patient has a 0.5 cm (5 mm) solitary pulmonary nodule that is described as \"calcified.\" According to the Fleischner Society guidelines for the management of incidental pulmonary nodules, a nodule that is definitively calcified (specifically with benign patterns such as central, laminated, popcorn, or diffuse) is considered a benign granuloma and requires no further follow-up. However, the question forces a choice among the provided options (A, B, C, D). In clinical practice, if a nodule is small (<6 mm) and the risk of malignancy is low, but there is any uncertainty regarding the benign nature of the calcification (or if the clinician chooses to be cautious), the standard of care is to perform a follow-up CT scan to ensure stability. Among the choices provided, a repeat CT scan is the only appropriate management step for a small pulmonary nodule, whereas PET scans, sputum cytology, and abdominal CT scans are reserved for larger, high-risk, or suspected malignant lesions. Therefore, repeating the CT scan in 6-12 months is the most appropriate management step among the given options.\n\nFinal answer: D"
+    }
+  ]
+}

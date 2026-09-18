@@ -1,0 +1,49 @@
+{
+  "schema": "paper-s1-s10/v1",
+  "setting": "S5",
+  "task_type": "mcq",
+  "dataset": "ARC",
+  "model": "gpt-5.4-nano",
+  "trace_family": "soft",
+  "n": 5,
+  "metrics": {
+    "label_acc": 1.0,
+    "abs_rate": 0.0,
+    "label_f1": 1.0,
+    "trace_f1": 0.0,
+    "n_evaluated": 5
+  },
+  "n_unparseable": null,
+  "per_sample": [
+    {
+      "id": "Mercury_SC_400063",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning:  \n1) Water on Earth evaporates and becomes water vapor.  \n2) The vapor rises, cools, and condenses to form clouds.  \n3) Eventually, the condensed water falls back to Earth as precipitation (rain).  \n4) Among the given options, the only one that is directly associated with water’s deposition from precipitation over long periods is **limestone**, which forms from accumulated mineral material (commonly from calcium carbonate) deposited in water-based environments.  \n5) Glaciers and mountains are shaped mainly by climate-driven ice and tectonic processes, and natural gas forms from buried organic matter.  \nFinal answer: D"
+    },
+    {
+      "id": "Mercury_SC_400601",
+      "answer_idx": 0,
+      "pred": "A",
+      "raw": "Reasoning: Nuclear energy (like that produced in power plants) does not directly correspond to any specific listed light source. But the options that clearly relate to nuclear processes in everyday life are none except “the Sun,” which is powered by nuclear fusion. Therefore, the best match among the given options is the Sun.\nFinal answer: A"
+    },
+    {
+      "id": "Mercury_7188825",
+      "answer_idx": 3,
+      "pred": "D",
+      "raw": "Reasoning: \n1) “Inner planet” vs “outer planet” refers to their distance from the Sun: inner planets (Mercury, Venus, Earth, Mars) orbit closer to the Sun; outer planets (Jupiter, Saturn, Uranus, Neptune) orbit farther out.  \n2) The asteroid belt lies between these regions, so an inner planet like Mars and an outer planet like Jupiter are not on the same side of the asteroid belt; they are effectively separated by it in terms of their orbital locations.  \n3) The other options don’t match:  \n   - A: Different planets generally have different compositions.  \n   - B: Planets orbit in the same general direction around the Sun.  \n   - C: Orbital periods are not the same (Mars ~1.88 years, Jupiter ~11.86 years).  \n   - E is not allowed, and we must pick A–D.  \nFinal answer: D"
+    },
+    {
+      "id": "Mercury_417147",
+      "answer_idx": 1,
+      "pred": "B",
+      "raw": "Reasoning:  \n1) Ocean salt (dissolved ions) mainly comes from weathering/erosion of rocks on land carried by rivers to the ocean.  \n2) Glacial melt adds water containing dissolved ions, contributing to salinity.  \n3) Volcanic emissions can add gases and dissolved materials to the ocean over time.  \n4) Reactions between seawater and rocks on the seafloor add/modify ions in seawater.  \n5) Therefore, all listed processes are valid sources; however, “melting glacial ice” specifically contributes freshwater mainly, with only limited dissolved salts compared to the dominant source (land erosion). Among the “except” choices, the best candidate is glacial melting as a direct salt contributor.  \nFinal answer: B"
+    },
+    {
+      "id": "MCAS_2005_8_12",
+      "answer_idx": 2,
+      "pred": "C",
+      "raw": "Reasoning:  \n1. Identify what feature 12 is asking for: a feature **shared by both Earth and the Moon**.  \n2. Check each option for whether it applies to both bodies.  \n   - **A. Nearly the same atmosphere**: Earth has a substantial atmosphere; the Moon has essentially none → not shared.  \n   - **B. Almost the same gravitational pull**: Earth’s surface gravity is much stronger than the Moon’s → not shared.  \n   - **C. Rocky crust that includes mountains**: Both Earth and the Moon have rocky crusts with mountainous regions (Earth has mountains; the Moon has mountains and highlands) → shared.  \n   - **D. Considerable water erosion**: Earth has liquid water and water erosion; the Moon lacks liquid water and has no significant water erosion → not shared.  \n3. Only **C** is consistent with an objective shared characteristic.\n\nFinal answer: C"
+    }
+  ]
+}

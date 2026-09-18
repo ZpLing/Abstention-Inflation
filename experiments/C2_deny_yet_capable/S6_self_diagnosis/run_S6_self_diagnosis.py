@@ -58,6 +58,7 @@ from infra.evaluator import Evaluator
 from infra.llm_handler import LLMHandler
 
 from loader.config_loader import get_block
+from infra.result_schema import load_cell
 from infra.result_schema import get_field
 
 
@@ -141,7 +142,11 @@ class S6SelfDiagnosisRunner:
 
         cfg = get_block(config, "s6_self_diagnosis")
         self.dataset_names = cfg.get("datasets", [])
-        self.s1_s2_results_dir = Path(cfg.get("s1_s2_results_dir", "results/ab"))
+        # The main experiment is one folder per setting; the slug and task type
+        # locate this model's cells. ``s1_s2_results_dir`` is the pre-split key.
+        self.results_root = Path(cfg.get("results_root", "results"))
+        self.model_slug = cfg.get("model_slug") or Path(cfg.get("s1_s2_results_dir", "results/ab")).name
+        self.task_type = cfg.get("task_type", "tf")
         self.results_dir = Path(cfg.get("results_dir", "results/S6_self_diagnosis"))
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
@@ -156,11 +161,10 @@ class S6SelfDiagnosisRunner:
 
     async def _run_one_dataset(self, ds_name: str):
         model = self.config.get("model_name", "unknown").replace("/", "_")
-        in_path = self.s1_s2_results_dir / f"{ds_name}_{model}.json"
-        if not in_path.exists():
-            print(f"  [skip] missing {in_path} — run main ab_experiment first.")
+        summary = load_cell(ds_name, model, self.model_slug, self.task_type, self.results_root)
+        if not summary["per_sample"]:
+            print(f"  [skip] no main-experiment cell for {ds_name}/{model} — run main_experiment first.")
             return
-        summary = json.loads(in_path.read_text())
         task_type = summary["task_type"]
 
         # Load samples in same order as paired_pass produced.

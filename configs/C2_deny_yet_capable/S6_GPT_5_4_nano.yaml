@@ -12,7 +12,9 @@ s6_self_diagnosis:
   datasets:
     - "FLD"
     - "FOLIO"
-  s1_s2_results_dir: "results/S1_S3_tfq/nano"
+  results_root: "results"
+  model_slug: "nano"
+  task_type: "tf"
   results_dir: "results/S6_self_diagnosis/nano"
 
 paths:

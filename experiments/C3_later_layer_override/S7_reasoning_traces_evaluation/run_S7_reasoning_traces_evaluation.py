@@ -42,6 +42,7 @@ sys.path.insert(0, str(ROOT))
 from loader.dataset_loader import load_judge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from infra.result_schema import load_cell, iter_cells  # noqa: E402
 
 # gold answer_idx -> the NLI verdict that agrees with it
 
@@ -140,8 +141,7 @@ def main():
     for ds in DATASETS:
         by_id = {s.id: s for s in load_judge(ds)}
         for slug, model in CELLS:
-            summary = json.loads(
-                (ROOT / f"results/S1_S3_tfq/{slug}/{ds}_{model}.json").read_text(encoding="utf-8"))
+            summary = load_cell(ds, model, slug, "tf")
             items = [s for s in summary["per_sample"]
                      if s["id"] in by_id and by_id[s["id"]].answer_idx in GOLD_OF_IDX]
             n_ai = sum(1 for s in items if s.get("pred_s2") == "UNKNOWN")
