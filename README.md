@@ -24,7 +24,7 @@ cp configs/API_Config.template.yaml API_Config.yaml   # fill in your key
 ```
 
 `API_Config.yaml` is git-ignored and holds the API key used to run this code.
-The experiment configuration lives in the YAMLs under `configs/`.
+The experiment configuration is in the YAMLs under `configs/`.
 
 ## Quick start
 
