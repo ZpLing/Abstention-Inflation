@@ -5,7 +5,7 @@ correct abstention for every probe.
 Saves raw outputs + predictions to
     results/S8_logit_lens/Olmo_3_7B/<dataset>_Olmo-3-7B-Instruct_inference.json
 
-Items. FLD, the paper's run, was taken from a raw FLD dump (data/Judge/FLD.json:
+Items. FLD, the paper's run, was taken from a raw FLD dump (data/TFQ/FLD.json:
 600 items with Facts / Conclusion / proof_label). When that dump is absent, and for
 every other dataset, the items are the repo's own dataset/<name>.json (the answerable
 items) followed by dataset/<name>_unknown.json (the Unknown-labeled ones), rendered
@@ -60,16 +60,18 @@ S2_SUFFIX = "Answer with exactly one word: PROVED, DISPROVED, or UNKNOWN."
 def load_items(dataset: str) -> list:
     """The items to run, each with id / Facts / Conclusion / proof_label.
 
-    The raw dump under data/Judge/ when there is one (FLD's 600 items, ids by
-    position as before); otherwise the repo's dataset/<name>.json followed by
+    The raw dump under data/TFQ/ when there is one (FLD's 600 items, ids by
+    position as before; data/Judge/ is the folder's pre-rename name and is
+    still read); otherwise the repo's dataset/<name>.json followed by
     dataset/<name>_unknown.json, keeping the items' own ids."""
-    judge = ROOT / "data" / "Judge" / f"{dataset}.json"
-    if judge.exists():
-        items = json.loads(judge.read_text())
-        for i, item in enumerate(items):
-            item.setdefault("id", f"{dataset}_{i:04d}")
-        print(f"Items: {len(items)} from {judge.relative_to(ROOT)}")
-        return items
+    for folder in ("TFQ", "Judge"):
+        raw_dump = ROOT / "data" / folder / f"{dataset}.json"
+        if raw_dump.exists():
+            items = json.loads(raw_dump.read_text())
+            for i, item in enumerate(items):
+                item.setdefault("id", f"{dataset}_{i:04d}")
+            print(f"Items: {len(items)} from {raw_dump.relative_to(ROOT)}")
+            return items
     items = []
     for name in (dataset, f"{dataset}_unknown"):
         path = ROOT / "dataset" / f"{name}.json"

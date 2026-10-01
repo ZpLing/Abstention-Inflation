@@ -17,14 +17,14 @@ uses its own metrics — by design it is NOT a label-prediction task on the
 original question.
 
 Predictions are letter strings produced by
-Evaluator.parse_mcq_tiered / parse_judge_tiered:
-    "A" | "B" | "C" | "D"   — concrete option choice (or POS/NEG for Judge)
+Evaluator.parse_mcq_tiered / parse_tfq_tiered:
+    "A" | "B" | "C" | "D"   — concrete option choice (or POS/NEG for TFQ)
     "UNKNOWN"               — abstain
     "UNPARSEABLE"           — extract-match failed
     None                    — same as UNPARSEABLE
 
 `answer_idx` is the ground-truth option index (0..3 for MCQ; 0=POS / 1=NEG
-for Judge). Metrics here are computed on `answerable` samples only
+for TFQ). Metrics here are computed on `answerable` samples only
 (answer_idx >= 0); the runner is responsible for filtering.
 """
 
@@ -53,7 +53,7 @@ def label_macro_f1(
     """Macro-averaged F1 over the dataset's label space.
 
     `classes` is the full label space INCLUDING the abstain class (e.g.
-    ["A", "B", "C", "D", "UNKNOWN"] for MCQ, ["A", "B", "UNKNOWN"] for Judge).
+    ["A", "B", "C", "D", "UNKNOWN"] for MCQ, ["A", "B", "UNKNOWN"] for TFQ).
     Gold abstain samples should not appear in `answer_idxs` (answer_idx >= 0
     has already filtered them); but UNKNOWN may still appear in `preds` and
     is treated as its own class for F1 purposes.
@@ -93,7 +93,7 @@ def mcq_classes(with_unknown: bool = True) -> List[str]:
     return base + (["UNKNOWN"] if with_unknown else [])
 
 
-def judge_classes(with_unknown: bool = True) -> List[str]:
+def tfq_classes(with_unknown: bool = True) -> List[str]:
     base = ["A", "B"]
     return base + (["UNKNOWN"] if with_unknown else [])
 

@@ -136,9 +136,9 @@ def load_dataset(name: str, root: Optional[Path] = None) -> List[Sample]:
 
 
 # Pre-refactor aliases. The repo used to ship one loader per dataset family
-# (``load_judge`` for FLD/FOLIO, ``load_arc`` / ``load_medqa`` for MCQ); they all
+# (``load_tfq`` for FLD/FOLIO, ``load_arc`` / ``load_medqa`` for MCQ); they all
 # took a dataset name and are now the same unified call.
-load_judge = load_dataset
+load_tfq = load_dataset
 load_arc = load_dataset
 load_medqa = load_dataset
 load_mmlu = load_dataset

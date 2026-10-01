@@ -30,7 +30,7 @@ from loader.dataset_loader import (
 class DataHandler:
     """Lightweight stand-in for the legacy ``src.data_handler.DataHandler``."""
 
-    JUDGE_NAMES = {"FLD", "FLD_unknown", "FOLIO", "FOLIO_unknown"}
+    TFQ_NAMES = {"FLD", "FLD_unknown", "FOLIO", "FOLIO_unknown"}
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config

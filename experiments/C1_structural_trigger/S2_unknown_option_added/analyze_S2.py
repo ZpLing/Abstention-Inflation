@@ -236,7 +236,7 @@ def main():
     print("-" * 70)
     for type_label, p12 in [
         ("MCQ", mcq_pairs),
-        ("TF (Judge)", tf_pairs),
+        ("TFQ", tf_pairs),
     ]:
         _mcnemar_block(type_label, "S1 → S2  (+Unknown option)", p12)
 

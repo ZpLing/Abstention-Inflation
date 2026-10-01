@@ -66,14 +66,14 @@ class Evaluator:
             return "False"
 
     # ------------------------------------------------------------------
-    # MCQ / Judge / AB parsing — TIERED:
+    # MCQ / TFQ / AB parsing — TIERED:
     #     tier 1  strict_em    : whole response equals the label (after trim
     #                            of whitespace + edge markdown / punctuation)
     #     tier 2  lenient_em   : substring extraction with word-boundary +
     #                            ABSTAIN-priority + negation guard (LabelScheme)
     #     tier 3  unparseable  : runner falls back to LLM-as-Judge
     #
-    # Existing one-shot APIs (parse_mcq_output / parse_judge_output /
+    # Existing one-shot APIs (parse_mcq_output / parse_tfq_output /
     # parse_ab_output) are kept as backward-compatible wrappers; new tiered
     # APIs return (pred, tier) so callers can track tier-level statistics.
     # ------------------------------------------------------------------
@@ -135,15 +135,15 @@ class Evaluator:
             return "UNKNOWN", "lenient_em"
         return letter, "lenient_em"
 
-    # ----- Judge (T/F + Unknown) -----
+    # ----- TFQ (T/F + Unknown) -----
 
-    def parse_judge_output(self, text: str, scheme, with_unknown: bool = True) -> str:
+    def parse_tfq_output(self, text: str, scheme, with_unknown: bool = True) -> str:
         """Backward-compatible: returns just the prediction string."""
-        pred, _tier = self.parse_judge_tiered(text, scheme, with_unknown=with_unknown)
+        pred, _tier = self.parse_tfq_tiered(text, scheme, with_unknown=with_unknown)
         return pred
 
-    def parse_judge_tiered(self, text: str, scheme, with_unknown: bool = True):
-        """Tiered Judge parser.
+    def parse_tfq_tiered(self, text: str, scheme, with_unknown: bool = True):
+        """Tiered TFQ parser.
 
         pred ∈ {"A","B","UNKNOWN","UNPARSEABLE"}
         tier ∈ {"strict_em","lenient_em","unparseable"}
@@ -189,9 +189,9 @@ class Evaluator:
             return "UNPARSEABLE", "unparseable"
         return "UNPARSEABLE", "unparseable"
 
-    # ----- S5 (Judge MCQ-style ternary): A=POS, B=NEG, C=UNKNOWN -----
+    # ----- S5 (TFQ MCQ-style ternary): A=POS, B=NEG, C=UNKNOWN -----
 
-    def parse_judge_mcq_tiered(self, text: str):
+    def parse_tfq_mcq_tiered(self, text: str):
         """Parse S3 Question Format Ablation output (TFQ rendered as A/B/C letters).
 
         pred ∈ {"A","B","UNKNOWN","UNPARSEABLE"}; option C is the abstain slot.

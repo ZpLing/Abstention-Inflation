@@ -1,4 +1,4 @@
-"""Per-dataset label / verb / framing for True-False ("Judge") datasets.
+"""Per-dataset label / verb / framing for True/False Question (TFQ) datasets.
 
 This package serves three paper benchmarks under the TFQ format:
 
@@ -81,7 +81,7 @@ class LabelScheme:
     neg_verb: str
     abstain_verb: str
 
-    # Per-dataset framing for the Judge prompt body.
+    # Per-dataset framing for the TFQ prompt body.
     claim_label: str = "Hypothesis"
     context_label: str = "Facts"
 

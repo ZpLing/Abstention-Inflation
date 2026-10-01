@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 from pathlib import Path
 
 from infra.label_scheme import get_scheme
-from infra.prompts import build_judge_s3_format_prompt
+from infra.prompts import build_tfq_s3_format_prompt
 
 WITH_UNKNOWN = True
 
@@ -24,7 +24,7 @@ def build_prompts(samples, task_type: str):
     if task_type != "tf":
         raise ValueError("S3 is a TFQ-only ablation; MCQ has no format to re-render.")
     return [
-        build_judge_s3_format_prompt(get_scheme(s.source), s.question, s.context)
+        build_tfq_s3_format_prompt(get_scheme(s.source), s.question, s.context)
         for s in samples
     ]
 

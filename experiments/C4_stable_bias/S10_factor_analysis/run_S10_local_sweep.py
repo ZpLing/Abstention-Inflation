@@ -57,8 +57,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 from infra.evaluator import Evaluator  # noqa: E402
 from infra.label_scheme import get_scheme  # noqa: E402
 from infra.prompts import (  # noqa: E402
-    build_judge_s1_prompt,
-    build_judge_s2_prompt,
+    build_tfq_s1_prompt,
+    build_tfq_s2_prompt,
 )
 from infra.result_schema import (  # noqa: E402
     TRUSTED_TIERS,
@@ -66,7 +66,7 @@ from infra.result_schema import (  # noqa: E402
     results_dir,
     stamp,
 )
-from loader.dataset_loader import load_judge  # noqa: E402
+from loader.dataset_loader import load_tfq  # noqa: E402
 
 EV = Evaluator()
 DATASETS = ["FLD", "FOLIO"]
@@ -232,7 +232,7 @@ def select_samples(dataset: str, n_per_class: int, class_offset: int = 0):
     re-running the 200 already done: the paper reports n=500 per dataset, but
     those configs only ever covered 200 of them.
     """
-    samples = load_judge(dataset)
+    samples = load_tfq(dataset)
     out = []
     for target in (0, 1):
         cls = [s for s in samples if s.answer_idx == target]
@@ -314,7 +314,7 @@ def batch_generate(
 
 
 def run_setting(model, tokenizer, scheme, samples, setting, args):
-    builder = build_judge_s1_prompt if setting == "S1" else build_judge_s2_prompt
+    builder = build_tfq_s1_prompt if setting == "S1" else build_tfq_s2_prompt
     prompts = [
         messages_to_text(
             builder(scheme, s.question, s.context), tokenizer, args.use_chat_template

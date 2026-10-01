@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 from pathlib import Path
 
 from infra.label_scheme import get_scheme
-from infra.prompts import build_judge_s5_rerun_prompt, build_mcq_s5_rerun_prompt
+from infra.prompts import build_tfq_s5_rerun_prompt, build_mcq_s5_rerun_prompt
 
 #: The follow-up removes the option, so an abstention is again not on offer.
 WITH_UNKNOWN = False
@@ -31,7 +31,7 @@ def build_prompts(samples, abstaining_indices, s2_prompts, raw_s2, task_type: st
         ]
     if task_type == "tf":
         return [
-            build_judge_s5_rerun_prompt(
+            build_tfq_s5_rerun_prompt(
                 s2_prompts[i], raw_s2[i], get_scheme(samples[i].source)
             )
             for i in abstaining_indices

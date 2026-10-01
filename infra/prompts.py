@@ -23,12 +23,12 @@ TFQ  (FLD / FOLIO)                 : verb-coded; :class:`infra.label_scheme.
 Paper settings implemented here
 -------------------------------
 ======  ============================  ======================================
-S1      Baseline                      ``build_{mcq,judge}_s1_prompt``
-S2      "Unknown" Option Added        ``build_{mcq,judge}_s2_prompt``
-S3      Question Format Ablation      ``build_judge_s3_format_prompt``
-S4      Word Content Ablation         ``build_{mcq,judge}_s4_word_prompt``
-S5      w/o "Unknown" Option Rerun    ``build_{mcq,judge}_s5_rerun_prompt``
-S6      Self-Diagnosis                ``build_{mcq,judge}_s6_selfdiag_prompt``
+S1      Baseline                      ``build_{mcq,tfq}_s1_prompt``
+S2      "Unknown" Option Added        ``build_{mcq,tfq}_s2_prompt``
+S3      Question Format Ablation      ``build_tfq_s3_format_prompt``
+S4      Word Content Ablation         ``build_{mcq,tfq}_s4_word_prompt``
+S5      w/o "Unknown" Option Rerun    ``build_{mcq,tfq}_s5_rerun_prompt``
+S6      Self-Diagnosis                ``build_{mcq,tfq}_s6_selfdiag_prompt``
 S7/S8   reuse S1 + S2 verbatim        (no builder of their own)
 S9/S10  reuse S2 verbatim             (only temperature / model vary)
 ======  ============================  ======================================
@@ -55,7 +55,7 @@ _COT_INSTR_MCQ = (
 )
 
 
-def _cot_instr_judge(verb_options: str) -> str:
+def _cot_instr_tfq(verb_options: str) -> str:
     return (
         "\nFormat your response exactly as:\n"
         "Reasoning: <your step-by-step reasoning>\n"
@@ -74,7 +74,7 @@ _DIRECT_INSTR_MCQ = (
 )
 
 
-def _direct_instr_judge(verb_options: str) -> str:
+def _direct_instr_tfq(verb_options: str) -> str:
     return (
         f"\nAnswer with only one of {verb_options}, with no reasoning or explanation."
     )
@@ -84,8 +84,8 @@ def _mcq_instr(cot: bool) -> str:
     return _COT_INSTR_MCQ if cot else _DIRECT_INSTR_MCQ
 
 
-def _judge_instr(verb_options: str, cot: bool) -> str:
-    return _cot_instr_judge(verb_options) if cot else _direct_instr_judge(verb_options)
+def _tfq_instr(verb_options: str, cot: bool) -> str:
+    return _cot_instr_tfq(verb_options) if cot else _direct_instr_tfq(verb_options)
 
 
 # =================================================================
@@ -206,14 +206,14 @@ def build_mcq_s5_rerun_prompt(
 # =================================================================
 
 
-def _format_judge_options(scheme, with_unknown: bool = False) -> str:
+def _format_tfq_options(scheme, with_unknown: bool = False) -> str:
     parts = [scheme.pos_verb, scheme.neg_verb]
     if with_unknown:
         parts.append(scheme.abstain_verb)
     return " | ".join(parts)
 
 
-def _judge_body(
+def _tfq_body(
     scheme,
     claim: str,
     context: str = "",
@@ -226,29 +226,29 @@ def _judge_body(
         if with_unknown
         else scheme.task_instruction_binary
     )
-    opts = verb_opts or _format_judge_options(scheme, with_unknown=with_unknown)
+    opts = verb_opts or _format_tfq_options(scheme, with_unknown=with_unknown)
     return (
         f"{instr}\n{ctx_block}\n{scheme.claim_label}:\n{claim}\n\nOutput one of: {opts}"
     )
 
 
-def build_judge_s1_prompt(
+def build_tfq_s1_prompt(
     scheme, claim: str, context: str = "", cot: bool = True
 ) -> List[Dict[str, str]]:
     """S1 Baseline (TFQ) — binary True/False, no abstain verb."""
-    verb_opts = _format_judge_options(scheme, with_unknown=False)
-    content = _judge_body(scheme, claim, context, with_unknown=False) + _judge_instr(
+    verb_opts = _format_tfq_options(scheme, with_unknown=False)
+    content = _tfq_body(scheme, claim, context, with_unknown=False) + _tfq_instr(
         verb_opts, cot
     )
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s2_prompt(
+def build_tfq_s2_prompt(
     scheme, claim: str, context: str = "", cot: bool = True
 ) -> List[Dict[str, str]]:
     """S2 "Unknown" Option Added (TFQ) — ternary True/False/<abstain verb>."""
-    verb_opts = _format_judge_options(scheme, with_unknown=True)
-    content = _judge_body(scheme, claim, context, with_unknown=True) + _judge_instr(
+    verb_opts = _format_tfq_options(scheme, with_unknown=True)
+    content = _tfq_body(scheme, claim, context, with_unknown=True) + _tfq_instr(
         verb_opts, cot
     )
     return [{"role": "user", "content": content}]
@@ -275,15 +275,15 @@ _S3_COT_INSTR = (
 )
 
 
-def build_judge_s1_letter_prompt(
+def build_tfq_s1_letter_prompt(
     scheme, claim: str, context: str = ""
 ) -> List[Dict[str, str]]:
     """The S3 rendering minus the abstain option -- A/B letters, no C.
 
     This is the baseline the S3 column needs: identical surface format, so the
-    only difference from :func:`build_judge_s3_format_prompt` is whether the
+    only difference from :func:`build_tfq_s3_format_prompt` is whether the
     abstain option exists at all. Distinct from
-    :func:`build_judge_s1_prompt`, which is verb-coded (True/False) and is the
+    :func:`build_tfq_s1_prompt`, which is verb-coded (True/False) and is the
     baseline for the verb-coded S2 column.
     """
     ctx_block = f"\n{scheme.context_label}:\n{context}\n" if context else "\n"
@@ -296,12 +296,12 @@ def build_judge_s1_letter_prompt(
     return [{"role": "user", "content": body + _S3_COT_INSTR}]
 
 
-def build_judge_s3_format_prompt(
+def build_tfq_s3_format_prompt(
     scheme, claim: str, context: str = ""
 ) -> List[Dict[str, str]]:
     """S3 Question Format Ablation (TFQ) - same content, MCQ-style rendering.
 
-    The verb-coded ternary of :func:`build_judge_s2_prompt` is re-rendered as
+    The verb-coded ternary of :func:`build_tfq_s2_prompt` is re-rendered as
     letters (A = pos verb, B = neg verb, C = abstain verb). Nothing else moves:
     the task instruction, context block, claim block and CoT instruction are the
     S2 ones, so the only manipulation is the surface question format.
@@ -311,7 +311,7 @@ def build_judge_s3_format_prompt(
     ]
 
 
-def build_judge_s3_format_prompt_calibrated(
+def build_tfq_s3_format_prompt_calibrated(
     scheme, claim: str, context: str = ""
 ) -> List[Dict[str, str]]:
     """The S3 prompt *as first run* - letter rendering plus a calibration note.
@@ -320,7 +320,7 @@ def build_judge_s3_format_prompt_calibrated(
     reproducible. The trailing note is a second manipulation layered on top of
     the format change (it was authored as a variant of the calibration-suffix
     prompt) and therefore confounds the format ablation, so
-    :func:`build_judge_s3_format_prompt` is what S3 now uses.
+    :func:`build_tfq_s3_format_prompt` is what S3 now uses.
     """
     suffix = (
         f'\n\nNote: Select "C. {scheme.abstain_verb}" ONLY if the relationship is genuinely\n'
@@ -336,7 +336,7 @@ def build_judge_s3_format_prompt_calibrated(
     ]
 
 
-def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
+def tfq_verb_order(scheme, abstain_slot: int) -> List[str]:
     """The three TFQ verbs with the abstain verb at slot 1, 2 or 3.
 
     pos/neg keep their relative order around the abstain verb, so the only
@@ -351,7 +351,7 @@ def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
     raise ValueError(f"abstain_slot must be 1, 2 or 3, got {abstain_slot!r}")
 
 
-def build_judge_s10_position_prompt(
+def build_tfq_s10_position_prompt(
     scheme, claim: str, context: str = "", abstain_slot: int = 3, cot: bool = True
 ) -> List[Dict[str, str]]:
     """S10 positional bias (TFQ) — S2 with the three verbs reordered.
@@ -359,23 +359,23 @@ def build_judge_s10_position_prompt(
     This is the S2 prompt, not an MCQ rendering of it: the alternatives stay
     verbs ("Output one of: True | False | Unknown") and the model still answers
     with a verb, so the only manipulation is the order they are listed in.
-    ``abstain_slot=3`` reproduces :func:`build_judge_s2_prompt` byte for byte,
+    ``abstain_slot=3`` reproduces :func:`build_tfq_s2_prompt` byte for byte,
     which is what the paper means by "the third-position condition matches the
     original S2 ordering".
     """
-    verb_opts = " | ".join(judge_verb_order(scheme, abstain_slot))
-    content = _judge_body(
+    verb_opts = " | ".join(tfq_verb_order(scheme, abstain_slot))
+    content = _tfq_body(
         scheme, claim, context, with_unknown=True, verb_opts=verb_opts
-    ) + _judge_instr(verb_opts, cot)
+    ) + _tfq_instr(verb_opts, cot)
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s4_word_prompt(
+def build_tfq_s4_word_prompt(
     scheme, claim: str, context: str = "", abstain_word: str = "Triangular"
 ) -> List[Dict[str, str]]:
     """S4 Word Content Ablation (TFQ) — third option is ``abstain_word``.
 
-    Byte-for-byte identical to :func:`build_judge_s2_prompt` except that
+    Byte-for-byte identical to :func:`build_tfq_s2_prompt` except that
     ``scheme.abstain_verb`` is replaced, so only the third-option label varies.
     Covers the synonym variants ("Indeterminate", "I don't know") and the random
     words ("Triangular", "Cerulean").
@@ -386,12 +386,12 @@ def build_judge_s4_word_prompt(
         f"{scheme.task_instruction_ternary}\n"
         f"{ctx_block}"
         f"\n{scheme.claim_label}:\n{claim}\n\n"
-        f"Output one of: {options_str}" + _cot_instr_judge(options_str)
+        f"Output one of: {options_str}" + _cot_instr_tfq(options_str)
     )
     return [{"role": "user", "content": content}]
 
 
-def build_judge_s5_rerun_prompt(
+def build_tfq_s5_rerun_prompt(
     prior_messages: List[Dict[str, str]], prior_response: str, scheme
 ) -> List[Dict[str, str]]:
     """S5 w/o "Unknown" Option Rerun (TFQ) — multi-turn.
@@ -406,7 +406,7 @@ def build_judge_s5_rerun_prompt(
         "This can be reasoned out based on objective factors.\n"
         "Subjective ability limits should be overcome.\n"
         f"You must select one of the original labels: {scheme.pos_verb} or {scheme.neg_verb}."
-        f"{_cot_instr_judge(verb_opts)}"
+        f"{_cot_instr_tfq(verb_opts)}"
     )
     return list(prior_messages) + [
         {"role": "assistant", "content": prior_response},
@@ -438,7 +438,7 @@ def _s6_answer_suffix(options_str: str) -> str:
     )
 
 
-def build_judge_s6_selfdiag_prompt(
+def build_tfq_s6_selfdiag_prompt(
     prior_messages: List[Dict[str, str]],
     prior_response: str,
     abstain_verb: str = "Unknown",
@@ -460,7 +460,7 @@ def build_mcq_s6_selfdiag_prompt(
     prior_messages: List[Dict[str, str]], prior_response: str
 ) -> List[Dict[str, str]]:
     """S6 Self-Diagnosis (MCQ) — same follow-up, phrased for the ``E. Unknown`` slot."""
-    return build_judge_s6_selfdiag_prompt(
+    return build_tfq_s6_selfdiag_prompt(
         prior_messages, prior_response, abstain_verb="E. Unknown"
     )
 
@@ -475,19 +475,19 @@ def build_mcq_s6_selfdiag_prompt(
 # =================================================================
 
 
-def build_judge_calibration_suffix_prompt(
+def build_tfq_calibration_suffix_prompt(
     scheme, claim: str, context: str = ""
 ) -> List[Dict[str, str]]:
     """S9 third condition — S2 plus a suffix saying when to abstain (TFQ)."""
-    verb_opts = _format_judge_options(scheme, with_unknown=True)
-    body = _judge_body(scheme, claim, context, with_unknown=True)
+    verb_opts = _format_tfq_options(scheme, with_unknown=True)
+    body = _tfq_body(scheme, claim, context, with_unknown=True)
     suffix = (
         f'\n\nNote: Select "{scheme.abstain_verb}" ONLY if the relationship is genuinely\n'
         f"undeterminable given the available information. Do NOT select it simply because\n"
         f"you feel uncertain — choose it only when no answer can be determined from the\n"
         f"given context."
     )
-    content = body + suffix + _cot_instr_judge(verb_opts)
+    content = body + suffix + _cot_instr_tfq(verb_opts)
     return [{"role": "user", "content": content}]
 
 

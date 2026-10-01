@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 from pathlib import Path
 
 from infra.label_scheme import get_scheme
-from infra.prompts import build_judge_s2_prompt, build_mcq_s2_prompt
+from infra.prompts import build_tfq_s2_prompt, build_mcq_s2_prompt
 
 WITH_UNKNOWN = True
 
@@ -28,7 +28,7 @@ def build_prompts(samples, task_type: str):
         ]
     if task_type == "tf":
         return [
-            build_judge_s2_prompt(get_scheme(s.source), s.question, s.context)
+            build_tfq_s2_prompt(get_scheme(s.source), s.question, s.context)
             for s in samples
         ]
     raise ValueError(f"Unsupported task_type: {task_type}")

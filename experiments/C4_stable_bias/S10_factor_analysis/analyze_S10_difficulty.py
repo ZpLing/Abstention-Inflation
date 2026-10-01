@@ -12,7 +12,7 @@ MedQA-Step1 vs Step2_3) showed weak effects — FLD samples come with the
 proxy.
 
 Inputs (no new API calls):
-  - data/Judge/FLD.json — source FLD with `original_data.steps`
+  - data/TFQ/FLD.json — source FLD with `original_data.steps`
   - results/S{1,2}_*/tfq/<model>/FLD_*.json — the paired S1/S2 pass, joined by load_cell
 
 Per sample:
@@ -55,7 +55,7 @@ from infra.result_schema import (
 )
 
 #: Difficulty comes from the proof-tree depth the dataset ships with. The
-#: earlier `data/Judge/FLD.json` with an `original_data.steps` field is gone;
+#: earlier `data/TFQ/FLD.json` with an `original_data.steps` field is gone;
 #: `dataset/FLD.json` carries `depth`, which is the same quantity under the
 #: unified schema.
 FLD_SOURCE = ROOT / "dataset" / "FLD.json"

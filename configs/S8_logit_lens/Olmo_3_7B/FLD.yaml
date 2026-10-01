@@ -7,7 +7,7 @@
 # layer -- into results/S8_logit_lens/Olmo_3_7B/FLD_<checkpoint>.json.
 # Checkpoint keys are the ones infra/result_schema.py maps to HuggingFace repos;
 # the paper probes these three, the released Instruct only supplies the
-# partition. Items: the paper's raw dump at data/Judge/FLD.json when present, else dataset/FLD.json +
+# partition. Items: the paper's raw dump at data/TFQ/FLD.json when present, else dataset/FLD.json +
 # dataset/FLD_unknown.json.
 experiment_name: "S8_logit_lens_FLD_Olmo_3_7B"
 model_name: "Olmo-3-7B"

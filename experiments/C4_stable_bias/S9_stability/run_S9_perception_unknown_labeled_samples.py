@@ -25,14 +25,14 @@ from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.prompts import (
-    build_judge_calibration_suffix_prompt,
-    build_judge_s1_prompt,
-    build_judge_s2_prompt,
+    build_tfq_calibration_suffix_prompt,
+    build_tfq_s1_prompt,
+    build_tfq_s2_prompt,
 )
 from infra.result_schema import results_dir, stamp
 from loader.config_loader import get_block
 from loader.data_handler import DataHandler
-from loader.dataset_loader import load_dataset as load_judge
+from loader.dataset_loader import load_dataset as load_tfq
 
 SUPPLEMENTARY_DATASETS = ("FLD", "FOLIO", "FLD_unknown", "FOLIO_unknown")
 
@@ -87,7 +87,7 @@ class PerceptionUnknownLabeledSamplesRunner:
             # FOLIO_unknown.json) under the unified schema. We accept either
             # form: when a user supplies "FLD" we auto-route to FLD_unknown.
             target = ds_name if ds_name.endswith("_unknown") else f"{ds_name}_unknown"
-            samples = load_judge(target)
+            samples = load_tfq(target)
             unknown_samples = [s for s in samples if s.answer_idx == -1]
             unknown_samples = self._apply_sample_limit(ds_name, unknown_samples)
             print(
@@ -124,13 +124,13 @@ class PerceptionUnknownLabeledSamplesRunner:
 
         scheme = get_scheme(ds_name)
         s1_prompts = [
-            build_judge_s1_prompt(scheme, s.question, s.context) for s in samples
+            build_tfq_s1_prompt(scheme, s.question, s.context) for s in samples
         ]
         s2_prompts = [
-            build_judge_s2_prompt(scheme, s.question, s.context) for s in samples
+            build_tfq_s2_prompt(scheme, s.question, s.context) for s in samples
         ]
         s3_prompts = [
-            build_judge_calibration_suffix_prompt(scheme, s.question, s.context)
+            build_tfq_calibration_suffix_prompt(scheme, s.question, s.context)
             for s in samples
         ]
 
@@ -173,7 +173,7 @@ class PerceptionUnknownLabeledSamplesRunner:
         self, raw_outputs, samples, scheme, *, with_unknown, label: str = ""
     ):
         results = [
-            self.evaluator.parse_judge_tiered(r, scheme, with_unknown=with_unknown)
+            self.evaluator.parse_tfq_tiered(r, scheme, with_unknown=with_unknown)
             for r in raw_outputs
         ]
         return [r[0] for r in results], [r[1] for r in results]

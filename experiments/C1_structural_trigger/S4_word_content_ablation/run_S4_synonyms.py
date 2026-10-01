@@ -20,7 +20,7 @@ from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.result_schema import cell_path, model_slug, stamp
 from loader.config_loader import load_config
-from loader.dataset_loader import load_judge
+from loader.dataset_loader import load_tfq
 
 #: The synonyms come from third_option, which is also what decides that they
 #: belong to S4 rather than S2, and where they are written.
@@ -189,7 +189,7 @@ async def main(models=None, datasets=None, results_root="results", limit=None, c
 
         for ds in datasets or DATASETS:
             scheme = get_scheme(ds)
-            all_samples = load_judge(ds)
+            all_samples = load_tfq(ds)
             by_id = {s.id: s for s in all_samples}
             ids = load_sample_ids(ds, model_name, results_root)
             samples = [by_id[i] for i in ids if i in by_id]

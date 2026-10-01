@@ -25,10 +25,10 @@ sys.path.insert(0, str(ROOT))
 from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
-from infra.prompts import build_judge_s2_prompt
+from infra.prompts import build_tfq_s2_prompt
 from infra.result_schema import model_slug, results_dir, stamp  # noqa: E402
 from loader.config_loader import get_block, load_config
-from loader.dataset_loader import load_judge
+from loader.dataset_loader import load_tfq
 
 
 def _is_ai(s):
@@ -75,7 +75,7 @@ LLMHandler.batch_query_temp = batch_query_temp
 
 def parse_pred(text, evaluator, scheme):
     """TF parse: PROVED → 'A', DISPROVED → 'B', UNKNOWN → 'UNKNOWN'."""
-    pred, _tier = evaluator.parse_judge_tiered(text, scheme, with_unknown=True)
+    pred, _tier = evaluator.parse_tfq_tiered(text, scheme, with_unknown=True)
     return pred
 
 
@@ -103,7 +103,7 @@ async def main():
     evaluator = Evaluator()
 
     # Load FLD/FOLIO raw
-    raw = load_judge(args.dataset)
+    raw = load_tfq(args.dataset)
     id_to_sample = {s.id: s for s in raw}
     scheme = get_scheme(args.dataset)
 
@@ -125,7 +125,7 @@ async def main():
         return
 
     # Build prompts
-    prompts = [build_judge_s2_prompt(scheme, s.question, s.context) for _, s, _ in ai]
+    prompts = [build_tfq_s2_prompt(scheme, s.question, s.context) for _, s, _ in ai]
     print(f"Running {args.n_repeats} reruns at T={args.temperature} ...")
 
     rerun_outputs = await rerun_one(handler, prompts, args.n_repeats, args.temperature)

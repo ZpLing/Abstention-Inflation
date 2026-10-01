@@ -33,8 +33,8 @@ sys.path.insert(0, str(ROOT))
 from infra.evaluator import Evaluator
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
-from infra.metrics import judge_classes, label_acc, label_macro_f1
-from infra.prompts import build_judge_s10_position_prompt, judge_verb_order
+from infra.metrics import tfq_classes, label_acc, label_macro_f1
+from infra.prompts import build_tfq_s10_position_prompt, tfq_verb_order
 from infra.result_schema import (  # noqa: E402
     model_slug,
     position_name,
@@ -146,14 +146,14 @@ EDGE_RE = re.compile(r"^[\s\*\(\[\"']+|[\s\*\.\)\]\:;,—–\-\"']+$")
 
 def build_position_prompt(scheme, claim: str, context: str, unknown_position: str):
     """The S2 TFQ prompt with the abstain verb moved to the requested slot."""
-    return build_judge_s10_position_prompt(
+    return build_tfq_s10_position_prompt(
         scheme, claim, context, abstain_slot=SLOT_OF[unknown_position]
     )
 
 
 def verb_order_for(scheme, unknown_position: str) -> List[str]:
     """The three verbs as the prompt lists them, in slot order."""
-    return judge_verb_order(scheme, SLOT_OF[unknown_position])
+    return tfq_verb_order(scheme, SLOT_OF[unknown_position])
 
 
 def slot_of_prediction(scheme, unknown_position: str, pred: str):
@@ -176,10 +176,10 @@ def parse_position_output(
 
     canonical_pred is in {"A", "B", "UNKNOWN", "UNPARSEABLE"} where A/B mean
     POS/NEG, so downstream readers are unchanged. Using
-    :meth:`Evaluator.parse_judge_tiered` keeps this condition scored exactly
+    :meth:`Evaluator.parse_tfq_tiered` keeps this condition scored exactly
     like the S2 cell it is being compared against.
     """
-    pred, tier = _EVALUATOR.parse_judge_tiered(text, scheme, with_unknown=True)
+    pred, tier = _EVALUATOR.parse_tfq_tiered(text, scheme, with_unknown=True)
     return pred, slot_of_prediction(scheme, unknown_position, pred), tier
 
 
@@ -194,7 +194,7 @@ def condition_metrics(preds: List[str], answer_idxs: List[int]):
         "n": n,
         "label_acc": label_acc(preds, answer_idxs),
         "label_f1": label_macro_f1(
-            preds, answer_idxs, judge_classes(with_unknown=True)
+            preds, answer_idxs, tfq_classes(with_unknown=True)
         ),
         "abstain_rate": (sum(p == "UNKNOWN" for p in preds) / n) if n else 0.0,
         "counts": {

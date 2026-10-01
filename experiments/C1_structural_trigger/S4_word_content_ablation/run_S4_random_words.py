@@ -36,9 +36,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from infra.label_scheme import get_scheme
 from infra.llm_handler import LLMHandler
 from infra.prompts import (
-    build_judge_s1_prompt,
-    build_judge_s2_prompt,
-    build_judge_s4_word_prompt,
+    build_tfq_s1_prompt,
+    build_tfq_s2_prompt,
+    build_tfq_s4_word_prompt,
 )
 from infra.result_schema import load_cell, model_slug, stamp  # noqa: E402
 
@@ -87,7 +87,7 @@ def parse_s2_output(text: str, scheme) -> str:
     """Ternary parser for the S2 (Unknown) condition.
 
     Returns 'A', 'B', 'OPT_X', or 'UNPARSEABLE'.
-    Mirrors parse_judge_tiered: ABSTAIN → OPT_X."""
+    Mirrors parse_tfq_tiered: ABSTAIN → OPT_X."""
     if not text or not text.strip():
         return "UNPARSEABLE"
     norm = text.strip().upper()
@@ -226,7 +226,7 @@ def load_baseline_from_main(
     """S1 and the Unknown condition for this cell, read from the main table.
 
     The Unknown condition of this control *is* S2 -- s2_prompts is
-    build_judge_s2_prompt -- so the main experiment already holds both baselines
+    build_tfq_s2_prompt -- so the main experiment already holds both baselines
     for the same 500 items. Reusing them keeps the control on the exact S2 cell
     the paper reports and spares two of the four query passes.
 
@@ -288,11 +288,11 @@ async def run_one_dataset(
     if baseline is not None:
         answer_idxs, preds_s1, preds_s2, raw_s1, raw_s2 = baseline
         w1_prompts = [
-            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
+            build_tfq_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
             for s in samples
         ]
         w2_prompts = [
-            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
+            build_tfq_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
             for s in samples
         ]
         print(
@@ -306,17 +306,17 @@ async def run_one_dataset(
         answer_idxs = [s.answer_idx for s in samples]
         # Build prompts — same infrastructure, only third-option label differs
         s1_prompts = [
-            build_judge_s1_prompt(scheme, s.question, s.context) for s in samples
+            build_tfq_s1_prompt(scheme, s.question, s.context) for s in samples
         ]
         s2_prompts = [
-            build_judge_s2_prompt(scheme, s.question, s.context) for s in samples
+            build_tfq_s2_prompt(scheme, s.question, s.context) for s in samples
         ]
         w1_prompts = [
-            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
+            build_tfq_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_1)
             for s in samples
         ]
         w2_prompts = [
-            build_judge_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
+            build_tfq_s4_word_prompt(scheme, s.question, s.context, RANDOM_WORD_2)
             for s in samples
         ]
         print(f"  Querying S1 / S2 / both random words in parallel ({n} samples each) ...")
@@ -357,7 +357,7 @@ async def run_one_dataset(
     # One file per substituted word, the same shape the synonym sweep writes,
     # so the two halves of S4 are read by one code path.
     # Only the substituted words are written. The Unknown condition this run
-    # also collects is the S2 prompt (s2_prompts is build_judge_s2_prompt), and
+    # also collects is the S2 prompt (s2_prompts is build_tfq_s2_prompt), and
     # the S2 cell of the main table is the baseline both halves of S4 compare
     # against; storing a second copy here gave the two halves two baselines.
     conditions = [

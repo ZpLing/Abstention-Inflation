@@ -248,7 +248,7 @@ class ABRunner:
             if name == "S3":
                 # S3 renders the TFQ ternary as A/B/C letters, so it is parsed
                 # with the MCQ parser rather than the verb parser.
-                preds[name], tiers[name] = self._parse_judge_mcq_batch(raw)
+                preds[name], tiers[name] = self._parse_tfq_mcq_batch(raw)
             else:
                 preds[name], tiers[name] = await self._parse_batch(
                     raw,
@@ -304,8 +304,8 @@ class ABRunner:
         )
         self._save(ds_name, summary)
 
-    def _parse_judge_mcq_batch(self, raw_outputs):
-        results = [self.evaluator.parse_judge_mcq_tiered(r) for r in raw_outputs]
+    def _parse_tfq_mcq_batch(self, raw_outputs):
+        results = [self.evaluator.parse_tfq_mcq_tiered(r) for r in raw_outputs]
         return [r[0] for r in results], [r[1] for r in results]
 
     async def _retry_failed_requests(self, prompts, raw, *, label: str):
@@ -381,7 +381,7 @@ class ABRunner:
             ]
         elif task_type == "tf":
             results = [
-                self.evaluator.parse_judge_tiered(
+                self.evaluator.parse_tfq_tiered(
                     r, get_scheme(samples[i].source), with_unknown=with_unknown
                 )
                 for i, r in enumerate(raw_outputs)
@@ -414,8 +414,8 @@ class ABRunner:
             classes_no_unk = metrics.mcq_classes(with_unknown=False)
             classes_with_unk = metrics.mcq_classes(with_unknown=True)
         else:
-            classes_no_unk = metrics.judge_classes(with_unknown=False)
-            classes_with_unk = metrics.judge_classes(with_unknown=True)
+            classes_no_unk = metrics.tfq_classes(with_unknown=False)
+            classes_with_unk = metrics.tfq_classes(with_unknown=True)
 
         # A request the gateway refused or never returned is not a wrong
         # answer, so it leaves the denominator instead of depressing

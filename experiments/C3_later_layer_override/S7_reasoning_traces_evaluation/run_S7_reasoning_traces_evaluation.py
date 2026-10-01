@@ -40,7 +40,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from loader.dataset_loader import load_judge
+from loader.dataset_loader import load_tfq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from infra.result_schema import load_cell, model_slug, results_dir, stamp  # noqa: E402
@@ -173,7 +173,7 @@ def main():
     out_dir = ROOT / results_dir("S7", args.results_root)
     out_dir.mkdir(parents=True, exist_ok=True)
     for ds in args.datasets:
-        by_id = {s.id: s for s in load_judge(ds)}
+        by_id = {s.id: s for s in load_tfq(ds)}
         for model in args.models:
             slug = model_slug(model)
             summary = load_cell(ds, model, slug, "tf", args.results_root)

@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 from pathlib import Path
 
 from infra.label_scheme import get_scheme
-from infra.prompts import build_judge_s1_prompt, build_mcq_s1_prompt
+from infra.prompts import build_tfq_s1_prompt, build_mcq_s1_prompt
 
 #: The abstain option is absent, so a parsed "Unknown" would be the model
 #: leaking a token the prompt never offered.
@@ -31,7 +31,7 @@ def build_prompts(samples, task_type: str):
         ]
     if task_type == "tf":
         return [
-            build_judge_s1_prompt(get_scheme(s.source), s.question, s.context)
+            build_tfq_s1_prompt(get_scheme(s.source), s.question, s.context)
             for s in samples
         ]
     raise ValueError(f"Unsupported task_type: {task_type}")

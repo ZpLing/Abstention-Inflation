@@ -9,7 +9,7 @@ What this runner does:
        under results/S{1,2,5}_*/<family>/<slug>/<dataset>_<model>.json, joined by load_cell.
     2. Identify Abstention Inflation samples (S2 == UNKNOWN) and the corresponding raw_s2 +
        prior S2 prompt history (re-built from sample data).
-    3. Build the S6 self-diagnosis prompts (verb-coded for Judge, letter-coded
+    3. Build the S6 self-diagnosis prompts (verb-coded for TFQ, letter-coded
        for MCQ) and query the model.
     4. Parse the A/B replies; cross them with whether the S5 rerun recovered
        the gold label; report the two attribution shares + the 4-bucket table.
@@ -46,8 +46,8 @@ from infra.llm_handler import LLMHandler
 from infra.prompts import (
     S6_OPTION_A,
     S6_OPTION_B,
-    build_judge_s2_prompt,
-    build_judge_s6_selfdiag_prompt,
+    build_tfq_s2_prompt,
+    build_tfq_s6_selfdiag_prompt,
     build_mcq_s2_prompt,
     build_mcq_s6_selfdiag_prompt,
 )
@@ -205,7 +205,7 @@ class S6SelfDiagnosisRunner:
             if task_type == "mcq":
                 s2_msgs = build_mcq_s2_prompt(sample.question, sample.options)
             else:
-                s2_msgs = build_judge_s2_prompt(
+                s2_msgs = build_tfq_s2_prompt(
                     get_scheme(sample.source), sample.question, sample.context
                 )
             ai_records.append(
@@ -236,7 +236,7 @@ class S6SelfDiagnosisRunner:
                 )
             else:
                 s6_prompts.append(
-                    build_judge_s6_selfdiag_prompt(
+                    build_tfq_s6_selfdiag_prompt(
                         rec["s2_messages"], rec["raw_s2"], get_scheme(sample.source)
                     )
                 )

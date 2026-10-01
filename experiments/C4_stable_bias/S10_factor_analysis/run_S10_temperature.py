@@ -58,7 +58,7 @@ sys.path.insert(0, str(ROOT))
 
 from infra.label_scheme import get_scheme  # noqa: E402
 from infra.llm_handler import LLMHandler  # noqa: E402
-from infra.prompts import build_judge_s2_prompt  # noqa: E402
+from infra.prompts import build_tfq_s2_prompt  # noqa: E402
 from infra.result_schema import model_slug, results_dir, stamp
 from loader.config_loader import get_block, load_config  # noqa: E402
 
@@ -173,7 +173,7 @@ async def main() -> None:
         if args.limit:
             samples = samples[: args.limit]
         prompts = [
-            build_judge_s2_prompt(scheme, s.question, s.context) for s in samples
+            build_tfq_s2_prompt(scheme, s.question, s.context) for s in samples
         ]
         print(f"\n===== {MODEL} :: {ds} =====")
         print(
