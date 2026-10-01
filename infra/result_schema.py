@@ -231,7 +231,7 @@ SETTING_DIRS = {
     "S9/Persistence_Across_Repeats": "S9_stability/Persistence_Across_Repeats",
     "S10/temperature": "S10_factor_analysis/temperature",  # one subfolder per model slug
     "S10/size_alignment": "S10_factor_analysis/size_alignment",
-    "S11": "S11_positional_bias",
+    "S10/positional_bias": "S10_factor_analysis/positional_bias",
 }
 
 
@@ -283,8 +283,9 @@ def iter_cells(root: str | Path = "results"):
             yield dataset, model, f.parent.name, task_type
 
 
-#: S11 puts the "Unknown" option in one of three slots; files are named by the
-#: slot's position in the option list, as the paper's figure labels them.
+#: S10 positional bias puts the "Unknown" option in one of three slots; files
+#: are named by the slot's position in the option list, as the paper's figure
+#: labels them.
 POSITION_NAME = {"A": "first", "B": "second", "C": "last"}
 
 

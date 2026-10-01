@@ -103,8 +103,9 @@ def collect_per_sample(
 
     Read from the same paired summaries the main table is built from, on the
     same keep-set, so the depth trend and the Abs Rate it trends over are the
-    same numbers. An earlier version read the abstain-verb-last cell of S11,
-    which reproduces the S2 prompt byte for byte but is a separate run.
+    same numbers. An earlier version read the abstain-verb-last cell of the
+    S10 positional-bias sweep, which reproduces the S2 prompt byte for byte but
+    is a separate run.
     """
     rows: List[dict] = []
     for slug, model in cells or TFQ_CELLS:

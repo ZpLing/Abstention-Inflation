@@ -60,8 +60,7 @@ python main.py S2                     # one specific setting: S2 with its S1 pai
 │   │   └── S8_logit_lens_representation_probe/
 │   └── C4_stable_bias/
 │       ├── S9_stability/
-│       ├── S10_factor_analysis/
-│       └── S11_positional_biases/
+│       └── S10_factor_analysis/
 ├── configs/
 ├── dataset/
 └── results/

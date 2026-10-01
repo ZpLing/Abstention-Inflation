@@ -21,9 +21,9 @@ splits into sub-settings; a setting with one experiment runs by its name alone.
     python main.py all --limit 4 --results-root /tmp/smoke --dry-run
     python main.py --config configs/S2_unknown_option/gpt_5.4_nano/FLD.yaml
 
-Two kinds of setting. The gateway settings (S1-S6, S9, S10 temperature, S11)
-call the OpenAI-compatible endpoint named in API_Config.yaml; they are what
-``all`` runs. The local settings (S7, S8, S10 temperature_local and
+Two kinds of setting. The gateway settings (S1-S6, S9, S10 temperature and
+positional_bias) call the OpenAI-compatible endpoint named in API_Config.yaml;
+they are what ``all`` runs. The local settings (S7, S8, S10 temperature_local and
 size_alignment) load a checkpoint from disk; ``all`` prints the command for
 each and moves on, and they run when named.
 
@@ -111,8 +111,8 @@ SCRIPT: Dict[str, Path] = {
     "S10/analyze_temperature": _C4 / "S10_factor_analysis" / "analyze_S10_temperature.py",
     "S10/analyze_size_alignment": _C4 / "S10_factor_analysis" / "analyze_S10_size_alignment.py",
     "S10/analyze_difficulty": _C4 / "S10_factor_analysis" / "analyze_S10_difficulty.py",
-    "S11/run": _C4 / "S11_positional_biases" / "run_S11_positional_biases.py",
-    "S11/analyze": _C4 / "S11_positional_biases" / "analyze_S11.py",
+    "S10/positional_bias": _C4 / "S10_factor_analysis" / "run_S10_positional_bias.py",
+    "S10/analyze_positional_bias": _C4 / "S10_factor_analysis" / "analyze_S10_positional_bias.py",
 }
 
 
@@ -171,9 +171,7 @@ SETTINGS: Dict[str, Setting] = {
         Part("temperature_local", "the same sweep on a local checkpoint", TFQ_DATASETS, (OLMO_TAG,), "checkpoint tag", local=True),
         Part("size_alignment", "four Gemma-4 scales, base and IT, at T=0; one checkpoint per call", TFQ_DATASETS, GEMMA_TAGS, "checkpoint tag", local=True),
         Part("difficulty", "Abs Rate against FLD proof depth; a stratification of the S2 cells", ("FLD",), analyze_only=True),
-    )),
-    "S11": Setting("S11", "Positional biases", (
-        Part("positional_biases", "the abstain verb in slot A / B / C of the S2 prompt", TFQ_DATASETS),
+        Part("positional_bias", "the abstain verb in slot A / B / C of the S2 prompt", TFQ_DATASETS),
     )),
 }
 
@@ -190,7 +188,7 @@ class Options:
     model_path: Optional[str] = None
     dry_run: bool = False
     everything: bool = False  # `all` was given
-    variant: Optional[str] = None  # one of a cell's several result files (an S11 slot), from --config
+    variant: Optional[str] = None  # one of a cell's several result files (a positional_bias slot), from --config
 
     @property
     def root(self) -> Path:
@@ -258,9 +256,10 @@ def script_step(label: str, argv: Sequence[Any], pre=None, chain=None) -> Step:
 def yaml_for(key: str, model: str, dataset: str, variant: Optional[str] = None) -> Path:
     """The YAML for one cell: configs/<setting folder>/<model slug>/<dataset>.yaml,
     the setting folder being the one results/ uses (``"S2"``, ``"S4/random_words"``,
-    ...), and <dataset>_<variant>.yaml where the cell is several result files (S11's
-    slots). A model with no folder under that setting borrows the template model's,
-    or failing that the first folder there, and overrides the name."""
+    ...), and <dataset>_<variant>.yaml where the cell is several result files
+    (the S10 positional_bias slots). A model with no folder under that setting
+    borrows the template model's, or failing that the first folder there, and
+    overrides the name."""
     base = CONFIGS / SETTING_DIRS[key]
     folder = base / model_slug(model)
     if not folder.is_dir():
@@ -614,24 +613,25 @@ def _s10_size_alignment(part, models, datasets, o: Options) -> List[Step]:
     return steps
 
 
-#: S11 writes one file per slot the abstain verb occupies; the slot names the
-#: result file and the config file, the letter is what the script takes.
-S11_SLOTS = {"first": "A", "second": "B", "last": "C"}
+#: S10 positional_bias writes one file per slot the abstain verb occupies; the
+#: slot names the result file and the config file, the letter is what the
+#: script takes.
+POSITION_SLOTS = {"first": "A", "second": "B", "last": "C"}
 
 
-def _s11(part, models, datasets, o: Options) -> List[Step]:
+def _s10_positional_bias(part, models, datasets, o: Options) -> List[Step]:
     steps = []
     for m in models:
         for ds in datasets:
-            for slot, letter in S11_SLOTS.items():
+            for slot, letter in POSITION_SLOTS.items():
                 if o.variant and slot != o.variant:
                     continue
-                cfg = yaml_for("S11", m, ds, slot)
-                b = _block(cfg, "s11_positional_biases")
+                cfg = yaml_for("S10/positional_bias", m, ds, slot)
+                b = _block(cfg, "s10_positional_bias")
                 steps.append(script_step(
-                    f"S11 · {m} · {ds} · {slot}",
+                    f"S10/positional_bias · {m} · {ds} · {slot}",
                     [
-                        SCRIPT["S11/run"],
+                        SCRIPT["S10/positional_bias"],
                         "--config", cfg,
                         "--model", m,
                         "--dataset", ds,
@@ -703,12 +703,12 @@ BUILDERS: Dict[Tuple[str, str], Callable[..., List[Step]]] = {
     ("S10", "temperature"): _s10_temperature,
     ("S10", "temperature_local"): _s10_temperature_local,
     ("S10", "size_alignment"): _s10_size_alignment,
-    ("S11", "positional_biases"): _s11,
+    ("S10", "positional_bias"): _s10_positional_bias,
 }
 
 #: Dependency order: the paired pass first, then what reads its cells, then the
 #: independent settings, then the local ones.
-COLLECT_ORDER = ("S4", "S6", "S9", "S10", "S11", "S7", "S8")
+COLLECT_ORDER = ("S4", "S6", "S9", "S10", "S7", "S8")
 
 
 def part_steps(setting: Setting, part: Part, model_req, ds_req, o: Options) -> List[Step]:
@@ -766,11 +766,11 @@ def build_analyze(keys: List[str], part_req, model_req, ds_req, o: Options) -> L
                 steps.append(script_step("S10/size_alignment · analyze", [SCRIPT["S10/analyze_size_alignment"], *_root_flag("--results-root", o)]))
             elif part.name == "difficulty":
                 steps.append(script_step("S10/difficulty · analyze", [SCRIPT["S10/analyze_difficulty"], *_root_flag("--results-root", o), "--models", *gateway]))
-    if "S11" in keys:
-        steps.append(script_step(
-            "S11 · analyze_S11",
-            [SCRIPT["S11/analyze"], "--result-dir", results_dir("S11", o.root), "--models", *gateway, *_limit_flag("--expect-n", o)],
-        ))
+            elif part.name == "positional_bias":
+                steps.append(script_step(
+                    "S10/positional_bias · analyze",
+                    [SCRIPT["S10/analyze_positional_bias"], "--result-dir", results_dir("S10/positional_bias", o.root), "--models", *gateway, *_limit_flag("--expect-n", o)],
+                ))
     return steps
 
 
@@ -866,6 +866,7 @@ LEGACY_TASK_ALIASES = {
     "s9_unknown_labeled": "s9_perception_unknown_labeled_samples",
     "s5_supplementary": "s6_self_diagnosis",
     "exp2_model_sweep": "s10_model_sweep",
+    "s11_positional_biases": "s10_positional_bias",
 }
 
 CONFIG_BLOCKS = (
@@ -881,7 +882,7 @@ CONFIG_BLOCKS = (
     "s10_temperature",
     "s10_temperature_local",
     "s10_size_alignment",
-    "s11_positional_biases",
+    "s10_positional_bias",
 )
 
 
@@ -895,7 +896,7 @@ SCRIPT_BLOCKS: Dict[str, Tuple[str, str]] = {
     "s10_temperature": ("S10", "temperature"),
     "s10_temperature_local": ("S10", "temperature_local"),
     "s10_size_alignment": ("S10", "size_alignment"),
-    "s11_positional_biases": ("S11", "positional_biases"),
+    "s10_positional_bias": ("S10", "positional_bias"),
 }
 
 
@@ -903,7 +904,7 @@ def run_script_blocks(config: dict, dry_run: bool = False, path: Optional[str] =
     """Every SCRIPT_BLOCKS task in the YAML's run_tasks: build its steps from the
     block (datasets; checkpoints for S8, else the file's model; results_root;
     model_path for a local checkpoint) and run them. A file named
-    <dataset>_<variant>.yaml runs that one variant (an S11 slot)."""
+    <dataset>_<variant>.yaml runs that one variant (a positional_bias slot)."""
     rc = 0
     stem = Path(path).stem if path else ""
     variant = stem.split("_", 1)[1] if "_" in stem else None
@@ -1017,7 +1018,7 @@ def build_parser() -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("setting", nargs="*", metavar="SETTING",
-                   help="S1 ... S11 (several allowed) or `all`. Required unless --list or --config.")
+                   help="S1 ... S10 (several allowed) or `all`. Required unless --list or --config.")
     p.add_argument("--sub-setting", dest="sub_setting", nargs="+", metavar="SUB_SETTING",
                    help="which sub-setting(s) of a setting with more than one; default every sub-setting")
     p.add_argument("--model", nargs="+", metavar="MODEL",
@@ -1051,7 +1052,7 @@ def main() -> int:
         return run_config(args)
     if not args.setting:
         parser.print_help()
-        print("\nName a setting (S1 ... S11) or `all`.", file=sys.stderr)
+        print("\nName a setting (S1 ... S10) or `all`.", file=sys.stderr)
         return 2
 
     requested = [s.upper() if s.lower() != "all" else "all" for s in args.setting]

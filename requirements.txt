@@ -1,4 +1,4 @@
-# Core: the API settings (S1-S6, S9, S10 temperature, S11) need nothing else.
+# Core: the API settings (S1-S6, S9, S10 temperature and positional_bias) need nothing else.
 openai>=1.40          # async OpenAI-compatible client for the gateway
 PyYAML>=6.0           # experiment configs
 numpy>=1.24

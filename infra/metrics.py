@@ -1,25 +1,22 @@
-"""Unified S1/S2 metrics.5 Metrics.
+"""Label-level metrics shared by every setting (paper Sec. 3.5).
 
-One evaluation layer, the same across every dataset:
-
-        label_acc(preds, golds)             — exact-match accuracy
+        label_acc(preds, golds)             — *Acc* (paper Eq. 1), exact-match
+                                              accuracy
+        abs_rate(preds)                     — *Abs Rate* (paper Eq. 2), the
+                                              fraction answered "Unknown"
         label_macro_f1(preds, golds, classes)
                                             — macro-F1 over the dataset's
                                               label space (incl. UNKNOWN)
 
-There was a second layer that scored the reasoning trace against a gold one,
-as set-F1 where the gold trace was enumerable (FLD, FEVER) and BERTScore
-elsewhere (ARC, MedQA). It is gone: two different metrics under one column
-name are not comparable across datasets, and neither answers S7's actual
-question, which is whether the model's own reasoning reached a conclusion its
-final answer then withheld. That is read off the stored raw text by the NLI
-probe in experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/.
+Whether the model's own reasoning reached a conclusion its final answer then
+withheld is S7's question; it is read off the stored raw text by the NLI probe
+in experiments/C3_later_layer_override/S7_reasoning_traces_evaluation/.
 
 S6 (self-diagnosis) lives in experiments/C2_deny_yet_capable/S6_self_diagnosis/ and
 uses its own metrics — by design it is NOT a label-prediction task on the
 original question.
 
-Predictions for the LABEL layer are letter strings produced by
+Predictions are letter strings produced by
 Evaluator.parse_mcq_tiered / parse_judge_tiered:
     "A" | "B" | "C" | "D"   — concrete option choice (or POS/NEG for Judge)
     "UNKNOWN"               — abstain
@@ -31,14 +28,9 @@ for Judge). Metrics here are computed on `answerable` samples only
 (answer_idx >= 0); the runner is responsible for filtering.
 """
 
-from typing import List, Optional, Sequence
+from typing import List, Sequence
 
 _BAD = {"UNKNOWN", "UNPARSEABLE", None}
-
-
-# ============================================================
-# LABEL layer
-# ============================================================
 
 
 def is_correct(letter: str, answer_idx: int) -> bool:
@@ -106,31 +98,6 @@ def judge_classes(with_unknown: bool = True) -> List[str]:
     return base + (["UNKNOWN"] if with_unknown else [])
 
 
-# ============================================================
-# TRACE layer — Family A: HARD F1 (discrete set arithmetic)
-#   Used for FLD (atoms = fact_i / int_i refs) and FEVER (atoms =
-#   normalized evidence-sentence keys).
-# ============================================================
-
-
-def _resolve_device() -> Optional[str]:
-    """Pick the best torch device available.
-
-    Apple-silicon MacBook → "mps", CUDA host → "cuda", otherwise "cpu".
-    Returns None when torch isn't importable so the caller can let bert_score
-    fall through to its own default detection.
-    """
-    try:
-        import torch
-    except ImportError:
-        return None
-    if torch.cuda.is_available():
-        return "cuda"
-    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-        return "mps"
-    return "cpu"
-
-
 def accuracy(preds, answer_idxs):
     return label_acc(preds, answer_idxs)
 
@@ -193,6 +160,3 @@ def abs_rate(preds: Sequence[str]) -> float:
         return 0.0
     return sum(1 for p in preds if p == "UNKNOWN") / n
 
-
-#: pre-rename alias (Abs Rate = Abstention Inflation Rate) for :func:`abs_rate`.
-abs_rate = abs_rate

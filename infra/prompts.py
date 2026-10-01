@@ -351,10 +351,10 @@ def judge_verb_order(scheme, abstain_slot: int) -> List[str]:
     raise ValueError(f"abstain_slot must be 1, 2 or 3, got {abstain_slot!r}")
 
 
-def build_judge_s11_position_prompt(
+def build_judge_s10_position_prompt(
     scheme, claim: str, context: str = "", abstain_slot: int = 3, cot: bool = True
 ) -> List[Dict[str, str]]:
-    """S11 Positional Biases (TFQ) — S2 with the three verbs reordered.
+    """S10 positional bias (TFQ) — S2 with the three verbs reordered.
 
     This is the S2 prompt, not an MCQ rendering of it: the alternatives stay
     verbs ("Output one of: True | False | Unknown") and the model still answers

@@ -16,6 +16,7 @@ BLOCK_ALIASES = {
     "s10_model_sweep": ("s10_model_sweep", "exp2_model_sweep"),
     "s10_difficulty": ("s10_difficulty", "exp3_difficulty"),
     "s4_random_words": ("s4_random_words", "random_perturbation_control"),
+    "s10_positional_bias": ("s10_positional_bias", "s11_positional_biases"),
 }
 
 
