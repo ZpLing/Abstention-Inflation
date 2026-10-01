@@ -8,9 +8,11 @@ Saves raw outputs + predictions to
 Items: the repo's own dataset/<name>.json (the answerable items) followed by
 dataset/<name>_unknown.json (the Unknown-labeled ones), rendered into Facts /
 Conclusion / proof_label -- so `--dataset FOLIO` runs the full FOLIO, 500 + 300.
-The shipped FLD inference file is the paper's run on an earlier 600-item FLD
-sample (300 Unknown-labeled) that is not in the repo; step 3 reads that file
-as is, and a rerun of this step on FLD uses the 800 items above.
+The inference file this step writes is git-ignored; what the repo ships is
+step 3's output, results/S8_logit_lens/Olmo_3_7B/<dataset>_<checkpoint>.json.
+The FLD ones there are the paper's run on an earlier 600-item FLD sample (300
+Unknown-labeled) that is not in the repo, so rerunning the chain on FLD
+probes the 800 items above instead.
 
 Run on a GPU box after downloading models:
     python run_S8_step2_inference.py                       # FLD
