@@ -1,11 +1,11 @@
 {
   "setting": "S8",
-  "variant": "Olmo-3-7B-Instruct-SFT",
+  "dataset": "FLD",
   "checkpoint": "sft",
   "per_sample": [
     {
       "id": "FLD_0000",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -478,7 +478,7 @@
     },
     {
       "id": "FLD_0001",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -1424,7 +1424,7 @@
     },
     {
       "id": "FLD_0003",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -2370,7 +2370,7 @@
     },
     {
       "id": "FLD_0005",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -3789,7 +3789,7 @@
     },
     {
       "id": "FLD_0008",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -4262,7 +4262,7 @@
     },
     {
       "id": "FLD_0009",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -4735,7 +4735,7 @@
     },
     {
       "id": "FLD_0010",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -5208,7 +5208,7 @@
     },
     {
       "id": "FLD_0011",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -5681,7 +5681,7 @@
     },
     {
       "id": "FLD_0012",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -8519,7 +8519,7 @@
     },
     {
       "id": "FLD_0018",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -8992,7 +8992,7 @@
     },
     {
       "id": "FLD_0019",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -10411,7 +10411,7 @@
     },
     {
       "id": "FLD_0022",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -10884,7 +10884,7 @@
     },
     {
       "id": "FLD_0023",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -11357,7 +11357,7 @@
     },
     {
       "id": "FLD_0024",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -12303,7 +12303,7 @@
     },
     {
       "id": "FLD_0026",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -13249,7 +13249,7 @@
     },
     {
       "id": "FLD_0028",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -16560,7 +16560,7 @@
     },
     {
       "id": "FLD_0035",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -17506,7 +17506,7 @@
     },
     {
       "id": "FLD_0037",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -18925,7 +18925,7 @@
     },
     {
       "id": "FLD_0040",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -19871,7 +19871,7 @@
     },
     {
       "id": "FLD_0042",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -20817,7 +20817,7 @@
     },
     {
       "id": "FLD_0044",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -21763,7 +21763,7 @@
     },
     {
       "id": "FLD_0046",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -22709,7 +22709,7 @@
     },
     {
       "id": "FLD_0048",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -23655,7 +23655,7 @@
     },
     {
       "id": "FLD_0050",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -25074,7 +25074,7 @@
     },
     {
       "id": "FLD_0053",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -26966,7 +26966,7 @@
     },
     {
       "id": "FLD_0057",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -28858,7 +28858,7 @@
     },
     {
       "id": "FLD_0061",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -29804,7 +29804,7 @@
     },
     {
       "id": "FLD_0063",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -30277,7 +30277,7 @@
     },
     {
       "id": "FLD_0064",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -30750,7 +30750,7 @@
     },
     {
       "id": "FLD_0065",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -31223,7 +31223,7 @@
     },
     {
       "id": "FLD_0066",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -32169,7 +32169,7 @@
     },
     {
       "id": "FLD_0068",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -32642,7 +32642,7 @@
     },
     {
       "id": "FLD_0069",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -33588,7 +33588,7 @@
     },
     {
       "id": "FLD_0071",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -34534,7 +34534,7 @@
     },
     {
       "id": "FLD_0073",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -35007,7 +35007,7 @@
     },
     {
       "id": "FLD_0074",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -36426,7 +36426,7 @@
     },
     {
       "id": "FLD_0077",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -36899,7 +36899,7 @@
     },
     {
       "id": "FLD_0078",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -37372,7 +37372,7 @@
     },
     {
       "id": "FLD_0079",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -37845,7 +37845,7 @@
     },
     {
       "id": "FLD_0080",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -38318,7 +38318,7 @@
     },
     {
       "id": "FLD_0081",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -39264,7 +39264,7 @@
     },
     {
       "id": "FLD_0083",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -40683,7 +40683,7 @@
     },
     {
       "id": "FLD_0086",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -41156,7 +41156,7 @@
     },
     {
       "id": "FLD_0087",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -41629,7 +41629,7 @@
     },
     {
       "id": "FLD_0088",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -42575,7 +42575,7 @@
     },
     {
       "id": "FLD_0090",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -43048,7 +43048,7 @@
     },
     {
       "id": "FLD_0091",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -43521,7 +43521,7 @@
     },
     {
       "id": "FLD_0092",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -44940,7 +44940,7 @@
     },
     {
       "id": "FLD_0095",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -45413,7 +45413,7 @@
     },
     {
       "id": "FLD_0096",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -46359,7 +46359,7 @@
     },
     {
       "id": "FLD_0098",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -47778,7 +47778,7 @@
     },
     {
       "id": "FLD_0101",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -49197,7 +49197,7 @@
     },
     {
       "id": "FLD_0104",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -49670,7 +49670,7 @@
     },
     {
       "id": "FLD_0105",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -50616,7 +50616,7 @@
     },
     {
       "id": "FLD_0107",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -51562,7 +51562,7 @@
     },
     {
       "id": "FLD_0109",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -52981,7 +52981,7 @@
     },
     {
       "id": "FLD_0112",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -54873,7 +54873,7 @@
     },
     {
       "id": "FLD_0116",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -56765,7 +56765,7 @@
     },
     {
       "id": "FLD_0120",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -57238,7 +57238,7 @@
     },
     {
       "id": "FLD_0121",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -59603,7 +59603,7 @@
     },
     {
       "id": "FLD_0126",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -60549,7 +60549,7 @@
     },
     {
       "id": "FLD_0128",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -61022,7 +61022,7 @@
     },
     {
       "id": "FLD_0129",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -61495,7 +61495,7 @@
     },
     {
       "id": "FLD_0130",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -61968,7 +61968,7 @@
     },
     {
       "id": "FLD_0131",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -62914,7 +62914,7 @@
     },
     {
       "id": "FLD_0133",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -64806,7 +64806,7 @@
     },
     {
       "id": "FLD_0137",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -65279,7 +65279,7 @@
     },
     {
       "id": "FLD_0138",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -66225,7 +66225,7 @@
     },
     {
       "id": "FLD_0140",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -67644,7 +67644,7 @@
     },
     {
       "id": "FLD_0143",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -68117,7 +68117,7 @@
     },
     {
       "id": "FLD_0144",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -68590,7 +68590,7 @@
     },
     {
       "id": "FLD_0145",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -70482,7 +70482,7 @@
     },
     {
       "id": "FLD_0149",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -72374,7 +72374,7 @@
     },
     {
       "id": "FLD_0153",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -72847,7 +72847,7 @@
     },
     {
       "id": "FLD_0154",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -73320,7 +73320,7 @@
     },
     {
       "id": "FLD_0155",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -73793,7 +73793,7 @@
     },
     {
       "id": "FLD_0156",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -74266,7 +74266,7 @@
     },
     {
       "id": "FLD_0157",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -74739,7 +74739,7 @@
     },
     {
       "id": "FLD_0158",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -76158,7 +76158,7 @@
     },
     {
       "id": "FLD_0161",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -77104,7 +77104,7 @@
     },
     {
       "id": "FLD_0163",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -77577,7 +77577,7 @@
     },
     {
       "id": "FLD_0164",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -78050,7 +78050,7 @@
     },
     {
       "id": "FLD_0165",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -78523,7 +78523,7 @@
     },
     {
       "id": "FLD_0166",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -79469,7 +79469,7 @@
     },
     {
       "id": "FLD_0168",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -82780,7 +82780,7 @@
     },
     {
       "id": "FLD_0175",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -84672,7 +84672,7 @@
     },
     {
       "id": "FLD_0179",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -86091,7 +86091,7 @@
     },
     {
       "id": "FLD_0182",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -87037,7 +87037,7 @@
     },
     {
       "id": "FLD_0184",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -87510,7 +87510,7 @@
     },
     {
       "id": "FLD_0185",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -87983,7 +87983,7 @@
     },
     {
       "id": "FLD_0186",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -89402,7 +89402,7 @@
     },
     {
       "id": "FLD_0189",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -89875,7 +89875,7 @@
     },
     {
       "id": "FLD_0190",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -91767,7 +91767,7 @@
     },
     {
       "id": "FLD_0194",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -92713,7 +92713,7 @@
     },
     {
       "id": "FLD_0196",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -93186,7 +93186,7 @@
     },
     {
       "id": "FLD_0197",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -93659,7 +93659,7 @@
     },
     {
       "id": "FLD_0198",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -94605,7 +94605,7 @@
     },
     {
       "id": "FLD_0200",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -95551,7 +95551,7 @@
     },
     {
       "id": "FLD_0202",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -96024,7 +96024,7 @@
     },
     {
       "id": "FLD_0203",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -96497,7 +96497,7 @@
     },
     {
       "id": "FLD_0204",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -98862,7 +98862,7 @@
     },
     {
       "id": "FLD_0209",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -99335,7 +99335,7 @@
     },
     {
       "id": "FLD_0210",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -100281,7 +100281,7 @@
     },
     {
       "id": "FLD_0212",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -100754,7 +100754,7 @@
     },
     {
       "id": "FLD_0213",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -101700,7 +101700,7 @@
     },
     {
       "id": "FLD_0215",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -102173,7 +102173,7 @@
     },
     {
       "id": "FLD_0216",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -102646,7 +102646,7 @@
     },
     {
       "id": "FLD_0217",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -103592,7 +103592,7 @@
     },
     {
       "id": "FLD_0219",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -105011,7 +105011,7 @@
     },
     {
       "id": "FLD_0222",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -105484,7 +105484,7 @@
     },
     {
       "id": "FLD_0223",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -106430,7 +106430,7 @@
     },
     {
       "id": "FLD_0225",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -106903,7 +106903,7 @@
     },
     {
       "id": "FLD_0226",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -108322,7 +108322,7 @@
     },
     {
       "id": "FLD_0229",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -108795,7 +108795,7 @@
     },
     {
       "id": "FLD_0230",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -109741,7 +109741,7 @@
     },
     {
       "id": "FLD_0232",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -110214,7 +110214,7 @@
     },
     {
       "id": "FLD_0233",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -111633,7 +111633,7 @@
     },
     {
       "id": "FLD_0236",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -112579,7 +112579,7 @@
     },
     {
       "id": "FLD_0238",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -113052,7 +113052,7 @@
     },
     {
       "id": "FLD_0239",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -114471,7 +114471,7 @@
     },
     {
       "id": "FLD_0242",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -114944,7 +114944,7 @@
     },
     {
       "id": "FLD_0243",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -120147,7 +120147,7 @@
     },
     {
       "id": "FLD_0254",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -121566,7 +121566,7 @@
     },
     {
       "id": "FLD_0257",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -122512,7 +122512,7 @@
     },
     {
       "id": "FLD_0259",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -122985,7 +122985,7 @@
     },
     {
       "id": "FLD_0260",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -123458,7 +123458,7 @@
     },
     {
       "id": "FLD_0261",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -125823,7 +125823,7 @@
     },
     {
       "id": "FLD_0266",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -126296,7 +126296,7 @@
     },
     {
       "id": "FLD_0267",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -126769,7 +126769,7 @@
     },
     {
       "id": "FLD_0268",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -128661,7 +128661,7 @@
     },
     {
       "id": "FLD_0272",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -129607,7 +129607,7 @@
     },
     {
       "id": "FLD_0274",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -130080,7 +130080,7 @@
     },
     {
       "id": "FLD_0275",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -130553,7 +130553,7 @@
     },
     {
       "id": "FLD_0276",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -132918,7 +132918,7 @@
     },
     {
       "id": "FLD_0281",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -133391,7 +133391,7 @@
     },
     {
       "id": "FLD_0282",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -134337,7 +134337,7 @@
     },
     {
       "id": "FLD_0284",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -134810,7 +134810,7 @@
     },
     {
       "id": "FLD_0285",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -136229,7 +136229,7 @@
     },
     {
       "id": "FLD_0288",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -136702,7 +136702,7 @@
     },
     {
       "id": "FLD_0289",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -137175,7 +137175,7 @@
     },
     {
       "id": "FLD_0290",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -138594,7 +138594,7 @@
     },
     {
       "id": "FLD_0293",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -139067,7 +139067,7 @@
     },
     {
       "id": "FLD_0294",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -139540,7 +139540,7 @@
     },
     {
       "id": "FLD_0295",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -140959,7 +140959,7 @@
     },
     {
       "id": "FLD_0298",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -142851,7 +142851,7 @@
     },
     {
       "id": "FLD_0302",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -143324,7 +143324,7 @@
     },
     {
       "id": "FLD_0303",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -144743,7 +144743,7 @@
     },
     {
       "id": "FLD_0306",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -145216,7 +145216,7 @@
     },
     {
       "id": "FLD_0307",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -146162,7 +146162,7 @@
     },
     {
       "id": "FLD_0309",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -146635,7 +146635,7 @@
     },
     {
       "id": "FLD_0310",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -147108,7 +147108,7 @@
     },
     {
       "id": "FLD_0311",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -147581,7 +147581,7 @@
     },
     {
       "id": "FLD_0312",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -148054,7 +148054,7 @@
     },
     {
       "id": "FLD_0313",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -149473,7 +149473,7 @@
     },
     {
       "id": "FLD_0316",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -149946,7 +149946,7 @@
     },
     {
       "id": "FLD_0317",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -150419,7 +150419,7 @@
     },
     {
       "id": "FLD_0318",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -151365,7 +151365,7 @@
     },
     {
       "id": "FLD_0320",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -151838,7 +151838,7 @@
     },
     {
       "id": "FLD_0321",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -152311,7 +152311,7 @@
     },
     {
       "id": "FLD_0322",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -155149,7 +155149,7 @@
     },
     {
       "id": "FLD_0328",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -156095,7 +156095,7 @@
     },
     {
       "id": "FLD_0330",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -157041,7 +157041,7 @@
     },
     {
       "id": "FLD_0332",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -158933,7 +158933,7 @@
     },
     {
       "id": "FLD_0336",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -159406,7 +159406,7 @@
     },
     {
       "id": "FLD_0337",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -159879,7 +159879,7 @@
     },
     {
       "id": "FLD_0338",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -160352,7 +160352,7 @@
     },
     {
       "id": "FLD_0339",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -161298,7 +161298,7 @@
     },
     {
       "id": "FLD_0341",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -162244,7 +162244,7 @@
     },
     {
       "id": "FLD_0343",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -162717,7 +162717,7 @@
     },
     {
       "id": "FLD_0344",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -163663,7 +163663,7 @@
     },
     {
       "id": "FLD_0346",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -164136,7 +164136,7 @@
     },
     {
       "id": "FLD_0347",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -165082,7 +165082,7 @@
     },
     {
       "id": "FLD_0349",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -166501,7 +166501,7 @@
     },
     {
       "id": "FLD_0352",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -167447,7 +167447,7 @@
     },
     {
       "id": "FLD_0354",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -167920,7 +167920,7 @@
     },
     {
       "id": "FLD_0355",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -169812,7 +169812,7 @@
     },
     {
       "id": "FLD_0359",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -170285,7 +170285,7 @@
     },
     {
       "id": "FLD_0360",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -170758,7 +170758,7 @@
     },
     {
       "id": "FLD_0361",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -172177,7 +172177,7 @@
     },
     {
       "id": "FLD_0364",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -172650,7 +172650,7 @@
     },
     {
       "id": "FLD_0365",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -174069,7 +174069,7 @@
     },
     {
       "id": "FLD_0368",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -175961,7 +175961,7 @@
     },
     {
       "id": "FLD_0372",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -177380,7 +177380,7 @@
     },
     {
       "id": "FLD_0375",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -177853,7 +177853,7 @@
     },
     {
       "id": "FLD_0376",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -178326,7 +178326,7 @@
     },
     {
       "id": "FLD_0377",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -178799,7 +178799,7 @@
     },
     {
       "id": "FLD_0378",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -181637,7 +181637,7 @@
     },
     {
       "id": "FLD_0384",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -182110,7 +182110,7 @@
     },
     {
       "id": "FLD_0385",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -182583,7 +182583,7 @@
     },
     {
       "id": "FLD_0386",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -183529,7 +183529,7 @@
     },
     {
       "id": "FLD_0388",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -184475,7 +184475,7 @@
     },
     {
       "id": "FLD_0390",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -184948,7 +184948,7 @@
     },
     {
       "id": "FLD_0391",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -185421,7 +185421,7 @@
     },
     {
       "id": "FLD_0392",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -185894,7 +185894,7 @@
     },
     {
       "id": "FLD_0393",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -186367,7 +186367,7 @@
     },
     {
       "id": "FLD_0394",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -186840,7 +186840,7 @@
     },
     {
       "id": "FLD_0395",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -188259,7 +188259,7 @@
     },
     {
       "id": "FLD_0398",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -188732,7 +188732,7 @@
     },
     {
       "id": "FLD_0399",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -189205,7 +189205,7 @@
     },
     {
       "id": "FLD_0400",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -189678,7 +189678,7 @@
     },
     {
       "id": "FLD_0401",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -190151,7 +190151,7 @@
     },
     {
       "id": "FLD_0402",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -190624,7 +190624,7 @@
     },
     {
       "id": "FLD_0403",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -192043,7 +192043,7 @@
     },
     {
       "id": "FLD_0406",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -192989,7 +192989,7 @@
     },
     {
       "id": "FLD_0408",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -193935,7 +193935,7 @@
     },
     {
       "id": "FLD_0410",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -194408,7 +194408,7 @@
     },
     {
       "id": "FLD_0411",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -195827,7 +195827,7 @@
     },
     {
       "id": "FLD_0414",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -196773,7 +196773,7 @@
     },
     {
       "id": "FLD_0416",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -197246,7 +197246,7 @@
     },
     {
       "id": "FLD_0417",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -197719,7 +197719,7 @@
     },
     {
       "id": "FLD_0418",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -199138,7 +199138,7 @@
     },
     {
       "id": "FLD_0421",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -200084,7 +200084,7 @@
     },
     {
       "id": "FLD_0423",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -200557,7 +200557,7 @@
     },
     {
       "id": "FLD_0424",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -201976,7 +201976,7 @@
     },
     {
       "id": "FLD_0427",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -202922,7 +202922,7 @@
     },
     {
       "id": "FLD_0429",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -203395,7 +203395,7 @@
     },
     {
       "id": "FLD_0430",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -206233,7 +206233,7 @@
     },
     {
       "id": "FLD_0436",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -208598,7 +208598,7 @@
     },
     {
       "id": "FLD_0441",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -209544,7 +209544,7 @@
     },
     {
       "id": "FLD_0443",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -212382,7 +212382,7 @@
     },
     {
       "id": "FLD_0449",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -213328,7 +213328,7 @@
     },
     {
       "id": "FLD_0451",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -214274,7 +214274,7 @@
     },
     {
       "id": "FLD_0453",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -215220,7 +215220,7 @@
     },
     {
       "id": "FLD_0455",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -216639,7 +216639,7 @@
     },
     {
       "id": "FLD_0458",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -217112,7 +217112,7 @@
     },
     {
       "id": "FLD_0459",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -217585,7 +217585,7 @@
     },
     {
       "id": "FLD_0460",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -218058,7 +218058,7 @@
     },
     {
       "id": "FLD_0461",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -218531,7 +218531,7 @@
     },
     {
       "id": "FLD_0462",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -219004,7 +219004,7 @@
     },
     {
       "id": "FLD_0463",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -219477,7 +219477,7 @@
     },
     {
       "id": "FLD_0464",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -219950,7 +219950,7 @@
     },
     {
       "id": "FLD_0465",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -223734,7 +223734,7 @@
     },
     {
       "id": "FLD_0473",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -224207,7 +224207,7 @@
     },
     {
       "id": "FLD_0474",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -225153,7 +225153,7 @@
     },
     {
       "id": "FLD_0476",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -226099,7 +226099,7 @@
     },
     {
       "id": "FLD_0478",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -227045,7 +227045,7 @@
     },
     {
       "id": "FLD_0480",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -227991,7 +227991,7 @@
     },
     {
       "id": "FLD_0482",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -228464,7 +228464,7 @@
     },
     {
       "id": "FLD_0483",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -228937,7 +228937,7 @@
     },
     {
       "id": "FLD_0484",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -229410,7 +229410,7 @@
     },
     {
       "id": "FLD_0485",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -229883,7 +229883,7 @@
     },
     {
       "id": "FLD_0486",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -230356,7 +230356,7 @@
     },
     {
       "id": "FLD_0487",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -230829,7 +230829,7 @@
     },
     {
       "id": "FLD_0488",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -232248,7 +232248,7 @@
     },
     {
       "id": "FLD_0491",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -232721,7 +232721,7 @@
     },
     {
       "id": "FLD_0492",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -234140,7 +234140,7 @@
     },
     {
       "id": "FLD_0495",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -234613,7 +234613,7 @@
     },
     {
       "id": "FLD_0496",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -235086,7 +235086,7 @@
     },
     {
       "id": "FLD_0497",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -236032,7 +236032,7 @@
     },
     {
       "id": "FLD_0499",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -236505,7 +236505,7 @@
     },
     {
       "id": "FLD_0500",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -236978,7 +236978,7 @@
     },
     {
       "id": "FLD_0501",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -237451,7 +237451,7 @@
     },
     {
       "id": "FLD_0502",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -238397,7 +238397,7 @@
     },
     {
       "id": "FLD_0504",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -239343,7 +239343,7 @@
     },
     {
       "id": "FLD_0506",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -239816,7 +239816,7 @@
     },
     {
       "id": "FLD_0507",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -240289,7 +240289,7 @@
     },
     {
       "id": "FLD_0508",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -241235,7 +241235,7 @@
     },
     {
       "id": "FLD_0510",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -242654,7 +242654,7 @@
     },
     {
       "id": "FLD_0513",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -244073,7 +244073,7 @@
     },
     {
       "id": "FLD_0516",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -245965,7 +245965,7 @@
     },
     {
       "id": "FLD_0520",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -246438,7 +246438,7 @@
     },
     {
       "id": "FLD_0521",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -246911,7 +246911,7 @@
     },
     {
       "id": "FLD_0522",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -247384,7 +247384,7 @@
     },
     {
       "id": "FLD_0523",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -247857,7 +247857,7 @@
     },
     {
       "id": "FLD_0524",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -248330,7 +248330,7 @@
     },
     {
       "id": "FLD_0525",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -249749,7 +249749,7 @@
     },
     {
       "id": "FLD_0528",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -250222,7 +250222,7 @@
     },
     {
       "id": "FLD_0529",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -251168,7 +251168,7 @@
     },
     {
       "id": "FLD_0531",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -255425,7 +255425,7 @@
     },
     {
       "id": "FLD_0540",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -256844,7 +256844,7 @@
     },
     {
       "id": "FLD_0543",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -257317,7 +257317,7 @@
     },
     {
       "id": "FLD_0544",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -258263,7 +258263,7 @@
     },
     {
       "id": "FLD_0546",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -259682,7 +259682,7 @@
     },
     {
       "id": "FLD_0549",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -260155,7 +260155,7 @@
     },
     {
       "id": "FLD_0550",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -260628,7 +260628,7 @@
     },
     {
       "id": "FLD_0551",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -261574,7 +261574,7 @@
     },
     {
       "id": "FLD_0553",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -262520,7 +262520,7 @@
     },
     {
       "id": "FLD_0555",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -263466,7 +263466,7 @@
     },
     {
       "id": "FLD_0557",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -263939,7 +263939,7 @@
     },
     {
       "id": "FLD_0558",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -264412,7 +264412,7 @@
     },
     {
       "id": "FLD_0559",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -265358,7 +265358,7 @@
     },
     {
       "id": "FLD_0561",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -266304,7 +266304,7 @@
     },
     {
       "id": "FLD_0563",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -266777,7 +266777,7 @@
     },
     {
       "id": "FLD_0564",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -268196,7 +268196,7 @@
     },
     {
       "id": "FLD_0567",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "UNKNOWN",
@@ -268669,7 +268669,7 @@
     },
     {
       "id": "FLD_0568",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -269142,7 +269142,7 @@
     },
     {
       "id": "FLD_0569",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -271034,7 +271034,7 @@
     },
     {
       "id": "FLD_0573",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -271507,7 +271507,7 @@
     },
     {
       "id": "FLD_0574",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -272453,7 +272453,7 @@
     },
     {
       "id": "FLD_0576",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -274345,7 +274345,7 @@
     },
     {
       "id": "FLD_0580",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -274818,7 +274818,7 @@
     },
     {
       "id": "FLD_0581",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -275291,7 +275291,7 @@
     },
     {
       "id": "FLD_0582",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "DISPROVED",
@@ -275764,7 +275764,7 @@
     },
     {
       "id": "FLD_0583",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -278129,7 +278129,7 @@
     },
     {
       "id": "FLD_0588",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "PROVED",
@@ -279548,7 +279548,7 @@
     },
     {
       "id": "FLD_0591",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -280021,7 +280021,7 @@
     },
     {
       "id": "FLD_0592",
-      "sample_type": "non_AIR",
+      "sample_type": "non_ai",
       "gold_short": "DISPROVED",
       "pred_s1": "PROVED",
       "pred_s2": "PROVED",
@@ -280967,7 +280967,7 @@
     },
     {
       "id": "FLD_0594",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -282386,7 +282386,7 @@
     },
     {
       "id": "FLD_0597",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "DISPROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",
@@ -282859,7 +282859,7 @@
     },
     {
       "id": "FLD_0598",
-      "sample_type": "AIR",
+      "sample_type": "ai",
       "gold_short": "PROVED",
       "pred_s1": "DISPROVED",
       "pred_s2": "UNKNOWN",

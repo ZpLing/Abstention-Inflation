@@ -1,15 +1,25 @@
 """
-C3 Logit-Lens — two analyses, three checkpoints.
+S8 step 3: the logit-lens probe of one checkpoint, feeding both panels of the
+paper's Figure "S8: Logit-Lens Representation Probe".
 
-Analysis 1 (S1 vs S2 format effect):
-  Same samples run under S1 (no UNKNOWN option) and S2 (UNKNOWN option present).
-  Metric: logit_gap = log P(UNKNOWN) - log[P(PROVED) + P(DISPROVED)]
-  Expected: S2 spikes UNKNOWN logit on Abstention Inflation samples; S1 does not.
+Every item is probed under both prompts, S1 (no UNKNOWN option) and S2
+(UNKNOWN option present), at the last prompt position of all 33 layers.
+Metric per layer: logit_gap = log P(UNKNOWN) - log[P(PROVED) + P(DISPROVED)].
 
-Analysis 2 (Abs Rate vs CAR distinguishability):
-  Using S2 results: compare logit_gap trajectory for Abs Rate (unfaithful UNKNOWN)
-  vs CAR (genuinely unknown). With P(UNKNOWN) vs P(PROVED+DISPROVED) metric,
-  both groups are directly comparable on the same axis.
+Left panel (format trigger): on the answerable items, the S2 - S1 gap across
+layers. Expected: it opens only in the later layers, most for Instruct-SFT.
+
+Right panel (Abstention Inflation vs Wrong Prediction): under S2, log P(UNKNOWN)
+across layers for the answerable items the inference checkpoint abstained on
+(sample_type "ai") against the answerable items it got wrong without the option
+(pred_s1 != gold). Expected: the two trajectories are nearly identical.
+
+Items come from the step-2 inference file, which carries the inference
+checkpoint's S1/S2 answers; those tag each item:
+    ai / non_ai      answerable item, abstained / did not abstain under S2
+    CAR / non_CAR    Unknown-labeled item, abstained / did not abstain under S2
+The Unknown-labeled items are probed and stored too, but the paper's figure
+reads only the answerable ones.
 
 Input:  results/S8_logit_lens/Olmo_3_7B/<dataset>_Olmo-3-7B-Instruct_inference.json
 Output: results/S8_logit_lens/Olmo_3_7B/<dataset>_<checkpoint name>.json
